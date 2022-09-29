@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>MyTestFile</title>
+</head>
+
+<body>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MyTestFile</td></tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>BUTTON_HOME</td>
+	<td>//a[contains(@data-open-class, 'open product-menu-open')] </td>
+	<td></td>
+</tr>
+<tr>
+	<td>BUTTON_CONTENT_DATA</td>
+	<td>//a[contains(@class, 'collapse-icon') and contains(text(), 'Content')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BUTTON_FORMS</td>
+	<td>//a[contains(@class, 'nav-link') and contains(text(), 'Forms')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPEN_DATA_PROVIDERS</td>
+	<td>//li[contains(@data-nav-item-index, "2")]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
