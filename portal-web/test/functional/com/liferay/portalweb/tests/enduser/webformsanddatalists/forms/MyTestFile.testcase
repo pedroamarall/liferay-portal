@@ -1,0 +1,30 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();	
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+ 			userLoginEmailAddress = "test@liferay.com",
+ 			userLoginFullName = "Test Test");
+	}
+
+    @description = "Make sure the forms open"
+	@priority = "5"
+	test CheckIfTheFormsOpen {
+		
+		MyTestFile.openHome();
+		
+		MyTestFile.openContentData();
+
+		MyTestFile.openForms();
+
+		MyTestFile.openDataProviders();
+	}
+}

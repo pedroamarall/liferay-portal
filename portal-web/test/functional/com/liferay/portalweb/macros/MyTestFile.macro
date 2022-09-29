@@ -1,0 +1,19 @@
+definition {
+
+	macro openHome {
+		Click(locator1="MyTestFile#BUTTON_HOME");
+	}
+
+	macro openContentData {
+		Click(locator1="MyTestFile#BUTTON_CONTENT_DATA");
+	}
+
+	macro openForms { 
+		Click(locator1="MyTestFile#BUTTON_FORMS");
+	}
+
+	macro openDataProviders {
+		Click(locator1="MyTestFile#OPEN_DATA_PROVIDERS");
+	}
+
+}
