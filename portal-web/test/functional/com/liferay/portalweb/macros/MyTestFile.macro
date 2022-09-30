@@ -16,4 +16,25 @@ definition {
 		Click(locator1="MyTestFile#OPEN_DATA_PROVIDERS");
 	}
 
+	macro openDropdownMenu {
+		Click(locator1="MyTestFile#DROPDOWN_MENU");
+	}
+
+	// macro applicationsMenu {
+	// 	Click(
+	// 		locator1="MyTestFile#OPTIONS_MENU",
+	// 		optionsMenu = "${key_optionsMenu}");
+	// }
+
+	macro openSimulation {
+		Click(locator1="MyTestFile#OPEN_SIMULATION");
+	}
+
+	macro openAllItensSimulation {
+		Click(
+			key_entryItens = "${entryItens}",
+			locator1 = "MyTestFile#OPEN_ITENS_SIMULATION)
+	}
+
 }
+

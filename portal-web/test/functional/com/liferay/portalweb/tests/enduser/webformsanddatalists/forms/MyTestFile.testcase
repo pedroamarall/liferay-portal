@@ -19,12 +19,29 @@ definition {
 	@priority = "5"
 	test CheckIfTheFormsOpen {
 		
-		MyTestFile.openHome();
-		
-		MyTestFile.openContentData();
-
-		MyTestFile.openForms();
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Forms");
 
 		MyTestFile.openDataProviders();
 	}
+
+	@description = "Make sure the form open 2"
+	@priority = "5"
+	test CheckIfTheFormsOpen2 {
+	
+		MyTestFile.openDropdownMenu();
+
+		// MyTestFile.applicationsMenu(optionsMenu = "Control Panel");
+	}
+
+
+	@description = "Entering values"
+	@priority = "5" 
+	test EnteringValues {
+		MyTestFile.openSimulation();
+
+	}
+
 }
+

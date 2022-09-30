@@ -30,7 +30,30 @@
 	<td>//li[contains(@data-nav-item-index, "2")]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>DROPDOWN_MENU</td>
+	<td>//button[contains(@class, 'dropdown-toggle') and contains(@class, 'lfr-portal-tooltip')]</td>
+	<td></td>
+</tr>
+<!-- <tr>
+	<td>OPTION_MENU</td>
+	<td>//button[contains(@class, 'nav-link')]//span[contains(text(), "${key_optionsMenu}")]</td>
+	<td></td>
+</tr> -->
+<tr>
+	<td>OPEN_SIMULATION</td>
+	<td>//li[contains(@class, 'control-menu-nav-item')]//a[contains(@aria-label, 'Simulation')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPEN_ITENS_SIMULATION</td>
+	<td>//button[contains(@class, 'btn btn-unstyled')]//span[contains(., '${entryItens}')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
 </html>
+
+
+
