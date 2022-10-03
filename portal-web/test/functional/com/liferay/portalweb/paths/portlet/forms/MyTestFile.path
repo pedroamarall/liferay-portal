@@ -47,7 +47,7 @@
 </tr>
 <tr>
 	<td>OPEN_ITENS_SIMULATION</td>
-	<td>//button[contains(@class, 'btn btn-unstyled')]//span[contains(., '${entryItens}')]</td>
+	<td>//button[contains(@class, 'btn btn-unstyled')]//span[contains(text(), '${key_entryItens}')]</td>
 	<td></td>
 </tr>
 </tbody>

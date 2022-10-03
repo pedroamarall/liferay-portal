@@ -32,8 +32,9 @@ definition {
 
 	macro openAllItensSimulation {
 		Click(
-			key_entryItens = "${entryItens}",
-			locator1 = "MyTestFile#OPEN_ITENS_SIMULATION)
+			var key_entryItens = "${entryItens}",
+
+			locator1 = "MyTestFile#OPEN_ITENS_SIMULATION");
 	}
 
 }

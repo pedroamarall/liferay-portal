@@ -41,6 +41,8 @@ definition {
 	test EnteringValues {
 		MyTestFile.openSimulation();
 
+		MyTestFile.openAllItensSimulation(entryIntens = "Custom");
+
 	}
 
 }
