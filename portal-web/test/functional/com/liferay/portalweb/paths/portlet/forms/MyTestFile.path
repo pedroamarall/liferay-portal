@@ -50,10 +50,21 @@
 	<td>//button[contains(@class, 'btn btn-unstyled')]//span[contains(.,'${key_entryItens}')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>OPEN_NEWFORM</td>
+	<td>//a[contains(@class, 'nav-btn nav-btn-monospaced')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FORM_CONTROL</td>
+	<td>//textarea[contains(@class, 'ddm-form-description')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
 </html>
+
 
 
 

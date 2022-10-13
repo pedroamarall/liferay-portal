@@ -37,5 +37,9 @@ definition {
 			locator1 = "MyTestFile#OPEN_ITENS_SIMULATION");
 	}
 
+	macro openNewForm {
+		Click(locator1="MyTestFile#OPEN_NEWFORM");
+	}
+
 }
 

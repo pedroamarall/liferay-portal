@@ -44,6 +44,75 @@ definition {
 		MyTestFile.openAllItensSimulation(entryItens = "Mobile");
 
 	}
-	
+
+	@description = "Create a new form"
+	@priority = "5" 
+	test CreateNewForm {
+
+		MyTestFile.openHome();
+
+		MyTestFile.openContentData();
+
+		MyTestFile.openForms();
+
+		FormsAdmin.addForm();
+
+		Form.editName(formName = "Form 1");
+
+		Form.editDescription(formDescription = "Form 1 Description");
+
+		Form.editPageTitle(
+			formPageName = "Page test",
+			formTitleNumber = "1");
+
+		Form.editPageDescription(formPageDescriptionName = "Page 1 Descripton");
+
+		Form.gotoAddField(fieldType = "Numeric");
+
+		FormFields.editNumericType(numericType = "Decimal");
+
+		Form.closeSidebar();
+
+		Form.addFieldFromSidebarToFieldsGroup(
+			key_fieldLabel = "Numeric",
+			key_fieldName = "Text");
+
+		FormViewBuilder.editText(
+			fieldName = "Help Text",
+			fieldValue = "Help Text Test");
+
+		FormViewBuilder.assertHelpTextPresent(
+			fieldName = "Numeric",
+			fieldValue = "Help Text Test");
+
+		FormViewBuilder.editText(
+			fieldName = "Placeholder Text"
+			fieldValue = "Placeholder Text Text"
+		)
+
+		FormViewBuilder.assertHelpTextPresent(
+			fieldName = "Placeholder Text"
+			fieldValue = "Placeholder Text Text"
+		)
+
+
+		Form.addTranslation(localizedLanguage = "English (United States)");
+
+		Form.addTranslation(localizedLanguage = "Portuguese (Brazil)");
+
+		Form.save();
+
+		Form.publishForm();
+
+
+
+
+
+
+		
+
+
+	}
+
 }
 
