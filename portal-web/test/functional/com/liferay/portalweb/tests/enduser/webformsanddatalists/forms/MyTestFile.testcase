@@ -15,36 +15,7 @@ definition {
  			userLoginFullName = "Test Test");
 	}
 
-    @description = "Make sure the forms open"
-	@priority = "5"
-	test CheckIfTheFormsOpen {
-		
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Forms");
-
-		MyTestFile.openDataProviders();
-	}
-
-	@description = "Make sure the form open 2"
-	@priority = "5"
-	test CheckIfTheFormsOpen2 {
-	
-		MyTestFile.openDropdownMenu();
-
-		// MyTestFile.applicationsMenu(optionsMenu = "Control Panel");
-	}
-
-
-	@description = "Entering values"
-	@priority = "5" 
-	test EnteringValues {
-		MyTestFile.openSimulation();
-
-		MyTestFile.openAllItensSimulation(entryItens = "Mobile");
-
-	}
-
+ 
 	@description = "Create a new form"
 	@priority = "5" 
 	test CreateNewForm {
@@ -67,50 +38,31 @@ definition {
 
 		Form.editPageDescription(formPageDescriptionName = "Page 1 Descripton");
 
-		Form.gotoAddField(fieldType = "Numeric");
+		Form.gotoAddField(
+			fieldPositionNumber = "0",
+			fieldType = "Text");
 
-		FormFields.editNumericType(numericType = "Decimal");
+		FormViewBuilder.assertPlaceholderTextFormField(
+			key_fieldLabel = "Text",
+			placeHolder = "Full name");
 
 		Form.closeSidebar();
 
-		Form.addFieldFromSidebarToFieldsGroup(
+		Form.gotoAddField(
+			fieldPositionNumber = "1", 
+			fieldType = "Numeric");
+
+		FormViewBuilder.assertPlaceholderTextFormField(
 			key_fieldLabel = "Numeric",
-			key_fieldName = "Text");
+			placeHolder = "Age");
 
-		FormViewBuilder.editText(
-			fieldName = "Help Text",
-			fieldValue = "Help Text Test");
-
-		FormViewBuilder.assertHelpTextPresent(
-			fieldName = "Numeric",
-			fieldValue = "Help Text Test");
-
-		FormViewBuilder.editText(
-			fieldName = "Placeholder Text"
-			fieldValue = "Placeholder Text Text"
-		)
-
-		FormViewBuilder.assertHelpTextPresent(
-			fieldName = "Placeholder Text"
-			fieldValue = "Placeholder Text Text"
-		)
-
-
-		Form.addTranslation(localizedLanguage = "English (United States)");
+		Form.closeSidebar();
 
 		Form.addTranslation(localizedLanguage = "Portuguese (Brazil)");
 
 		Form.save();
 
-		Form.publishForm();
-
-
-
-
-
-
-		
-
+		Form.publishForm();		
 
 	}
 
