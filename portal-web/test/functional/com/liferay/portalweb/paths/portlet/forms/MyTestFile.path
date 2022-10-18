@@ -35,11 +35,6 @@
 	<td>//button[contains(@class, 'dropdown-toggle') and contains(@class, 'lfr-portal-tooltip')]</td>
 	<td></td>
 </tr>
-<!-- <tr>
-	<td>OPTION_MENU</td>
-	<td>//button[contains(@class, 'nav-link')]//span[contains(text(), "${key_optionsMenu}")]</td>
-	<td></td>
-</tr> -->
 <tr>
 	<td>OPEN_SIMULATION</td>
 	<td>//li[contains(@class, 'control-menu-nav-item')]//a[contains(@aria-label, 'Simulation')]</td>

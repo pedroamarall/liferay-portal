@@ -12,6 +12,20 @@ definition {
 		Click(locator1="MyTestFile#BUTTON_FORMS");
 	}
 
+	macro goToForm {
+		WaitForElementPresent(locator1 = "MyTestFile#BUTTON_HOME");
+
+		Click(locator1 = "MyTestFile#BUTTON_HOME");
+
+		WaitForElementPresent(locator1 = "MyTestFile#BUTTON_CONTENT_DATA");
+
+		Click(locator1 = "MyTestFile#BUTTON_CONTENT_DATA");
+
+		WaitForElementPresent(locator1 = "MyTestFile#BUTTON_FORMS");
+
+		Click(locator1 = "MyTestFile#BUTTON_FORMS");
+	}
+
 	macro openDataProviders {
 		Click(locator1="MyTestFile#OPEN_DATA_PROVIDERS");
 	}

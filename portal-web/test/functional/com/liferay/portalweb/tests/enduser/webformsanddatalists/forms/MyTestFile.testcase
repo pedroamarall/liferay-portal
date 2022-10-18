@@ -20,11 +20,7 @@ definition {
 	@priority = "5" 
 	test CreateNewForm {
 
-		MyTestFile.openHome();
-
-		MyTestFile.openContentData();
-
-		MyTestFile.openForms();
+		MyTestFile.goToForm();
 
 		FormsAdmin.addForm();
 
