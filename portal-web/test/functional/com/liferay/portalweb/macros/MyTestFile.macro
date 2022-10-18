@@ -35,5 +35,13 @@ definition {
 		Click(locator1="MyTestFile#OPEN_NEWFORM");
 	}
 
+	macro openTextField {
+		Click(locator1="MyTestFile#OPEN_FIELD_TEXT");
+	}
+
+	macro openTextFielNumeric {
+		Click(locator1="MyTestFile#OPEN_FIELD_NUMERIC");
+	}
+
 }
 

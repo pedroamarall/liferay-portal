@@ -38,27 +38,42 @@ definition {
 
 		Form.editPageDescription(formPageDescriptionName = "Page 1 Descripton");
 
-		Form.gotoAddField(
-			fieldPositionNumber = "0",
-			fieldType = "Text");
+		Form.addTextField(fieldPositionNumber = "0");
 
-		FormViewBuilder.assertPlaceholderTextFormField(
-			key_fieldLabel = "Text",
-			placeHolder = "Full name");
+		FormViewBuilder.editFieldLabel(
+			fieldLabel = "Text",
+			label = "Full name");
 
 		Form.closeSidebar();
 
 		Form.gotoAddField(
-			fieldPositionNumber = "1", 
+			fieldPositionNumber = "1",
 			fieldType = "Numeric");
 
-		FormViewBuilder.assertPlaceholderTextFormField(
-			key_fieldLabel = "Numeric",
-			placeHolder = "Age");
-
-		Form.closeSidebar();
+		FormViewBuilder.editFieldLabel(
+			fieldLabel = "Numeric",	
+			label = "Age");
 
 		Form.addTranslation(localizedLanguage = "Portuguese (Brazil)");
+
+		FormViewBuilder.editFieldLabel(
+			fieldLabel = "Age",	
+			label = "Idade");
+
+		AssertTextEquals(
+			locator1 = "MyTestFile#FIELD_LABEL",
+			value1 = "Idade");
+
+		MyTestFile.openTextField();
+
+		FormViewBuilder.editFieldLabel(
+			fieldLabel = "Full name",
+			label = "Nome completo");
+
+		AssertTextEquals(
+			locator1 = "MyTestFile#FIELD_LABEL",
+			value1 = "Nome completo");
+
 
 		Form.save();
 

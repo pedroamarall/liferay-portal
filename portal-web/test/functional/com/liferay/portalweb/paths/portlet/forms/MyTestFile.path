@@ -60,6 +60,24 @@
 	<td>//textarea[contains(@class, 'ddm-form-description')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>OPEN_FIELD_TEXT</td>
+	<td>//div[contains(@class, 'ddm-field-actions-container')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPEN_FIELD_NUMERIC</td>
+	<td>//div[contains(@data-field-name, 'Numeric38424022') and contains(@class, 'ddm-field-container')]
+	</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_LABEL</td>
+	<td>//input[contains(@placeholder, 'Enter a field label.')]
+	</td>
+	<td></td>
+</tr>
+
 </tbody>
 </table>
 </body>
