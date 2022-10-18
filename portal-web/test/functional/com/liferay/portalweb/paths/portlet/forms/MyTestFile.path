@@ -77,12 +77,21 @@
 	</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>SETTINGS_BAR</td>
+	<td>//button[contains(@class, 'dropdown-toggle component-action btn btn-monospaced btn-unstyled')]
+	</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIEW_ENTRIES</td>
+	<td>//button[contains(@class, 'dropdown-toggle component-action btn btn-monospaced btn-unstyled')]
+	</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
 </html>
-
-
 
 

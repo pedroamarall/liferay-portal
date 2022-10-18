@@ -74,12 +74,18 @@ definition {
 			locator1 = "MyTestFile#FIELD_LABEL",
 			value1 = "Nome completo");
 
-
-		Form.save();
-
 		Form.publishForm();		
+		
+		Alert.viewSuccessMessage();
+
+		MyTestFile.openHome();
+
+		MyTestFile.openForms();
+
+		MyTestFile.openSettingsBar();
+
+		MyTestFile.openViewEntries();
 
 	}
-
 }
 

@@ -43,5 +43,12 @@ definition {
 		Click(locator1="MyTestFile#OPEN_FIELD_NUMERIC");
 	}
 
+	macro openSettingsBar {
+		Click(locator1="MyTestFile#SETTINGS_BAR");
+	}
+
+	macro openViewEntries {
+		Click(locator1="MyTestFile#VIEW_ENTRIES");
+	}
 }
 
