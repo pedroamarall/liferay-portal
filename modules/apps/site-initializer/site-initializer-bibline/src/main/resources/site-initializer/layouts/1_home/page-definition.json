@@ -1,0 +1,469 @@
+{
+	"pageElement": {
+		"pageElements":[
+            {
+                "definition": {
+                    "fragmentStyle": {
+                      "backgroundFragmentImage": {
+                        "title": { "value": "photo_1.jpg" },
+                        "url": { "value": "[$DOCUMENT_URL:/site-initializer/documents/group/photo_1.jpg$]" }
+                      },
+                      "borderRadius": "",
+                      "shadow": "",
+                      "textAlign": ""
+                    },
+                    "indexed": true,
+                    "layout": {
+                      "borderWidth": 0,
+                      "marginBottom": 0,
+                      "marginLeft": 0,
+                      "marginRight": 0,
+                      "marginTop": 0,
+                      "opacity": 100,
+                      "paddingBottom": 0,
+                      "paddingLeft": 0,
+                      "paddingRight": 0,
+                      "paddingTop": 0,
+                      "widthType": "Fluid"
+                    }
+                  },
+                "pageElements": [
+                    {
+                        "definition": {
+                            "customCSS": ".[$FRAGMENT_CLASS$] {\nborder-bottom-right-radius:14px;\nborder-bottom-left-radius: 14px;\n}",
+                            "fragmentStyle": {
+                                "backgroundColor": "#1B2D41",
+                                "borderRadius": "",
+                                "borderWidth": "0",
+                                "marginTop": "0px",
+                                "paddingBottom": "7rem",
+                                "shadow": "",
+                                "textAlign": ""
+                            },
+                            "indexed": true,
+                            "layout": {
+                                "borderWidth": 0,
+                                "marginBottom": 0,
+                                "marginLeft": 0,
+                                "marginRight": 0,
+                                "marginTop": 0,
+                                "opacity": 100,
+                                "paddingBottom": 0,
+                                "paddingLeft": 0,
+                                "paddingRight": 0,
+                                "paddingTop": 0,
+                                "widthType": "Fluid"
+                            }
+                        },
+                        "pageElements": [
+                            {
+                                "definition": {
+                                    "fragment": {
+                                        "key": "bibline-header&logo",
+                                        "siteKey": "Fo"
+                                    },
+                                    "fragmentConfig": {},
+                                    "fragmentFields": [
+                                        {
+                                            "id": "link-3",
+                                            "value": {
+                                                "fragmentLink": {}
+                                            }
+                                        },
+                                        {
+                                            "id": "link",
+                                            "value": {
+                                                "fragmentLink": {}
+                                            }
+                                        },
+                                        {
+                                            "id": "link-2",
+                                            "value": {
+                                                "fragmentLink": {}
+                                            }
+                                        },
+                                        {
+                                            "id": "image-square",
+                                            "value": {
+                                                "fragmentImage": {
+                                                    "url": {
+                                                        "value_i18n": {}
+                                                    }
+                                                },
+                                                "fragmentLink": {}
+                                            }
+                                        }
+                                    ],
+                                    "indexed": true
+                                },
+                                "type": "Fragment"
+                            }
+                        ],
+                        "type": "Section"
+                    },
+                    {
+                        "definition": {
+                            "fragmentStyle": {
+                                "borderRadius": "",
+                                "borderWidth": "0",
+                                "marginBottom": "0rem",
+                                "marginTop": "-7rem",
+                                "shadow": "",
+                                "textAlign": ""
+                            },
+                            "indexed": true,
+                            "layout": {
+                                "borderWidth": 0,
+                                "marginBottom": 0,
+                                "marginLeft": 0,
+                                "marginRight": 0,
+                                "marginTop": 0,
+                                "opacity": 100,
+                                "paddingBottom": 0,
+                                "paddingLeft": 0,
+                                "paddingRight": 0,
+                                "paddingTop": 0,
+                                "widthType": "Fluid"
+                            }
+                        },
+                        "pageElements": [
+                            {
+                                "definition": {
+                                    "fragment": {
+                                        "key": "bibline-text",
+                                        "siteKey": "Fo"
+                                    },
+                                    "fragmentConfig": {},
+                                    "fragmentFields": [
+                                        {
+                                            "id": "element-text_2",
+                                            "value": {
+                                                "fragmentLink": {}
+                                            }
+                                        },
+                                        {
+                                            "id": "element-text_1",
+                                            "value": {
+                                                "fragmentLink": {}
+                                            }
+                                        },
+                                        {
+                                            "id": "element-text_3",
+                                            "value": {
+                                                "fragmentLink": {}
+                                            }
+                                        }
+                                    ],
+                                    "indexed": true
+                                },
+                                "type": "Fragment"
+                            }
+                        ],
+                        "type": "Section"
+                    },
+                    {
+                        "definition": {
+                            "customCSS": ".[$FRAGMENT_CLASS$] {\nbackground-color: rgba(27, 45, 65, 0.8);\nborder-top-right-radius: 14px;\nborder-top-left-radius: 14px;\n\n}",
+                            "fragmentStyle": {
+                                "borderRadius": "",
+                                "borderWidth": "0",
+                                "marginBottom": "0px",
+                                "marginLeft": "0px",
+                                "marginTop": "84rem",
+                                "shadow": "",
+                                "textAlign": ""
+                            },
+                            "indexed": true,
+                            "layout": {
+                                "borderWidth": 0,
+                                "marginBottom": 0,
+                                "marginLeft": 0,
+                                "marginRight": 0,
+                                "marginTop": 0,
+                                "opacity": 100,
+                                "paddingBottom": 0,
+                                "paddingLeft": 0,
+                                "paddingRight": 0,
+                                "paddingTop": 0,
+                                "widthType": "Fluid"
+                            }
+                        },
+                        "pageElements": [
+                            {
+                                "definition": {
+                                    "gutters": true,
+                                    "indexed": true,
+                                    "modulesPerRow": 3,
+                                    "numberOfColumns": 3,
+                                    "reverseOrder": false,
+                                    "rowViewports": [
+                                        {
+                                            "id": "landscapeMobile",
+                                            "rowViewportDefinition": {
+                                                "modulesPerRow": 1
+                                            }
+                                        },
+                                        {
+                                            "id": "portraitMobile",
+                                            "rowViewportDefinition": {}
+                                        },
+                                        {
+                                            "id": "tablet",
+                                            "rowViewportDefinition": {}
+                                        }
+                                    ],
+                                    "verticalAlignment": "top"
+                                },
+                                "pageElements": [
+                                    {
+                                        "definition": {
+                                            "columnViewports": [
+                                                {
+                                                    "columnViewportDefinition": {
+                                                        "size": 12
+                                                    },
+                                                    "id": "landscapeMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "portraitMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "tablet"
+                                                }
+                                            ],
+                                            "size": 4
+                                        },
+                                        "pageElements": [
+                                            {
+                                                "definition": {
+                                                    "fragment": {
+                                                        "key": "bibline-social",
+                                                        "siteKey": "Fo"
+                                                    },
+                                                    "fragmentConfig": {},
+                                                    "fragmentFields": [
+                                                        {
+                                                            "id": "01-img",
+                                                            "value": {
+                                                                "fragmentImage": {
+                                                                    "title": {
+                                                                        "value": "GOTA.png"
+                                                                    },
+                                                                    "url": {
+                                                                        "value_i18n": {
+                                                                            "en_US": "/documents/d/fo/gota-png?download=true"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "fragmentLink": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "text",
+                                                            "value": {
+                                                                "fragmentLink": {},
+                                                                "text": {
+                                                                    "value_i18n": {
+                                                                        "en_US": "ABOUT"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "indexed": true
+                                                },
+                                                "type": "Fragment"
+                                            }
+                                        ],
+                                        "type": "Column"
+                                    },
+                                    {
+                                        "definition": {
+                                            "columnViewports": [
+                                                {
+                                                    "columnViewportDefinition": {
+                                                        "size": 12
+                                                    },
+                                                    "id": "landscapeMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "portraitMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "tablet"
+                                                }
+                                            ],
+                                            "size": 4
+                                        },
+                                        "pageElements": [
+                                            {
+                                                "definition": {
+                                                    "fragment": {
+                                                        "key": "bibline-social",
+                                                        "siteKey": "Fo"
+                                                    },
+                                                    "fragmentConfig": {},
+                                                    "fragmentFields": [
+                                                        {
+                                                            "id": "01-img",
+                                                            "value": {
+                                                                "fragmentImage": {
+                                                                    "title": {
+                                                                        "value": "graph.png"
+                                                                    },
+                                                                    "url": {
+                                                                        "value_i18n": {
+                                                                            "en_US": "/documents/d/fo/graph-png?download=true"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "fragmentLink": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "text",
+                                                            "value": {
+                                                                "fragmentLink": {},
+                                                                "text": {
+                                                                    "value_i18n": {
+                                                                        "en_US": "INVEST"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "indexed": true
+                                                },
+                                                "type": "Fragment"
+                                            }
+                                        ],
+                                        "type": "Column"
+                                    },
+                                    {
+                                        "definition": {
+                                            "columnViewports": [
+                                                {
+                                                    "columnViewportDefinition": {
+                                                        "size": 12
+                                                    },
+                                                    "id": "landscapeMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "portraitMobile"
+                                                },
+                                                {
+                                                    "columnViewportDefinition": {},
+                                                    "id": "tablet"
+                                                }
+                                            ],
+                                            "size": 4
+                                        },
+                                        "pageElements": [
+                                            {
+                                                "definition": {
+                                                    "fragment": {
+                                                        "key": "bibline-social",
+                                                        "siteKey": "Fo"
+                                                    },
+                                                    "fragmentConfig": {},
+                                                    "fragmentFields": [
+                                                        {
+                                                            "id": "01-img",
+                                                            "value": {
+                                                                "fragmentImage": {
+                                                                    "title": {
+                                                                        "value": "carta.png"
+                                                                    },
+                                                                    "url": {
+                                                                        "value_i18n": {
+                                                                            "en_US": "/documents/d/fo/carta-png?download=true"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "fragmentLink": {}
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "text",
+                                                            "value": {
+                                                                "fragmentLink": {},
+                                                                "text": {
+                                                                    "value_i18n": {
+                                                                        "en_US": "CONTACT"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    ],
+                                                    "indexed": true
+                                                },
+                                                "type": "Fragment"
+                                            }
+                                        ],
+                                        "type": "Column"
+                                    }
+                                ],
+                                "type": "Row"
+                            }
+                        ],
+                        "type": "Section"
+                    },
+                    {
+                        "definition": {
+                            "customCSS": ".[$FRAGMENT_CLASS$] {\nborder-top-right-radius: 14px;\nborder-top-left-radius: 14px;\n}",
+                            "fragmentStyle": {
+                                "backgroundColor": "#8A9EB6",
+                                "borderRadius": "",
+                                "borderWidth": "0",
+                                "marginTop": "-9px",
+                                "shadow": "",
+                                "textAlign": ""
+                            },
+                            "indexed": true,
+                            "layout": {
+                                "borderWidth": 0,
+                                "marginBottom": 0,
+                                "marginLeft": 0,
+                                "marginRight": 0,
+                                "marginTop": 0,
+                                "opacity": 100,
+                                "paddingBottom": 0,
+                                "paddingLeft": 0,
+                                "paddingRight": 0,
+                                "paddingTop": 0,
+                                "widthType": "Fluid"
+                            }
+                        },
+                        "pageElements": [
+                            {
+                                "definition": {
+                                    "fragment": {
+                                        "key": "bibline-footer",
+                                        "siteKey": "Fo"
+                                    },
+                                    "fragmentConfig": {},
+                                    "fragmentFields": [],
+                                    "indexed": true
+                                },
+                                "type": "Fragment"
+                            }
+                        ],
+                        "type": "Section"
+                    }
+                ],
+                "type": "Section"
+            }
+		],
+		"type": "Root"
+	}, 
+	"settings": {
+		"masterPage": {
+			"key": "public"
+		}
+	}
+}

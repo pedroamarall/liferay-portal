@@ -1,0 +1,51 @@
+.img_logo img {
+   height: 250px;
+   padding-left: 20px;
+   padding-top: 20px;
+   width: 250px;
+}
+
+#div_display {
+   display: inline-block;
+}
+
+.header {
+   background-color: var(--brand-color-1); 
+   height: 90px;
+   position: absolute;
+   padding: 25px;
+   padding-top: 7px;
+   right: 0px;
+   width: 605px;
+}
+
+.menu ul {
+   padding-right: 28px;
+   position: flex;
+}
+
+.menu ul li {
+   display: inline-block;
+   color: #8b8b8b;
+   margin: 10px;
+   margin-left: 15px;
+   height: 50px;
+}
+
+.menu ul li a:hover {
+   color: red;	
+}
+
+.menu ul li:hover {
+   background: white;
+   border-bottom: 10px;
+   background-repeat: no-repeat;
+   border-radius: 3px;
+   transition: background-color 0.5s;
+}
+.menu li a {
+   color: white;
+   text-decoration: none;
+   font-size: 30px;	
+   padding: 15px;
+}

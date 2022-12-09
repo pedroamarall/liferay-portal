@@ -1,0 +1,42 @@
+.component-social img {
+	height: 90px;
+	margin: 30px;	
+	width: 130px;
+	
+}
+
+.rounded-0 {
+	background-color: var(--brand-color-1);
+	border: 5px solid white;
+	margin: 70px;
+}
+
+.rounded-0:hover {
+	box-shadow:
+    1px 1px #53a7ea,
+    2px 2px #53a7ea,
+    3px 3px #53a7ea;
+	transform: translateX(-3px);
+	transition: all 0.5s ease-in-out;
+	-webkit-transform: translateX(-3px);
+}
+
+.paragraph {
+	color: DeepSkyBlue;
+	font-family: Impact, fantasy;
+	font-size: 30px;
+    text-align: center;
+}
+ 
+li {
+ 	height: 190px;
+}
+
+p {
+	position: relative;
+	top: -15px;
+}
+
+.paragraph:hover {
+	color: Salmon;
+}

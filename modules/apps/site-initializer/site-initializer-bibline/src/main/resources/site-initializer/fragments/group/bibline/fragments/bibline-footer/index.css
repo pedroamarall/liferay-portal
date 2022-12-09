@@ -1,0 +1,25 @@
+.footerBB {
+	padding: 30px;
+	color: var(--brand-color-1);
+	display: grid;
+	grid-template-columns: max-content auto max-content;
+}
+
+.identification {
+	font-weight: bold;
+}
+
+#year {
+	padding-bottom: 30px;
+	padding-right: 10px;
+}
+
+.contact {
+	font-size: 40px;
+    position: relative;
+	top: 85px;
+}
+
+.grid-item {
+	font-size: 35px;
+}
