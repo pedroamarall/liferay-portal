@@ -115,4 +115,30 @@ definition {
 		}
 	}
 
+	@description = "Can Edit a Documents and Media"
+	@priority = "5"
+	test CanEditDM {
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		task ("Edit the document") {
+			DMDocument.editCP(
+				dmDocumentFile = "Commerce_Black.jpg",
+				dmDocumentFileEdit = "Document_5.jpg",
+				dmDocumentFileName = "Commerce_Black.jpg",
+				dmDocumentFileNameEdit = "Document_5.jpg",
+				dmDocumentTitle = "DM Document JPG Node1",
+				dmDocumentTitleEdit = "This Title was edited");
+
+			PortletEntry.publish();
+
+			ProductMenu.gotoHomePage();
+
+			IsElementPresent(
+				key_rowEntry = "This Title was edited",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
 }
