@@ -1,0 +1,58 @@
+@component-name = "portal-document-management"
+definition {
+
+	property testray.main.component.name = "Document Management";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = "DM Document JPG",
+			groupName = "Guest",
+			mimeType = "image/jpeg",
+			sourceFileName = "Document_4.jpg");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Documents and Media");
+
+		Site.deleteAllCP();
+	}
+
+	@description = "Can Create a Documents and Media"
+	@priority = "5"
+	test CanCreateDM {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Documents and Media");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "Document Description",
+			dmDocumentFile = "Commerce_Black.jpg",
+			dmDocumentTitle = "DM Document JPG Node1");
+
+		ProductMenu.gotoHomePage();
+
+		IsElementPresent(
+			key_rowEntry = "DM Document JPG Node1",
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME");
+
+		Alert.viewSuccessMessage();
+	}
+
+}
