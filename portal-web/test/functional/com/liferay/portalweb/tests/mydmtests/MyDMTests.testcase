@@ -55,4 +55,36 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
+	@description = "Can Delete a Documents and Media"
+	@priority = "5"
+	test CanDeleteDM {
+		task ("adding 1 file to have more than 2 in the test and so use the delete function") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Documents and Media");
+
+			DMDocument.addCP(
+				dmDocumentDescription = "New Description",
+				dmDocumentFile = "Document_1.jpg",
+				dmDocumentTitle = "New Document");
+		}
+
+		task ("Delete the first document") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Documents and Media");
+
+			DMDocument.deleteCP(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentTitle = "DM Document JPG");
+
+			ProductMenu.gotoHomePage();
+
+			if (IsElementNotPresent(key_rowEntry = "New Document", locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME")) {
+				ProductMenu.gotoHomePage();
+
+				Alert.viewSuccessMessage();
+			}
+		}
+	}
 }
