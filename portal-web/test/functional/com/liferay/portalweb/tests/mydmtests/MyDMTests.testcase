@@ -87,4 +87,32 @@ definition {
 			}
 		}
 	}
+
+	@description = "Can Download a Documents and Media"
+	@priority = "5"
+	test CanDownloadDM {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Documents and Media");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "Description for this file",
+			dmDocumentFile = "Document_2.jpg",
+			dmDocumentTitle = "Second Document");
+
+		task ("Download the first document") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Documents and Media");
+
+			DMDocument.downloadCP(
+				dmDocumentSize = "21 KB",
+				dmDocumentTitle = "DM Document JPG");
+
+			ProductMenu.gotoHomePage();
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
 }
