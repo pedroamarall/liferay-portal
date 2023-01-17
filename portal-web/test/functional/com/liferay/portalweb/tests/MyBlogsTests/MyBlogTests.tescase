@@ -1,0 +1,97 @@
+@component-name = "portal-lima"
+definition {
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Blogs Page");
+
+		JSONLayout.addWidgetToPublicLayout(
+			column = "1",
+			groupName = "Guest",
+			layoutName = "Blogs Page",
+			widgetName = "Blogs");
+
+		BlogsNavigator.openToAddEntry(
+			layoutName = "Blogs Page",
+			siteURLKey = "guest");
+
+		BlogsEntry.addTitle(entryTitle = "Blog 1");
+
+		BlogsEntry.addContent(entryContent = "Blog 1");
+
+		AssertTextEquals(
+			locator1 = "TextInput#DESCRIPTION",
+			value1 = "Blog 1");
+		
+		AssertClick(
+			locator1 = "Button#PUBLISH",
+			value1 = "Publish");
+
+		ProductMenu.gotoHomePage();
+
+		Alert.viewSuccessMessage();
+
+		
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		} 
+			BlogsEntry.tearDownCP();
+
+			JSONLayout.deletePublicLayout(
+				groupName = "Guest",
+				layoutName = "Blogs Page");
+		}
+
+	
+
+	@description = "Can Create a Blog"
+	@priority = "5"
+	test CanCreateBlog {
+
+		task ("Going to labe Blogs Page and adding the first Blog"){
+			Navigator.gotoPage(pageName = "Blogs Page");
+
+			Blogs.addEntry(
+				entryContent = "Blogs Entry Content",
+				entryTitle = "Blogs Page Exercise");
+
+			Navigator.gotoPage(pageName = "Blogs Page");
+
+			BlogsEntry.viewNoPG(entryTitle = "Blogs Page Exercise");
+
+			Navigator.openURL();}
+
+			ProductMenu.gotoScopedPortlet(
+				category = "Content & Data",
+				portlet = "Blogs",
+				scope = "Blogs Page");
+
+			BlogsNavigator.openToAddEntry(
+				layoutName = "Blogs Page",
+				siteURLKey = "guest");
+
+			ProductMenu.gotoHomePage();
+
+		task ("Checking if the element is present"){
+			if (IsElementNotPresent(locator1 = "PagesFinder#INPUT_FIELD")) {
+                Click(
+                    key_text = "Home",
+                    locator1 = "Button#ANY");
+
+                Alert.viewSuccessMessage();
+		    }
+	    }
+	}
+	
+}
