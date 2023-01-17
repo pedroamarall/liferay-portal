@@ -93,5 +93,19 @@ definition {
 		    }
 	    }
 	}
+
+    @description = "Can Delete a Blog"
+	@priority = "5"
+	test CanDeleteBlog {
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			task ("Deleting the Blog 1") {
+				BlogsEntry.moveToRecycleBinCP(
+				assetType = "Blogs Entry",
+				entryTitle = "Blog 1");}
+
+			Alert.viewSuccessMessage();
+	}
 	
 }
