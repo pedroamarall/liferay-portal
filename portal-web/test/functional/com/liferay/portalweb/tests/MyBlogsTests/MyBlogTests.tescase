@@ -107,5 +107,25 @@ definition {
 
 			Alert.viewSuccessMessage();
 	}
+
+	@description = "Can Edit a Blog"
+	@priority = "5"
+	test CanEditBlog {
+		BlogsNavigator.openToEditEntryInSite(
+			entryTitle = "Blog 1",
+			groupName = "Guest",
+			siteURLKey = "guest");
+		
+		task ("Editing the Title and the Content of Blog 1"){
+			BlogsEntry.editTitle(
+				entryTitle = "Blog 1",
+				entryTitleEdit = "I changed this Title");
+	
+			BlogsEntry.editContent(
+				entryContent = "Blog 1",
+				entryContentEdit = "I Edited this content");
+	
+			PortletEntry.publish();}
+	}
 	
 }
