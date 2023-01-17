@@ -127,5 +127,24 @@ definition {
 	
 			PortletEntry.publish();}
 	}
+
+    @description = "Can Search Blogs"
+	@priority = "5"
+	test CanSearchBlog {
+		task ("Searching the blog with name of BLOG 1") {
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "Blog 1");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetSummary = "Blogs Entry Content",
+			searchAssetTitle = "Blogs Entry Title",
+			searchAssetType = "Blogs Entry");
+
+		Navigator.openURL();
+
+		Alert.viewSuccessMessage();}
+			
+	}
 	
 }
