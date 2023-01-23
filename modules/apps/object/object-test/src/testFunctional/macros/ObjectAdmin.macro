@@ -290,7 +290,11 @@ definition {
 		}
 
 		if (isSet(parameter)) {
-			ObjectRelationships.editRelationshipsParameter(parameter = "${parameter}");
+			Click(locator1 = "ObjectRelationships#SELECT_PARAMETER_FORM");
+
+			ClickNoError.clickNoMouseOver(
+				key_parameterOption = "${parameter}",
+				locator1 = "ObjectRelationships#SELECT_PARAMETER_OPTION");
 		}
 
 		if ("${invalidEntry}" == "true") {
