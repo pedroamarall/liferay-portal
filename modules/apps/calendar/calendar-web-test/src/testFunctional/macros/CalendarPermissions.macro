@@ -1,6 +1,8 @@
 definition {
 
 	macro changePaginationPermissions {
+		ScrollWebElementIntoView(locator1 = "CalendarPermissions#PERMISSIONS_ITEMS_PER_PAGE_SELECT");
+
 		Click(locator1 = "CalendarPermissions#PERMISSIONS_ITEMS_PER_PAGE_SELECT");
 
 		var key_itemsPerPage = "${itemsPerPage}";

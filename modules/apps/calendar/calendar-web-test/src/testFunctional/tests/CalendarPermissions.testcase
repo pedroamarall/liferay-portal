@@ -60,11 +60,23 @@ definition {
 	test CanChangeTheNumberOfEntriesDIsplayed {
 		CalendarPermissions.gotoPermissions();
 
-		CalendarPermissions.changePaginationPermissions(itemsPerPage = "4");
+		ScrollWebElementIntoView(locator1 = "CalendarPermissions#PERMISSIONS_ITEMS_PER_PAGE_SELECT");
+
+		Click(locator1 = "CalendarPermissions#PERMISSIONS_ITEMS_PER_PAGE_SELECT");
+
+		Click(
+			key_identryes = "1",
+			locator1 = "CalendarPermissions#OPTIONS_ENTRIES");
 
 		CalendarPermissions.viewResultsEntries(results = "Showing 1 to 4 of 9 entries.");
 
-		CalendarPermissions.changePaginationPermissions(itemsPerPage = "8");
+		ScrollWebElementIntoView(locator1 = "CalendarPermissions#PERMISSIONS_ITEMS_PER_PAGE_SELECT");
+
+		Click(locator1 = "CalendarPermissions#PERMISSIONS_ITEMS_PER_PAGE_SELECT");
+
+		Click(
+			key_identryes = "2",
+			locator1 = "CalendarPermissions#OPTIONS_ENTRIES");
 
 		CalendarPermissions.viewResultsEntries(results = "Showing 1 to 8 of 9 entries.");
 	}
