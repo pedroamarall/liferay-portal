@@ -127,7 +127,7 @@
 	</tr>
 	<tr>
 		<td>VIEW_ENTRY_SELECTED_ON_RELATIONSHIP_FIELD</td>
-		<td>//input[contains(@name,'r_relationship') and contains(@value,'${key_entry}')]</td>
+		<td>//*[(@class='dropdown-item') and contains(text(),'${key_entry}')]</td>
 		<td></td>
 	</tr>
 	<tr>
