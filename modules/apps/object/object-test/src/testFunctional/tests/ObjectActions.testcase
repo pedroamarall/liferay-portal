@@ -1901,6 +1901,152 @@ definition {
 			actionLabel = "Action Label");
 	}
 
+	@description = "Verify that power users should be able to manage standalone action permissions in object definition permissions"
+	@priority = 5
+	test CanManageStandalonePermissionsAtObjectDefinition {
+		property portal.acceptance = "true";
+
+		task ("Given an object with a standalone action") {
+			ObjectAdmin.addObjectViaAPI(
+				labelName = "Custom Object 185",
+				objectName = "CustomObject185",
+				pluralLabelName = "Custom Objects 185");
+
+			ObjectAdmin.addObjectFieldViaAPI(
+				fieldBusinessType = "Text",
+				fieldLabelName = "Custom Field",
+				fieldName = "customObjectField",
+				fieldType = "String",
+				isRequired = "true",
+				objectName = "CustomObject185");
+
+			ObjectAdmin.publishObjectViaAPI(objectName = "CustomObject185");
+
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Custom Object 185");
+
+			ObjectAdmin.goToActionsTab();
+
+			ObjectAdmin.addObjectActionViaUI(
+				actionLabel = "Action Label",
+				actionName = "ActionName",
+				active = "true",
+				errorMessage = "Error",
+				inputMethod = "true",
+				inputValue = "New Entry Test",
+				objectLabel = "Custom Object 185",
+				thenAction = "Add an Object Entry",
+				whenAction = "Standalone");
+
+			ObjectAdmin.addObjectSingleFieldEntryViaAPI(
+				fieldName = "customObjectField",
+				objectName = "CustomObject185",
+				value = "Entry Test");
+		}
+
+		task ("And given a new user is added") {
+			JSONUser.addUser(
+				userEmailAddress = "userea@liferay.com",
+				userFirstName = "userfn",
+				userLastName = "userln",
+				userScreenName = "usersn");
+		}
+
+		task ("When the user is given permission to modify the permissions of a standalone action") {
+			JSONRole.addRegularRole(roleTitle = "Regular Role");
+
+			Role.openRolesAdmin();
+
+			LexiconEntry.gotoEntry(rowEntry = "Regular Role");
+
+			Navigator.gotoNavItem(navItem = "Define Permissions");
+
+			ObjectAdmin.searchInDefinePermissions(search = "Custom Objects 185");
+
+			Click(
+				key_wikiPageVersionNew = "action.ActionName",
+				locator1 = "WikiTable#SELECT_VERSION_NEW_VERSION_CHECKBOX");
+
+			Click(
+				key_wikiPageVersionNew = "Access in Control Panel",
+				locator1 = "WikiTable#SELECT_VERSION_NEW_VERSION_CHECKBOX");
+
+			Click(
+				key_wikiPageVersionNew = "View",
+				locator1 = "WikiTable#SELECT_VERSION_NEW_VERSION_CHECKBOX");
+
+			Click(
+				key_wikiPageVersionNew = "Permissions",
+				locator1 = "WikiTable#SELECT_VERSION_NEW_VERSION_CHECKBOX");
+
+			PortletEntry.save();
+
+			var objectId = JSONObject.getObjectId(objectName = "CustomObject185");
+
+			Permissions.definePermissionViaJSONAPI(
+				resourceAction = "VIEW_CONTROL_PANEL",
+				resourceName = 90,
+				roleTitle = "Regular Role",
+				roleType = "regular");
+
+			Permissions.definePermissionViaJSONAPI(
+				resourceAction = "ACCESS_IN_CONTROL_PANEL",
+				resourceName = "com_liferay_object_web_internal_object_definitions_portlet_ObjectDefinitionsPortlet_${objectId}",
+				roleTitle = "Regular Role",
+				roleType = "regular");
+
+			Permissions.definePermissionViaJSONAPI(
+				resourceAction = "VIEW",
+				resourceName = "com_liferay_object_web_internal_object_definitions_portlet_ObjectDefinitionsPortlet_${objectId}",
+				roleTitle = "Regular Role",
+				roleType = "regular");
+
+			Permissions.definePermissionViaJSONAPI(
+				resourceAction = "VIEW",
+				resourceName = "com.liferay.object.model.ObjectDefinition#${objectId}",
+				roleTitle = "Regular Role",
+				roleType = "regular");
+		}
+
+		task ("Then user can manage the standalone action permissions") {
+			JSONRole.assignRoleToUser(
+				roleTitle = "Regular Role",
+				userEmailAddress = "userea@liferay.com");
+
+			User.logoutAndLoginPG(
+				userLoginEmailAddress = "userea@liferay.com",
+				userLoginFullName = "userfn userln");
+
+			ObjectAdmin.goToCustomObject(objectName = "CustomObject185");
+
+			Click(
+				key_entry = "Entry Test",
+				locator1 = "ObjectPortlet#ENTRY_KEBAB_MENU");
+
+			Click(
+				key_dropdowntItem = "Action Label",
+				locator1 = "ObjectPortlet#CHECK_UNCHECK_DROPDOWN_ITEM");
+
+			Click(
+				key_newOption = "clay-dropdown-menu-6",
+				key_objectLabel = "Actions",
+				locator1 = "ObjectAction#OBJECT_KEBAB_OPTION");
+
+			Click(
+				key_menuItem = "Permissions",
+				locator1 = "MenuItem#ANY_MENU_ITEM");
+
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+			Click.clickAtNotVisible(
+				key_roleTitle = "power-user",
+				locator1 = "Permissions#INLINE_PERMISSIONS_VIEW_CHECKBOX");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
 	@description = "LPS-139008 - Verify it is not possible to leave the Action Name field blank"
 	@priority = 3
 	test CannotLeaveActionNameBlank {
