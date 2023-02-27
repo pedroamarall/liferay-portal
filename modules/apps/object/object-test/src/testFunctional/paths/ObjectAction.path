@@ -13,6 +13,16 @@
 		<td></td>
 	</tr>
 	<tr>
+		<td>ADD_ERROR_MESSAGE_VALIDATION</td>
+		<td>//div[contains(@class,'form-group')]//label[text()='Message']/..//input[@type='text']</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>OBJECT_KEBAB_OPTION</td>
+		<td>//*[contains(text(),'${key_objectLabel}')]/ancestor::div[contains(@class,'dnd-tr')]//*[contains(@aria-controls,'${key_newOption}')]</td>
+		<td></td>
+	</tr>
+	<tr>
 		<td>SELECT_OPTION_TYPE</td>
 		<td>//input[@placeholder="Choose an Option"]</td>
 		<td></td>
