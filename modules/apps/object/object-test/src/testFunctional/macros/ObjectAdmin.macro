@@ -207,6 +207,8 @@ definition {
 			Click(
 				key_dropdownItem = ${formulaFieldOption},
 				locator1 = "ObjectField#SELECT_FORMULA_FIELD_OPTION");
+
+			AssertElementNotPresent(locator1 = "ObjectField#MANDATORY_TOGGLE");
 		}
 
 		PortletEntry.save();
