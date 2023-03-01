@@ -2937,6 +2937,38 @@ definition {
 		}
 	}
 
+	@description = "LPS-164948 - Verify that Formula fields can't be required"
+	@priority = 4
+	test FormulaFieldsIsNotMandatory {
+		property portal.acceptance = "true";
+
+		task ("Given: an Object") {
+			ObjectAdmin.addObjectViaAPI(
+				labelName = "Custom Object 164948",
+				objectName = "CustomObject164948",
+				pluralLabelName = "Custom Objects 164948");
+
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectSystemObject(label = "Custom Object 164948");
+
+			ObjectAdmin.goToFieldsTab();
+		}
+
+		task ("When: adding a Formula Field") {
+			ObjectAdmin.addObjectFieldViaUI(
+				fieldLabel = "Custom Formula 164948",
+				fieldType = "Formula",
+				formulaFieldOption = "Decimal");
+		}
+
+		task ("Then:Cannot select the mandatory option on edit") {
+			ObjectAdmin.goToFieldsDetails(label = "Custom Formula 164948");
+
+			AssertElementNotPresent(locator1 = "ObjectField#MANDATORY_TOGGLE");
+		}
+	}
+
 	@description = "LPS-146523 - Verify if the default folder will be the Global Documents and Media Home Folder"
 	@priority = 4
 	test GlobalDocumentsAndMediaHomeFolderIsDefaultWhenScopedByCompany {
