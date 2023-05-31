@@ -1,0 +1,2548 @@
+commit 6465694bee1665bb90e10a7e0dead4df1ed43248
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Dec 26 14:33:55 2013 +0000
+
+    LPS-42900 Adding removed code in LPS-32158, this code is necessary to check if the display views is null
+
+commit d3c428e529754ce181ea4467888ef9e1fdb027c3
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Apr 9 15:09:24 2013 -0700
+
+    LPS-32110 Apply everywhere else
+
+commit cf31806859035f7e2e7efe4ae8c317deba28d193
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Apr 9 14:42:04 2013 -0700
+
+    LPS-32110 Make this readable by humans. 1.) when declaring a macro, sort first by vars without default values, then by vars with default values. 2.) when calling a macro, always sort alphabetically
+
+commit ee9c6250e5bd0aba6670b1725a3b4d1405c29b55
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Apr 9 13:52:46 2013 +0800
+
+    LPS-32110 Remove unused properties.
+
+commit 30403b5176f1352b1255ae9dc71dd690ff2c831e
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Apr 9 13:52:22 2013 +0800
+
+    LPS-32110 Move logic in dl_file_entry.ftl to macro.ftl, no changes.
+
+commit aceacac1c41272c8d2ba8a75d96bd30fcb3e4caf
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Apr 9 13:52:02 2013 +0800
+
+    LPS-32110 Move logic in ddl_record.ftl to ddl.ftl, no changes.
+
+commit 3133fd3990e4db48ef5b3df03f76165957cdbc76
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Apr 9 13:51:46 2013 +0800
+
+    LPS-32110 Add macro method, insertUser.
+
+commit 6331c36b62c8ca33b776cea60c4e00543b20360b
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Apr 9 14:00:33 2013 +0800
+
+    LPS-32110 Add macro method, insertResourcePermission.
+
+commit c767e6c2e43fd9c85a82cad0e6812311a966c3f3
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Apr 1 09:36:25 2013 +0800
+
+    LPS-32110 Add macro method, insertMBMessage.
+
+commit d006bcfaa87fbaab8b1f5340cf8f947f8dd75b51
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Apr 1 09:30:27 2013 +0800
+
+    LPS-32110 Add macro method, insertGroup.
+
+commit d57267402bb918b246accada85ada55ad42a3c27
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Apr 2 09:49:34 2013 +0800
+
+    LPS-32110 Add macro method, insertDLFolder.
+
+commit e2c5afbd8c3f7c6d0f4481460822f332386604bc
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Apr 1 09:19:08 2013 +0800
+
+    LPS-32110 Add macro method, insertMBDiscussion.
+
+commit 51b7d26ff7f5513eabd57946f9a24fcfe370f2ce
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Apr 1 09:05:44 2013 +0800
+
+    LPS-32110 Add macro method, insertLayout.
+
+commit f9948b289b29de899707618bde090138bb5b93aa
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Apr 1 08:58:19 2013 +0800
+
+    LPS-32110, fix "test-sample-sql", parameters without a default value must all occur before the parameters with default values.
+
+commit d563c21006d421254835ab676420e1874273b1b8
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Mar 29 12:40:47 2013 -0700
+
+    LPS-32110 SF
+
+commit a99c1761db5838b9aeec9824c83137eb4c835be4
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 29 22:07:11 2013 +0800
+
+    LPS-32110 Add macro method, insertSocialActivity.
+
+commit 19937723adb7d777ed3e17e52a021890c3f2a9c5
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 29 22:00:43 2013 +0800
+
+    LPS-32110 Add macro method, insertPortletPreferences.
+
+commit cc643b445dc4c2026b996ab5b821e9aad350a840
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 29 21:58:37 2013 +0800
+
+    LPS-32110 Add macro method, insertDDMContent.
+
+commit 67b48171a10fe90b91c30d5a31a18960e61d257b
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 29 09:26:08 2013 +0800
+
+    LPS-32110 Add macro method, insertDLSync.
+
+commit cec2880a9b2340abec723fda0e5087ab359fd826
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 29 09:23:07 2013 +0800
+
+    LPS-32110 Add macro method, insertDDMStructureLink.
+
+commit 7688f5bf6688ce1678a6af4e8614105c6dd01951
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 29 09:22:01 2013 +0800
+
+    LPS-32110 Add macro method, insertAssetEntry.
+
+commit efb12dbac838674dba74d6b27549cbabf0d16bb6
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 29 08:58:19 2013 +0800
+
+    LPS-32110 Add macro.ftl.
+
+commit 09a94ed45d03613d1f6f71fe9fbbd9facedef455
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Mar 28 09:38:53 2013 -0700
+
+    LPS-32110 SF
+
+commit 1540ece0d3b7cbcf68116fc2d2a9a9079fb000a1
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 28 18:14:12 2013 +0800
+
+    LPS-32110 Clear up ftls, move logic in dl_folder.ftl to dl_folders.ftl, no changes.
+
+commit e33f25b5fc82f58e9183c0440af752d109d2dbc5
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 28 18:10:38 2013 +0800
+
+    LPS-32110 Clear up ftls, move logic in dl.ftl to groups.ftl, no changes.
+
+commit 2fb34f87e14ec2f08cca5fc10934cddb89e9306d
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 28 18:06:04 2013 +0800
+
+    LPS-32110 SF, no changes.
+
+commit 1ea073c42d0ab0ed7aa391f0a34daf30027b88f2
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 14 18:03:03 2013 +0800
+
+    LPS-32110 Clear up ftls, move logic in wiki_page.ftl to wiki.ftl, no changes.
+
+commit 9f9dc658a2c5d823a9558ad47007dcfd738ac8b6
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 14 18:01:13 2013 +0800
+
+    LPS-32110 Clear up ftls, move logic in mb_category.ftl to mb.ftl, no changes.
+
+commit 7e13fe28f89e84239f9538f04f2253ffe3fd7e5e
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 14 17:35:58 2013 +0800
+
+    LPS-32110 Clear up ftls, move logic in blogs_entry.ftl to blogs.ftl, no changes.
+
+commit 6881fc5ebda200d8fa111f144b5d5e64441d93ae
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Mar 27 22:38:16 2013 -0700
+
+    LPS-32110 SF
+
+commit 2257a9c0a36624143506d14abfa1b9f060a11711
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 27 09:32:30 2013 +0800
+
+    LPS-32110 Remove unused properties in context.
+
+commit a1582f4e0f2b2ce8563d45803890f24da3575fe6
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 27 20:33:29 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory, JournalContentSearch
+
+commit ae2e260277a5f35779dd22362ca928003bfec768
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 27 09:31:59 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory, document library.
+
+commit f5413d4ac84d15ce7117edd79201b295771da564
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 27 09:31:43 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory, dynamic data list.
+
+commit ec1bdb1a5e86c7ad341c5243dccd3a47ee495737
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 27 09:31:27 2013 +0800
+
+    LPS-32110 Update ftl according to current trunk.
+
+commit ccdc4fe047867c77a9c59c395a2a24e4cf201d16
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 27 11:21:47 2013 +0800
+
+    LPS-32110 Fix "test-sample-sql", add initialization for PortletPreferencesFactoryUtil.
+
+commit ee445fb55dbd1e44b8c8b36f7466c88b5a1a2642
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Mar 26 17:22:30 2013 -0700
+
+    LPS-32110 SF
+
+commit c2d07e64521d16e0d4c8b29c7bef2de2761adfa0
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 13 10:57:59 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory, PortletPreferences.
+
+commit 21830ea1056314300cd0c25e2a90a1712728afd2
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Mar 12 22:08:28 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory, ResourcePermission.
+
+commit ad55b40048b8330875f7a71fa73300491d8b2db4
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Mar 12 22:01:59 2013 +0800
+
+    LPS-32110 Update ftls according to current trunk.
+
+commit 0feaa4f9ff197c68e90a6e86201f5313c871a6a8
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Mar 13 00:25:20 2013 -0700
+
+    LPS-32110 SF
+
+commit c43bbd2af50b53cf2ddbc1c7f57cfc57b31cc221
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 13 09:27:22 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory, DDMStructure.
+
+commit f6d44c1c959db3f9dfc3829e4d1864846fc53c91
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Mar 12 15:48:45 2013 +0800
+
+    LPS-32110 Clear up ftls, use DDMStructureId instead of DDMStructure as parameter.
+
+commit edc547f3d0c95e36053612904936134ed5c701cc
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Mar 12 15:47:57 2013 +0800
+
+    LPS-32110 Move generation of default dl DDMStructure to default_dl_file_type.ftl.
+
+commit 5b4909f158481b8e5b07e78b50f1085f34c6a068
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Mar 12 15:47:01 2013 +0800
+
+    LPS-32110 Decrease dependency on initialization of user.
+
+commit b0396d2cf9ce6f32afe0cbf44591d86be51becc2
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Mar 12 13:40:12 2013 +0800
+
+    LPS-33421 Error template for freemarker, velocity and xsl does not work since changes in LPS-25570 and LPS-32140.
+
+commit 2405ee732df0e879b9ba039535e73ab0c9e0e7c1
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Mar 7 22:44:53 2013 -0800
+
+    LPS-32110 SF
+
+commit 19f2f92e893f73d39649b5820a592c5dcaf73139
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Mar 7 22:44:31 2013 -0800
+
+    LPS-32110 SF
+
+commit e1fcca80ca5de3c3b14a638e3157029c5dbc4947
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 8 08:49:51 2013 +0800
+
+    LPS-32110 Clear up ftls and DataFactory.
+
+commit bdecf264d992af0875e83c028b75e2bcd4615552
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 8 08:49:30 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - wiki and assetEntry.
+
+commit 0c32945faabf55d97211cd4e00a639e25691314c
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Mar 8 08:48:32 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - mb and assetEntry.
+
+commit e0e5a47ea5a0a3e9ccb3069f37fe4159edafc793
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 7 14:59:01 2013 +0800
+
+    LPS-32110 Update ftl according to current logic.
+
+commit 71f0572f337cab3987701170f55cedc524a65e46
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 7 16:07:04 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - journal and assetEntry.
+
+commit 5da2d0dbe5a2100cdadc98b9ab1b1e670392f1d2
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Mar 7 14:56:11 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - dl and assetEntry.
+
+commit 4e4566d1f9a096630f259c00e1b37a1dc42db9f4
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 6 17:43:07 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - blog and assetEntry.
+
+commit f1352969ee9a7188ac769a96a6a1ee78842f105f
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 6 10:55:47 2013 +0800
+
+    LPS-32110 Calculate publicPageCount, remove the dependency in groups.ftl.
+
+commit dcc20156690f851eb146a188a0ef2e83ff77eb00
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 6 10:52:06 2013 +0800
+
+    LPS-32110 Add layout.ftl for two reasons:1) improve performance of ftl by decreasing the use of array from Freemarker 2) prepare for remove dependency in groups.ftl
+
+commit 5074b2ab40928f52259df053e8cda3030b4edf00
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Mar 6 10:21:30 2013 +0800
+
+    LPS-32110 Remove unused variable definition.
+
+commit a46c1990073b253b0b25546ca7f69fd2f53632da
+Author: Vilmos Papp <vilmos.papp@liferay.com>
+Date:   Fri Mar 1 14:20:08 2013 +0100
+
+    LPS-32155 Keep requested locale so redirect to login page will use the requested locale as well
+
+commit 8515b5cfa8a001b210c32e76554670cc56d09bf8
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Mar 4 08:55:45 2013 -0800
+
+    LPS-32110 Consolidate
+
+commit de8cd933656b52253e0ab18c4eff4fc19c9edf7e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Mar 4 08:50:48 2013 -0800
+
+    LPS-32110 Make it more obvious
+
+commit b171228cdfad3f3d88de7778f12069240924e991
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Mar 4 11:16:17 2013 +0800
+
+    LPS-32110 Fix benchmark test, friendlyURL should not contain space.
+
+commit 34f77188a03f4c54b737eca321500dfa96adbd10
+Author: Eduardo Garcia <eduardo.garcia@liferay.com>
+Date:   Mon Mar 4 09:53:48 2013 +0100
+
+    LPS-32143 Fix non compatible SQL query
+    
+    All the fields named in the select list must be named in the group by clause. For fields which may have multiple values in the same group, a single value criteria must be forced. Thus for userId and userName  (which may have multiple values for the same resourcePrimKey, groupId, companyId, nodeId group) the MIN function is used to select a single value.
+
+commit da83e99bd85bf29bb69d9f76d0f571ac47e7edaf
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Sat Mar 2 13:49:36 2013 -0800
+
+    LPS-32110 SF
+
+commit 2718369e2f9131e12141ef0f1c7f2e8f5ffba22a
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 28 17:52:59 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - *StatsUser.
+
+commit 44426076e95f53c6bbf271857e56d73d7e482204
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 28 17:33:54 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - layoutSet.
+
+commit f6fdf0073d4502ce2e403261a147277b0db7f875
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 28 17:30:43 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - layout.
+
+commit 5aab32c228f6214b61f36adf88ae39ab0d54da61
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 28 17:19:37 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - group.
+
+commit b8a0e7ade694091b3c5493ae51b51c7aa125ce2a
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Feb 28 00:09:22 2013 -0800
+
+    LPS-32110 SF
+
+commit 5ffa126e09e7d691b814d47cc0a6ee32c16c59f1
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 28 12:19:35 2013 +0800
+
+    LPS-32110 Initialize basic resources which other init* methods depend on directly in constructor to make the dependency clear.
+
+commit a632dd8b3464d6190fe106360a89979e58dbb334
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 28 10:30:32 2013 +0800
+
+    LPS-32110 Clear up Exception usage.
+
+commit d077bc6772c0a841d2adc9765cd3a4730d70e3ab
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 28 10:19:12 2013 +0800
+
+    LPS-32110 Remove unused get methods.
+
+commit b493fa7ddb64b4a9b0b239075fdc74931da8c8ab
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 28 10:11:57 2013 +0800
+
+    LPS-32110 Simplify initialization of ClassName.
+
+commit 21a904f4b3dfcda61d0baf149f8ce4c0cad05efa
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Feb 27 13:18:34 2013 -0800
+
+    LPS-32110 Rename add* to new*
+
+commit 8004bb45c1fa74b9cc03e104dcc48312c800d9cb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 25 22:15:07 2013 -0800
+
+    LPS-32110 SF
+
+commit cbf7827fcdd27479db85131962d4d7ea6e75c3af
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 26 11:41:52 2013 +0800
+
+    LPS-32110 Only data related to DLSync test case needs a future time, others should use current time.
+
+commit acf8a1c1e3adc1d14e63b3a124dd89dd2569bdd4
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 26 11:39:32 2013 +0800
+
+    LPS-32110 Rename methods and properties - no changes.
+
+commit e2950d33797235b2e2ce9e31f07aadd8bdc1d70a
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 25 15:18:18 2013 -0800
+
+    LPS-32110 SF
+
+commit 393a7d84dda6e62a56f4479fedd6537d730c2378
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Sat Feb 23 14:08:10 2013 +0800
+
+    LPS-32110 Rename method from "initCounters" to "addCounters"- no changes.
+
+commit 9c93d317321db272f13fc3e07007261dbd702875
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Sat Feb 23 13:50:54 2013 +0800
+
+    LPS-32110 Use CounterImpl instead of CounterModelImpl, make it consistent with others.
+
+commit 9b28ed089fd50674480d04e5b6b2d792dfb480d5
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Sat Feb 23 13:36:36 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - roles.
+
+commit 596ee8fa3e0d5dc457350cabb7fc59ed3b96e7d8
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Sat Feb 23 13:27:58 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - user.
+
+commit eee072a401c5f3372ba5cb681df03181ad501b52
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Sat Feb 23 12:17:53 2013 +0800
+
+    LPS-32110 Move data generation from ftl to DataFactory - company.
+
+commit 19edfbf4fc02345879ac9620f946111df82737d0
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Feb 22 18:50:00 2013 -0800
+
+    LPS-32110 SF
+
+commit a20658badddc2f1b0ebaadc4d044612609dbac5b
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Feb 22 09:53:54 2013 -0800
+
+    LPS-32110 SF
+
+commit 66b0028b5b6cd9c6971ff77b8e58a02fa2051f86
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Feb 22 17:34:58 2013 +0800
+
+    LPS-32110 According to logic of current trunk,  do not need to generate  blogsStatsUser and mbStatsUser for every user.
+
+commit aa94575bf248c302d9c301832621f93c53512101
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Feb 22 17:34:39 2013 +0800
+
+    LPS-32110 Add a sample user to be the create user of data instead of the first user, make others independent form users.ftl.
+
+commit 8734f31f7e2c4f6f2e7c3b9cff5f14346b1f84b6
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Feb 22 17:33:21 2013 +0800
+
+    LPS-32110 Remove meaningless arguments/parameters/properties.
+
+commit a5b983252b39d77de5cd6e4029f735196badbd53
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Feb 22 17:30:15 2013 +0800
+
+    LPS-32110 No need to calculate ID, benchmark does not depends on the relationship between IDs.
+
+commit b73ddff46868a49e65119c85de899ee8178bcb68
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Fri Feb 22 14:57:40 2013 +0800
+
+    LPS-32110 Fix "test-sample-sql"
+
+commit 2fce63f4c3360774dc3fc8bd22d4300e77b9562f
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Feb 21 22:41:19 2013 -0800
+
+    LPS-32110 SF
+
+commit 0e44e226c36a8b93947f59d3386c7a190af67e8f
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 19 15:28:39 2013 +0800
+
+    LPS-32110 Add mb_discussion.ftl to handle common logic.
+
+commit 8bf67353c2ff7bafd6ae2a025b93faba98b58a2a
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 19 15:27:51 2013 +0800
+
+    LPS-32110 Update data generation according to current trunk.
+
+commit c2617e58b24039d50a6a2f764a993bf43bec0eae
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 19 10:37:45 2013 +0800
+
+    LPS-32110 Remove unused variables.
+
+commit 93f3596ccfdb33eac933d1e89ddeae9405dc9ce5
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 19 10:06:07 2013 +0800
+
+    LPS-32110 Make all csv writers use consistent format.
+
+commit cf46a5ae9d8f151a0fb25386903da56eb75ba855
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Feb 18 10:49:25 2013 +0800
+
+    LPS-32110 Fix "test-sample-sql", should modify initialization of DLFileEntryType not DLFileEntry.
+
+commit d9ee52d3fd58c398b514263f56835e1818612420
+Author: Juan Fernández <juan.fernandez@liferay.com>
+Date:   Thu Feb 14 16:17:17 2013 +0100
+
+    LPS-32182 Source formatting
+
+commit 6bd2e2c78203723ff23b58154765278d261c0806
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Feb 13 23:39:56 2013 -0800
+
+    LPS-32110 Proper fix
+
+commit 791e9f6f886b434f090f7abdc1297bf1fdbd4344
+Author: Jim Hinkey <james.hinkey@liferay.com>
+Date:   Wed Feb 13 22:21:13 2013 -0500
+
+    LPS-32182 Autogenerated
+
+commit 552fb86ae68a844cefa406eecb2df04f44006d1b
+Author: Jim Hinkey <james.hinkey@liferay.com>
+Date:   Wed Feb 13 22:18:28 2013 -0500
+
+    LPS-32182 Re-add Javadoc for update methods
+
+commit c1a89688abefea6e3addd5d2703963efae5baccf
+Author: Juan Fernández <juan.fernandez@liferay.com>
+Date:   Tue Feb 12 10:56:39 2013 +0100
+
+    LPS-32182 Add Javadocs
+
+commit 7cc5955d63e284015e5cf68085df69b5aaba7ed0
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Feb 13 22:10:11 2013 -0800
+
+    LPS-32110 Better fix?
+
+commit 9174ee0ac306abc8e79be44909e33bf200a62576
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Feb 13 22:09:47 2013 -0800
+
+    Revert "LPS-32110 Fix "test-sample-sql"."
+    
+    This reverts commit dfedb7e1cce72f280cd58fe579301cb7e5dd8331.
+
+commit dfedb7e1cce72f280cd58fe579301cb7e5dd8331
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Thu Feb 14 12:18:46 2013 +0800
+
+    LPS-32110 Fix "test-sample-sql".
+
+commit d6619761b1c3b02e8255f262d353f8fe23ec9842
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Feb 13 16:29:19 2013 -0800
+
+    LPS-32182 Source formatting, remove JavaDocs, they are not in complete sentences according to guide.
+
+commit 90b69eaacc2e3b9fa1a78202a1f5ada0d6890c68
+Author: Juan Fernández <juan.fernandez@liferay.com>
+Date:   Tue Feb 12 10:56:39 2013 +0100
+
+    LPS-32182 Add Javadocs
+
+commit 6f008495a8da8f5abbc164555dfb95db23080b06
+Author: Juan Fernández <juan.fernandez@liferay.com>
+Date:   Tue Feb 12 10:55:54 2013 +0100
+
+    LPS-32182 Regenerate
+
+commit 9ff1e4f63d118196b1e30e5863c59e94459ce654
+Author: Juan Fernández <juan.fernandez@liferay.com>
+Date:   Tue Feb 12 10:56:04 2013 +0100
+
+    LPS-32182 Add refererPortletName and custom action for journal
+
+commit ffad025b4666a9828c9662ae44a20e85c05af147
+Author: Juan Fernández <juan.fernandez@liferay.com>
+Date:   Tue Feb 12 10:55:41 2013 +0100
+
+    LPS-32182 New methods to update structure default values
+
+commit e39299cb0f387bf89bdc6678facf3633ae192148
+Author: Juan Fernández <juan.fernandez@liferay.com>
+Date:   Tue Jan 22 10:24:51 2013 +0100
+
+    LPS-32182 Fix Typo
+
+commit fdb71aaa5dbc1447dd3509e7adc4a8d6cd90e1c8
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Feb 13 15:05:09 2013 -0800
+
+    LPS-32151 Source formatting
+
+commit 7a61096ff34b7d44180510d7efb03193ab6348cf
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Feb 13 10:34:07 2013 +0100
+
+    LPS-32151 Test
+
+commit 4feb78aea10a91a9434990b36f6c8f601c16dfe9
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Feb 12 10:53:17 2013 +0100
+
+    LPS-32151 Fix bug with wrong increment
+
+commit 6141b14238d02c8d153fb33f54d0f25345c6b826
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue Feb 12 13:26:11 2013 +0100
+
+    LPS-32146 encapsulate logic
+
+commit 405242e0ac771d0ba5de12ef0d216540c31f8615
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 11 22:41:38 2013 -0800
+
+    LPS-32110 1.) Do not use datetime format, use dataFactory.getDateString, 2.) rename files for consistency
+
+commit 3a26278fc2a36288aa3ba858a57a279abbaf5638
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Tue Feb 12 09:01:26 2013 +0800
+
+    LPS-32110 Should use SequentialUUID rather than PortalUUIDUtil
+
+commit b74309c1a1292dbc9df68f2a59603808e58569c0
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Feb 11 10:28:02 2013 +0800
+
+    LPS-32110 Simplify users.ftl, move user name generation from ftl to DataFactory.
+
+commit 983cf20f09680febd549dc7ffac4f7e3808d6d11
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Feb 11 10:27:39 2013 +0800
+
+    LPS-32110 Move default user generation from company.ftl to default_users.ftl - no changes.
+
+commit 570ed3e8c94718fce7ba976e6805e5d0979a74d9
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Feb 11 10:27:16 2013 +0800
+
+    LPS-32110 Move default file type generation from dl.ftl to default_file_type.ftl.
+
+commit b4dd1d87c238459227280c7c6c48e092d19c713f
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Feb 11 10:25:53 2013 +0800
+
+    LPS-32110 Remove data that do not need to generate.
+
+commit 9b416467e295689dc7fc93eb2983809cd1da46b6
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Mon Feb 11 13:33:16 2013 +0100
+
+    LPS-32146 Source formatting  replace ")" with StringPool.CLOSE_PARENTHESIS every time we called StringBundler.append
+
+commit 996abcfcb218fd8ae5bbbf5e75dae25e8c3947c6
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 11 22:19:48 2013 -0800
+
+    LPS-32146 Rename vars
+
+commit 3efe1f85fc95b382efdf9406f103cb4381345736
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 11 22:07:29 2013 -0800
+
+    LPS-32146 Group together
+
+commit cb8b9504ef72370bfe17fd63d27a32f1d5afb44e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 11 22:01:51 2013 -0800
+
+    LPS-32146 Remove "list" from property to match chat-portlet's "buddy.list.site.excludes". That one has the word "list" because the properties all dealt with "buddy.list.*"
+
+commit a6872c463bf4e8d21c99b6c6fd85e88faf30abd9
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 11 21:53:35 2013 -0800
+
+    LPS-32146 Sort
+
+commit f7bb7cb65998a9dbb5afd4dfc8fb1cd8432e442d
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Mon Feb 11 14:42:07 2013 +0100
+
+    LPS-32146 source formating - don't declare variable if not needed
+
+commit 1302e9b2485ad7f486df6a828500a4a5992bd10b
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Fri Feb 8 14:08:22 2013 +0100
+
+    LPS-32146 My sites directory portlet
+
+commit b875ea49e189817c3cf3ea95838a67a16d2c42b4
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Mon Feb 11 14:41:44 2013 +0100
+
+    LPS-32146 source formating - finders
+
+commit f1f373890d55fb83ba61f9144ad4d585fc6f0630
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Fri Feb 8 14:08:14 2013 +0100
+
+    LPS-32146 allow to display users, organizations and user groups that are member of several sites
+
+commit 32df3f729f4ba539e725f58c88466c7c173e49fa
+Author: Eduardo Garcia <eduardo.garcia@liferay.com>
+Date:   Tue Feb 5 19:17:29 2013 +0100
+
+    LPS-32192 Optimize initial capacity of StringBundler
+
+commit 46356db9a1c7b54b263628bb26702554e9834cdc
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Feb 6 16:18:47 2013 -0800
+
+    LPS-32110 Source formatting
+
+commit c9e93c09e5cbd5ba84c0fe54ebed48cf8f7c75ec
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 5 10:53:43 2013 +0800
+
+    LPS-32110 Move counter initialization from SampleSQLBuilder to DataFactory.
+
+commit a23bfbd22ed99c9128f9c5d4dbc1aa7b8a08364a
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 5 10:33:35 2013 +0800
+
+    LPS-32110 Remove unused counters.
+
+commit 0e91cec5beb73340d2096e859a4dde1b18492d8b
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Tue Feb 5 10:24:36 2013 +0800
+
+    LPS-32110 Simplify SampleSQLBuilders - no changes.
+
+commit f0188cd4236c08b24c1bb6852197241608304db1
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Feb 6 11:46:02 2013 -0800
+
+    LPS-32191 Sort
+
+commit b5124ffb374cd741752980fddd2a4a7fdc574893
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Wed Feb 6 10:01:16 2013 -0800
+
+    LPS-32191 - Source formatting
+
+commit a98baeb602547e89111537a9b04a69aadc400425
+Author: Iliyan Peychev <iliyan.peychev@liferay.com>
+Date:   Thu Jan 31 12:02:59 2013 +0100
+
+    LPS-32191 - Create getAttributes function in Util
+    
+    The function is able to filter attributes by prefix.
+    Instead prefix, a callback might be passed too.
+
+commit 2fa48df4b9dd0a909c01ff812427ce5e42abcbeb
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 31 11:05:04 2013 +0100
+
+    LPS-32191 Prototype for entity selection
+
+commit dfc6c00464da6df8853605a5fd323277c542de7b
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Wed Feb 6 17:03:44 2013 +0100
+
+    LPS-32145 Autogenerarted build lang
+
+commit 382e1ebbc5a918928351498b1b37adb44a5819d8
+Author: Sergio Sanchez <sergio.sanchez@liferay.com>
+Date:   Mon Feb 4 10:08:37 2013 +0100
+
+    LPS-32145 Create the Portal Directory portlet
+
+commit 63b5228fa6489d0349e903b785c2877838064d60
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Feb 5 17:21:29 2013 -0800
+
+    LPS-32148 Lang keys
+
+commit a728dbe8c13ccd084970e9d3ce73477ef3f8e801
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Feb 5 17:17:55 2013 -0800
+
+    LPS-32148 Remove redundant check? Can that ever be true?
+
+commit 51ae590704edb0005b3604b0e33ade39cd9b606a
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Feb 5 17:16:03 2013 -0800
+
+    LPS-32148 Slightly better perf
+
+commit 91767d422f6c1b2b192b5895cdcc6eb8d87d48a7
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Tue Feb 5 16:06:31 2013 +0100
+
+    LPS-32148 format source
+
+commit f8139d8b59ce355f1d91fa86858effe55a1e1be9
+Author: Sergio Sanchez <sergio.sanchez@liferay.com>
+Date:   Tue Feb 5 11:26:47 2013 +0100
+
+    LPS-32148 Create the Site Members Directory portlet
+
+commit 3f10315cdd47c0418b07b67f8b541d24f1c12702
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Mon Feb 4 16:32:23 2013 +0100
+
+    LPS-32147 Friends directory portlet
+
+commit b5168604dc48e352e6c2578e4caf35326f403257
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 4 15:54:41 2013 -0800
+
+    LPS-32140 Source formatting
+
+commit b7570317a1b9f8d17618f4463a06377717176947
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Sat Feb 2 22:49:35 2013 +0800
+
+    LPS-32140 Fix serialization logic
+
+commit 837fd773dfd1439f9d4d6780e8427bf49a07cd7b
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Sat Feb 2 17:18:42 2013 +0800
+
+    LPS-32140 Apply XSLTemplate.
+
+commit b82a4ed7c2be97c911cfa0e5283c9b9fab4c6514
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Sat Feb 2 17:18:21 2013 +0800
+
+    LPS-32140 Add XSLURIResolver
+
+commit 3ea941ecc5e3c912060a229829705b8df56343b2
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Feb 4 13:37:33 2013 -0800
+
+    LPS-32132 Source formatting
+
+commit 7da5e5a1697a060e4d4649aa370244820d667557
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Mon Feb 4 11:18:14 2013 +0100
+
+    LPS-32132 we need to remove/add the page because we want to test the scenario in which the layoutIds do not match
+
+commit cab0203143f3d3070bbf703901093e65729c6a49
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Feb 1 23:05:01 2013 -0800
+
+    LPS-32153 Add a line break after setQueryConfig because setStart is a logical new block that doesnt have to do with he newly created QueryConfig object. If you have a sequence of one liners, then those go together.
+    
+    Object object = new Object();
+    
+    object.setA(...)
+    object.setB(...)
+    object.setC(...)
+    
+    D d = new D();
+    
+    d.set1(...)
+    d.set2(...)
+    d.set3(...)
+    
+    object.setD(d)
+                                                         <- line break here
+    object.setE(...)
+    object.setF(...)
+    object.setG(...)
+
+commit 189c0130ca73cf22fc3d792b3cb05dc6bfa2bf76
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Feb 1 23:02:06 2013 -0800
+
+    LPS-32153 Alphabetize
+
+commit 8caa344a1b4ededb4bac578c0e78512f529921d6
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Feb 1 22:54:55 2013 -0800
+
+    LPS-32153 Remove duplicate line
+
+commit 27f979da025d93e76b21f0aa0e73e056181fe4e7
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 31 13:33:15 2013 +0100
+
+    LPS-32153 Apply gist to wiki
+
+commit 9c5b2efa86faf5ad31c8be34e1fe8822ed814b08
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 31 13:33:04 2013 +0100
+
+    LPS-32153 Apply gist to blogs
+
+commit ffd229e4b84b43d165388358b68e12048a7bb9c1
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 31 13:32:49 2013 +0100
+
+    LPS-32153 Apply gist to message boards
+
+commit f7293f0f9fe53a1ade97374fe71738c04cb0fc30
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 31 13:32:31 2013 +0100
+
+    LPS-32153 Apply gist to journal
+
+commit fbd5affcd492c368407680232ecb648e2f4df0a4
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 31 13:32:21 2013 +0100
+
+    LPS-32153 Apply gist to document library and document library display
+
+commit b2eaee81fe240037f6b86d098a593765ee01e448
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 31 13:32:00 2013 +0100
+
+    LPS-32153 Add summary to SearchResult to show the gist
+
+commit 553196819284ac3f0592343bb765af8065a357a3
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 31 17:52:02 2013 +0100
+
+    LPS-32153 source formating
+
+commit ab5373b3600917aa24c2cfb1858dbf318ae7dbf7
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 31 11:13:23 2013 +0100
+
+    LPS-32153 Apply app-view-search-entry taglib to documents and media display portlet
+
+commit f2269bf91bf2a71454ad6dd2488b347d8bdb5d75
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Feb 1 22:43:04 2013 -0800
+
+    LPS-32132 Remove need to use  both com.liferay.portal.model.PortletPreferences and javax.portlet.PortletPreferences, and other source formatting
+
+commit 633f5e0b4f546e2987f63b85b3c4ca59cec2ad0f
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Fri Feb 1 12:47:36 2013 -0800
+
+    LPS-32132 Prevent from getting "holes" in the array
+
+commit 0f40786a757b86472f919decce40088af6b84937
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Fri Feb 1 12:46:59 2013 -0800
+
+    LPS-32132 Source formatting
+
+commit 7afa8eba2c3cf735d1b8a25e4a953720fa5e60d5
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 31 15:52:20 2013 +0100
+
+    LPS-32132 replace legacy preferences before exporting
+
+commit b89851cfd020d9954b6b36034bc6adbf6cec3951
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed Jan 30 17:17:04 2013 +0100
+
+    LPS-32132 there is no need to modify the scopeId since we are using the uuid
+
+commit a3ee9d2b5a69d4045832142e40692c3afbb0f260
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed Jan 30 17:36:51 2013 +0100
+
+    LPS-32132 use layout Uuid instead of layout Id
+
+commit 4c96172e6bcfb9a10e17234ef09bccc49ec365f6
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Sat Feb 2 11:56:15 2013 +0800
+
+    LPS-32140 Undo change to XSLTemplateResource.equals(), use direct equals for better performance
+
+commit 6544b48fb1ffda0e90cc8e2ab9b96eb9742e5f6b
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Fri Feb 1 11:51:04 2013 -0800
+
+    LPS-32197
+
+commit 435443bd67146bd098eba9f357df148f2bfb8ee6
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Fri Feb 1 09:48:53 2013 -0800
+
+    LPS-32197
+
+commit 1a1b10cfa672378d25f834c24baf5c469ce5ae0d
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 31 14:46:20 2013 -0800
+
+    LPS-32122 Move logic to ServiceImpl. Business logic should generally be in there.
+
+commit a51fdd6c756843977a082cfbbb9fb77ea1a16f60
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 31 14:39:25 2013 -0800
+
+    LPS-32122 Source formatting
+
+commit b7c04ec81b04834e03607f516bccdd86815c1972
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 31 14:24:42 2013 -0800
+
+    LPS-32122 Rename getPortletRepository to getPortletRepositoryId, and deleteRepository to deletePortletRepository
+
+commit c5877dfb9fe0e992a266567d8ea4ae2ef1cfdd04
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 17:05:24 2013 +0100
+
+    LPS-32122 Autogenerated
+
+commit 4b49d2daf16b126942079af0e83fffd5e0bff9cb
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 17:05:12 2013 +0100
+
+    LPS-32122 Cannot import a LAR into another page when the exported LAR has a deleted page with WC display portlet of the same name.
+
+commit 458c72e24c49f2906616a0f5baacf2b3fab649f2
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 31 12:35:37 2013 +0100
+
+    LPS-32122 format source
+
+commit a0d1a1ac9394d551f823f74a7e29859e8939ab0b
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 17:04:01 2013 +0100
+
+    LPS-32122 Make wiki consistent with Message boards
+
+commit 7bc6b9e30ab0724ca8586f47702a4a288515ea4f
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 17:02:50 2013 +0100
+
+    LPS-32122 Add new method in PortletFileRepository API to delete the Repository
+
+commit c0604441a93a9ce0edafcb2663c6cce375644d51
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Wed Jan 30 15:56:21 2013 -0800
+
+    LPS-32197
+
+commit 5568c684effa04eb624041f99e20a756a9ccce59
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 30 16:28:55 2013 -0800
+
+    LPS-32153 Lang keys
+
+commit df14827aefa2d3a9719cd3f96bfe9976b28c8911
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 30 16:26:50 2013 -0800
+
+    LPS-32153 Source formating
+
+commit 00f35e096726ff13d27907d7e6aac151bd493ab6
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed Jan 30 18:03:16 2013 +0100
+
+    LPS-32153 source formating
+
+commit 39fcae31b1fe327b7661a1633c2ee43dde2b7cb4
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 12:42:19 2013 +0100
+
+    LPS-32153 Apply app-view-search-entry taglib to blogs search
+
+commit 454350203511ceb5f6462b28496025c1e97e4720
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 10:45:25 2013 +0100
+
+    LPS-32153 Apply app-view-search-entry taglib to message boards search
+
+commit 856ad382df934ff021dae5477ddc4883212a9252
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 29 14:14:45 2013 +0100
+
+    LPS-32153 Apply app-view-search-entry taglib to wiki search
+
+commit d25e53a7e011f47f1271678749c719b8b61b6b96
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 29 14:10:41 2013 +0100
+
+    LPS-32153 Apply changes in Journal and Document Library
+
+commit a316b714ef1ea5da08c18cbd53bb8d2880b86f87
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 29 14:10:16 2013 +0100
+
+    LPS-32153 Add support to attachments, containerName, containerType and containerIcon in app-view-search-entry taglib
+
+commit bac2c92474e904e6bf0635bd58d489a1f0f266ea
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 29 14:08:41 2013 +0100
+
+    LPS-32153 Add support to attachments in search results
+
+commit 35d6843dc33fbda0b9e6a5c6eecae521327eb5ac
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 30 13:14:48 2013 -0800
+
+    LPS-32191 Source formatting
+
+commit ac608f9fd5530d2dc7d7aaebeab30c09d799125e
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Wed Jan 30 11:04:33 2013 -0800
+
+    LPS-32191 - Source formatting
+
+commit f49f73ba87e182377ccb74c9ce542acd38958210
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 24 13:46:12 2013 +0100
+
+    LPS-32191 keep consistency with asset_browser/view.jsp
+
+commit 20e8262fa879b4ee4a8ae6af7109fcae79734aa3
+Author: Iliyan Peychev <iliyan.peychev@liferay.com>
+Date:   Wed Jan 23 17:26:44 2013 +0100
+
+    LPS-32191 - Source formatting
+
+commit be145834c64baa15f3288f00af4507898f6c3052
+Author: Igor Beslic <igor.beslic@liferay.com>
+Date:   Thu Jan 10 13:51:34 2013 +0100
+
+    LPS-32191 use dialog for organization selection
+
+commit 98a7171ca55db598b42a97c464506a33f200a6dc
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed Jan 30 13:56:57 2013 +0100
+
+    LPS-32153 source formating
+
+commit 572a6a83bb4c9792af8f5c2d21e1fbb0ff24b488
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed Jan 30 13:56:47 2013 +0100
+
+    LPS-32153 apply everywhere
+
+commit 90999ff6fb6e6f2022c07f6b6bf30fa2f97b41c9
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 10:15:08 2013 +0100
+
+    LPS-32153 Autogenerated
+
+commit fdbb6be6ca25f10983e7b7cdbde78d801c65052b
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 10:14:45 2013 +0100
+
+    LPS-32153 Add getEntryImageURL method
+
+commit 888e439bbdb883f5ca382ef39f62aaeaab3ed1cb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 30 11:04:50 2013 -0800
+
+    LPS-32153 Put constants together, then free form "text"
+
+commit 9ca8c53a72b4b555e5495e9f54d4f099aa33bebf
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 30 14:12:36 2013 +0100
+
+    LPS-32153 Fix bug with folders and file entries in hidden folders
+
+commit f3eb131d4f1fa675e011903e8cbd243853a7557f
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 29 17:27:10 2013 -0800
+
+    LPS-32140 Source formatting
+
+commit 5f6042448b4a790c9ffc3d4a66923b9cc38bd3c1
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Tue Jan 29 17:37:54 2013 +0800
+
+    LPS-32140 Source formatting
+
+commit 5a256351fca6a4e441713e1d4b89f7eb01310846
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Mon Jan 28 16:12:58 2013 +0800
+
+    LPS-32140 Add xsl template engine, will apply in later commits.
+
+commit 990e9944c5978a200692574659433f70fbb04f48
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 28 14:26:10 2013 -0800
+
+    LPS-32110 Source formatting
+
+commit 060c5338616fde69eb43534ecda0c0acf3569528
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Mon Jan 28 08:47:49 2013 +0800
+
+    LPS-32110 Remove ClassName to save classNameId directly
+
+commit 4266db09cc9aa21c6980f87602934b21ad8d3042
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Jan 25 11:26:01 2013 -0800
+
+    LPS-32143 Explicit (I usually let it autocast, but I want the dev to know that classNameId is an object)
+
+commit ffe60011859794060071dbe469e7e38e8bf0db33
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Fri Jan 25 10:17:58 2013 +0100
+
+    LPS-32143 Fix source format
+
+commit b0f954a50f70e15a32424bccdabe1af09e301746
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 24 22:51:15 2013 -0800
+
+    LPS-32143 Source formatting
+
+commit 7109ed74646f500bd44a19ab34a71226d1976ac3
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 24 22:32:08 2013 -0800
+
+    LPS-32143 Source formatting
+
+commit 3391f331f1c4c56a74bc1b1dfae9323d126fab87
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 24 16:02:28 2013 +0100
+
+    LPS-32143 Apply app-view-search-entry taglib to Journal
+
+commit 1355407b1ef82d5833fa45cdb6893856b12273ac
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 24 16:01:26 2013 +0100
+
+    LPS-32143 Make journal view consistent with document library
+
+commit fc0cdf2346f219ff1f254a56cc0e2b4bfb8835c6
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 24 16:00:54 2013 +0100
+
+    LPS-32143 Move Logic to SearchResultUtil
+
+commit a4e6e3bb719fe36fea7c6bb7c167d1fe358e52af
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 24 17:45:32 2013 +0100
+
+    LPS-32143 source formating
+
+commit 1713334146ff19a3380bea9e20a17273871c98f0
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 24 15:56:47 2013 +0100
+
+    LPS-32143 Create new method to search within the comments in Journal
+
+commit c075d71cfc682e888c75c3d8561f40499d2fe957
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 24 10:35:31 2013 +0100
+
+    LPS-32143 Reorder code
+
+commit f344025c297ce189281990a019b211c03164969f
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 24 10:31:45 2013 +0100
+
+    LPS-32143 Remove Add, sort and display buttons in search for Journal
+
+commit f4e83205ed24852c9ab04b6d623bd5cf5926414c
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 24 16:25:43 2013 +0100
+
+    LPS-32143 Upgrade process
+
+commit 5e97276e27f6336ab79762ef935ff9b62464f8bc
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Thu Jan 24 12:37:57 2013 -0800
+
+    LPS-32192 - Source formatting
+
+commit 525e7fd3b36f2b207de1cf1ce8c8f354e00c1bbd
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 24 14:29:00 2013 +0100
+
+    LPS-32192 Change asset selection type in Asset Publisher to a radio
+
+commit 85a4f69d6facd165d479f495c352919141ff8cad
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 24 09:58:56 2013 +0100
+
+    LPS-32143 revert format source
+
+commit 626235dec6f3bee6f146384e63318ede972935f4
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Wed Jan 23 18:40:29 2013 -0800
+
+    LPS-32197
+
+commit a480749cc29c469c06bc0c575dc6dc30190bf7ba
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 23 17:57:32 2013 -0800
+
+    LPS-32197 Source formatting
+
+commit 87a2a1401aa8344021d91d5cc5f058a1b37fbd75
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Wed Jan 23 16:21:51 2013 -0800
+
+    LPS-32197
+
+commit a8eb975381be0c4fba11295f279312829b5ef19e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 23 17:41:29 2013 -0800
+
+    LPS-32186 - Source formatting
+
+commit 6f4a12f2c65c1a909d41353f2bc6aa63064fc283
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Wed Jan 23 16:09:40 2013 -0800
+
+    LPS-32186 - Source formatting
+
+commit a1664a4c31acd77fab2001160c75f5c92d42c712
+Author: Zsolt Berentey <zsolt.berentey@liferay.com>
+Date:   Mon Jan 21 12:46:49 2013 +0100
+
+    LPS-32186 Add both classes if we have only one item and turn around the inserts so that we don't have to adjust the position
+
+commit 409fd742fd84c64e06fdc576fc6f94fbd35988bd
+Author: KocsisDaniel <daniel.kocsis@liferay.com>
+Date:   Mon Jan 21 10:20:09 2013 +0100
+
+    LPS-32186 Source formatting
+
+commit 5061e59d41564590dec8cf894ad355697cad3d67
+Author: Gergely Mathe <gergely.mathe@liferay.com>
+Date:   Wed Jan 9 15:32:39 2013 +0100
+
+    LPS-32186 Breadcrumb portlet generates invalid HTML when displaying only one item
+
+commit 52039e4ceebaabf1d6d25d6ed15fcb5370d228e9
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 23 14:22:57 2013 -0800
+
+    LPS-32143 Lang keys
+
+commit 8bf8d8e6a9fbb2bfc67d2d9245f6fa786376ed11
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 23 14:21:56 2013 -0800
+
+    LPS-32143 Source formatting
+
+commit 4d6c308a226344eb52b6889627d0382b943faace
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 23 14:21:30 2013 -0800
+
+    LPS-32143 Rename getDLEntries to getSearchResults, and rename SearchResult#*Message* to SearchResult#*MBMessage*
+
+commit a9e498f6622110f8219bff289adc824333dda957
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 23 14:14:01 2013 -0800
+
+    LPS-32143 Give ourselves more space
+
+commit cb44ab49d8c81ddae1ea2b2ce7c58e52a305a74e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 23 13:58:31 2013 -0800
+
+    LPS-32143 See Capability.java (or search any class with Validator.equals inside an equals method)
+
+commit 927ce40fcee7d419bd6dd53f0dda5306fc3e5cf2
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 23 13:52:16 2013 -0800
+
+    LPS-32143 Update log, since it could technically also be a mbMessage entry
+
+commit c848bc5f95c680bd4f95c14b649e1276127473e7
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Tue Jan 22 12:00:14 2013 -0800
+
+    LPS-32143 - Source formatting
+
+commit 604f71e38c3e408c9fa4e3e25d50ccd71278733b
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue Jan 22 17:43:14 2013 +0100
+
+    LPS-32143 source formating
+
+commit 9f70c7146e498244a5f5e8bf3cd4d15d8b0f32bb
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 22 13:55:39 2013 +0100
+
+    LPS-32143 Apply new taglib app-view-search-entry to DL
+
+commit 207b4bcd6c8f807634ff00f66a61a45c4834ab6c
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 22 13:44:21 2013 +0100
+
+    LPS-32143 Remove unnecessary buttons in DL search
+
+commit 9c2261132f4360a7f15f074b25832f0e10fe9d3d
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue Jan 22 17:28:13 2013 +0100
+
+    LPS-32143 source formating
+
+commit ef6733b301d99d8a3039a7d320310a43077a3886
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 23 17:34:19 2013 +0100
+
+    LPS-32143 Revert Alex changes and use the new DLSearch
+
+commit f2052a08a2246c4dcff1934609a6514a19d4c867
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 23 17:31:07 2013 +0100
+
+    LPS-32143 Add new DLSearch class to search by DLFolder and DLFileEntry
+
+commit 818ca4114a09ace6f72a0e97eeeb324b0f96ba93
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 23 17:33:50 2013 +0100
+
+    LPS-32143 Changes to support more than one class name in search
+
+commit e4c85f851c4ad006306488c67ccfe5f9592e83f5
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 22 13:42:45 2013 +0100
+
+    LPS-32143 Create new object to search results
+
+commit 06bc8250b63265b33c91439f3e6bf65632faa833
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 22 13:38:29 2013 +0100
+
+    LPS-32143 Create new taglib app-view-search-entry to show the search results
+
+commit cefd2cf586d665b51f75775dfcd7d240ab9bda2b
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 22 13:41:49 2013 +0100
+
+    LPS-32143 Fix bug with relatedEntryClassName and postProcessor methods.
+
+commit a032b0fc6057beb9e356792f8f9e2b4dfac7f506
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Wed Jan 23 12:22:48 2013 -0800
+
+    LPS-32192 - Source formatting
+
+commit ab86cedefb23ea61e542d3fa7afdd6873a49e130
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 13:53:08 2013 +0100
+
+    LPS-32192 remove ugly styling of separator in classic theme (keep the original one which is very nice)
+
+commit 02146ae83a8837d9480320ce0ce1065432f178c5
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Tue Jan 22 18:13:04 2013 -0800
+
+    LPS-32197
+
+commit ef669bb178a8cd76bb98d7ceacb7735e60d1672c
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 22 17:12:33 2013 -0800
+
+    LPS-32137 Source formatting
+
+commit dbceacf1752a212090464077ee053123e41af339
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 22 15:33:33 2013 -0800
+
+    LPS-32137 Allow regex
+
+commit 6c0fa8ed449a03d4248b85d19afa90a7d4e1520c
+Author: Raymond Auge <raymond.auge@liferay.com>
+Date:   Mon Jan 7 21:14:06 2013 -0500
+
+    LPS-32137 PACL- java.lang.SecurityException: Attempted to get environment name *
+
+commit 12e5efe3195115a5d1830297a428b7b2649d4c5e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 22 10:05:11 2013 -0800
+
+    LPS-32190 Source formatting
+
+commit ba62be0a25ba1d717a29ed92d628013d03bf3493
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 22 09:52:32 2013 -0800
+
+    LPS-32190 Source formatting
+
+commit dfee3166f8d09d090d71ad60464737f82c4fa84e
+Author: robertoDiaz <roberto.diaz@liferay.com>
+Date:   Thu Jan 10 10:11:26 2013 +0100
+
+    LPS-32190 example of how the fix works works in the document-library-display portlet, recent and mine lists.
+
+commit 857e57f514653aa41a3ce3f22aa8ffc14d101ea9
+Author: robertoDiaz <roberto.diaz@liferay.com>
+Date:   Thu Jan 10 10:05:28 2013 +0100
+
+    LPS-32190 Changing total attribute from search-container-results tag to search-container tag
+
+commit 1eb473c6ef598d745d22e7c774872b4fa3cc381e
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Mon Jan 21 17:50:40 2013 -0800
+
+    LPS-32197
+
+commit 1034ac1d93ac1887315337682bec7df0a2616beb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Sun Jan 20 21:50:27 2013 -0800
+
+    LPS-32181 Source formatting
+
+commit df78310e06a5869991f7a542be843778548937f6
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Thu Jan 10 14:43:10 2013 +0800
+
+    LPS-32181 Better cache collection usage
+
+commit 1225733276a12a81ed955679091820611f8fc04e
+Author: Tina Tian <tina.tian@liferay.com>
+Date:   Wed Jan 9 21:13:57 2013 +0800
+
+    LPS-32181 Refactor security access of template engine
+
+commit 97d487e7a54869f1bc361c3f8dee7979c26bb214
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Jan 18 14:34:58 2013 -0800
+
+    LPS-32143 source formating
+
+commit 373cbe951324544ffa883d0a865848a116448012
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri Jan 18 14:22:41 2013 +0100
+
+    LPS-32143 source formating
+
+commit 16354eed7a0bb6d8e7345354979fb17dbb58dc64
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Fri Jan 18 12:25:46 2013 +0100
+
+    LPS-32143 Search within the attachments in message boards
+
+commit 564098ff2181886858bb422e01700eac97e94e24
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Fri Jan 18 12:25:23 2013 +0100
+
+    LPS-32143 Search within the attachments in wiki
+
+commit de09c98ba428e1846f9d58f46de4d9870567537b
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Fri Jan 18 11:31:31 2013 +0100
+
+    LPS-32143 Add Support for search in the attachments
+
+commit ab9b6dcf2ce352f48b1e7bf924d60c2629bf9d15
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Fri Jan 18 10:58:13 2013 +0100
+
+    LPS-32143 Add getIndexerByPortletId method
+
+commit faa633194a3bc261107e89b3563fb61024e8bc23
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Fri Jan 18 10:24:40 2013 +0100
+
+    LPS-32153 Fix bug with comment and root message
+
+commit 83b2ba26f99f5f348ed482c69df397d22986c2f6
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 17 14:53:36 2013 -0800
+
+    LPS-32153 Lang keys
+
+commit 25e8c1bc620e23a8f1f302643800cdfe606da997
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 17 14:28:33 2013 -0800
+
+    LPS-32153 Source formating
+
+commit 5ed9a6b98398dd91979ad864c6fb3b4dda91b92a
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 17 14:09:13 2013 -0800
+
+    LPS-32153 source formating
+
+commit 1bb8ab43748a6301dc341f2c65dce1b7073604a9
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 17 10:25:34 2013 +0100
+
+    LPS-32153 source formating
+
+commit 3881eb523968c3d93b67073c93538fd11b41d926
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 17 10:22:24 2013 +0100
+
+    LPS-32153 change language keys
+
+commit 7d454e8bf5f777308fd0656854de4562e65f5e92
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 17 10:14:02 2013 +0100
+
+    LPS-32153 make logs message consistent following existing pattern
+
+commit 9286a75f7c1eddc47687f1d20c1994243d45ea49
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 17 10:44:44 2013 +0100
+
+    LPS-32153 move logic to the BaseIndexer
+
+commit 55f8f65939a4783d1e9e76aaf5be2db627c31506
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Thu Jan 17 13:41:00 2013 +0100
+
+    LPS-32153 related entities must be add the permissions of their related entity to the index
+
+commit 4f6ea9de1d9d87ff50d25f5021ae036cc749fc37
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 16 13:20:20 2013 +0100
+
+    LPS-32153 Search within the comments in Document and Media display
+
+commit 547a9c3e333d20347055e321a6a0c948407e83dc
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 16 13:19:42 2013 +0100
+
+    LPS-32153 Search within the comments in Wiki
+
+commit 3620bfbf731808fb13687e3f91b08b2afb60d71f
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 16 12:50:12 2013 +0100
+
+    LPS-32153 Search within the comments in blogs
+
+commit 72c00ade544c0adb383f4c4a06703418fd5d3439
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 16 10:19:39 2013 +0100
+
+    LPS-32153 Add support for index comments
+
+commit 2acbeaf37d568c030057e1344cce78705175b434
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 16 12:33:00 2013 +0100
+
+    LPS-32153 Add new method addRelatedEntityFields
+
+commit 736522168e087fd565578d9fe1eede75e1c12191
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Wed Jan 16 11:42:27 2013 +0100
+
+    LPS-32153 Apply search container taglib to Documents and Media display
+
+commit 2162c71ee20ca64e692e2f70f045ad5361f23d79
+Author: Bruno Basto <bruno.basto@liferay.com>
+Date:   Thu Jan 10 12:02:24 2013 -0300
+
+    LPS-32103 Clicking Add Record button in DDL with a Radio field in associated Data Definition throws console errors
+
+commit 21658e43835b819f7f2d7cad7371f8ccea9a8176
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 16 18:19:19 2013 -0800
+
+    LPS-32131
+
+commit 039e52045d1b716c353a00ae332954391cc84986
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 16 15:01:16 2013 -0800
+
+    LPS-32197 Source formatting
+
+commit 55af92a0dd00ef57170b8112de0a3d795f5ea861
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Wed Jan 16 13:39:52 2013 -0800
+
+    LPS-32197
+
+commit 54f161a8b74b3eac2496b00501a84e5c556bd749
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 16 11:51:07 2013 -0800
+
+    LPS-32159 WorkflowContext is before ServiceContext in other places, keeping consistency
+
+commit 4254c99241a0557bbb273f04fa6c6b31a1752c97
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Wed Jan 16 17:26:37 2013 +0100
+
+    LPS-32159 Autogenerated
+
+commit 279e95db542a81bba400acacc7279b0247fe7571
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed Jan 16 17:39:35 2013 +0100
+
+    LPS-32159 source formating
+
+commit 975dce0c928d6334c40cc4e0d9666e53bc50c556
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Wed Jan 16 12:24:08 2013 +0100
+
+    LPS-32159 Send notifications when adding documents using multiple uploader
+
+commit 0ccc8cfa3d7c6e3f6fc4fc2eba8aec1514e1c6ee
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Wed Jan 16 15:57:08 2013 +0100
+
+    LPS-32159 Inheritance of subscriptions in folders
+
+commit e6473bec2919d80e45a6b899de06e93bb219c7b2
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Wed Jan 16 11:47:36 2013 +0100
+
+    LPS-32159 Send notifications when adding or updating documents
+
+commit 6ff5b0878aca3360fec62b3d5b8b5d74e1c39c28
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Wed Jan 16 15:34:37 2013 +0100
+
+    LPS-32157 Subscription permission is defined at repository level (not per folder)
+
+commit ee7f2a52dafafb1b3fdbd0903ee58f264cfd9a00
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 15 22:33:53 2013 -0800
+
+    LPS-32158 Language keys
+
+commit be8f86e9c585056f63318c471c2eb3bac308acca
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 15 22:33:04 2013 -0800
+
+    LPS-32158 Source formating
+
+commit fdbc5f420c3cc36d287e03e4421f4eba4cd348a1
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue Jan 15 18:26:01 2013 +0100
+
+    LPS-32157 source formating
+
+commit 72045298c13c0cb545cc55a764407366d53b841f
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Tue Jan 15 17:35:00 2013 +0100
+
+    LPS-32158 Handle errors when some of the subscription fields are empty
+
+commit eb3fa0102b020f13a8e88b1c23c280865e630f69
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Tue Jan 15 17:21:13 2013 +0100
+
+    LPS-32158 Logic for validating display style views is no longer necessary
+
+commit a7f17df37c401b4c69f2f63eb5d4b6c69bf95144
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Tue Jan 15 17:20:35 2013 +0100
+
+    LPS-32158 Unify preferences in Documents and Media (so the configuration will appear in Control Panel)
+
+commit 8f6430809f716d6cbcc785411e7e5935cf2e67dc
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Tue Jan 15 17:19:35 2013 +0100
+
+    LPS-32158 Add configuration saving templates for email notifications when adding or updating documents (following Blogs pattern for code and Journal for templates)
+
+commit bf8d54f063a27292fe39cf8029f17efafac8266e
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Tue Jan 15 16:38:48 2013 +0100
+
+    LPS-32158 Create tabs and move existing configuration to display-settings (following Blogs pattern)
+
+commit 514283e2d1f63ac6cc7cc73231dcd022b9cc23a7
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Tue Jan 15 11:36:00 2013 +0100
+
+    LPS-32157 Fix logic
+
+commit d049ed8ade2bd6be621df0864219cfbad72b441f
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 15 22:04:12 2013 -0800
+
+    LPS-32192 Source formatting
+
+commit ea5051ed1edfe72a73b9cb12e1c9765e06809516
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 15 22:03:23 2013 -0800
+
+    LPS-32192 See dynamic_data_mapping/toolbar.jsp, we treat toolbarItem like "tab*"
+
+commit d9eeafa0acde5cbcd724b5b50b1a17b86b2fbaeb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 15 22:02:58 2013 -0800
+
+    LPS-32192 Remove unused parameters
+
+commit 38eadf35f8192ec2baa6920e75333c5261944c58
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Tue Jan 15 18:22:15 2013 +0100
+
+    LPS-32192 Source formatting
+
+commit 4560654a0cce95c114d12d06eb475a0796fe3acb
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri Jan 11 11:44:25 2013 +0100
+
+    LPS-32192 visual formating - more space to select button
+
+commit 9c399eb0093013d9c7affb8360304a9cb093a9d6
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri Jan 11 11:03:32 2013 +0100
+
+     LPS-32192 Move add button from configuration to the asset browser wiew (following the toolbar pattern)
+
+commit 93e57e8359276cae7ecb3ec0778b0bef64d0a6e4
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue Jan 15 12:56:42 2013 +0100
+
+     LPS-32192 Apply new method everywhere where we use the assetClassName to obtain the name of the entity
+
+commit a0c3d30175881d3490be63080efebffbb90324b8
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue Jan 15 12:13:16 2013 +0100
+
+     LPS-32192 Remove hardcoded behaviour - move it to the framework
+
+commit 406afca03bb02e93cd8a254bc91339c678e30303
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 17:49:56 2013 +0100
+
+    LPS-32192 Move title from the header to the popup window (less noise in the UI)
+
+commit 33cc89af16a8da184aaee45d2d4f022ab7da77d8
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 17:39:21 2013 +0100
+
+    LPS-32192 Use existing asset browser instead of a custom jsp
+
+commit 34d586047b7ebf2310ea26848537b6e4f6c72944
+Author: Tibor Lipusz <tibor.lipusz@liferay.com>
+Date:   Fri Jan 11 17:51:55 2013 +0100
+
+    LPS-32107 Make Custom Range inclusive in Search portlet to prevent IllegalArgumentException thrown by RangeFacet
+
+commit 21addc87b635cde7edf03e657911ec25004b24d8
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 15 09:45:35 2013 -0800
+
+    LPS-32143 Source formating
+
+commit c4cbc2150f24ccc5550e20452b278e68feb32fae
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue Jan 15 17:35:55 2013 +0100
+
+    LPS-32143 source formating
+
+commit d690aa6e288b31ef5794ecaacee759892b5ad9cc
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue Jan 15 16:50:51 2013 +0100
+
+    LPS-32143 source formating
+
+commit 99672e22449b4eef7fb821e9893728f060891895
+Author: ealonso <eudaldo.alonso@liferay.com>
+Date:   Tue Jan 15 16:14:42 2013 +0100
+
+    LPS-32143 Apply search container taglib to Message Boards, Wiki and Blog search page
+
+commit db38cdb32328abaa397b92415e0ac916e3f3c659
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 14 23:15:53 2013 -0800
+
+    LPS-32170 Source formatting
+
+commit bff4cbf90de203780ccd9dc18096002b55960a78
+Author: Michael Han <michael.han@liferay.com>
+Date:   Tue Jan 8 16:52:51 2013 -0600
+
+    LPS-32170 add framework for spell check and suggester
+
+commit be2445aa8caca5118d22a963509f71bb4fcdfff2
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 14 14:09:42 2013 -0800
+
+    LPS-32192 Source formatting
+
+commit 2258b26a7551121823c00c76589c106e2a013d8b
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Mon Jan 14 17:56:55 2013 +0100
+
+    LPS-32192 Format source
+
+commit 9a1eca0ed29416ccaf067f63e863958ac091e799
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 14:21:48 2013 +0100
+
+    LPS-32192 support for null tags and categories
+
+commit 773be82a6ce5ab628bccb66efb8cd8a89e5e135d
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 14:14:27 2013 +0100
+
+    LPS-32192 move method to Java class for reusing it (no logic changes)
+
+commit 26fb9b3691bd83dd45f46f1fbb38d048325ff193
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 13:04:23 2013 +0100
+
+    LPS-32192 hide pagination when not needed (reduce noise in the UI)
+
+commit ccc5f80461458cbc5a59517252a21dedacd92972
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 13:03:51 2013 +0100
+
+    LPS-32192 move buttons below the search iterator - no logic changes
+
+commit e4303fefd396c11b425c68e03941e707c1538962
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 12:56:04 2013 +0100
+
+    LPS-32192 rename "select existing" for "select" or "select in" and change the icon to make it conistant with the rest of the portal
+
+commit beb42afd829d65e1a0abf5139706823b9dcbb106
+Author: Shinn Lok <shinn.lok@liferay.com>
+Date:   Mon Jan 14 10:33:14 2013 -0800
+
+    LPS-32174 Re-add null check
+
+commit e27aa584c6ff11267a07f705b8c5136cb9bee929
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 14 10:40:50 2013 -0800
+
+    LPS-32157 Simplify the logic so that we don't have to pass in the same folder subscription class PKs every time we add a new portlet that includes folder_action.jsp (exact same performance, just simpler code)
+
+commit 25e2080e3f015d86d60470b6960f9262e6d286a6
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 14 10:37:16 2013 -0800
+
+    LPS-32157 Source formatting
+
+commit f6aba098a1203cadf868694326b0471523c8aa0f
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Mon Jan 14 18:13:58 2013 +0100
+
+    LPS-32157 autogenerated
+
+commit eafe875af1c7147d65d01d5c97ef9f4000b9e53c
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Mon Jan 14 18:11:27 2013 +0100
+
+    LPS-32157 encapsulate code in Java class
+
+commit 5528f2f5a45e9eb783c66bde67c0069c27851bfa
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Mon Jan 14 16:18:24 2013 +0100
+
+    LPS-32157 Allow subscribing only to liferay folders or internal liferay repository (not any external repositories or folders)
+
+commit 7a278cb0ac11b44e4028845a416fca72cd52d299
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Mon Jan 14 16:07:51 2013 +0100
+
+    LPS-32157 Frontend to allow subscribe or unsubscribe to specific folder or the whole repository
+
+commit 4e1420ac6733bc156bf05c8a0593156dd0992fa0
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Mon Jan 14 12:58:12 2013 +0100
+
+    LPS-32157 Backend to support subscribing to folders or the entire repository
+
+commit daa02851656f95f61662583c06ecfe121670ae92
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 14 10:28:52 2013 -0800
+
+    LPS-32192 Source formatting
+
+commit 1cd98aa2fae8d83f6f6c1961dc195d63b9ddddb6
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Mon Jan 14 18:18:45 2013 +0100
+
+    LPS-32192 Format source
+
+commit 338df87b5321ee730449821df7657127c13e49a6
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri Jan 11 12:19:42 2013 +0100
+
+    LPS-32192 improve date format in asset browser
+
+commit 2d77e21a85a702235d6751780e50c873e7600642
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri Jan 11 12:08:20 2013 +0100
+
+    LPS-32192 remove row URL (it doesn't do anything) and replace hardcoded icon for the one in the framework
+
+commit 9c5bdca4065b06fadd6889fe1e69a47a35338a0d
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri Jan 11 12:02:12 2013 +0100
+
+    LPS-32192 add modified date and move title first
+
+commit 851284a0c4831ce121d0abe0770769ec0c3a49cb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 14 10:23:59 2013 -0800
+
+    LPS-32120 Source formatting
+
+commit 184a23e4a3a9cd414693a7fc4c9f58d59b17b656
+Author: Mate Thurzo <mate.thurzo@liferay.com>
+Date:   Thu Jan 10 14:00:40 2013 +0100
+
+    LPS-32120 Source formatting
+
+commit d33e32091ff84f48d9c0169be8f92bab2ae1f07a
+Author: Gergely Mathe <gergely.mathe@liferay.com>
+Date:   Mon Jan 7 15:43:41 2013 +0100
+
+    LPS-32120 company.default.name property is not used when SetupWizard is disabled
+
+commit 72674602a89deb1767552939ea5814ed755af62f
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Jan 11 10:26:45 2013 -0800
+
+    LPS-32192 Make optgroup label 10 "-" vs 11. I've never seen us use this before, so this is the first time, might as we standardize it on more rounded number.
+
+commit 41e48f61101b63660873c1ecfb239c953fd243e4
+Author: Sergio González <sergio.gonzalez@liferay.com>
+Date:   Fri Jan 11 12:15:59 2013 +0100
+
+    LPS-32192 Source formatting
+
+commit ee2d2f4756cb171424de5923986122fff75d6a73
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 11:48:07 2013 +0100
+
+    LPS-32192 visual formating (need to work on a18y for this)
+
+commit c8fb424765ffadd138634ada02006231a20e6cf2
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 11:47:30 2013 +0100
+
+    LPS-32192 make select values consistent: current group, current page (if scope available), global
+
+commit e3c892acf9a2479681a615f9c5b905e232f56c3c
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 11:29:58 2013 +0100
+
+    LPS-32192 move select up - no logic changes
+
+commit 50da96dad38be7016fbc9dfab81608c504a06ec5
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu Jan 10 11:25:46 2013 +0100
+
+    LPS-32192 refactor code - no logic changes
+
+commit 8b37e24c5c6e8e1f072a47ac9e2a54ab0d90baa4
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 10 23:18:04 2013 -0800
+
+    LPS-32171 Source formatting
+
+commit 085767c4ec5c574b2594ce9474d884466403d81c
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Thu Jan 10 14:00:36 2013 -0800
+
+    LPS-32171 Source formatting
+
+commit bcd041695356ebe597da9ff87bdc9884a9913b5d
+Author: sherryre <sherry.yang@liferay.com>
+Date:   Wed Jan 9 17:08:54 2013 -0800
+
+    LPS-32171 fix for LAR import
+
+commit 2740275755f8319d4d2b45f3fa152bc10ef2d0b0
+Author: sherryre <sherry.yang@liferay.com>
+Date:   Wed Jan 9 17:08:33 2013 -0800
+
+    LPS-32171        NoSuchLayoutException during LAR Export, which site pages include Asset publisher portlet with Archived Setups entries
+
+commit 0edc88647df67c617827d1094ac46bafe9921dc1
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 10 17:30:39 2013 -0800
+
+    LPS-32197 Source formatting
+
+commit d1a0d6615a7cafea0f991ad8c797100887e5de51
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jan 10 17:23:00 2013 -0800
+
+    LPS-32197 Source formatting
+
+commit fa4edaa7a7cd1588d6600511df8c0c72849a403d
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Thu Jan 10 15:17:45 2013 -0800
+
+    LPS-32197
+
+commit 8c169f78d7298e4003cdc8964fcab96306d17787
+Author: Mandy Zia <mandy.zia@liferay.com>
+Date:   Wed Jan 9 11:18:11 2013 -0800
+
+    LPS-32196
+
+commit 1fad186c8a953759c5f68cc2311e6c8df7594d32
+Author: Mandy Zia <mandy.zia@liferay.com>
+Date:   Wed Jan 9 10:19:04 2013 -0800
+
+    LPS-32195
+
+commit 9d06bdcba6ba48d4fc8383ecf9fba730e82fd047
+Author: Mandy Zia <mandy.zia@liferay.com>
+Date:   Wed Jan 9 09:51:19 2013 -0800
+
+    LPS-32194
+
+commit 7b0f404829603cd11fc99ed2e6284e9a705f69c7
+Author: Mandy Zia <mandy.zia@liferay.com>
+Date:   Wed Jan 9 09:13:24 2013 -0800
+
+    LPS-32180
+
+commit 2515d07bfaaaf2cfe6172eb2e4a561e3f43fa318
+Author: Mandy Zia <mandy.zia@liferay.com>
+Date:   Tue Jan 8 17:32:20 2013 -0800
+
+    LPS-32179
+
+commit 86226207a5b6906a905346dd111810def2030cb6
+Author: Mandy Zia <mandy.zia@liferay.com>
+Date:   Wed Jan 9 12:27:17 2013 -0800
+
+    LPS-32177
+
+commit 6fe41e21c9d301e8b96bd077160a76b5ebc1e2e0
+Author: Brian Chiu <brian.chiu@liferay.com>
+Date:   Thu Jan 10 10:37:22 2013 -0800
+
+    LPS-32175
+
+commit 68627e81320a4115c9501c36af3cdabf77953636
+Author: Mandy Zia <mandy.zia@liferay.com>
+Date:   Thu Jan 10 09:43:14 2013 -0800
+
+    LPS-32175
+
+commit f9b5097ba5c1dae98237f6f213813e55a9064273
+Author: Mandy Zia <mandy.zia@liferay.com>
+Date:   Tue Jan 8 16:21:17 2013 -0800
+
+    LPS-32176
+
+commit f680077f2133ba9f21c9afaeba1fdcce28c3506e
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Wed Jan 9 19:02:57 2013 +0800
+
+    LPS-32185 Regenerate
+
+commit d3a35240a5a48f72be27fba5afe20880389af47a
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Wed Jan 9 19:02:27 2013 +0800
+
+    LPS-32185 *PersistenceImpl.find/fetchByPrimaryKey(${entity.PKClassName}) should depend on *PersistenceImpl.find/fetchByPrimaryKey(Serializable) to avoid unnessary manual boxing/unboxing
+
+commit 6688dbf8d81aa4f8c3300d8e29c377578e35a8ea
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jan 9 22:54:31 2013 -0800
+
+    LPS-32183 Regenerate
+
+commit 311afbebdce3e7632fdbea5c0255ca94a16302c2
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Wed Jan 9 17:52:09 2013 +0800
+
+    LPS-32183 BasePersistenceImplMove _removeConjunction() from concrete *PersistenceImpl to BasePersistenceImpl
+
+commit 91483b5227b13fb9ceb393334b06f5c539050363
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Tue Jan 8 16:38:27 2013 +0800
+
+    LPS-32141 Regenerate
+
+commit a4ad89b75659fd0aaecff6ec7887fbc312285e1b
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 8 19:31:16 2013 -0800
+
+    LPS-32141 Source formatting
+
+commit 9143c09328cc87bbac21395fd3376eef0c9a639f
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Tue Jan 8 16:34:33 2013 +0800
+
+    LPS-32141 No need to bind blank string query parameter, it can be embeded into SQL string
+
+commit d9f6f42bf1bf5c740c8f5d67538c37e5f619b83e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 8 17:35:09 2013 -0800
+
+    LPS-32174 Only use SB if the SQL is greater than 3 lines
+
+commit d9f6eb4b9a9921ee75c1db1f985afc3316d54845
+Author: Shinn Lok <shinn.lok@liferay.com>
+Date:   Tue Jan 8 16:27:48 2013 -0800
+
+    LPS-32174 Optimize and fix verifyContentSearch logic, old way didn't take into account different groupIds
+
+commit c451ecaac9e72cc3e1ec6930dfba7fc6e9662284
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 8 17:13:08 2013 -0800
+
+    LPS-32132 Make variable names more consistent
+
+commit 43e4cb058b082e820742ee2d98df57f1f2351be4
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 8 16:57:09 2013 -0800
+
+    LPS-32132 Move things to a constant so we know what's happening, and, we should never replace something that is similar to what is being replaced. For example, replacing "Group_Company" with "Group_235" is dangerous, because "Group_Company" may become a valid replacement in the future.
+
+commit e484f5fed9086d4a3a02f22f300e53d677c5e88e
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Tue Jan 8 09:53:17 2013 -0800
+
+    LPS-32132 Source formatting
+
+commit 60a1c2845578d565b0c2d4ebfd675d5d60acfb5f
+Author: matthewkong <matthew.kong@liferay.com>
+Date:   Mon Jan 7 18:09:02 2013 -0800
+
+    LPS-32132 source formatting
+
+commit 6403c281b9fb02dbb7fce7cb37fa6bcde952972a
+Author: sherryre <sherry.yang@liferay.com>
+Date:   Mon Jan 7 16:32:27 2013 -0800
+
+    LPS-32132 After importing .lar file, asset publisher content does not display
+
+commit 2aead336e65d5d227827c52c5a4de21bc9981d4a
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 8 14:52:04 2013 -0800
+
+    LPS-32156 Update Eclipse and NetBeans
+
+commit f089ca317b1d65b3b78713e1a3dbdfa483160375
+Author: Michael Han <michael.han@liferay.com>
+Date:   Tue Jan 8 09:33:23 2013 -0600
+
+    LPS-32156 - moving libs to solr4
+
+commit a1a34e4ff0f8461d6f71603e24d1e1c9d3618667
+Author: daledotshan <dale.shan@liferay.com>
+Date:   Tue Jan 8 17:25:03 2013 +0800
+
+    LPS-32109 add omissive fix
+
+commit 68cb94de3216b7a227eb9161b717ef161e9580ee
+Author: yuhai <hai.yu@liferay.com>
+Date:   Mon Jan 7 16:24:23 2013 +0800
+
+    LPS-32109 Web content search can't get any result when uncheck "Only show results for web content listed in a Web Content Display portlet".
+
+commit 5226ae78a8ecbe976aa6e5e3075b6d9cac8d8ba5
+Author: eric.min <eric.min@liferay.com>
+Date:   Tue Jan 8 15:20:25 2013 +0800
+
+    LPS-32138
+
+commit 78cf1f66028482f8af2f5f597fba4e96a9447ae9
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jan 8 11:21:22 2013 -0800
+
+    LPS-32116 Source formatting
+
+commit 71b0a4a57db9b0b7e4744362cd3f8b8594a68a05
+Author: yuhai <hai.yu@liferay.com>
+Date:   Mon Jan 7 17:19:38 2013 +0800
+
+    LPS-32116 The pagination function is broken in Web Content Search Portlet
+
+commit f9b8d60c8ef70cd2dfc51f6679afc50e67d90cb4
+Author: Wesley Gong <wesley.gong@liferay.com>
+Date:   Mon Jan 7 17:31:29 2013 -0800
+
+    LPS-32135 Changed parameters to java.lang.Number so null values can be passed in
+
+commit 470236061cfbab523ec0d508dbeab9280886e651
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 7 14:53:19 2013 -0800
+
+    LPS-32128
+
+commit e560715539a7965049544b654ab8c0d8880af172
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 7 11:41:04 2013 -0800
+
+    LPS-32115 Source formatting
+
+commit 0ff0ef461ce8a509e1dac666d3e5916ff9dc9fa0
+Author: eric.min <eric.min@liferay.com>
+Date:   Sat Jan 5 22:40:04 2013 +0800
+
+    LPS-32106
+
+commit be8de83d3b5fea6a4a9655529ad1ff5a6cea4b9e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 7 10:19:14 2013 -0800
+
+    LPS-32115 Source formatting
+
+commit 099796dd654845d6e196f6d4f4b94fe1b7fbbd88
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Mon Jan 7 17:07:46 2013 +0800
+
+    LPS-32115 Update indexes
+
+commit 6620a9760f31714664f44879981645f0e1cfe61d
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Mon Jan 7 16:45:41 2013 +0800
+
+    LPS-32115 Manual fix
+
+commit 8f02a0d9f44cee164b44baa13a725709bc7e875b
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Mon Jan 7 16:44:26 2013 +0800
+
+    LPS-32115 Regenerate
+
+commit b284ff029ada6fcf392c802745ecc5a02fb728fd
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Mon Jan 7 16:42:48 2013 +0800
+
+    LPS-32115 Remove unused ResourcePermission finders
+
+commit a401066b1ffef35e0a61a2b38e6156edf57b88c2
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jan 7 10:13:13 2013 -0800
+
+    LPS-32113 Source formatting
+
+commit accb403fd8fe671be20d8588bffa2239a3e625af
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Mon Jan 7 16:30:39 2013 +0800
+
+    LPS-32113 Manual fix
+
+commit c5aa8b90f679675d38e39f79b6987ed759272e2f
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Mon Jan 7 15:21:47 2013 +0800
+
+    LPS-32113 Regenerate
+
+commit e4c7a9ec3c1ddbc9eddc48b15ea8071388adf9a2
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Mon Jan 7 15:21:30 2013 +0800
+
+    LPS-32113 Fix PasswordPolicyRel finders
+
+commit 689b8c1a1912f476fcfd00310c131d984cb6da4f
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Jan 4 21:39:40 2013 -0800
+
+    LPS-32104 Source formatting
+
+commit badb1c9b160bb15ad90e97bc90cf2ba70bd0cf4b
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Fri Jan 4 18:02:47 2013 -0800
+
+    LPS-32105
+
+commit 8643a84b59f4b99700f9027c44cb325b4ab904dc
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Fri Jan 4 17:44:24 2013 -0800
+
+    LPS-32104
+
+commit fbf160efaeb97e39bbdb2fb1d3efd62dbd480708
+Author: Shinn Lok <shinn.lok@liferay.com>
+Date:   Fri Jan 4 14:27:20 2013 -0800
+
+    LPS-32102 Change to new path
+
+commit 951ac964836155f1b5327a2d99fece12ac4e4423
+Author: Amos Fong <amos.fong@liferay.com>
+Date:   Mon Jun 8 17:16:27 2009 +0000
+
+    LPS-3216 LPS-3608
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@32585 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 9ff42df4c44a0de01946f11486ad6d4df4299f8e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri May 29 18:45:00 2009 +0000
+
+    LPS-3217
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@32297 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit a5ea3ab0c6d8e10fd434b298de591cb828603ceb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri May 29 16:44:00 2009 +0000
+
+    LPS-3216 Source formatter should keep checking *Test.java in kernel
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@32272 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 5fe68786258984781cd222b7526d9da91f7221e7
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri May 29 12:27:17 2009 +0000
+
+    LPS-3216 Liferay javascript URIs contain impermissible characters (blank)
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@32256 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 42a0829c75bfbc2f95a2c94fb58e385b9dbfdc2a
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue May 5 20:25:45 2009 +0000
+
+    LPS-3212 Usability improvements for role management (Part 1/2)
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30908 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 7356d1613cf420554f8f29c13957db699647daa1
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue May 5 17:36:26 2009 +0000
+
+    LPS-3215
+    
+    http://issues.liferay.com/browse/LPS-3215
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30895 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit de77f197141f083708f19b35a61d621216b5e7bd
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue May 5 17:25:25 2009 +0000
+
+    LPS-3217 Rollback, needs a more descriptive name than "Service"
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30887 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 9bb1736bec9f0c688d8b2cf850a3527f62b0a164
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue May 5 17:09:09 2009 +0000
+
+    LPS-3218 Rollback, that is done on purpose for performance reasons, check with Eduardo, accessible themes should have their own portal_normal.vm that does not break the rule, see gmail and yahoo.com on how they break that rule as well
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30880 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 1f9905df7fa3ce8e603183ceff41eca2c93b4060
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue May 5 16:58:25 2009 +0000
+
+    LPS-3219 Missing language key in Blogs Configuration
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30875 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 0c175b854cda1ffe90b327dfc1b8713192c3bba2
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Tue May 5 16:51:31 2009 +0000
+
+    LPS-3218 There can't be content after the </body> tag
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30873 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit f62851f707135faaaf7efc60719ff5658d11b817
+Author: Alexander Chow <alexander.chow@liferay.com>
+Date:   Tue May 5 16:29:58 2009 +0000
+
+    LPS-3217
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30872 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit bb876416dc5481121f2c31ef01283e85f02ab81d
+Author: Raymond Auge <raymond.auge@liferay.com>
+Date:   Tue May 5 15:58:53 2009 +0000
+
+    LPS-3215
+    
+    http://issues.liferay.com/browse/LPS-3215
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30870 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit eb8ecaeb6330efbaa97ac9ced9fd4cf81b7ca416
+Author: Jorge Ferrer <jorge.ferrer@liferay.com>
+Date:   Tue May 5 12:14:40 2009 +0000
+
+    LPS-3212 Usability improvements for role management (Part 1/2)
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@30867 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 6cefe153dc025b3d79d9794c735e1b8c66de80e3
+Author: Raymond Auge <raymond.auge@liferay.com>
+Date:   Tue Oct 28 03:06:00 2008 +0000
+
+    LPS-321
+    
+    http://support.liferay.com/browse/LPS-321
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@22056 05bdf26c-840f-0410-9ced-eb539d925f36
