@@ -1,0 +1,61 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+    property testray.main.component.name = "Forms";
+
+    setUp {
+        TestCase.setUpPortalInstance();
+
+        User.firstLoginPG();
+
+        Navigator.openURL();
+    }
+
+    tearDown {
+        User.logoutPG();
+    }
+
+    
+    @description = "Create, translate, fill out and validate a Form"
+    @priority = "5"
+    test CreateAndTranslateForm {
+
+        MyMacroFile.CreateEnglishForm();
+
+        MyMacroFile.AddFrenchTranslation();
+
+        MyMacroFile.AddPortugueseTranslation();
+
+        Form.publishForm();
+
+        FormsAdminNavigator.gotoPublishedForm();
+
+        MyMacroFile.AssertLanguageAndFillOutFormEnglish();
+
+        Form.submitAgain();
+
+        MyMacroFile.AssertLanguageAndFillOutFormFrench();
+
+        Form.submitAgain();
+        
+        MyMacroFile.AssertLanguageAndFillOutFormPortuguese();
+
+        Navigator.openURL();
+
+        MyMacroFile.GoToViewEntries();
+
+    }
+
+
+
+    
+}
+
+
+
+
+
+
+
+
+
+    
