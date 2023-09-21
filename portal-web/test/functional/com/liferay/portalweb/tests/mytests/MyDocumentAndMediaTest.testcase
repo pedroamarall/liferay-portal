@@ -1,0 +1,144 @@
+@component-name = "portal-document-management"
+definition {
+
+	property testray.main.component.name = "Document Management";
+
+	var dmDocumentTitle = "DM Document Title";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Upload File to DM"
+	@priority = 5
+	test CanCreateDM {
+		task ("Given The DM Portlet is added to the page") {
+			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+		}
+
+		task ("When The user create a Documents and Media (Upload the file)") {
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Guest",
+				mimeType = "image/png",
+				sourceFileName = "really-youness.png");
+
+			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+		}
+
+		task ("Then The Documents and Media should display on the page this is where the tester will add code to assert the") {
+			AssertElementPresent(
+				key_dmDocumentTitle = ${dmDocumentTitle},
+				locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE");
+		}
+	}
+
+	@description = "Delete File From DM"
+	@priority = 5
+	test CanDeleteDM {
+		task ("the DM Portlet is added to the page and create 2 Documents and Media (Upload the file)") {
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentTitle = "Should Not Be Deleted",
+				groupName = "Guest",
+				mimeType = "image/png",
+				sourceFileName = "really-youness 2.png");
+
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Guest",
+				mimeType = "image/png",
+				sourceFileName = "really-youness.png");
+
+			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+		}
+
+		task ("the User delete a document and media") {
+			JSONDocument.deleteFile(
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Guest");
+
+			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+		}
+
+		task ("DM1 Should Not Exist and Second Should Exist") {
+			AssertElementNotPresent(
+				key_dmDocumentTitle = ${dmDocumentTitle},
+				locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE");
+
+			AssertElementPresent(
+				key_dmDocumentTitle = "Should Not Be Deleted",
+				locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE");
+		}
+	}
+
+	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel!"
+	@priority = 5
+	test CanDownloadDM {
+		task ("the DM Portlet is added to the page and create 2 Documents and Media (Upload the file)") {
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentTitle = "DM Document Title 2",
+				groupName = "Guest",
+				mimeType = "image/png",
+				sourceFileName = "really-youness 2.png");
+
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Guest",
+				mimeType = "image/png",
+				sourceFileName = "really-youness.png");
+
+			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+		}
+
+		task ("the user download document from DMTest1") {
+			DMDocument.downloadCP(
+				dmDocumentSize = "9 KB",
+				dmDocumentTitle = "DM Document Title");
+		}
+
+		task ("the file that was downloaded must be from DMTest1 And DMTest2 file should not be downloaded") {
+			DMDocument.assertFileNameFromTempFolder(fileName = "really-youness.png");
+
+			DMDocument.assertNoFileNameFromTempFolder(fileName = "really-youness 2.png");
+		}
+	}
+
+	@description = "Edit File in DM"
+	@priority = 5
+	test CanEditDM {
+		task ("the DM Portlet is added to the page and create Document and Media (Upload the file)") {
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Guest",
+				mimeType = "image/png",
+				sourceFileName = "really-youness.png");
+
+			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+		}
+
+		task ("Edit The Uploaded File!") {
+			DMDocument.editCP(
+				dmDocumentFileEdit = "really-youness-edit.png",
+				dmDocumentFileNameEdit = "really-youness-edit.png",
+				dmDocumentTitle = ${dmDocumentTitle},
+				dmDocumentTitleEdit = "Edited Title");
+		}
+
+		task ("File is edited") {
+			AssertElementPresent(
+				key_dmDocumentTitle = "Edited Title",
+				locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE");
+		}
+	}
+
+}
