@@ -1,0 +1,47 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Set Screen size to custom and validate values"
+	@priority = 5
+	test SetScreenSizeAndValidateValues {
+		var width = 1080;
+		var height = 1920;
+
+		MySimulatorMacro.EditSimulationSizeAndClose(
+			height = ${height},
+			width = ${width});
+
+		MySimulatorMacro.ValidateSimulationValues(
+			height = ${height},
+			width = ${width});
+	}
+
+	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel!"
+	@priority = 5
+	test ValidateConfigurationStringAtControlPanel {
+		var key_category = "Configuration";
+
+		ApplicationsMenuHelper.openApplicationsMenu();
+
+		ApplicationsMenu.gotoPanel(panel = "Control Panel");
+
+		AssertElementPresent(locator1 = "MyCustomPath#CONFIGURATION");
+	}
+
+}
