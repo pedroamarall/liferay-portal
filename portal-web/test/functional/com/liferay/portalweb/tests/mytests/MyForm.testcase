@@ -1,0 +1,167 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutPG();
+	}
+
+	@description = "Create a Form with a Text field and a Numeric field"
+	@priority = 5
+	test CreateFormWithTwoFields {
+		FormsAdmin.addForm(formName = "Form 1");
+
+		Form.editName(formTitle = "Form 1");
+
+		Form.editDescription();
+
+		Form.editPageTitle(
+			formPageName = "Created Form Page Name",
+			formTitleNumber = 1);
+
+		Form.addTextField(fieldPositionNumber = 0);
+
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+		//FormFields.enableSwitch(fieldName = "required");
+
+		Form.closeSidebar();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.closeSidebar();
+
+		Form.save();
+	}
+
+	@description = "Publish the Form > Navigate to the published Form and validate the title translations when changing the form language on the page"
+	@priority = 5
+	test PublishFormAndValidateTitleTranslations {
+		FormsAdmin.addForm(formName = "Form 1");
+
+		Form.editName(formTitle = "Form 1");
+
+		Form.editDescription();
+
+		Form.editPageTitle(
+			formPageName = "Created Form Page Name",
+			formTitleNumber = 1);
+
+		Form.addTextField(fieldPositionNumber = 0);
+
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+		//FormFields.enableSwitch(fieldName = "required");
+
+		Form.closeSidebar();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.closeSidebar();
+
+		Form.save();
+
+		Form.addTranslation(localizedLanguage = "Arabic (Saudi Arabia)");
+
+		FormViewBuilder.editFieldLabel(
+			fieldLabel = "Full Name",
+			label = "الاسم الكامل");
+
+		FormViewBuilder.editFieldLabel(
+			fieldLabel = "Age",
+			label = "العمر");
+
+		//FormFields.editText(
+		//	fieldName = ${textFieldName1},
+		//	fieldValue = "الاسم الكامل");
+		//Form.editFieldLabelMetal(fieldValue = "الاسم الكامل");
+
+		Form.closeSidebar();
+
+		Form.save();
+
+		Form.publishForm();
+
+		FormsAdminNavigator.gotoPublishedForm();
+
+		FormViewBuilder.editText(
+			fieldName = "Full Name",
+			fieldValue = "Ilyass Hossni");
+
+		FormViewBuilder.editText(
+			fieldName = "Age",
+			fieldValue = 21);
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+
+		//FormPortlet.changeLocale(key_locale = "ar-SA");
+
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "العربية-السعودية");
+
+		AssertTextPresent(value1 = "الاسم الكامل");
+
+		AssertTextPresent(value1 = "العمر");
+
+		FormViewBuilder.editText(
+			fieldName = "الاسم الكامل",
+			fieldValue = "أحمد بن محمد الحمداني الجيلالي آل سعود");
+
+		FormViewBuilder.editText(
+			fieldName = "العمر",
+			fieldValue = 21);
+
+		FormPortlet.clickSubmit();
+
+		// NewLanguage = "العربية-المملكة العربية السعودية"
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Forms");
+
+		//FormsAdminNavigator.gotoEditFormByName(formName = "Form 1");
+
+		FormsAdminNavigator.gotoViewEntries();
+
+		AssertTextPresent(value1 = "Ilyass Hossni");
+
+		AssertTextPresent(value1 = 21);
+
+		AssertTextPresent(value1 = "أحمد بن محمد الحمداني الجيلالي آل سعود");
+
+		//Pause(locator1 = "20000");
+		//FormsAdminNavigator.gotoEntries();
+		//Pause(locator1 = "20000");
+		//FormViewBuilder.viewSummaryEntry(
+		//	key_card = "Text",
+		//	key_entryName = "Ilyass Hossni",
+		//	key_entryNumber = "1 entry");
+
+		Pause(locator1 = 6000);
+	}
+
+}
