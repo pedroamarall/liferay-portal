@@ -1,0 +1,43 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+
+		//TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutPG();
+	}
+
+	@description = "Add some fields in form part"
+	@priority = 5
+	test CreateForm {
+		TestForm.clickOnForm();
+	}
+
+	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
+	@priority = 5
+	test ValidateConfigurationStringAtControlPanel {
+
+		//ApplicationsMenu.gotoPortlet(
+		//	category = "Configuration",
+		//	panel = "Control Panel",
+		//portlet = "System Settings");
+
+		ApplicationsMenuHelper.openApplicationsMenu();
+
+		ApplicationsMenu.gotoPanel(panel = "Control Panel");
+
+		AssertElementPresent(locator1 = "MyTest#CONFIGURATION");
+	}
+
+	
+
+}
