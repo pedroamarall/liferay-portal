@@ -1,0 +1,42 @@
+definition {
+
+	macro addBlogEntry {
+		var entryContent = "Blogs Entry Content";
+		var entryTitle = "Blogs Entry Title";
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoAddEntry();
+
+		BlogsEntry.addEntryContent(
+			entryContent = ${entryContent},
+			entryTitle = ${entryTitle});
+
+		PortletEntry.publish();
+	}
+
+	macro deleteBlogEntry {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Delete",
+			rowEntry = "Blogs Entry Title");
+	}
+
+	macro editBlogEntry {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "Blogs Entry Title");
+
+		BlogsEntry.editTitle(
+			entryTitle = "Blogs Entry Title",
+			entryTitleEdit = "New title");
+
+		Button.clickPublish();
+	}
+
+	macro searchBlogEntry {
+		BlogsEntry.searchCP(
+			entrySearchTerm = "Blogs",
+			entryTitle = "Blogs Entry Title");
+	}
+
+}
