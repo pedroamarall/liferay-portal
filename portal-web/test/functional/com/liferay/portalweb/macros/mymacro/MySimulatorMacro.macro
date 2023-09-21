@@ -26,7 +26,7 @@ definition{
         );
         Click(locator1="ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
         Click(
-            locator1="ControlMenuPreviewPanel#CLOSE_BUTTON"
+            locator1="MyCustomPath#CLOSE_BUTTON"
             );
     }
 
@@ -35,7 +35,7 @@ definition{
         var message = "Custom Size ${height}x${width} Applied";
         MySimulatorMacro.ClickSimulation();
         AssertTextEquals(
-            locator1="ControlMenuPreviewPanel#ALERT_SIZE",
+            locator1="MyCustomPath#ALERT_SIZE",
             value1=${message}
         );
     }
