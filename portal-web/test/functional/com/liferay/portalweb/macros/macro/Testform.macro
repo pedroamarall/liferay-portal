@@ -1,0 +1,113 @@
+definition {
+
+	macro Createforme {
+		FormsAdmin.addForm();
+
+		Form.editName(formName = "form ENG");
+
+		Form.editDescription(formDescription = "form  ENG");
+
+		Form.editPageTitle(
+			formPageName = "Created Form EN",
+			formTitleNumber = 1);
+
+		Form.gotoAddField(
+			fieldPositionNumber = 0,
+			fieldType = "Text");
+
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+		Form.closeSidebar();
+
+		Form.save();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.save();
+	}
+
+	macro PublishandValidate {
+		Form.publishForm();
+
+		FormsAdminNavigator.gotoPublishedForm();
+
+		//FormsAdminNavigator.gotoPreviewForm();
+		//Navigator.selectSpecificWindow(windowTitle = "Form - Forms");
+
+		FormFields.editText(
+			fieldName = "Full Name",
+			fieldValue = "Adnan");
+
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 22);
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "français-France");
+
+		FormFields.editText(
+			fieldName = "Nom Prenom",
+			fieldValue = "Adnan");
+
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 22);
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoViewEntries();
+
+		Pause(locator1 = 30000);
+
+		//FormViewBuilder.validateFieldLabel(fieldLabel = "Nom Prenom");
+		//FormViewBuilder.validateFieldLabel(fieldLabel = "Age");
+
+	}
+
+	macro Translatefields {
+		Form.addTranslation(localizedLanguage = "French (France)");
+
+		//Form.editFieldLabelMetal(fieldValue = "Nom Prenom");
+		//Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.editName(formName = "form frc ");
+
+		Form.editDescription(formDescription = "form en frc");
+
+		Form.editPageTitle(
+			formPageName = "Creation formulaire en frc",
+			formTitleNumber = 1);
+
+		Click(
+			key_fieldName = "Full Name",
+			locator1 = "FormFields#TEXT_FIELD");
+
+		Form.editFieldLabelMetal(fieldValue = "Nom Prenom");
+
+		Click(
+			key_fieldName = "Age",
+			locator1 = "FormFields#TEXT_FIELD");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.save();
+	}
+
+}

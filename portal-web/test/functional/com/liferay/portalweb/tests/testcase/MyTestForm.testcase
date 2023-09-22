@@ -1,0 +1,31 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+
+		//TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Create new form"
+	@priority = 5
+	test Createform {
+		testform.Createforme();
+
+		testform.Translatefields();
+
+		testform.PublishandValidate();
+	}
+
+}
