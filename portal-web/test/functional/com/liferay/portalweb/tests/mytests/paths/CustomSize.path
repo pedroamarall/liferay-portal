@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>CustomSize</title>
+</head>
+
+<body>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CustomSize</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>APPLY_CUSTOM</td>
+	<td>//div[contains(@class,'autofit-col autofit-col-expand')]//div[contains(.,'Custom Size 1920x1080 Applied')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

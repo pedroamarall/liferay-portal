@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>ConfigurationPanel</title>
+</head>
+
+<body>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ConfigurationPanel</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>CONFIGURATION_H2</td>
+	<td>//*[@id="nav_control_panel.configuration"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BUTTON_MENU</td>
+	<td>//*[@id="controlMenu"]/div[4]/ul/li[7]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BUTTON_CONTROL</td>
+	<td>//*[@id="_com_liferay_product_navigation_applications_menu_web_internal_portlet_ProductNavigationApplicationsMenuPortlet_tab_2"]/button</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
