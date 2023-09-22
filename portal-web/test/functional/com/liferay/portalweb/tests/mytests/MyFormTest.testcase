@@ -1,0 +1,39 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Verify if Form Translation Can be added and exist"
+	@priority = 5
+	test CreateFormAddTranslationThenVerifyIfTranslationExist {
+
+		//task ("Given This new form and I add Fields To the form") {
+		MyFormMacro.CreateFormWithTextAndNumeric();
+
+		//};
+		//task ("When I add Translater and I Publish") {
+		MyFormMacro.AddAFormTranslationAndPublish();
+
+		//};
+		//task ("Then I verify if Translation exist") {
+		MyFormMacro.VerifyIfTranslationExist();
+
+		//};
+
+	}
+
+}
