@@ -1,0 +1,127 @@
+definition {
+
+	macro Applycustomsize {
+		Click(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
+	}
+
+	macro ClosePanel {
+		Click(locator1 = "ControlMenuPreviewPanel#CLOSE_PANEL");
+	}
+
+	macro CreateNewForm {
+		FormsAdmin.addForm();
+
+		Form.editName(formName = "First Form");
+
+		Form.editDescription(formDescription = "Form Description 1");
+
+		Form.gotoAddField(
+			fieldPositionNumber = 0,
+			fieldType = "Text");
+
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+		Form.save();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.save();
+	}
+
+	macro Opensumilation {
+		Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
+
+		Click(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+	}
+
+	macro Previewsize {
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = 1920);
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+			value1 = 1080);
+	}
+
+	macro TranslateFormFrench {
+		Form.addTranslation(localizedLanguage = "French (France)");
+
+		Click(
+			key_name = "Full Name",
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = "Label",
+			fieldValue = "nom et prénom");
+
+		Click(
+			key_name = "Age",
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		Form.editFieldLabelMetal(fieldValue = "âge");
+
+		Form.save();
+	}
+
+	macro ValidateApply {
+		AssertTextEquals(
+			locator1 = "ControlMenuPreviewPanel#VALIDATE_VALUES",
+			value1 = "Custom Size 1920x1080 Applied");
+	}
+
+	macro ValidateFormPublish {
+		Form.publishForm();
+
+		FormsAdminNavigator.gotoPublishedForm();
+
+		FormFields.editText(
+			fieldName = "Full Name",
+			fieldValue = "Published Paragraph entry");
+
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 12);
+
+		FormPortlet.submitSuccessfully();
+
+		Form.submitAgain();
+
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "français-France");
+
+		FormFields.editText(
+			fieldName = "nom et prénom",
+			fieldValue = "Entrée de paragraphe publié");
+
+		FormFields.editText(
+			fieldName = "âge",
+			fieldValue = 12);
+
+		FormPortlet.submitSuccessfully();
+
+		Form.submitAgain();
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoViewEntries();
+
+		FormsAdminNavigator.gotoBack();
+	}
+
+}

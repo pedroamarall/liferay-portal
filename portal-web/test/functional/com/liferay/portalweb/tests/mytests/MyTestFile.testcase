@@ -1,0 +1,64 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Set Screen size to custom and validate values"
+	@priority = 5
+	test SetScreenSizeAndValidateValues {
+		task ("Given the simulation is open") {
+			Testy.Opensumilation();
+		}
+
+		task ("When the Simulation menu is opened and custom screen size is selected") {
+			Testy.Previewsize();
+
+			Testy.Applycustomsize();
+		}
+
+		task ("And the Simulation menu is closed") {
+			Testy.ClosePanel();
+		}
+
+		task ("And the Simulation menu is opened again") {
+			Testy.Opensumilation();
+		}
+
+		task ("Then assert that the values defined in step 4 persisted") {
+			Testy.ValidateApply();
+		}
+	}
+
+	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
+	@priority = 5
+	test ValidateConfigurationStringAtControlPanel {
+		task ("Given the application menu is open") {
+			ApplicationsMenuHelper.openApplicationsMenu();
+		}
+
+		task ("When the Application Menu is opened and Control Panel is accessed") {
+			ApplicationsMenu.gotoPanel(
+				category = "Configuration",
+				panel = "Control Panel");
+		}
+
+		task ("Then validate that the 'CONFIGURATION' section is displayed") {
+			AssertElementPresent(locator1 = "MyTests#CONFIGURATION");
+		}
+	}
+
+}
