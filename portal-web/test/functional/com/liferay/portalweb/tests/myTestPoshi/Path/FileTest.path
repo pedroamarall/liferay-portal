@@ -14,26 +14,15 @@
 <!-- Control pannel and configuration -->
 
 <tr>
-	<td>CLICK_MENU</td>
-	<td>//*[@id="controlMenu"]/div[4]/ul/li[7]/button</td>
-	<td></td>
-</tr>
-
-
-<tr>
 	<td>CLICK_CTP</td>
 	<td>//*[@id="_com_liferay_product_navigation_applications_menu_web_internal_portlet_ProductNavigationApplicationsMenuPortlet_tab_2"]/button</td>
 	<td></td>
 </tr>
-
-
-
 <tr>
 	<td>CHECK_CONF</td>
 	<td>//*[@id="nav_control_panel.configuration"]</td>
 	<td></td>
 </tr>
-
 
 <!-- Part of Screen size -->
 
@@ -42,25 +31,21 @@
 	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationToggleId"]</td>
 	<td></td>
 </tr>
-
 <tr>
 	<td>CLICK_CUSTOM</td>
 	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationDeviceContainer"]/div/div[1]/button[5]</td>
 	<td></td>
 </tr>
-
 <tr>
 	<td>INPUT_WIDTH</td>
 	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_width"]</td>
 	<td></td>
 </tr>
-
 <tr>
 	<td>INPUT_HEIGHT</td>
 	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_height"]</td>
 	<td></td>
 </tr>
-
 
 </tbody>
 </table>
