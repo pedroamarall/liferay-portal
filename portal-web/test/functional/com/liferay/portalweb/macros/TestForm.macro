@@ -1,0 +1,67 @@
+definition {
+
+	macro clickOnForm {
+		FormsAdmin.addForm();
+
+		Form.editPageTitle(
+			formPageName = "English",
+			formTitleNumber = 1);
+
+		Form.gotoAddField(
+			fieldPositionNumber = 0,
+			fieldType = "Text");
+
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+		Form.save();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.save();
+
+		// Select Form Translation
+
+		Form.addTranslation(localizedLanguage = "French (France)");
+
+		Form.editPageTitle(
+			formPageName = "French",
+			formTitleNumber = 1);
+
+		Click(
+			key_fieldName = "Full Name",
+			locator1 = "FormFields#TEXT_FIELD");
+
+		Form.editFieldLabelMetal(fieldValue = "nom et prénom");
+
+		Click(
+			key_fieldName = "Age",
+			locator1 = "FormFields#TEXT_FIELD");
+
+		Form.editFieldLabelMetal(fieldValue = "âge");
+
+		Form.save();
+	}
+
+	macro PublishandValidate {
+		Form.publishForm();
+
+		//FormsAdminNavigator.gotoPublishedForm();
+
+		FormsAdminNavigator.gotoPreviewForm();
+
+		Navigator.selectSpecificWindow(windowTitle = "Form - Forms");
+
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "français-France");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = "nom et prénom");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = "âge");
+	}
+
+}
