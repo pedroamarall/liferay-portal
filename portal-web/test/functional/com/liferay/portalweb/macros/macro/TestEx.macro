@@ -1,0 +1,49 @@
+definition {
+
+	macro ClickCustom {
+		Click(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+	}
+
+	macro CliqueCustom {
+		Click(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+	}
+
+	macro CloseMenu {
+		Click(locator1 = "ControlMenuPreviewPanel#CLOSE_CUSTOM_SIZE");
+	}
+
+	macro EnteringValues {
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = 1920);
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+			value1 = 1080);
+	}
+
+	macro OpenSimulation {
+		Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
+	}
+
+	macro ValidateValues {
+		Click(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
+	}
+
+	macro VerifiaValues {
+		AssertTextEquals(
+			locator1 = "ControlMenuPreviewPanel#TEXT_EQUALS",
+			value1 = "Custom Size 1920x1080 Applied");
+	}
+
+}
