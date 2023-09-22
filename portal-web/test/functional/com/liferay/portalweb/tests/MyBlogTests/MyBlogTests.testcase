@@ -1,0 +1,161 @@
+@component-name = "portal-lima"
+definition {
+
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if (${testPortalInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@description = "Can Create a Blog"
+	@priority = 5
+	test CanCreateBlog {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Blogs");
+
+		task ("Add a blogs entry") {
+			Blogs.addEntry(
+				entryContent = "1st blog",
+				entryTitle = "blog test");
+		}
+
+		task ("Blog add sucessfuly") {
+			Blogs.viewEntryPresent(entryTitle = "blog test");
+		}
+	}
+
+	test CanDeleteBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("And 1st & 2nd blogs entry are added") {
+			Blogs.addEntry(
+				entryContent = "1st Blog",
+				entryTitle = "Blog1");
+		}
+
+		task ("The first Blog Entry added sucessfuly") {
+			Blogs.viewEntryPresent(entryTitle = "Blog1");
+		}
+
+		Blogs.addEntry(
+			entryContent = "2nd Blog",
+			entryTitle = "Blog2");
+
+		task ("The second Blog added sucessfuly") {
+			Blogs.viewEntryPresent(entryTitle = "Blog2");
+		}
+
+		task ("when User deletes Blog Entry 1") {
+			LexiconEntry.gotoEntryMenuItemNoError(
+				menuItem = "Delete",
+				rowEntry = "Blog1");
+		}
+
+		task ("Then Blog Entry 1 sould not exist") {
+			LexiconList.viewListEntryNotPresent(listEntry = "Blog1");
+		}
+
+		task ("And Blog entry 1 sould exist") {
+			Blogs.viewEntryPresent(entryTitle = "Blog2");
+		}
+	}
+
+	test CanEditBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			Blogs.addEntry(
+				entryContent = "1st Blog",
+				entryTitle = "Blog1");
+		}
+
+		task ("And a Blog Entry exists") {
+			Blogs.viewEntryPresent(entryTitle = "Blog1");
+		}
+
+		task ("When User Edit the Blog Entry") {
+			LexiconEntry.gotoEntry(rowEntry = "Blog1");
+
+			BlogsEntry.editEntryContent(
+				entryContent = "1st Blog",
+				entryContentEdit = "1st Blog edit",
+				entryTitle = "Blog1",
+				entryTitleEdit = "Blog1 Edit");
+
+			PortletEntry.publish();
+		}
+
+		task ("Then: the Blog Entry should be edited") {
+			Blogs.viewEntryPresent(entryTitle = "Blog1 Edit");
+		}
+	}
+
+	test CanSearchBlogs {
+		task ("Given the Blogs Portlet is added to the page") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("And the first blog entry added") {
+			Blogs.addEntry(
+				entryContent = "1st Blog",
+				entryTitle = "Blog1");
+		}
+
+		task ("Blog add sucessfuly") {
+			Blogs.viewEntryPresent(entryTitle = "Blog1");
+		}
+
+		task ("And the second blog entry added") {
+			Blogs.addEntry(
+				entryContent = "hhhhhhhhhhhhh",
+				entryTitle = "hhhhh");
+		}
+
+		task ("Blog add sucessfuly") {
+			Blogs.viewEntryPresent(entryTitle = "hhhhh");
+		}
+
+		task ("When the user searches for Blog Entry 1") {
+			BlogsEntry.searchCP(
+				entryContent = "1st Blog",
+				entrySearchTerm = "Blog1",
+				entryTitle = "Blog1");
+		}
+
+		task ("Then Blog Entry 1 should display") {
+			Blogs.viewEntryPresent(entryTitle = "Blog1");
+		}
+
+		task ("And Blog Entry 2 should not display") {
+			LexiconList.viewListEntryNotPresent(listEntry = "hhhhh");
+		}
+	}
+
+}
