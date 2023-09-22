@@ -1,0 +1,75 @@
+definition{
+  macro CreateFormWithTextAndNumeric {
+    var formName = "United States";
+    var formDescription = "This Form for a testcase in English.";
+    var formPageName = "English";
+    var textLabel = "Full Name";
+    var numericLabel = "Age";
+
+    FormsAdmin.addForm();
+    Form.editName(formName = ${formName});
+    Form.editDescription(formDescription = ${formDescription});
+    Form.editPageTitle(
+        formPageName = ${formPageName},
+        formTitleNumber = 1
+    );
+    Form.gotoAddField(
+        fieldPositionNumber = 0,
+        fieldType = "Text"
+    );
+    FormFields.editText(
+        fieldName = "Label",
+        fieldValue = ${textLabel}
+    );
+    Form.save();
+    Form.gotoAddField(
+        fieldPositionNumber = 1,
+        fieldType = "Numeric"
+    );
+    FormFields.editText(
+        fieldName = "Label",
+        fieldValue = ${numericLabel}
+    );
+    Form.save();
+  }
+  macro AddAFormTranslationAndPublish {
+    var localizedLanguage = "French (France)";
+    var formName = "France";
+    var formDescription = "Cet Formulaire est pour un test en Francais.";
+    var formPageName = "Francais";
+    var textLabel = "Nom et prénom";
+    var numericLabel = "âge";
+
+    Form.addTranslation(localizedLanguage = ${localizedLanguage});
+    Form.editName(formName = ${formName});
+    Form.editDescription(formDescription = ${formDescription});
+    Form.editPageTitle(
+        formPageName = ${formPageName},
+        formTitleNumber = 1
+    );  
+    Click(
+        locator1 = "FormFields#TEXT_FIELD",
+        key_fieldName = "Full Name"
+    );
+    FormFields.editText(
+        fieldName = "Label",
+        fieldValue = ${textLabel}
+    );
+    Click(
+        locator1 = "FormFields#TEXT_FIELD",
+        key_fieldName = "Age"
+    );
+    FormFields.editText(
+        fieldName = "Label",
+        fieldValue = ${numericLabel}
+    );
+
+    Form.save();
+    Form.publishForm();   
+  }
+  macro VerifyIfTranslationExist {
+    FormsAdminNavigator.gotoPreviewForm();
+    Navigator.selectSpecificWindow(windowTitle = "Form - Forms");
+    FormPortletConfiguration.viewTranslationLanguage(language = "français-France");
+  }
+}
