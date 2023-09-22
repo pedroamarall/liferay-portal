@@ -1,0 +1,35 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Verify that a Form can be created"
+	test NewFormCreated {
+		task ("Given that a form is created") {
+			Testy.CreateNewForm();
+		}
+
+		task ("When the user translates the form into French") {
+			Testy.TranslateFormFrench();
+		}
+
+		task ("Then assert that two forms are published simultaneously in both English and French") {
+			Testy.ValidateFormPublish();
+		}
+	}
+
+}
