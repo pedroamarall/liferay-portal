@@ -1,0 +1,130 @@
+definition{
+    macro selectCustomOption {
+		Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
+        
+        Click(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+	}
+
+    macro modifyWithHeightAndAplyCustomSize{
+        TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+        Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = 1920);
+        TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+        
+        Type.sendKeys(
+            locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+            value1 = 1080);
+        
+        Click(locator1 = "myTests#APPLY_CUSTOM_SIZE");
+    }
+
+    macro closeSumulationMenu{
+        Click(locator1 = "myTests#CLOSE_SUMULATION");
+    }
+
+    macro validateTheAlerte{
+        AssertTextEquals(
+            locator1 = "myTests#ALERTE",
+            value1 = "Custom Size 1920x1080 Applied"
+        );
+    }
+
+    // macro CreateFormWithfields{
+    //     FormsAdmin.addForm();
+
+	// 	Form.editName(formName = "Form 1");
+    //     Form.editPageTitle(
+	// 		formPageName = "English",
+	// 		formTitleNumber = 1);
+	// 	Form.gotoAddField(
+	// 		fieldPositionNumber = 0,
+	// 		fieldType = "Text");
+    //     Form.editFieldLabelMetal(fieldValue = "Full Name");
+    //     Form.closeSidebar();
+    //     Form.save();
+    //     Form.gotoAddField(
+	// 		fieldPositionNumber = 1,
+	// 		fieldType = "Numeric");
+    //     // var fieldNumericField = FormFields.getFieldName();  
+    //     Form.editFieldLabelMetal(fieldValue = "Age");
+    //     Form.save();
+
+    // }
+    // macro TranslateLabelFeilds{
+    //     Form.addTranslation(localizedLanguage = "French (France)");
+    //     Form.editPageTitle(
+	// 		formPageName = "Francais",
+	// 		formTitleNumber = 1);
+	// 	Click(
+	// 		key_name = "Full Name",
+	// 		locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+    //     FormFields.editText(
+    //         fieldName = "Label",
+    //         fieldValue = "nom et prénom"
+    //     );
+    //     // FormViewBuilder.editFieldLabel(
+	// 	// 	fieldLabel = "Full Name",
+	// 	// 	label = "nom et prénom"
+    //     // );
+    //     // Form.save();
+    //     Click(
+	// 		key_name = "Age",
+	// 		locator1 = "FormFields#FIELD_TARGET_LABEL");
+    //     // Form.editFieldLabelMetal(fieldValue = "âge");
+    //     FormFields.editText(
+    //         fieldName = "Label",
+    //         fieldValue = "âge"
+    //     );
+    //     // FormViewBuilder.editFieldLabel(
+	// 	// 	fieldLabel = "Age",
+	// 	// 	label = "âge"
+    //     // );
+	// 	Form.save();
+
+
+    // }
+    // macro PublishTheFormAndValidate{
+    //     Form.publishForm();
+    //     FormsAdminNavigator.gotoPublishedForm();
+    //     // Click(
+    //     //     locator1="MyTestsForm#SELECT_LANGUAGE"
+    //     // );
+    //     // Click(
+    //     //     locator1="MyTestsForm#SELECT_LANGUAGE_AT_APP_DEPLOYED"
+    //     // );
+    //     FormFields.editText(
+    //         fieldName = "Full Name",
+    //         fieldValue = "Published Paragraph entry en");
+    //     FormFields.editText(
+    //         fieldName = "Age",
+    //         fieldValue = "45645");
+
+    //     FormPortlet.submit();
+    //     // Pause(locator1 = "30000");
+    //     Form.submitAgain();
+    //     // FormsAdminNavigator.gotoPublishedForm();
+    //     FormPortletConfiguration.changeLanguage(
+    //         currentLanguage = "en-US",
+    //         newLanguage = "français-France");
+    //     FormFields.editText(
+    //        fieldName = "nom et prénom",
+    //          fieldValue = "Published Paragraph entry fr");
+    //     FormFields.editText(
+    //        fieldName = "âge",
+    //         fieldValue = "543656");
+    //     FormPortlet.submit();
+    //     Form.submitAgain();
+    //     Navigator.openURL();
+    //     ProductMenu.gotoPortlet(
+    //         category = "Content & Data",
+    //         portlet = "Forms");
+    //     FormsAdminNavigator.gotoViewEntries();
+    //     Pause(locator1 = "30000");
+	// 	// FormViewBuilder.validateFieldLabel(fieldLabel = "nom et prénom");
+    //     // FormViewBuilder.validateFieldLabel(fieldLabel = "âge");
+    // }
+}
