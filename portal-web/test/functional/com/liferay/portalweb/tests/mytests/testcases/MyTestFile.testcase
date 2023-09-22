@@ -1,0 +1,56 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Set Screen size to custom and validate values"
+	@priority = 5
+	test SetScreenSizeAndValidateValues {
+		Click(locator1 = "PanelTest#SIMULATION_MENU_BUTTON");
+
+		Click(locator1 = "PanelTest#CUSTOM_BUTTON");
+
+		TripleClick(locator1 = "PanelTest#WIDTH_INPUT");
+
+		Type.sendKeys(
+			locator1 = "PanelTest#WIDTH_INPUT",
+			value1 = 1080);
+
+		TripleClick(locator1 = "PanelTest#HEIGHT_INPUT");
+
+		Type.sendKeys(
+			locator1 = "PanelTest#HEIGHT_INPUT",
+			value1 = 1920);
+
+		Click(locator1 = "PanelTest#APPLY_CUSTOM_BUTTON");
+	}
+
+	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
+	@priority = 5
+	test ValidateSectionDisplay {
+		Click(locator1 = "PanelTest#MENU_BUTTON");
+
+		Click(locator1 = "PanelTest#CONTROL_PANEL_BUTTON");
+
+		AssertTextEquals.assertText(
+			locator1 = "PanelTest#CONTROL_PANEL_CONFIG_SECTION",
+			value1 = "CONFIGURATION");
+
+		Alert.viewSuccessMessage();
+	}
+
+}
