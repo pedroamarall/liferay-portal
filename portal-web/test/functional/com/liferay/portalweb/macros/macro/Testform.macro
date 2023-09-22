@@ -74,8 +74,6 @@ definition {
 
 		FormsAdminNavigator.gotoViewEntries();
 
-		Pause(locator1 = 30000);
-
 		//FormViewBuilder.validateFieldLabel(fieldLabel = "Nom Prenom");
 		//FormViewBuilder.validateFieldLabel(fieldLabel = "Age");
 
