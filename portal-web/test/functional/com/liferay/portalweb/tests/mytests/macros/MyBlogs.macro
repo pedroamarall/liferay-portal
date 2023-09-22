@@ -1,0 +1,11 @@
+definition {
+
+	macro Addblog {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntry(
+			entryContent = "Blogs",
+			entryTitle = "Test");
+	}
+
+}
