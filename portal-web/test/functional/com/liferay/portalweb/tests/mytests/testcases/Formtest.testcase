@@ -1,0 +1,134 @@
+definition {
+
+	property osgi.module.configuration.file.names = "com.liferay.frontend.js.loader.modules.extender.internal.configuration.Details.config";
+	property osgi.module.configurations = "waitTimeout=\"15\"";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
+
+		if (${testLiferayVirtualInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Forms");
+
+			FormsAdmin.teardownForms();
+
+			Navigator.gotoNavItem(navItem = "Element Sets");
+
+			FormsAdmin.teardownElementSets();
+
+			PagesAdmin.tearDownCP();
+		}
+	}
+
+	test NewForm {
+		Task("Given a Form with a text field and a Numeric field"){	
+			FormsAdmin.addForm();
+
+			Form.editName(formName = "Untitled Form");
+
+			Form.gotoAddField(fieldType = "Text");
+
+			Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+			Form.save();
+
+			Form.gotoAddField(fieldType = "Numeric");
+
+			Form.editFieldLabelMetal(fieldValue = "Age");
+
+			Form.save();
+		}
+
+        Task("and translates field Titles into english and french"){
+			Form.addTranslation(localizedLanguage = "French (France)");
+
+			FormViewBuilder.editFieldLabel(
+				fieldLabel = "Full Name",
+				label = "nom et prénom");
+
+			FormViewBuilder.editFieldLabel(
+				fieldLabel = "Age",
+				label = "âge");
+
+			Form.save();
+
+			Form.publishForm();
+		}
+
+        Task("When the form published and validated of translation"){
+			FormsAdminNavigator.gotoPublishedForm();
+
+			FormFields.viewTextField(
+				fieldLabel = "Full Name",
+				fieldName = "Text");
+
+			FormFields.editText(
+				fieldName = "Text",
+				fieldValue = "Samireddebbarhi");
+
+			FormFields.viewTextField(
+				fieldLabel = "Age",
+				fieldName = "Numeric");
+
+			FormFields.editText(
+				fieldName = "Numeric",
+				fieldValue = 23);
+
+			FormPortlet.clickSubmit();
+
+			Form.submitAgain();
+		}
+        
+        Task("Then Check and Validate the submited content"){
+			FormPortletConfiguration.changeLanguage(
+				currentLanguage = "en-US",
+				newLanguage = "français-France");
+
+			FormFields.viewTextField(
+				fieldLabel = "nom et prénom",
+				fieldName = "Text");
+
+			FormFields.editText(
+				fieldName = "Text",
+				fieldValue = "Samireddebbarhi");
+
+			FormFields.viewTextField(
+				fieldLabel = "âge",
+				fieldName = "Numeric");
+
+			FormFields.editText(
+				fieldName = "Numeric",
+				fieldValue = 23);
+
+			FormPortlet.submitSuccessfully();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Forms");
+
+			FormsAdminNavigator.gotoViewEntries();
+
+			LexiconEntry.gotoEntryMenuItem(
+				menuItem = "View",
+				rowEntry = "Samireddebbarhi");
+		}
+	}
+
+}
