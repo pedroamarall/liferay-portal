@@ -12,71 +12,90 @@ definition {
 	}
 
 	tearDown {
-		User.logoutPG();
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
+
+		if (${testLiferayVirtualInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			PagesAdmin.tearDownCP();
+		}
 	}
 
 	@description = "Set Screen size to custom and validate values"
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
-		AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
+		task ("Given the simulation menu is opened") {
+			AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
 
-		Click(locator1 = "ControlMenu#SIMULATION");
+			Click(locator1 = "ControlMenu#SIMULATION");
+		}
 
-		AssertElementPresent(
-			key_deviceType = "Custom",
-			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+		task ("When the user sets the screen size") {
+			AssertElementPresent(
+				key_deviceType = "Custom",
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 
-		Click(
-			key_deviceType = "Custom",
-			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+			Click(
+				key_deviceType = "Custom",
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 
-		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+			AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
 
-		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+			TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
 
-		Type.sendKeys(
-			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
-			value1 = 1080);
+			Type.sendKeys(
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+				value1 = 1080);
 
-		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+			AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
 
-		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+			TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
 
-		Type.sendKeys(
-			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
-			value1 = 1920);
+			Type.sendKeys(
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+				value1 = 1920);
 
-		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CONFIRM");
+			AssertElementPresent(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
 
-		Click(locator1 = "ControlMenuPreviewPanel#PREVIEW_CONFIRM");
+			Click(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
 
-		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
+			AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
 
-		Click(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
+			Click(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
+		}
 
-		AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
+		task ("Then validate the values defined") {
+			AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
 
-		Click(locator1 = "ControlMenu#SIMULATION");
+			Click(locator1 = "ControlMenu#SIMULATION");
 
-		AssertTextEquals.assertPartialText(
-			locator1 = "ControlMenuPreviewPanel#PREVIEW_APPLIED_CHANGES",
-			value1 = "Applied");
+			AssertTextEquals.assertPartialText(
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_APPLIED_CHANGES",
+				value1 = "Applied");
 
-		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
+			AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
 
-		Click(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
+			Click(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
+		}
 	}
 
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
 	@priority = 5
 	test ValidateConfigurationStringAtControlPanel {
-		ApplicationsMenuHelper.openApplicationsMenu();
+		task ("Given the applications menu is opened") {
+			ApplicationsMenuHelper.openApplicationsMenu();
+		}
 
-		ApplicationsMenu.gotoPanel(panel = "Control Panel");
+		task ("When the user clicks on control panel") {
+			ApplicationsMenu.gotoPanel(panel = "Control Panel");
+		}
 
-		AssertTextPresent(value1 = "CONFIGURATION");
+		task ("Then the page displays CONFIGURATION text") {
+			AssertTextPresent(value1 = "CONFIGURATION");
 
-		WaitForLiferayEvent.initializeLiferayEventLog();
+			WaitForLiferayEvent.initializeLiferayEventLog();
+		}
 	}
 
 }
