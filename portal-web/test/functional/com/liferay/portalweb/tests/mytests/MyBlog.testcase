@@ -1,0 +1,218 @@
+@component-name = "portal-web-mytests"
+definition {
+
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
+
+		if (${testLiferayVirtualInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			PagesAdmin.tearDownCP();
+		}
+	}
+
+	@description = "Create blog and add entries to it"
+	@priority = 5
+	test CanCreateBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+
+			PageEditor.addWidgetViaKeyboard(
+				categoryName = "Collaboration",
+				widgetName = "Blogs");
+
+			PageEditor.publish();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			BlogsNavigator.gotoAddEntry();
+		}
+
+		task ("When the user adds a Blog Entry") {
+			BlogsEntry.addEntryContent(
+				entryContent = "content1",
+				entrySubtitle = "sub-title1",
+				entryTitle = "title1");
+
+			PortletEntry.publish();
+		}
+
+		task ("Then the Blog Entry should display on the page") {
+			BlogsNavigator.gotoEntryCP(entryTitle = "title1");
+		}
+	}
+
+	@description = "Delete a blog"
+	@priority = 5
+	test CanDeleteBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+
+			PageEditor.addWidgetViaKeyboard(
+				categoryName = "Collaboration",
+				widgetName = "Blogs");
+
+			PageEditor.publish();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			BlogsNavigator.gotoAddEntry();
+		}
+
+		task ("And a 2 Blog Entries exists") {
+			BlogsEntry.addEntryContent(
+				entryContent = "content1",
+				entrySubtitle = "sub-title1",
+				entryTitle = "title1");
+
+			PortletEntry.publish();
+
+			BlogsNavigator.gotoAddEntry();
+
+			BlogsEntry.addEntryContent(
+				entryContent = "content2",
+				entrySubtitle = "sub-title2",
+				entryTitle = "title2");
+
+			PortletEntry.publish();
+		}
+
+		task ("When the User deletes Blog Entry 1") {
+			BlogsEntry.moveToRecycleBinCP(entryTitle = "title1");
+		}
+
+		task ("Then Blog Entry 1 should not exist") {
+			VerifyElementPresent(locator1 = "Message#SUCCESS_DISMISSIBLE");
+
+			Blogs.viewEntryNotPresent(entryTitle = "title1");
+		}
+
+		task ("And Blog Entry 2 should exist") {
+			Blogs.viewEntryPresent(entryTitle = "title2");
+		}
+	}
+
+	@description = "Edit a blog"
+	@priority = 5
+	test CanEditBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+
+			PageEditor.addWidgetViaKeyboard(
+				categoryName = "Collaboration",
+				widgetName = "Blogs");
+
+			PageEditor.publish();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			BlogsNavigator.gotoAddEntry();
+		}
+
+		task ("And a Blog Entry exists") {
+			BlogsEntry.addEntryContent(
+				entryContent = "content1",
+				entrySubtitle = "sub-title1",
+				entryTitle = "title1");
+
+			PortletEntry.publish();
+		}
+
+		task ("When the User edits the blog Entry") {
+			BlogsNavigator.gotoEntryCP(entryTitle = "title1");
+
+			BlogsEntry.editTitle(
+				entryTitle = "title1",
+				entryTitleEdit = "title11");
+
+			PortletEntry.publish();
+		}
+
+		task ("Then the Blog Entry should be edited") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			BlogsNavigator.gotoEntryCP(entryTitle = "title11");
+		}
+	}
+
+	@description = "Search a blog"
+	@priority = 5
+	test CanSearchBlogs {
+		task ("Given the Blogs Portlet is added to the page") {
+			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+
+			PageEditor.addWidgetViaKeyboard(
+				categoryName = "Collaboration",
+				widgetName = "Blogs");
+
+			PageEditor.publish();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			BlogsNavigator.gotoAddEntry();
+		}
+
+		task ("And a 2 Blog Entries exists") {
+			BlogsEntry.addEntryContent(
+				entryContent = "content1",
+				entrySubtitle = "sub-title1",
+				entryTitle = "title1");
+
+			PortletEntry.publish();
+
+			BlogsNavigator.gotoAddEntry();
+
+			BlogsEntry.addEntryContent(
+				entryContent = "content2",
+				entrySubtitle = "sub-title2",
+				entryTitle = "title2");
+
+			PortletEntry.publish();
+		}
+
+		task ("When the User searches for Blog Entry 1") {
+			BlogsEntry.searchCP(
+				entrySearchTerm = "title1",
+				entryTitle = "title1",
+				position = 1);
+		}
+
+		task ("Then Blog Entry 1 should display") {
+			Blogs.viewEntryPresent(entryTitle = "title1");
+		}
+
+		task ("And Blog Entry 2 should not display") {
+			Blogs.viewEntryNotPresent(entryTitle = "title2");
+		}
+	}
+
+}
