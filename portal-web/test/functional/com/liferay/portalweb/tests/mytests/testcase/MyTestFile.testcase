@@ -22,14 +22,14 @@ definition {
 	test SetScreenSizeAndValidateValues {
 		var width = 1080;
 		var height = 1920;
+
 		MyTestFile.SetSize(
 			height = ${height},
-			width = ${width}
-			);
+			width = ${width});
+
 		MyTestFile.ValidateSimulationValues(
 			height = ${height},
-			width = ${width}
-		); 
+			width = ${width});
 	}
 
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"

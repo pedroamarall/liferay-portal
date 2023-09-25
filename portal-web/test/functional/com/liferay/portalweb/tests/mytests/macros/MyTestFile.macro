@@ -47,19 +47,24 @@ definition {
 		Type.sendKeys(
 			locator1 = "MyTestFile#WIDTH_VALUE",
 			value1 = ${width});
-		Click(locator1="MyTestFile#APPLY_CUSTOM");
+
+		Click(locator1 = "MyTestFile#APPLY_CUSTOM");
 	}
-macro ValidateSimulationValues {
+
+	macro ValidateSimulationValues {
 		Click(locator1 = "MyTestFile#SIMULATION_MENU");
+
 		Click(locator1 = "MyTestFile#SIMULATION_MENU");
+
 		AssertTextPresent(
 			locator1 = "MyTestFile#HEIGHT_VALUE",
 			value1 = ${height});
+
 		AssertTextPresent(
 			locator1 = "MyTestFile#WIDTH_VALUE",
 			value1 = ${width});
-		}
- 
+	}
+
 	macro ValidateString {
 		Click(locator1 = "MyTestFile#APPLICATION_MENU");
 
