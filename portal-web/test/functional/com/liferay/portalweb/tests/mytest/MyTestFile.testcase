@@ -4,7 +4,6 @@ definition {
 	property testray.main.component.name = "Forms";
 
 	setUp {
-
 		TestCase.setUpPortalInstance();
 
 		User.firstLoginPG();
@@ -22,6 +21,16 @@ definition {
 		TestForm.clickOnForm();
 	}
 
+	@description = "Set Screen size to custom and validate values"
+	@priority = 5
+	test SetScreenSizeAndValidateValues {
+		MobileDevice.previewPG(
+			applyCustomSize = "true",
+			deviceType = "custom",
+			height = 700,
+			width = 700);
+	}
+
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
 	@priority = 5
 	test ValidateConfigurationStringAtControlPanel {
@@ -37,20 +46,5 @@ definition {
 
 		AssertElementPresent(locator1 = "MyTest#CONFIGURATION");
 	}
-
-	@description = "Set Screen size to custom and validate values"
-    @priority = "5"
-    test SetScreenSizeAndValidateValues {
-		MobileDevice.previewPG(
-			applyCustomSize = "true",
-			deviceType = "custom",
-			height = 700,
-			width = 700);
-
-
-    }
-
-
-	
 
 }

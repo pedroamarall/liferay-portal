@@ -1,35 +1,32 @@
 @component-name = "portal-web-forms-and-data-lists"
 definition {
-    property testray.main.component.name = "Forms";
 
-    setUp {
-        TestCase.setUpPortalInstance();
+	property testray.main.component.name = "Forms";
 
-        User.firstLoginPG();
+	setUp {
+		TestCase.setUpPortalInstance();
 
-        Navigator.openURL();
-    }
+		User.firstLoginPG();
 
-    tearDown {
-        User.logoutPG();
-            
-    }
+		Navigator.openURL();
+	}
 
-    @description = "Create a Form with a Text field and a Numeric field "
-    @priority = "5"
-    test CheckPortlet{
-        ProductMenu.gotoPortlet(
+	tearDown {
+		User.logoutPG();
+	}
+
+	@description = "Create a Form and translate titles "
+	@priority = 5
+	test AddForm {
+		TestForm.clickOnForm();
+	}
+
+	@description = "Create a Form with a Text field and a Numeric field "
+	@priority = 5
+	test CheckPortlet {
+		ProductMenu.gotoPortlet(
 			category = "Content & Data",
 			portlet = "Forms");
-        
-    }
+	}
 
-    @description = "Create a Form and translate titles "
-    @priority = "5"
-    test AddForm{
-        TestForm.clickOnForm();
-    }
-
-    
-    
-}                                                                               
+}
