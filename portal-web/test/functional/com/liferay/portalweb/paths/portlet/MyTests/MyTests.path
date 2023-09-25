@@ -16,6 +16,22 @@
 	<td>//*[@id="nav_control_panel.configuration"]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>CLOSE_SIMULATION</td>
+	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationPanelId"]/div[1]/div[1]/button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ALERTE</td>
+	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_customSizeSelector"]/div[2]/div/div[2]/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>APPLY_CUSTOM_SIZE</td>
+	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_customSizeSelector"]/button</td>
+	<td></td>
+</tr>
+
 </tbody>
 </table>
 </body>

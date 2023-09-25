@@ -1,11 +1,11 @@
 definition {
 
 	macro Applycustomsize {
-		Click(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
+		Click(locator1 = "MyTests#APPLY_CUSTOM_SIZE");
 	}
 
 	macro ClosePanel {
-		Click(locator1 = "ControlMenuPreviewPanel#CLOSE_PANEL");
+		Click(locator1 = "MyTests#CLOSE_SIMULATION");
 	}
 
 	macro CreateNewForm {
@@ -76,7 +76,7 @@ definition {
 
 	macro ValidateApply {
 		AssertTextEquals(
-			locator1 = "ControlMenuPreviewPanel#VALIDATE_VALUES",
+			locator1 = "MyTests#ALERTE",
 			value1 = "Custom Size 1920x1080 Applied");
 	}
 
