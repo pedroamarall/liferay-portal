@@ -12,155 +12,156 @@ definition {
 	}
 
 	tearDown {
-		User.logoutPG();
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
+
+		if (${testLiferayVirtualInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			PagesAdmin.tearDownCP();
+		}
 	}
 
 	@description = "Create a Form with a Text field and a Numeric field"
 	@priority = 5
 	test CreateFormWithTwoFields {
-		FormsAdmin.addForm(formName = "Form 1");
+		task ("Given the form was added") {
+			FormsAdmin.addForm(formName = "Form 1");
+		}
 
-		Form.editName(formTitle = "Form 1");
+		task ("When the user adds text and numeric fields") {
+			Form.editName(formTitle = "Form 1");
 
-		Form.editDescription();
+			Form.editDescription();
 
-		Form.editPageTitle(
-			formPageName = "Created Form Page Name",
-			formTitleNumber = 1);
+			Form.editPageTitle(
+				formPageName = "Created Form Page Name",
+				formTitleNumber = 1);
 
-		Form.addTextField(fieldPositionNumber = 0);
+			Form.addTextField(fieldPositionNumber = 0);
 
-		Form.editFieldLabelMetal(fieldValue = "Full Name");
+			Form.editFieldLabelMetal(fieldValue = "Full Name");
 
-		//FormFields.enableSwitch(fieldName = "required");
+			Form.closeSidebar();
 
-		Form.closeSidebar();
+			Form.gotoAddField(
+				fieldPositionNumber = 1,
+				fieldType = "Numeric");
 
-		Form.gotoAddField(
-			fieldPositionNumber = 1,
-			fieldType = "Numeric");
+			Form.editFieldLabelMetal(fieldValue = "Age");
 
-		Form.editFieldLabelMetal(fieldValue = "Age");
+			Form.closeSidebar();
+		}
 
-		Form.closeSidebar();
-
-		Form.save();
+		task ("Then save the form") {
+			Form.save();
+		}
 	}
 
 	@description = "Publish the Form > Navigate to the published Form and validate the title translations when changing the form language on the page"
 	@priority = 5
 	test PublishFormAndValidateTitleTranslations {
-		FormsAdmin.addForm(formName = "Form 1");
+		task ("Given the form was added") {
+			FormsAdmin.addForm(formName = "Form 1");
+		}
 
-		Form.editName(formTitle = "Form 1");
+		task ("When the user adds text and numeric fields") {
+			Form.editName(formTitle = "Form 1");
 
-		Form.editDescription();
+			Form.editDescription();
 
-		Form.editPageTitle(
-			formPageName = "Created Form Page Name",
-			formTitleNumber = 1);
+			Form.editPageTitle(
+				formPageName = "Created Form Page Name",
+				formTitleNumber = 1);
 
-		Form.addTextField(fieldPositionNumber = 0);
+			Form.addTextField(fieldPositionNumber = 0);
 
-		Form.editFieldLabelMetal(fieldValue = "Full Name");
+			Form.editFieldLabelMetal(fieldValue = "Full Name");
 
-		//FormFields.enableSwitch(fieldName = "required");
+			Form.closeSidebar();
 
-		Form.closeSidebar();
+			Form.gotoAddField(
+				fieldPositionNumber = 1,
+				fieldType = "Numeric");
 
-		Form.gotoAddField(
-			fieldPositionNumber = 1,
-			fieldType = "Numeric");
+			Form.editFieldLabelMetal(fieldValue = "Age");
 
-		Form.editFieldLabelMetal(fieldValue = "Age");
+			Form.closeSidebar();
+		}
 
-		Form.closeSidebar();
+		task ("And save the form") {
+			Form.save();
+		}
 
-		Form.save();
+		task ("And add translation") {
+			Form.addTranslation(localizedLanguage = "Arabic (Saudi Arabia)");
 
-		Form.addTranslation(localizedLanguage = "Arabic (Saudi Arabia)");
+			FormViewBuilder.editFieldLabel(
+				fieldLabel = "Full Name",
+				label = "الاسم الكامل");
 
-		FormViewBuilder.editFieldLabel(
-			fieldLabel = "Full Name",
-			label = "الاسم الكامل");
+			FormViewBuilder.editFieldLabel(
+				fieldLabel = "Age",
+				label = "العمر");
 
-		FormViewBuilder.editFieldLabel(
-			fieldLabel = "Age",
-			label = "العمر");
+			Form.closeSidebar();
 
-		//FormFields.editText(
-		//	fieldName = ${textFieldName1},
-		//	fieldValue = "الاسم الكامل");
-		//Form.editFieldLabelMetal(fieldValue = "الاسم الكامل");
+			Form.save();
 
-		Form.closeSidebar();
+			Form.publishForm();
+		}
 
-		Form.save();
+		task ("And submit the created form") {
+			FormsAdminNavigator.gotoPublishedForm();
 
-		Form.publishForm();
+			FormViewBuilder.editText(
+				fieldName = "Full Name",
+				fieldValue = "Ilyass Hossni");
 
-		FormsAdminNavigator.gotoPublishedForm();
+			FormViewBuilder.editText(
+				fieldName = "Age",
+				fieldValue = 21);
 
-		FormViewBuilder.editText(
-			fieldName = "Full Name",
-			fieldValue = "Ilyass Hossni");
+			FormPortlet.submit();
 
-		FormViewBuilder.editText(
-			fieldName = "Age",
-			fieldValue = 21);
+			Form.submitAgain();
 
-		FormPortlet.submit();
+			FormPortletConfiguration.changeLanguage(
+				currentLanguage = "en-US",
+				newLanguage = "العربية-السعودية");
 
-		Form.submitAgain();
+			AssertTextPresent(value1 = "الاسم الكامل");
 
-		//FormPortlet.changeLocale(key_locale = "ar-SA");
+			AssertTextPresent(value1 = "العمر");
 
-		FormPortletConfiguration.changeLanguage(
-			currentLanguage = "en-US",
-			newLanguage = "العربية-السعودية");
+			FormViewBuilder.editText(
+				fieldName = "الاسم الكامل",
+				fieldValue = "أحمد بن محمد الحمداني الجيلالي آل سعود");
 
-		AssertTextPresent(value1 = "الاسم الكامل");
+			FormViewBuilder.editText(
+				fieldName = "العمر",
+				fieldValue = 21);
 
-		AssertTextPresent(value1 = "العمر");
+			FormPortlet.clickSubmit();
 
-		FormViewBuilder.editText(
-			fieldName = "الاسم الكامل",
-			fieldValue = "أحمد بن محمد الحمداني الجيلالي آل سعود");
+			AssertElementPresent(locator1 = "Message#SUCCESS");
+		}
 
-		FormViewBuilder.editText(
-			fieldName = "العمر",
-			fieldValue = 21);
+		task ("Then validate translations") {
+			Navigator.openURL();
 
-		FormPortlet.clickSubmit();
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Forms");
 
-		// NewLanguage = "العربية-المملكة العربية السعودية"
+			FormsAdminNavigator.gotoViewEntries();
 
-		AssertElementPresent(locator1 = "Message#SUCCESS");
+			AssertTextPresent(value1 = "Ilyass Hossni");
 
-		Navigator.openURL();
+			AssertTextPresent(value1 = 21);
 
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Forms");
-
-		//FormsAdminNavigator.gotoEditFormByName(formName = "Form 1");
-
-		FormsAdminNavigator.gotoViewEntries();
-
-		AssertTextPresent(value1 = "Ilyass Hossni");
-
-		AssertTextPresent(value1 = 21);
-
-		AssertTextPresent(value1 = "أحمد بن محمد الحمداني الجيلالي آل سعود");
-
-		//Pause(locator1 = "20000");
-		//FormsAdminNavigator.gotoEntries();
-		//Pause(locator1 = "20000");
-		//FormViewBuilder.viewSummaryEntry(
-		//	key_card = "Text",
-		//	key_entryName = "Ilyass Hossni",
-		//	key_entryNumber = "1 entry");
-
+			AssertTextPresent(value1 = "أحمد بن محمد الحمداني الجيلالي آل سعود");
+		}
 	}
 
 }
