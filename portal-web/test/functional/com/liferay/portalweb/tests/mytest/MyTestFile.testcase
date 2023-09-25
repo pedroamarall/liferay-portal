@@ -44,7 +44,9 @@ definition {
 
 		ApplicationsMenu.gotoPanel(panel = "Control Panel");
 
-		AssertElementPresent(locator1 = "MyTest#CONFIGURATION");
+		AssertElementPresent(
+			category = "Configuration",
+			locator1 = "MyTest#CONFIGURATION");
 	}
 
 }
