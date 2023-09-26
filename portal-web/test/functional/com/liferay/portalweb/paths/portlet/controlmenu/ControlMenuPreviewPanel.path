@@ -36,12 +36,12 @@
 	<td></td>
 </tr>
 <tr>
-	<td>PREVIEW_CONFIRM</td>
+	<td>APPLY_CUSTOM_SIZE</td>
 	<td>//button[@aria-label='Apply Custom Size']</td>
 	<td></td>
 </tr>
 <tr>
-	<td>PREVIEW_EXIT</td>
+	<td>BUTTON_EXIT</td>
 	<td>//button[@class='btn btn-monospaced btn-unstyled close sidenav-close']</td>
 	<td></td>
 </tr>
