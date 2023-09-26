@@ -1,0 +1,171 @@
+definition {
+
+	macro addBlogEntry {
+		var entryContent = "Blogs Entry Content";
+		var entryTitle = "Blogs Entry Title";
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoAddEntry();
+
+		BlogsEntry.addEntryContent(
+			entryContent = ${entryContent},
+			entryTitle = ${entryTitle});
+
+		
+	}
+
+	macro Applycustomsize {
+		Click(locator1 = "Testex#APPLY_CUSTOM_SIZE");
+	}
+	
+
+	macro CreateformTextFields {
+		FormsAdmin.addForm();
+
+		Form.editName(formName = "form ENG");
+
+		Form.editDescription(formDescription = "form  ENG");
+
+		Form.editPageTitle(
+			formPageName = "Created Form EN",
+			formTitleNumber = 1);
+
+		Form.gotoAddField(
+			fieldPositionNumber = 0,
+			fieldType = "Text");
+
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+		Form.closeSidebar();
+
+		Form.save();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.save();
+	}
+
+	macro deleteBlogEntry {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Delete",
+			rowEntry = "Blogs Entry Title will be deleted");
+	}
+
+	macro editBlogEntry {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Content Can Creating test 1",
+			entrySubtitle = "test1 Can Creating Subtittle",
+			entryTitle = "Blogs Title Can Creating");
+
+		ContentDashboard.goToContentDashboard();
+
+		ContentDashboard.editAsset(
+			assetNewTitle = "Blogs Entry Title Edited",
+			assetTitle = "Blogs Title Can Creating");
+
+		LexiconTable.viewTableEntryTitle(tableEntry = "Blogs Entry Title Edited");
+	}
+
+	macro Previewsize {
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = 1920);
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+			value1 = 1080);
+	}
+
+	macro PublishandValidate {
+		Form.publishForm();
+
+		FormsAdminNavigator.gotoPublishedForm();
+
+		FormFields.editText(
+			fieldName = "Full Name",
+			fieldValue = "Adnan");
+
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 22);
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "français-France");
+
+		FormFields.editText(
+			fieldName = "Nom Prenom",
+			fieldValue = "Adnan");
+
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 22);
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoViewEntries();
+	}
+
+	macro searchBlogEntry {
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry first",
+			entrySearchTerm = "Blogs Entry first",
+			entryTitle = "Blogs Entry first");
+	}
+
+	macro Translatefields {
+		Form.addTranslation(localizedLanguage = "French (France)");
+
+		Form.editName(formName = "form frc ");
+
+		Form.editDescription(formDescription = "form en frc");
+
+		Form.editPageTitle(
+			formPageName = "Creation formulaire en frc",
+			formTitleNumber = 1);
+
+		Click(
+			key_fieldName = "Full Name",
+			locator1 = "FormFields#TEXT_FIELD");
+
+		Form.editFieldLabelMetal(fieldValue = "Nom Prenom");
+
+		Click(
+			key_fieldName = "Age",
+			locator1 = "FormFields#TEXT_FIELD");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.save();
+	}
+
+	macro ValidateApply {
+		AssertTextEquals(
+			locator1 = "Testex#ALERTE",
+			value1 = "Custom Size 1920x1080 Applied");
+	}
+
+}

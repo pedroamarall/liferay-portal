@@ -1,0 +1,36 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Create a New form with Text feild and Numeric feild"
+	@priority = 5
+	test Createform {
+		task ("Given:Create a Form with a Text field and a Numeric field ") {
+			Testex.CreateformTextFields();
+		}
+
+		task ("Then: Translates field titles into English and French") {
+			Testex.Translatefields();
+		}
+
+		task ("And: Publish the Form for validate the submitted content ") {
+			Testex.PublishandValidate();
+		}
+	}
+
+}

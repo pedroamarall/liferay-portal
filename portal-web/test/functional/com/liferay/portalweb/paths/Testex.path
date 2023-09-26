@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Testex</title>
+</head>
+
+<body>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Testex</td></tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>SECTION_CONFIGURATION</td>
+	<td>//div[contains(@role,'tabpanel') and contains(@class,'active')]//*[contains(text(), 'Configuration')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CLOSE_SIMULATION_MENU</td>
+	<td>//button[@class='btn btn-monospaced btn-unstyled close sidenav-close' and @type='button' and @aria-label='Close']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ALERTE</td>
+	<td>//div[@class='autofit-col autofit-col-expand']/div[@class='autofit-section']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>APPLY_CUSTOM_SIZE</td>
+	<td>//button[text()='Apply Custom Size']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+
