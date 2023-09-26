@@ -1,14 +1,21 @@
-@component-name = "portal-web-forms-and-data-lists"
+@component-name = "portal-simulation-menu"
 definition {
 
-	property testray.main.component.name = "Forms";
+	property testray.component.names = "Simulation";
+	property testray.main.component.name = "Simulation";
 
 	setUp {
-		TestCase.setUpPortalInstance();
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
 
-		User.firstLoginPG();
+		task ("Login") {
+			User.firstLoginPG();
+		}
 
-		Navigator.openURL();
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
 	}
 
 	tearDown {
@@ -23,25 +30,39 @@ definition {
 		var width = 1080;
 		var height = 1920;
 
-		MySimulatorMacro.EditSimulationSizeAndClose(
-			height = ${height},
-			width = ${width});
+		task ("Given The Simulation Panel") {
+			MySimulatorMacro.GoToSimulation();
+		}
 
-		MySimulatorMacro.ValidateSimulationValues(
-			height = ${height},
-			width = ${width});
+		task ("When the custom size of the screen width:${width} and height:${height}") {
+			MySimulatorMacro.EditSimulationSizeAndClose(
+				height = ${height},
+				width = ${width});
+		}
+
+		task ("Then the custom size should be declared on the panel alert") {
+			MySimulatorMacro.ValidateSimulationValues(
+				height = ${height},
+				width = ${width});
+		}
 	}
 
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel!"
 	@priority = 5
 	test ValidateConfigurationStringAtControlPanel {
-		var category = "Configuration";
+		task ("Given the application Menu") {
+			ApplicationsMenuHelper.openApplicationsMenu();
+		}
 
-		ApplicationsMenuHelper.openApplicationsMenu();
+		task ("When the application menu point to Control Panel") {
+			ApplicationsMenu.gotoPanel(panel = "Control Panel");
+		}
 
-		ApplicationsMenu.gotoPanel(panel = "Control Panel");
-
-		AssertElementPresent(locator1 = "MyCustomPath#CONFIGURATION");
+		task ("Then the configuration tab should exist") {
+			AssertElementPresent(
+				category = "Configuration",
+				locator1 = "MyCustomPath#CONFIGURATION");
+		}
 	}
 
 }

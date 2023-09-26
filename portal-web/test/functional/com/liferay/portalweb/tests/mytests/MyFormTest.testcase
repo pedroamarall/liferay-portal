@@ -4,11 +4,17 @@ definition {
 	property testray.main.component.name = "Forms";
 
 	setUp {
-		TestCase.setUpPortalInstance();
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
 
-		User.firstLoginPG();
+		task ("Login") {
+			User.firstLoginPG();
+		}
 
-		Navigator.openURL();
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
 	}
 
 	tearDown {
@@ -20,20 +26,17 @@ definition {
 	@description = "Verify if Form Translation Can be added and exist"
 	@priority = 5
 	test CreateFormAddTranslationThenVerifyIfTranslationExist {
+		task ("Given This new form I added") {
+			MyFormMacro.CreateFormWithTextAndNumeric();
+		}
 
-		//task ("Given This new form and I add Fields To the form") {
-		MyFormMacro.CreateFormWithTextAndNumeric();
+		task ("When I add fields and Translater and I Publish") {
+			MyFormMacro.AddAFormTranslationAndPublish();
+		}
 
-		//};
-		//task ("When I add Translater and I Publish") {
-		MyFormMacro.AddAFormTranslationAndPublish();
-
-		//};
-		//task ("Then I verify if Translation exist") {
-		MyFormMacro.VerifyIfTranslationExist();
-
-		//};
-
+		task ("Then It should verify if Translation exist") {
+			MyFormMacro.VerifyIfTranslationExist();
+		}
 	}
 
 }

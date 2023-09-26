@@ -1,17 +1,7 @@
 definition {
 
-	macro ClickSimulation {
-		var key_deviceType = "Custom";
-
-		Click(locator1 = "ControlMenu#SIMULATION");
-
-		Click(locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
-	}
-
 	macro EditSimulationSizeAndClose {
 		var key_deviceType = "Apply Custom Size";
-
-		MySimulatorMacro.ClickSimulation();
 
 		SelectFieldText.selectFieldText(
 			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
@@ -34,15 +24,20 @@ definition {
 		Click(locator1 = "MyCustomPath#CLOSE_BUTTON");
 	}
 
-	macro ValidateSimulationValues {
-		var key_deviceType = "Apply Custom Size";
-		var message = "Custom Size ${height}x${width} Applied";
+	macro GoToSimulation {
+		Click(locator1 = "ControlMenu#SIMULATION");
 
-		MySimulatorMacro.ClickSimulation();
+		Click(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+	}
+
+	macro ValidateSimulationValues {
+		MySimulatorMacro.GoToSimulation(key_deviceType = "Apply Custom Size");
 
 		AssertTextEquals(
 			locator1 = "MyCustomPath#ALERT_SIZE",
-			value1 = ${message});
+			value1 = "Custom Size ${height}x${width} Applied");
 	}
 
 }

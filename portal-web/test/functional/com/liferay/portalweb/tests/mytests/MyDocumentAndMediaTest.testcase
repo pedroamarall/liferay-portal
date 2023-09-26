@@ -3,14 +3,41 @@ definition {
 
 	property testray.main.component.name = "Document Management";
 
-	var dmDocumentTitle = "DM Document Title";
+	var dmDocumentTitle = "DM 1";
+	var fileName = "really-youness.png";
 
 	setUp {
-		TestCase.setUpPortalInstance();
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
 
-		User.firstLoginPG();
+		task ("Login") {
+			User.firstLoginPG();
+		}
 
-		Navigator.openURL();
+		task ("Add nessecary files for the testcases to work") {
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Guest",
+				mimeType = "image/png",
+				sourceFileName = ${fileName});
+
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentTitle = "DM Document Title 2",
+				groupName = "Guest",
+				mimeType = "image/png",
+				sourceFileName = "really-youness 2.png");
+		}
+
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
+
+		// Since This is a repeated task I will put the given of all testcases in the Setup to avoid repition
+
+		task ("Given The portlet DM page") {
+			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+		}
 	}
 
 	tearDown {
@@ -22,23 +49,19 @@ definition {
 	@description = "Upload File to DM"
 	@priority = 5
 	test CanCreateDM {
-		task ("Given The DM Portlet is added to the page") {
-			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		// Just Remember the given task is on the setup level.
+
+		task ("When The user publish The Document and (Upload the file)") {
+			DMDocument.addCP(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentFile = "text.txt",
+				dmDocumentTitle = "New Added Document");
 		}
 
-		task ("When The user create a Documents and Media (Upload the file)") {
-			JSONDocument.addFileWithUploadedFile(
-				dmDocumentTitle = ${dmDocumentTitle},
-				groupName = "Guest",
-				mimeType = "image/png",
-				sourceFileName = "really-youness.png");
-
-			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-		}
-
-		task ("Then The Documents and Media should display on the page this is where the tester will add code to assert the") {
+		task ("Then the addded document should be displayed on the list") {
 			AssertElementPresent(
-				key_dmDocumentTitle = ${dmDocumentTitle},
+				key_dmDocumentTitle = "New Added Document",
 				locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE");
 		}
 	}
@@ -46,37 +69,20 @@ definition {
 	@description = "Delete File From DM"
 	@priority = 5
 	test CanDeleteDM {
-		task ("the DM Portlet is added to the page and create 2 Documents and Media (Upload the file)") {
-			JSONDocument.addFileWithUploadedFile(
-				dmDocumentTitle = "Should Not Be Deleted",
-				groupName = "Guest",
-				mimeType = "image/png",
-				sourceFileName = "really-youness 2.png");
 
-			JSONDocument.addFileWithUploadedFile(
-				dmDocumentTitle = ${dmDocumentTitle},
-				groupName = "Guest",
-				mimeType = "image/png",
-				sourceFileName = "really-youness.png");
+		// Just Remember the given task is on the setup level.
 
-			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+		task ("When the User delete a document") {
+			DMDocument.deleteCP(dmDocumentTitle = ${dmDocumentTitle});
 		}
 
-		task ("the User delete a document and media") {
-			JSONDocument.deleteFile(
-				dmDocumentTitle = ${dmDocumentTitle},
-				groupName = "Guest");
-
-			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-		}
-
-		task ("DM1 Should Not Exist and Second Should Exist") {
+		task ("Then the file delete should not exist and second file should exist") {
 			AssertElementNotPresent(
 				key_dmDocumentTitle = ${dmDocumentTitle},
 				locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE");
 
 			AssertElementPresent(
-				key_dmDocumentTitle = "Should Not Be Deleted",
+				key_dmDocumentTitle = "DM Document Title 2",
 				locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE");
 		}
 	}
@@ -84,30 +90,17 @@ definition {
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel!"
 	@priority = 5
 	test CanDownloadDM {
-		task ("the DM Portlet is added to the page and create 2 Documents and Media (Upload the file)") {
-			JSONDocument.addFileWithUploadedFile(
-				dmDocumentTitle = "DM Document Title 2",
-				groupName = "Guest",
-				mimeType = "image/png",
-				sourceFileName = "really-youness 2.png");
 
-			JSONDocument.addFileWithUploadedFile(
-				dmDocumentTitle = ${dmDocumentTitle},
-				groupName = "Guest",
-				mimeType = "image/png",
-				sourceFileName = "really-youness.png");
+		// Just Remember the given task is on the setup level.
 
-			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-		}
-
-		task ("the user download document from DMTest1") {
+		task ("When the user download document from DMTest1") {
 			DMDocument.downloadCP(
 				dmDocumentSize = "9 KB",
-				dmDocumentTitle = "DM Document Title");
+				dmDocumentTitle = ${dmDocumentTitle});
 		}
 
-		task ("the file that was downloaded must be from DMTest1 And DMTest2 file should not be downloaded") {
-			DMDocument.assertFileNameFromTempFolder(fileName = "really-youness.png");
+		task ("Then that download file must be the only who exist in local disk") {
+			DMDocument.assertFileNameFromTempFolder(fileName = ${fileName});
 
 			DMDocument.assertNoFileNameFromTempFolder(fileName = "really-youness 2.png");
 		}
@@ -116,17 +109,10 @@ definition {
 	@description = "Edit File in DM"
 	@priority = 5
 	test CanEditDM {
-		task ("the DM Portlet is added to the page and create Document and Media (Upload the file)") {
-			JSONDocument.addFileWithUploadedFile(
-				dmDocumentTitle = ${dmDocumentTitle},
-				groupName = "Guest",
-				mimeType = "image/png",
-				sourceFileName = "really-youness.png");
 
-			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-		}
+		// Just Remember the given task is on the setup level.
 
-		task ("Edit The Uploaded File!") {
+		task ("When user edit the document, uploaded a new file, and publish") {
 			DMDocument.editCP(
 				dmDocumentFileEdit = "really-youness-edit.png",
 				dmDocumentFileNameEdit = "really-youness-edit.png",
@@ -134,7 +120,7 @@ definition {
 				dmDocumentTitleEdit = "Edited Title");
 		}
 
-		task ("File is edited") {
+		task ("Then edited document must apply and exist") {
 			AssertElementPresent(
 				key_dmDocumentTitle = "Edited Title",
 				locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE");
