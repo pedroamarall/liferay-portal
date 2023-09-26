@@ -21,7 +21,11 @@ definition {
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
 		task ("Given the simulation is open") {
-			Testy.Opensumilation();
+			Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
+
+			Click(
+				key_deviceType = "Custom",
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 		}
 
 		task ("When the Simulation menu is opened and custom screen size is selected") {
@@ -31,11 +35,15 @@ definition {
 		}
 
 		task ("And the Simulation menu is closed") {
-			Testy.ClosePanel();
+			Click(locator1 = "MyTests#CLOSE_SIMULATION");
 		}
 
 		task ("And the Simulation menu is opened again") {
-			Testy.Opensumilation();
+			Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
+
+			Click(
+				key_deviceType = "Custom",
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 		}
 
 		task ("Then assert that the values defined in step 4 persisted") {

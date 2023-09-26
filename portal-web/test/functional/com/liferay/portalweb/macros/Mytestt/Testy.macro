@@ -4,10 +4,6 @@ definition {
 		Click(locator1 = "MyTests#APPLY_CUSTOM_SIZE");
 	}
 
-	macro ClosePanel {
-		Click(locator1 = "MyTests#CLOSE_SIMULATION");
-	}
-
 	macro CreateNewForm {
 		FormsAdmin.addForm();
 
@@ -30,14 +26,6 @@ definition {
 		Form.editFieldLabelMetal(fieldValue = "Age");
 
 		Form.save();
-	}
-
-	macro Opensumilation {
-		Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
-
-		Click(
-			key_deviceType = "Custom",
-			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 	}
 
 	macro Previewsize {

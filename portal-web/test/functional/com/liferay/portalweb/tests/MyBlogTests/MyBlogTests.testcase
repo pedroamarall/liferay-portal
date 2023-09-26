@@ -24,17 +24,19 @@ definition {
 	test CanCreateBlog {
 		Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Blogs");
+		task ("Given the Blogs Portlet is added to the page") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
 
-		task ("Add a blogs entry") {
+		task ("When the user adds a Blog Entry") {
 			Blogs.addEntry(
 				entryContent = "1st blog",
 				entryTitle = "blog test");
 		}
 
-		task ("Blog add sucessfuly") {
+		task ("Then the Blog Entry should display on the page") {
 			Blogs.viewEntryPresent(entryTitle = "blog test");
 		}
 	}
@@ -66,7 +68,7 @@ definition {
 			Blogs.viewEntryPresent(entryTitle = "Blog2");
 		}
 
-		task ("when User deletes Blog Entry 1") {
+		task ("When User deletes Blog Entry 1") {
 			LexiconEntry.gotoEntryMenuItemNoError(
 				menuItem = "Delete",
 				rowEntry = "Blog1");
@@ -134,12 +136,12 @@ definition {
 
 		task ("And the second blog entry added") {
 			Blogs.addEntry(
-				entryContent = "hhhhhhhhhhhhh",
-				entryTitle = "hhhhh");
+				entryContent = "soumia",
+				entryTitle = "soumiatamrani");
 		}
 
 		task ("Blog add sucessfuly") {
-			Blogs.viewEntryPresent(entryTitle = "hhhhh");
+			Blogs.viewEntryPresent(entryTitle = "soumiatamrani");
 		}
 
 		task ("When the user searches for Blog Entry 1") {
@@ -154,7 +156,7 @@ definition {
 		}
 
 		task ("And Blog Entry 2 should not display") {
-			LexiconList.viewListEntryNotPresent(listEntry = "hhhhh");
+			LexiconList.viewListEntryNotPresent(listEntry = "soumiatamrani");
 		}
 	}
 

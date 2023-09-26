@@ -18,7 +18,7 @@ definition {
 	}
 
 	@description = "Verify that a Form can be created"
-	test NewFormCreated {
+	test CreateNewFormTests {
 		task ("Given that a form is created") {
 			Testy.CreateNewForm();
 		}
