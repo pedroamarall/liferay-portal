@@ -1,0 +1,105 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutPG();
+	}
+
+	@description = "Create a Blog"
+	@priority = 5
+	test CanCreateBlog {
+		task ("Given: The Blogs Portlet is added to the page") {
+			PoshiExercises.AddBlogsToPage();
+		}
+
+		task ("When: The user adds a Blog Entry") {
+			PoshiExercises.AddBlogEntry();
+		}
+
+		task ("Then: The Blog Entry should display on the page") {
+			Navigator.openURL();
+		}
+	}
+
+	@description = "Delete a Blog"
+	@priority = 5
+	test CanDeleteBlog {
+		task ("Given: The Blogs Portlet is added to the page") {
+			PoshiExercises.AddBlogsToPage();
+		}
+
+		task ("And: 2 Blog Entries exist") {
+			PoshiExercises.AddBlogEntries();
+		}
+
+		task ("When: The User deletes Blog Entry 1") {
+			BlogsEntry.moveToRecycleBinCP(entryTitle = "Blogs Entry 1 Title");
+		}
+
+		task ("Then: Blog Entry 1 should not exist") {
+			Blogs.viewEntryNotPresent(entryTitle = "Blogs Entry 1 Title");
+		}
+
+		task ("And: Blog Entry 2 should exist") {
+			Blogs.viewEntryPresent(entryTitle = "Blogs Entry 2 Title");
+		}
+	}
+
+	@description = "Edit a Blog"
+	@priority = 5
+	test CanEditBlog {
+		task ("Given: The Blogs Portlet is added to the page") {
+			PoshiExercises.AddBlogsToPage();
+		}
+
+		task ("And: A Blog Entry exists") {
+			PoshiExercises.AddBlogEntry();
+		}
+
+		task ("When: The User edits the blog Entry") {
+			PoshiExercises.editBlog();
+		}
+
+		task ("Then: The Blog Entry should be edited") {
+			Navigator.openURL();
+		}
+	}
+
+	@description = "Search for a Blog"
+	@priority = 5
+	test CanSearchForBlog {
+		task ("Given: The Blogs Portlet is added to the page") {
+			PoshiExercises.AddBlogsToPage();
+		}
+
+		task ("And: 2 Blog Entries exist") {
+			PoshiExercises.AddBlogEntries();
+		}
+
+		task ("When: The User searches for Blog Entry 1") {
+			BlogsEntry.searchCP(
+				entryContent = "Blogs Entry 1 Content",
+				entrySearchTerm = 1,
+				entryTitle = "Blogs Entry 1 Title");
+		}
+
+		task ("Then: Blog Entry 1 should display") {
+			Blogs.viewEntryPresent(entryTitle = "Blogs Entry 1 Title");
+		}
+
+		task ("And: Blog Entry 2 should not display") {
+			Blogs.viewEntryNotPresent(entryTitle = "Blogs Entry 2 Title");
+		}
+	}
+
+}
