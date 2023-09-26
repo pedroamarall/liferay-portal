@@ -1,204 +1,152 @@
 definition {
 
- //Ex 1
-    macro ClickMenu {
-        Click(
-            locator1 = "FileTest#CLICK_MENU"
-        );
-    }
+	macro AddFields {
+		Form.gotoAddField(fieldType = "Text");
 
-    macro ClickControlPanel {
-        Click(
-            locator1 = "FileTest#CLICK_CTP"
-        );
-    }
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
 
+		Form.save();
 
-     macro VerifyCONF {
-        AssertTextEquals.assertText(
-            locator1 = "FileTest#CHECK_CONF",
-            value1 = "${Item}"
-        );
-    }
+		Form.gotoAddField(fieldType = "Numeric");
 
+		Form.editFieldLabelMetal(fieldValue = "Age");
 
-    macro ClickSimulation {
-        Click(
-            locator1 = "FileTest#CLICK_SIMULATION"
-        );
+		Form.save();
+	}
 
-        Click(
-            locator1 = "FileTest#CLICK_CUSTOM"
-        );
-    }
+	macro ChangeFields {
+		FormViewBuilder.clickFieldLabel(fieldLabel = "Full Name");
 
-    macro typeTheheight {
-       TripleClick(
-            locator1 = "FileTest#INPUT_WIDTH"
-        );
+		Form.editElementSetFieldLabel(fieldValue = "Nom Complet");
 
-        Type.sendKeys(
-            locator1 = "FileTest#INPUT_WIDTH",
-            value1 = "1080"
-        );
-    }
+		FormViewBuilder.clickFieldLabel(fieldLabel = "Age");
 
-    macro typeTheweidth {
-       TripleClick(
-            locator1 = "FileTest#INPUT_HEIGHT"
-        );
+		Form.editElementSetFieldLabel(fieldValue = "âge");
 
-        Type.sendKeys(
-            locator1 = "FileTest#INPUT_HEIGHT",
-            value1 = "1920"
-        );
-    }
+		Form.save();
 
+		Form.publishForm();
+	}
 
-    // Ex 2: Part of form
-    macro clickOnForm{
-        FormsAdmin.addForm();
-        Form.gotoAddField(
-            fieldType = "Text"
-        );
-        Form.editFieldLabelMetal(fieldValue = "Full Name");
-        
-        Form.save();
+	macro ClickControlPanel {
+		Click(locator1 = "FileTest#CLICK_CTP");
+	}
 
-        Form.gotoAddField(
-            fieldType = "Numeric"
-        );
-        Form.editFieldLabelMetal(fieldValue = "Age");
-        Form.save();  
-
-        Form.addTranslation(localizedLanguage = "French (France)");  
-        //Form.save(); 
-
-        FormViewBuilder.clickFieldLabel(fieldLabel = "Full Name");
-	    Form.editElementSetFieldLabel(fieldValue = "Nom Complet");
-
-        FormViewBuilder.clickFieldLabel(fieldLabel = "Age");
-	    Form.editElementSetFieldLabel(fieldValue = "âge");
-
-        Form.save(); 
- 
-        Form.publishForm();
-        FormsAdminNavigator.gotoPublishedForm();
-
-
-        FormFields.viewTextField(
-			fieldLabel = "Age",
-			fieldName = "Numeric"
-        );
-
-        FormFields.editText(
-            fieldName = "Numeric",
-            fieldValue = 21
-        );
-
-        FormFields.viewTextField(
-        	fieldLabel = "Full Name",
-        	fieldName = "Text"
-        );
-        FormFields.editText(
-            fieldName = "Text",
-            fieldValue = "Youness EL MODAHHAB"
-        );
-        FormPortlet.submitSuccessfully();
-        Form.submitAgain();
-
-
-        FormPortletConfiguration.changeLanguage(
-            currentLanguage = "en-US",
-            newLanguage = "français-France"
-        );
-
-         FormFields.viewTextField(
-			fieldLabel = "âge",
-			fieldName = "Numeric"
-        );
-
-        FormFields.editText(
-            fieldName = "Numeric",
-            fieldValue = 21
-        );
-
-        FormFields.viewTextField(
-        	fieldLabel = "Nom Complet",
-        	fieldName = "Text"
-        );
-        FormFields.editText(
-            fieldName = "Text",
-            fieldValue = "Youness EL MODAHHAB"
-        );
-        FormPortlet.submitSuccessfully();
-        Form.submitAgain();
-        
-
-        Navigator.openURL();
-
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Forms");
-
-
-
-		FormsAdminNavigator.gotoViewEntries();
-        LexiconEntry.viewEntryName(rowEntry = "Youness EL MODAHHAB");
-        LexiconEntry.viewEntryContent(
-            rowAny = "Youness EL MODAHHAB",
-            rowEntry = "Youness EL MODAHHAB"
-        );
-
-
-
-
-    }
-
-
-// Extra exercise : Blog Part
-    macro CreateBlogs{
+	macro CreateBlogs {
 		Blogs.addEntry(
 			entryContent = ${entryContent},
-			entryTitle = ${entryTitle}
-        );
-    }
+			entryTitle = ${entryTitle});
+	}
 
-    macro EditBlogs{
-       
-        LexiconEntry.gotoEntryMenuItem(
+	macro DeleteBlog {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Delete",
+			rowEntry = ${rowEntry});
+	}
+
+	macro EditBlogs {
+		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
-			rowEntry = "This is Title"
-        );
+			rowEntry = "This is Title");
 
-        BlogsEntry.editTitle(
+		BlogsEntry.editTitle(
 			entryTitle = ${entryTitle},
-			entryTitleEdit = ${entryTitleEdit}
-        );
+			entryTitleEdit = ${entryTitleEdit});
 
 		Button.clickPublish();
-    }
+	}
 
-    macro DeleteBlog{
-        LexiconEntry.gotoEntryMenuItem(
-            menuItem = "Delete",
-            rowEntry = ${rowEntry}
-        );
+	macro FillTheForm {
+		FormFields.viewTextField(
+			fieldLabel = "Age",
+			fieldName = "Numeric");
 
-    }
+		FormFields.editText(
+			fieldName = "Numeric",
+			fieldValue = 21);
 
-    macro SearchBlogs{
-        BlogsEntry.searchCP(
-            
-            entryContent = ${entryContent},
-			entryTitle = ${entryTitle},
-            entrySearchTerm = ${entrySearchTerm}
-        );
-    }
+		FormFields.viewTextField(
+			fieldLabel = "Full Name",
+			fieldName = "Text");
 
+		FormFields.editText(
+			fieldName = "Text",
+			fieldValue = "Youness EL MODAHHAB");
 
-    
+		FormPortlet.submitSuccessfully();
 
+		Form.submitAgain();
+	}
 
+	macro FillTheFormWithNewLanguage {
+		FormFields.viewTextField(
+			fieldLabel = "âge",
+			fieldName = "Numeric");
+
+		FormFields.editText(
+			fieldName = "Numeric",
+			fieldValue = 21);
+
+		FormFields.editText(
+			fieldName = "Numeric",
+			fieldValue = 21);
+
+		FormFields.viewTextField(
+			fieldLabel = "Nom Complet",
+			fieldName = "Text");
+
+		FormFields.editText(
+			fieldName = "Text",
+			fieldValue = "Youness EL MODAHHAB");
+
+		FormPortlet.submitSuccessfully();
+
+		Form.submitAgain();
+	}
+
+	macro GotoSimulation {
+		Click(locator1 = "FileTest#CLICK_SIMULATION");
+
+		Click(locator1 = "FileTest#CLICK_CUSTOM");
+	}
+
+	macro SearchBlogs {
+		BlogsEntry.searchCP(
+			entryContent = ${entryContent},
+			entrySearchTerm = ${entrySearchTerm},
+			entryTitle = ${entryTitle});
+	}
+
+	macro typeTheheight {
+		TripleClick(locator1 = "FileTest#INPUT_WIDTH");
+
+		Type.sendKeys(
+			locator1 = "FileTest#INPUT_WIDTH",
+			value1 = 1080);
+	}
+
+	macro typeTheweidth {
+		TripleClick(locator1 = "FileTest#INPUT_HEIGHT");
+
+		Type.sendKeys(
+			locator1 = "FileTest#INPUT_HEIGHT",
+			value1 = 1920);
+	}
+
+	macro VerifyCONF {
+		AssertTextEquals.assertText(
+			locator1 = "FileTest#CHECK_CONF",
+			value1 = ${item});
+	}
+
+	macro VerifyTheResultForm {
+		FormsAdminNavigator.gotoViewEntries();
+
+		LexiconEntry.viewEntryName(rowEntry = "Youness EL MODAHHAB");
+
+		LexiconEntry.viewEntryContent(
+			rowAny = "Youness EL MODAHHAB",
+			rowEntry = "Youness EL MODAHHAB");
+	}
 
 }

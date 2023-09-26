@@ -1,0 +1,76 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if (${testPortalInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@description = "Add some fields in form part"
+	@priority = 5
+	test CreateForm {
+		task ("GIVEN Go to Form") {
+			ApplicationsMenuHelper.openApplicationsMenu();
+		}
+
+		task ("When Go to Add new Form") {
+			FormsAdmin.addForm();
+		}
+
+		task ("And Go Add some fields Full Name and Age") {
+			TestTraining.AddFields();
+		}
+
+		task ("And Add Translator") {
+			Form.addTranslation(localizedLanguage = "French (France)");
+		}
+
+		task ("And Change some fields to Frensh Names") {
+			TestTraining.ChangeFields();
+		}
+
+		task ("And Go to Publish Form") {
+			FormsAdminNavigator.gotoPublishedForm();
+		}
+
+		task ("And fill out the Form that we already Created") {
+			TestTraining.FillTheForm();
+		}
+
+		task ("And Change the Language") {
+			FormPortletConfiguration.changeLanguage(
+				currentLanguage = "en-US",
+				newLanguage = "français-France");
+		}
+
+		task ("And fill the inputs with new Language") {
+			TestTraining.FillTheFormWithNewLanguage();
+		}
+
+		task ("And Navigate to the Form page") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Forms");
+		}
+
+		task ("Then Verify the results") {
+			TestTraining.VerifyTheResultForm();
+		}
+	}
+
+}
