@@ -18,29 +18,45 @@ definition {
 	@description = "Create, translate, fill out and validate a Form"
 	@priority = 5
 	test CreateAndTranslateForm {
-		MyMacroFile.CreateEnglishForm();
+		task ("Given: A Form with a Text field and a Numeric field is created") {
+			PoshiExercises.CreateEnglishForm();
+		}
 
-		MyMacroFile.AddFrenchTranslation();
+		task ("And: We translate the field titles into French and Portuguese") {
+			PoshiExercises.AddFrenchTranslation();
 
-		MyMacroFile.AddPortugueseTranslation();
+			PoshiExercises.AddPortugueseTranslation();
+		}
 
-		Form.publishForm();
+		task ("And: We publish the Form") {
+			Form.publishForm();
+		}
 
-		FormsAdminNavigator.gotoPublishedForm();
+		task ("And: Navigate to the published Form") {
+			FormsAdminNavigator.gotoPublishedForm();
+		}
 
-		MyMacroFile.AssertLanguageAndFillOutFormEnglish();
+		task ("When: We validate the title translation when changing the form language on the page and fill the english form") {
+			PoshiExercises.AssertLanguageAndFillOutFormEnglish();
 
-		Form.submitAgain();
+			Form.submitAgain();
+		}
 
-		MyMacroFile.AssertLanguageAndFillOutFormFrench();
+		task ("And: We validate the title translation when changing the form language on the page and fill the french form") {
+			PoshiExercises.AssertLanguageAndFillOutFormFrench();
 
-		Form.submitAgain();
+			Form.submitAgain();
+		}
 
-		MyMacroFile.AssertLanguageAndFillOutFormPortuguese();
+		task ("And: We validate the title translation when changing the form language on the page and fill the portuguese form") {
+			PoshiExercises.AssertLanguageAndFillOutFormPortuguese();
+		}
 
-		Navigator.openURL();
+		task ("Then: View Entries") {
+			Navigator.openURL();
 
-		MyMacroFile.GoToViewEntries();
+			PoshiExercises.GoToViewEntries();
+		}
 	}
 
 }
