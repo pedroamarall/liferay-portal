@@ -35,6 +35,21 @@
 	<td>//div[contains(@class,'simulation-preview')]//iframe</td>
 	<td></td>
 </tr>
+<tr>
+	<td>PREVIEW_CONFIRM</td>
+	<td>//button[@aria-label='Apply Custom Size']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_EXIT</td>
+	<td>//button[@class='btn btn-monospaced btn-unstyled close sidenav-close']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_APPLIED_CHANGES</td>
+	<td>//div[contains(text(),'Applied') and contains(@class, 'autofit-section')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>

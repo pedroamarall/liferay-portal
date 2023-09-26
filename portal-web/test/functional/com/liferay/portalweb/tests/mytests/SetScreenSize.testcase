@@ -1,0 +1,61 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+    property testray.main.component.name = "Forms";
+
+    setUp {
+        TestCase.setUpPortalInstance();
+
+        User.firstLoginPG();
+
+        Navigator.openURL();
+    }
+
+    tearDown {
+        User.logoutPG();
+    }
+
+    
+
+
+    @description = "Set Screen size to custom and validate values"
+    @priority = "5"
+    test SetScreenSizeAndValidateValues {
+
+        MyMacroFile.OpenSimulationMenu();
+        
+        MyMacroFile.ChooseCustomDevice();
+        
+        MyMacroFile.SetCustomWidthTo1080();
+        
+        MyMacroFile.SetCustomHeightTo1920();
+        
+        MyMacroFile.ConfirmCustomDeviceSize();
+        
+        MyMacroFile.ExitSimulationMenu();
+        
+        MyMacroFile.OpenSimulationMenu();
+        
+        AssertTextEquals.assertPartialText(
+            locator1 = "ControlMenuPreviewPanel#PREVIEW_APPLIED_CHANGES",
+			value1 = "Applied"
+        );
+        
+        MyMacroFile.ExitSimulationMenu();
+        
+    }
+
+
+
+
+    
+}
+
+
+
+
+
+
+
+
+
+    
