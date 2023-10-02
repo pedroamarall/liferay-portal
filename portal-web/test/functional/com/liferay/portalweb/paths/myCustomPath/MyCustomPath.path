@@ -17,12 +17,12 @@
 </tr>
 <tr>
 	<td>CLOSE_BUTTON</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationPanelId"]/div[1]/div[1]/button</td>
+	<td>//div[contains(@class, 'simulation-panel')]//button[@aria-label="Close"]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>ALERT_SIZE</td>
-	<td>//div[contains(@class,'alert')]</td>
+	<td>*[contains(.,"Simulation")]//div[contains(@class,'alert')]</td>
 	<td></td>
 </tr>
 </tbody>
