@@ -35,18 +35,19 @@ definition {
 	@priority = 5
 	test ValidateConfigurationStringAtControlPanel {
 
-		//ApplicationsMenu.gotoPortlet(
-		//	category = "Configuration",
-		//	panel = "Control Panel",
-		//portlet = "System Settings");
+		task ("Given Go to Menu") {
+			ApplicationsMenuHelper.openApplicationsMenu();
+		}
 
-		ApplicationsMenuHelper.openApplicationsMenu();
+		task ("When Control Panel ") { 
+			ApplicationsMenu.gotoPanel(panel = "Control Panel");
+		}
 
-		ApplicationsMenu.gotoPanel(panel = "Control Panel");
-
-		AssertElementPresent(
-			category = "Configuration",
-			locator1 = "MyTest#CONFIGURATION");
+		task ("Then checkif Configuration its exist or not") {
+			AssertElementPresent(
+				category = "Configuration",
+				locator1 = "MyTest#CONFIGURATION");
+		}		
 	}
 
 }
