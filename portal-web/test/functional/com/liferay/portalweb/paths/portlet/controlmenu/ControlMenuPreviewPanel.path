@@ -8,7 +8,6 @@
 <thead>
 <tr><td rowspan="1" colspan="3">ControlMenuPreviewPanel</td></tr>
 </thead>
-
 <tbody>
 <tr>
 	<td>PREVIEW_DATA_DEVICE_BUTTON</td>
@@ -33,6 +32,21 @@
 <tr>
 	<td>PREVIEW_DEVICE_GENERAL_IFRAME</td>
 	<td>//div[contains(@class,'simulation-preview')]//iframe</td>
+	<td></td>
+</tr>
+<tr>
+	<td>APPLY_CUSTOM_SIZE</td>
+	<td>//button[@aria-label='Apply Custom Size']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_EXIT</td>
+	<td>//div[contains(@class, 'simulation')]//button[contains(@aria-label,'Close')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_APPLIED_CHANGES</td>
+	<td>//div[contains(text(),'Applied') and contains(@class, 'autofit-section')]</td>
 	<td></td>
 </tr>
 </tbody>
