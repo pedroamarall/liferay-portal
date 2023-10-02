@@ -1,0 +1,169 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
+
+		if (${testLiferayVirtualInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			PagesAdmin.tearDownCP();
+		}
+	}
+
+	@description = "Create a Form with a Text field and a Numeric field"
+	@priority = 5
+	test CreateFormWithTwoFields {
+		task ("Given the form was added") {
+			FormsAdmin.addForm(formName = "Form 1");
+		}
+
+		task ("When the user adds text and numeric fields") {
+			Form.editName(formTitle = "Form 1");
+
+			Form.editDescription();
+
+			Form.editPageTitle(
+				formPageName = "Created Form Page Name",
+				formTitleNumber = 1);
+
+			Form.addTextField(fieldPositionNumber = 0);
+
+			Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+			Form.closeSidebar();
+
+			Form.gotoAddField(
+				fieldPositionNumber = 1,
+				fieldType = "Numeric");
+
+			Form.editFieldLabelMetal(fieldValue = "Age");
+
+			Form.closeSidebar();
+		}
+
+		task ("Then save the form") {
+			Form.save();
+			
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#SUCCESS",
+				value1 = "Your request completed successfully.");
+		}
+	}
+
+	@description = "Publish the Form > Navigate to the published Form and validate the title translations when changing the form language on the page"
+	@priority = 5
+	test PublishFormAndValidateTitleTranslations {
+		task ("Given the form was added") {
+			FormsAdmin.addForm(formName = "Form 1");
+		}
+
+		task ("When the user adds text and numeric fields and save the form") {
+			Form.editName(formTitle = "Form 1");
+
+			Form.editDescription();
+
+			Form.editPageTitle(
+				formPageName = "Created Form Page Name",
+				formTitleNumber = 1);
+
+			Form.addTextField(fieldPositionNumber = 0);
+
+			Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+			Form.closeSidebar();
+
+			Form.gotoAddField(
+				fieldPositionNumber = 1,
+				fieldType = "Numeric");
+
+			Form.editFieldLabelMetal(fieldValue = "Age");
+
+			Form.closeSidebar();
+
+			Form.save();
+		}
+
+		task ("And add translation") {
+			Form.addTranslation(localizedLanguage = "Arabic (Saudi Arabia)");
+
+			FormViewBuilder.editFieldLabel(
+				fieldLabel = "Full Name",
+				label = "الاسم الكامل");
+
+			FormViewBuilder.editFieldLabel(
+				fieldLabel = "Age",
+				label = "العمر");
+
+			Form.closeSidebar();
+
+			Form.save();
+
+			Form.publishForm();
+		}
+
+		task ("And submit the created form") {
+			FormsAdminNavigator.gotoPublishedForm();
+
+			FormViewBuilder.editText(
+				fieldName = "Full Name",
+				fieldValue = "Ilyass Hossni");
+
+			FormViewBuilder.editText(
+				fieldName = "Age",
+				fieldValue = 21);
+
+			FormPortlet.submit();
+
+			Form.submitAgain();
+
+			FormPortletConfiguration.changeLanguage(
+				currentLanguage = "en-US",
+				newLanguage = "العربية-السعودية");
+
+			AssertTextPresent(value1 = "الاسم الكامل");
+
+			AssertTextPresent(value1 = "العمر");
+
+			FormViewBuilder.editText(
+				fieldName = "الاسم الكامل",
+				fieldValue = "أحمد بن محمد الحمداني الجيلالي آل سعود");
+
+			FormViewBuilder.editText(
+				fieldName = "العمر",
+				fieldValue = 21);
+
+			FormPortlet.clickSubmit();
+
+			AssertElementPresent(locator1 = "Message#SUCCESS");
+		}
+
+		task ("Then validate translations") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Forms");
+
+			FormsAdminNavigator.gotoViewEntries();
+
+			AssertTextPresent(value1 = "Ilyass Hossni");
+
+			AssertTextPresent(value1 = 21);
+
+			AssertTextPresent(value1 = "أحمد بن محمد الحمداني الجيلالي آل سعود");
+		}
+	}
+
+}
