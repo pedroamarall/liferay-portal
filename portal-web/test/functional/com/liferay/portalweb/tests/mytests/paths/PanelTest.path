@@ -12,42 +12,47 @@
 <tbody>
 <tr>
 	<td>MENU_BUTTON</td>
-	<td>//*[contains(@class, 'dropdown-toggle lfr-portal-tooltip btn btn-monospaced btn-sm btn-unstyled')]</td>
+	<td>//button[contains(@data-qa-id, 'applicationsMenu')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>CONTROL_PANEL_BUTTON</td>
-	<td>//li[contains(@id, '_com_liferay_product_navigation_applications_menu_web_internal_portlet_ProductNavigationApplicationsMenuPortlet_tab_2')]</td>
+	<td>//div[contains(@class, 'applications-menu-header')]//*[contains(text(),'Control Panel')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>CONTROL_PANEL_CONFIG_SECTION</td>
-	<td>//h2[contains(@id, 'nav_control_panel.configuration')]</td>
+	<td>//div[contains(@class, 'applications-menu-content')]//*[contains(text(), 'Configuration')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>SIMULATION_MENU_BUTTON</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationToggleId"]</td>
+	<td>//button[contains(@data-qa-id, 'simulation')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>CUSTOM_BUTTON</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationDeviceContainer"]/div/div/button[5]</td>
+	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationDeviceContainer"]//button[contains(., 'Custom')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>WIDTH_INPUT</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_width"]</td>
+	<td>//input[contains(@id, 'SimulationPortlet_width')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>HEIGHT_INPUT</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_height"]</td>
+	<td>//input[contains(@id, 'SimulationPortlet_height')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>APPLY_CUSTOM_BUTTON</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_customSizeSelector"]/button</td>
+	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationDeviceContainer"]//button[contains(text(), 'Apply Custom Size')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CUSTOM_SIZE_APPLIED_ALERT_INFO</td>
+	<td>//div[contains(@class, 'alert-info')]//div[contains(text(), 'Applied')]</td>
 	<td></td>
 </tr>
 

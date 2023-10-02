@@ -20,37 +20,53 @@ definition {
 	@description = "Set Screen size to custom and validate values"
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
-		Click(locator1 = "PanelTest#SIMULATION_MENU_BUTTON");
+		task ("Given Simulation Menu") {
+			Click(locator1 = "PanelTest#SIMULATION_MENU_BUTTON");
+		}
 
-		Click(locator1 = "PanelTest#CUSTOM_BUTTON");
+		task ("And custom size option") {
+			Click(locator1 = "PanelTest#CUSTOM_BUTTON");
+		}
 
-		TripleClick(locator1 = "PanelTest#WIDTH_INPUT");
+		task ("And Height and Width are set") {
+			TripleClick(locator1 = "PanelTest#WIDTH_INPUT");
 
-		Type.sendKeys(
-			locator1 = "PanelTest#WIDTH_INPUT",
-			value1 = 1080);
+			Type.sendKeys(
+				locator1 = "PanelTest#WIDTH_INPUT",
+				value1 = 1080);
 
-		TripleClick(locator1 = "PanelTest#HEIGHT_INPUT");
+			TripleClick(locator1 = "PanelTest#HEIGHT_INPUT");
 
-		Type.sendKeys(
-			locator1 = "PanelTest#HEIGHT_INPUT",
-			value1 = 1920);
+			Type.sendKeys(
+				locator1 = "PanelTest#HEIGHT_INPUT",
+				value1 = 1920);
+		}
 
-		Click(locator1 = "PanelTest#APPLY_CUSTOM_BUTTON");
+		task ("When apply new size") {
+			Click(locator1 = "PanelTest#APPLY_CUSTOM_BUTTON");
+		}
+
+		task ("Then validate if sizes are applied") {
+			AssertElementPresent(locator1 = "PanelTest#CUSTOM_SIZE_APPLIED_ALERT_INFO");
+		}
 	}
 
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
 	@priority = 5
 	test ValidateSectionDisplay {
-		Click(locator1 = "PanelTest#MENU_BUTTON");
+		task ("Given Application Menu") {
+			Click(locator1 = "PanelTest#MENU_BUTTON");
+		}
 
-		Click(locator1 = "PanelTest#CONTROL_PANEL_BUTTON");
+		task ("When open Conrol Panel") {
+			Click(locator1 = "PanelTest#CONTROL_PANEL_BUTTON");
+		}
 
-		AssertTextEquals.assertText(
-			locator1 = "PanelTest#CONTROL_PANEL_CONFIG_SECTION",
-			value1 = "CONFIGURATION");
-
-		Alert.viewSuccessMessage();
+		task ("Then assert the existence of configuration section") {
+			AssertTextEquals.assertText(
+				locator1 = "PanelTest#CONTROL_PANEL_CONFIG_SECTION",
+				value1 = "CONFIGURATION");
+		}
 	}
 
 }
