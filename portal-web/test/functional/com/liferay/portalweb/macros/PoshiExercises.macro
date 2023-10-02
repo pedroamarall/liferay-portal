@@ -1,0 +1,260 @@
+definition {
+
+	macro AddBlogEntries {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Blogs");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry 1 Content",
+			entryTitle = "Blogs Entry 1 Title");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry 2 Content",
+			entryTitle = "Blogs Entry 2 Title");
+	}
+
+	macro AddBlogEntry {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Blogs");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry 1 Content",
+			entryTitle = "Blogs Entry 1 Title");
+	}
+
+	macro AddBlogsToPage {
+		Click(locator1 = "Icon#EDIT_PENCIL");
+
+		PageEditor.addWidgetViaKeyboard(
+			categoryName = "Collaboration",
+			upCount = 1,
+			widgetName = "Blogs");
+
+		Button.clickPublish();
+	}
+
+	macro AddFrenchTranslation {
+		Form.addTranslation(localizedLanguage = "French (France)");
+
+		Form.editPageTitle(
+			formPageName = "Français",
+			formTitleNumber = 1);
+
+		Click(
+			key_name = "Full Name",
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = "label",
+			fieldValue = "Nom et Prénom");
+
+		Click(
+			key_name = "Age",
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = "label",
+			fieldValue = "Âge");
+
+		Form.save();
+	}
+
+	macro AddPortugueseTranslation {
+		Form.addTranslation(localizedLanguage = "Portuguese (Brazil)");
+
+		Form.editPageTitle(
+			formPageName = "Português",
+			formTitleNumber = 1);
+
+		Click(
+			key_name = "Full Name",
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = "label",
+			fieldValue = "Nome completo");
+
+		Click(
+			key_name = "Age",
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = "label",
+			fieldValue = "Idade");
+
+		Form.save();
+	}
+
+	macro AssertLanguageAndFillOutFormEnglish {
+		FormViewBuilder.validateFieldLabel(fieldLabel = "Full Name");
+
+		FormFields.editText(
+			fieldName = "Full Name",
+			fieldValue = "Ayoub Er-rfife");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = "Age");
+
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 21);
+
+		FormPortlet.clickSubmit();
+	}
+
+	macro AssertLanguageAndFillOutFormFrench {
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "français-France");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = "Nom et Prénom");
+
+		FormFields.editText(
+			fieldName = "Nom et Prénom",
+			fieldValue = "Ilyass Hossni");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = "Âge");
+
+		FormFields.editText(
+			fieldName = "Âge",
+			fieldValue = 22);
+
+		FormPortlet.clickSubmit();
+	}
+
+	macro AssertLanguageAndFillOutFormPortuguese {
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "fr-FR",
+			newLanguage = "português-Brasil");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = "Nome completo");
+
+		FormFields.editText(
+			fieldName = "Nome completo",
+			fieldValue = "Houssam Abouelhaoul");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = "Idade");
+
+		FormFields.editText(
+			fieldName = "Idade",
+			fieldValue = 21);
+
+		FormPortlet.clickSubmit();
+
+		Form.submitAgain();
+	}
+
+	macro CheckForStringConfiguration {
+		AssertTextPresent(
+			locator1 = "ApplicationsMenu#CATEGORY",
+			value1 = "CONFIGURATION");
+	}
+
+	macro ChooseCustomDevice {
+		AssertElementPresent(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+
+		Click(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+	}
+
+	macro ConfirmCustomDeviceSize {
+		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
+
+		Click(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
+	}
+
+	macro CreateEnglishForm {
+		FormsAdmin.addForm();
+
+		Form.editName(formName = "Form 1");
+
+		Form.editPageTitle(
+			formPageName = "English",
+			formTitleNumber = 1);
+
+		Form.addTextField(fieldPositionNumber = 0);
+
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+		Form.save();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.save();
+	}
+
+	macro editBlog {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Blogs");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry 1 Title");
+
+		BlogsEntry.editTitle(
+			entryTitle = "Blogs Entry 1 Title",
+			entryTitleEdit = "Blogs Entry 1 (Edited) Title");
+
+		Button.clickPublish();
+	}
+
+	macro ExitSimulationMenu {
+		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#BUTTON_EXIT");
+
+		Click(locator1 = "ControlMenuPreviewPanel#BUTTON_EXIT");
+	}
+
+	macro GoToViewEntries {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Forms");
+
+		LexiconEntry.gotoVerticalEllipsisMenuItemNoError(menuItem = "View Entries");
+	}
+
+	macro NavigateToControlPanel {
+		ApplicationsMenuHelper.openApplicationsMenu();
+
+		ApplicationsMenu.gotoPanel(panel = "Control Panel");
+	}
+
+	macro OpenAppMenu {
+		AssertElementPresent(locator1 = "ApplicationsMenu#TOGGLE");
+
+		Click(locator1 = "ApplicationsMenu#TOGGLE");
+	}
+
+	macro OpenSimulationMenu {
+		AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
+
+		Click(locator1 = "ControlMenu#SIMULATION");
+	}
+
+	macro SetCustomHeightTo1920 {
+		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = 1920);
+	}
+
+	macro SetCustomWidthTo1080 {
+		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+			value1 = 1080);
+	}
+
+}

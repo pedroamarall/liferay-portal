@@ -1,0 +1,62 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutPG();
+	}
+
+	@description = "Create, translate, fill out and validate a Form"
+	@priority = 5
+	test CreateAndTranslateForm {
+		task ("Given: A Form with a Text field and a Numeric field is created") {
+			PoshiExercises.CreateEnglishForm();
+		}
+
+		task ("And: We translate the field titles into French and Portuguese") {
+			PoshiExercises.AddFrenchTranslation();
+
+			PoshiExercises.AddPortugueseTranslation();
+		}
+
+		task ("And: We publish the Form") {
+			Form.publishForm();
+		}
+
+		task ("And: Navigate to the published Form") {
+			FormsAdminNavigator.gotoPublishedForm();
+		}
+
+		task ("When: We validate the title translation when changing the form language on the page and fill the english form") {
+			PoshiExercises.AssertLanguageAndFillOutFormEnglish();
+
+			Form.submitAgain();
+		}
+
+		task ("And: We validate the title translation when changing the form language on the page and fill the french form") {
+			PoshiExercises.AssertLanguageAndFillOutFormFrench();
+
+			Form.submitAgain();
+		}
+
+		task ("And: We validate the title translation when changing the form language on the page and fill the portuguese form") {
+			PoshiExercises.AssertLanguageAndFillOutFormPortuguese();
+		}
+
+		task ("Then: View Entries") {
+			Navigator.openURL();
+
+			PoshiExercises.GoToViewEntries();
+		}
+	}
+
+}
