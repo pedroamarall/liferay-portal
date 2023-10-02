@@ -1,9 +1,6 @@
 definition {
 
 	macro addBlogEntry {
-		var entryContent = "Blogs Entry Content";
-		var entryTitle = "Blogs Entry Title";
-
 		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 
 		BlogsNavigator.gotoAddEntry();
@@ -23,20 +20,20 @@ definition {
 
 	macro editBlogEntry {
 		LexiconEntry.gotoEntryMenuItem(
-			menuItem = "Edit",
-			rowEntry = "Blogs Entry Title");
+			menuItem = ${menuItem},
+			rowEntry = ${rowEntry});
 
 		BlogsEntry.editTitle(
-			entryTitle = "Blogs Entry Title",
-			entryTitleEdit = "New title");
+			entryTitle = ${entryTitle},
+			entryTitleEdit = ${entryTitleEdit});
 
 		Button.clickPublish();
 	}
 
 	macro searchBlogEntry {
 		BlogsEntry.searchCP(
-			entrySearchTerm = "Blogs",
-			entryTitle = "Blogs Entry Title");
+			entrySearchTerm = ${entrySearchTerm},
+			entryTitle = ${entrySearchTerm});
 	}
 
 }

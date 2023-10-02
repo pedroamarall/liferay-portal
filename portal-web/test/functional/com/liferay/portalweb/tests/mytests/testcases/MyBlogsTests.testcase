@@ -22,18 +22,38 @@ definition {
 	@description = "Can Create a Blog"
 	@priority = 5
 	test CanCreateBlog {
-		MyBlogs.addBlogEntry();
+		task ("Given the blog creation") {
+			MyBlogs.addBlogEntry(
+				entryContent = "Blogs Entry Content",
+				entryTitle = "Blogs Entry Title");
+		}
+
+		task ("Then validate the blog is found") {
+			AssertElementPresent(
+				key_entryTitle = "Blogs Entry Title",
+				key_tagName = "Blogs Entry Title",
+				locator1 = "BlogsEntry#TAG");
+		}
 	}
 
 	@description = "Can Delete a Blog"
 	@priority = 5
 	test CanDeleteBlog {
 		task ("Given the blog already created") {
-			MyBlogs.addBlogEntry();
+			MyBlogs.addBlogEntry(
+				entryContent = "Blogs Entry Content",
+				entryTitle = "Blogs Entry Title");
 		}
 
-		task ("Then delete the blog entry") {
+		task ("When delete the blog entry") {
 			MyBlogs.deleteBlogEntry();
+		}
+
+		task ("Then validate the blog is found") {
+			AssertElementNotPresent(
+				key_entryTitle = "Blogs Entry Title",
+				key_tagName = "Blogs Entry Title",
+				locator1 = "BlogsEntry#TAG");
 		}
 	}
 
@@ -41,11 +61,24 @@ definition {
 	@priority = 5
 	test CanEditBlog {
 		task ("Given the blog already created") {
-			MyBlogs.addBlogEntry();
+			MyBlogs.addBlogEntry(
+				entryContent = "Blogs Entry Content",
+				entryTitle = "Blogs Entry Title");
 		}
 
-		task ("Then edit the blog title") {
-			MyBlogs.editBlogEntry();
+		task ("When edit the blog title") {
+			MyBlogs.editBlogEntry(
+				entryTitle = "Blogs Entry Title",
+				entryTitleEdit = "New title",
+				menuItem = "Edit",
+				rowEntry = "Blogs Entry Title");
+		}
+
+		task ("Then validate the blog is found") {
+			AssertElementPresent(
+				key_entryTitle = "New title",
+				key_tagName = "New title",
+				locator1 = "BlogsEntry#TAG");
 		}
 	}
 
@@ -53,11 +86,22 @@ definition {
 	@priority = 5
 	test CanSearchBlogs {
 		task ("Given the blog already created") {
-			MyBlogs.addBlogEntry();
+			MyBlogs.addBlogEntry(
+				entryContent = "Blogs Entry Content",
+				entryTitle = "Blogs Entry Title");
 		}
 
-		task ("Then search for the blog entry and validate its existensse") {
-			MyBlogs.searchBlogEntry();
+		task ("When search for the blog entry and validate its existensse") {
+			MyBlogs.searchBlogEntry(
+				entrySearchTerm = "Blogs",
+				entryTitle = "Blogs Entry Title");
+		}
+
+		task ("Then validate the blog is found") {
+			AssertElementPresent(
+				key_entryTitle = "Blogs Entry Title",
+				key_tagName = "Blogs Entry Title",
+				locator1 = "BlogsEntry#TAG");
 		}
 	}
 
