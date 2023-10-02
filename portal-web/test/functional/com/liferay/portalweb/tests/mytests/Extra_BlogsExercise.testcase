@@ -43,7 +43,7 @@ definition {
 		}
 
 		task ("When: The User deletes Blog Entry 1") {
-			BlogsEntry.moveToRecycleBinCP(entryTitle = "Blogs Entry 1 Title");
+			JSONBlog.moveEntryToTrash(entryTitle = "Blogs Entry 1 Title");
 		}
 
 		task ("Then: Blog Entry 1 should not exist") {
