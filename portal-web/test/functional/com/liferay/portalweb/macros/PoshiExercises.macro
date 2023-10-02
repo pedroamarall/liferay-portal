@@ -1,25 +1,17 @@
 definition {
 
 	macro AddBlogEntries {
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry 1 Content",
 			entryTitle = "Blogs Entry 1 Title");
 
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry 2 Content",
 			entryTitle = "Blogs Entry 2 Title");
 	}
 
 	macro AddBlogEntry {
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Blogs");
-
-		Blogs.addEntry(
+		JSONBlog.addEntry(
 			entryContent = "Blogs Entry 1 Content",
 			entryTitle = "Blogs Entry 1 Title");
 	}
@@ -191,7 +183,7 @@ definition {
 		Form.save();
 	}
 
-	macro editBlog {
+	macro editBlog_old {
 		ProductMenu.gotoPortlet(
 			category = "Content & Data",
 			portlet = "Blogs");
@@ -203,6 +195,14 @@ definition {
 			entryTitleEdit = "Blogs Entry 1 (Edited) Title");
 
 		Button.clickPublish();
+	}
+	
+	macro editBlog {
+		JSONBlog.updateEntry(
+			groupName = "Guest",
+			entryTitle = "Blogs Entry 1 Title",
+			entryContent = "Blogs Entry 1 Content",
+			newEntryContent = "Blogs Entry 1 (Edited) Content");
 	}
 
 	macro ExitSimulationMenu {
