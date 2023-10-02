@@ -1,0 +1,224 @@
+@component-name = "portal-web-mytests"
+definition {
+
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
+
+		if (${testLiferayVirtualInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			PagesAdmin.tearDownCP();
+		}
+	}
+
+	@description = "Create blog and add entries to it"
+	@priority = 5
+	test CanCreateBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+
+			PageEditor.addWidgetViaKeyboard(
+				categoryName = "Collaboration",
+				widgetName = "Blogs");
+
+			PageEditor.publish();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("When the user adds a Blog Entry") {
+			JSONBlog.addEntry(
+				entryContent = "content1",
+				entryTitle = "title1");
+
+			Refresh();
+		}
+
+		task ("Then the Blog Entry should display on the page") {
+			AssertTextEquals(
+				locator1 = "BlogsEntry#TITLE",
+				value1 = "title1");
+
+			BlogsNavigator.gotoEntryCP(entryTitle = "title1");
+		}
+	}
+
+	@description = "Delete a blog"
+	@priority = 5
+	test CanDeleteBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+
+			PageEditor.addWidgetViaKeyboard(
+				categoryName = "Collaboration",
+				widgetName = "Blogs");
+
+			PageEditor.publish();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("And a 2 Blog Entries exists") {
+			JSONBlog.addEntry(
+				entryContent = "content1",
+				entryTitle = "title1");
+
+			JSONBlog.addEntry(
+				entryContent = "content2",
+				entryTitle = "title2");
+
+			Refresh();
+		}
+
+		task ("When the User deletes Blog Entry 1") {
+			JSONBlog.moveEntryToTrash(
+				entryTitle = "title1",
+				groupName = "Guest");
+
+			Refresh();
+		}
+
+		task ("Then Blog Entry 1 should not exist") {
+			AssertElementNotPresent(
+				key_listEntry = "title1",
+				locator1 = "LexiconList#LIST_ENTRY");
+		}
+
+		task ("And Blog Entry 2 should exist") {
+			AssertVisible(
+				key_card = "title2",
+				locator1 = "Card#CARD");
+		}
+	}
+
+	@description = "Edit a blog"
+	@priority = 5
+	test CanEditBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+
+			PageEditor.addWidgetViaKeyboard(
+				categoryName = "Collaboration",
+				widgetName = "Blogs");
+
+			PageEditor.publish();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("And a Blog Entry exists") {
+			JSONBlog.addEntry(
+				entryContent = "content1",
+				entryTitle = "title1");
+		}
+
+		task ("When the User edits the blog Entry") {
+			JSONBlog.updateEntry(
+				entryContent = "content1",
+				entryTitle = "title1",
+				subtitle = "subtitle1");
+		}
+
+		task ("Then the Blog Entry should be edited") {
+			Refresh();
+
+			// To make sure the blog entry exists after editing it
+
+			AssertVisible(
+				locator1 = "Card#CARD",
+				key_card = "title1");
+			
+			AssertClick.assertTextClickAt(
+				locator1 = "BlogsEntry#TITLE_LINK",
+				value1 = "title1");
+
+			AssertVisible(
+				locator1 = "Card#CARD",
+				key_card = "title1");
+
+			// To assert the change made to the blog entry
+
+			AssertVisible(
+				locator1 = "BlogsEntry#SUBTITLE",
+				value1 = "subtitle1");
+		}
+	}
+
+	@description = "Search a blog"
+	@priority = 5
+	test CanSearchBlogs {
+		task ("Given the Blogs Portlet is added to the page") {
+			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+
+			PageEditor.addWidgetViaKeyboard(
+				categoryName = "Collaboration",
+				widgetName = "Blogs");
+
+			PageEditor.publish();
+
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("And a 2 Blog Entries exists") {
+			JSONBlog.addEntry(
+				entryContent = "content1",
+				entryTitle = "title1");
+
+			JSONBlog.addEntry(
+				entryContent = "content2",
+				entryTitle = "title2");
+		}
+
+		task ("When the User searches for Blog Entry 1") {
+			// Could not find the appropriate JSON call for this
+			
+			BlogsEntry.searchCP(
+				entrySearchTerm = "title1",
+				entryTitle = "title1",
+				position = 1);
+
+			Refresh();
+		}
+
+		task ("Then Blog Entry 1 should display") {
+			AssertVisible(
+				key_card = "title1",
+				locator1 = "Card#CARD");
+			//Blogs.viewEntryPresent(entryTitle = "title1");
+		}
+
+		task ("And Blog Entry 2 should not display") {
+			AssertElementNotPresent(
+				key_listEntry = "title2",
+				locator1 = "LexiconList#LIST_ENTRY");
+		}
+	}
+
+}
