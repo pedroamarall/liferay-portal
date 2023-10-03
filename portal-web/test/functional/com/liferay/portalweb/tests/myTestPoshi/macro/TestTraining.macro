@@ -1,27 +1,27 @@
 definition {
 
 	macro AddFields {
-		Form.gotoAddField(fieldType = "Text");
+		Form.gotoAddField(fieldType = ${fieldType1});
 
-		Form.editFieldLabelMetal(fieldValue = "Full Name");
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue1});
 
 		Form.save();
 
-		Form.gotoAddField(fieldType = "Numeric");
+		Form.gotoAddField(fieldType = ${fieldType2});
 
-		Form.editFieldLabelMetal(fieldValue = "Age");
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue2});
 
 		Form.save();
 	}
 
 	macro ChangeFields {
-		FormViewBuilder.clickFieldLabel(fieldLabel = "Full Name");
+		FormViewBuilder.clickFieldLabel(fieldLabel = ${fieldLabel1});
 
-		Form.editElementSetFieldLabel(fieldValue = "Nom Complet");
+		Form.editElementSetFieldLabel(fieldValue = ${fieldValue1});
 
-		FormViewBuilder.clickFieldLabel(fieldLabel = "Age");
+		FormViewBuilder.clickFieldLabel(fieldLabel = ${fieldLabel2});
 
-		Form.editElementSetFieldLabel(fieldValue = "âge");
+		Form.editElementSetFieldLabel(fieldValue = ${fieldValue2});
 
 		Form.save();
 
@@ -47,7 +47,7 @@ definition {
 	macro EditBlogs {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
-			rowEntry = "This is Title");
+			rowEntry = ${rowEntry});
 
 		BlogsEntry.editTitle(
 			entryTitle = ${entryTitle},
@@ -58,20 +58,20 @@ definition {
 
 	macro FillTheForm {
 		FormFields.viewTextField(
-			fieldLabel = "Age",
-			fieldName = "Numeric");
+			fieldLabel = ${fieldLabel1},
+			fieldName = ${fieldName1});
 
 		FormFields.editText(
-			fieldName = "Numeric",
-			fieldValue = 21);
+			fieldName = ${fieldName1},
+			fieldValue = ${fieldValue1});
 
 		FormFields.viewTextField(
-			fieldLabel = "Full Name",
-			fieldName = "Text");
+			fieldLabel = ${fieldLabel2},
+			fieldName = ${fieldName2});
 
 		FormFields.editText(
-			fieldName = "Text",
-			fieldValue = "Youness EL MODAHHAB");
+			fieldName = ${fieldName2},
+			fieldValue = ${fieldValue2});
 
 		FormPortlet.submitSuccessfully();
 
@@ -80,24 +80,20 @@ definition {
 
 	macro FillTheFormWithNewLanguage {
 		FormFields.viewTextField(
-			fieldLabel = "âge",
-			fieldName = "Numeric");
+			fieldLabel = ${fieldLabel1},
+			fieldName = ${fieldName1});
 
 		FormFields.editText(
-			fieldName = "Numeric",
-			fieldValue = 21);
-
-		FormFields.editText(
-			fieldName = "Numeric",
-			fieldValue = 21);
+			fieldName = ${fieldName1},
+			fieldValue = ${fieldValue1});
 
 		FormFields.viewTextField(
-			fieldLabel = "Nom Complet",
-			fieldName = "Text");
+			fieldLabel = ${fieldLabel2},
+			fieldName = ${fieldName2});
 
 		FormFields.editText(
-			fieldName = "Text",
-			fieldValue = "Youness EL MODAHHAB");
+			fieldName = ${fieldName2},
+			fieldValue = ${fieldValue2});
 
 		FormPortlet.submitSuccessfully();
 
@@ -108,13 +104,6 @@ definition {
 		Click(locator1 = "FileTest#CLICK_SIMULATION");
 
 		Click(locator1 = "FileTest#CLICK_CUSTOM");
-	}
-
-	macro SearchBlogs {
-		BlogsEntry.searchCP(
-			entryContent = ${entryContent},
-			entrySearchTerm = ${entrySearchTerm},
-			entryTitle = ${entryTitle});
 	}
 
 	macro typeTheheight {
@@ -142,11 +131,11 @@ definition {
 	macro VerifyTheResultForm {
 		FormsAdminNavigator.gotoViewEntries();
 
-		LexiconEntry.viewEntryName(rowEntry = "Youness EL MODAHHAB");
+		LexiconEntry.viewEntryName(rowEntry = ${rowEntry});
 
 		LexiconEntry.viewEntryContent(
-			rowAny = "Youness EL MODAHHAB",
-			rowEntry = "Youness EL MODAHHAB");
+			rowAny = ${rowAny},
+			rowEntry =${rowEntry2});
 	}
 
 }

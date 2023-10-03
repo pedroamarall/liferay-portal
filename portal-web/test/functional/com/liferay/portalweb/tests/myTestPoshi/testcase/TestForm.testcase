@@ -21,8 +21,8 @@ definition {
 
 	@description = "Add some fields in form part"
 	@priority = 5
-	test CreateForm {
-		task ("GIVEN Go to Form") {
+	test CanCreateFormsuccessfully {
+		task ("Given Go to Form") {
 			ApplicationsMenuHelper.openApplicationsMenu();
 		}
 
@@ -31,7 +31,12 @@ definition {
 		}
 
 		task ("And Go Add some fields Full Name and Age") {
-			TestTraining.AddFields();
+			TestTraining.AddFields(
+				fieldType1 = "Text", 
+				fieldValue1 = "Full Name",
+				fieldType2 = "Numeric",
+				fieldValue2 = "Age"
+			);
 		}
 
 		task ("And Add Translator") {
@@ -39,7 +44,12 @@ definition {
 		}
 
 		task ("And Change some fields to Frensh Names") {
-			TestTraining.ChangeFields();
+			TestTraining.ChangeFields(
+				fieldLabel1 = "Full Name",
+				fieldValue1 = "Nom Complet",
+				fieldLabel2 = "Age",
+				fieldValue2 = "âge"
+			);
 		}
 
 		task ("And Go to Publish Form") {
@@ -47,7 +57,14 @@ definition {
 		}
 
 		task ("And fill out the Form that we already Created") {
-			TestTraining.FillTheForm();
+			TestTraining.FillTheForm(
+				fieldLabel1 = "Age",
+				fieldName1 = "Numeric",
+				fieldValue1 = 21,
+				fieldLabel2 = "Full Name",
+				fieldName2 = "Text",
+				fieldValue2 = "Youness EL MODAHHAB"
+			);
 		}
 
 		task ("And Change the Language") {
@@ -57,7 +74,14 @@ definition {
 		}
 
 		task ("And fill the inputs with new Language") {
-			TestTraining.FillTheFormWithNewLanguage();
+			TestTraining.FillTheFormWithNewLanguage(
+				fieldLabel1 = "âge",
+				fieldName1 = "Numeric",
+				fieldValue1 = 21,
+				fieldLabel2 = "Nom Complet",
+				fieldName2 = "Text",
+				fieldValue2 = "Youness EL MODAHHAB"
+			);
 		}
 
 		task ("And Navigate to the Form page") {
@@ -68,8 +92,12 @@ definition {
 				portlet = "Forms");
 		}
 
-		task ("Then Verify the results") {
-			TestTraining.VerifyTheResultForm();
+		task ("Then confirm the form is created") {
+			TestTraining.VerifyTheResultForm(
+				rowEntry = "Youness EL MODAHHAB",
+				rowAny = "Youness EL MODAHHAB",
+				rowEntry2 = "Youness EL MODAHHAB"
+			);
 		}
 	}
 

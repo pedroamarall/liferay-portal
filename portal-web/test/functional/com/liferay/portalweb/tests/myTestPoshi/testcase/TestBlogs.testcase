@@ -26,17 +26,23 @@ definition {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 
-		task ("Then Create a new Blog") {
+		task ("When Create a new Blog") {
 			TestTraining.CreateBlogs(
 				entryContent = "This is Blog Content",
 				entryTitle = "This is Title");
+		}
+		task ("Then confirm the creation") {
+			AssertElementPresent(
+				key_entryTitle = "This is Title",
+				key_tagName = "This is Title",
+				locator1 = "BlogsEntry#TAG");
 		}
 	}
 
 	@description = "Can Delete a Blog"
 	@priority = 5
 	test CanDeleteBlog {
-		task ("Given Go to Blogs part") {
+		task ("Given add new Blog") {
 			JSONBlog.addEntry(
 				entryContent = "This is Blog Content",
 				entryTitle = "This is Title");
@@ -44,8 +50,15 @@ definition {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 
-		task ("Then Delete the Blog contain this Title") {
+		task ("When Delete the Blog contain this Title") {
 			TestTraining.DeleteBlog(rowEntry = "This is Title");
+		}
+
+		task ("Then confirm the delete with success") {
+			AssertElementNotPresent(
+				key_entryTitle = "This is Title",
+				key_tagName = "This is Title",
+				locator1 = "BlogsEntry#TAG");
 		}
 	}
 
@@ -54,17 +67,26 @@ definition {
 	test CanEditBlog {
 		task ("Given Go to Blogs part") {
 			JSONBlog.addEntry(
+				rowEntry = "This is Title",
 				entryContent = "This is Blog Content",
 				entryTitle = "This is Title");
 
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 
-		task ("Then Edit the Blog") {
+		task ("When Edit the Blog") {
 			TestTraining.EditBlogs(
 				entryTitle = "This is Title",
 				entryTitleEdit = "This Title is Edited");
 		}
+
+		task ("Then confirm the edit") {
+			AssertElementPresent(
+				key_entryTitle = "This is Title",
+				key_tagName = "This is Title",
+				locator1 = "BlogsEntry#TAG");
+		}
+		
 	}
 
 	@description = "Can Search Blogs"
@@ -78,11 +100,17 @@ definition {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 
-		task ("Then can Search for Blogs") {
+		task ("When can Search for Blogs") {
 			BlogsEntry.searchCP(
 				entryContent = "Blogs Content",
 				entrySearchTerm = "This is ",
 				entryTitle = "This is Title");
+		}
+		task ("Then confirm the Search") {
+			AssertElementPresent(
+				key_entryTitle = "This is Title",
+				key_tagName = "This is Title",
+				locator1 = "BlogsEntry#TAG");
 		}
 	}
 
