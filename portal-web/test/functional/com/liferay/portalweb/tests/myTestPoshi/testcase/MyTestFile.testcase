@@ -22,26 +22,46 @@ definition {
 	@description = "Set Screen size to custom and validate values"
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
-		TestTraining.GotoSimulation();
+		task ("Given Go to Simulation") {
+			TestTraining.GotoSimulation();
+		}
 
-		TestTraining.typeTheheight();
+		task ("When modify the width and the height") {
+			TestTraining.typeTheweidth();
+			TestTraining.typeTheheight();
+		}
 
-		TestTraining.typeTheweidth();
+		task ("Then confirm the the custom size is applied") {
+			AssertCssValue(
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_DEVICE_GENERAL_IFRAME",
+				locator2 = "height",
+				value1 = "1920px");
+
+			AssertCssValue(
+				locator1 = "ControlMenuPreviewPanel#PREVIEW_DEVICE_GENERAL_IFRAME",
+				locator2 = "width",
+				value1 = "1080px");
+		}
+
+
 	}
 
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
 	@priority = 5
 	test ValidateConfigurationStringAtControlPanel {
-		task ("GIVEN Go to Menu") {
+		task ("Given Go to Menu") {
 			ApplicationsMenuHelper.openApplicationsMenu();
 		}
 
-		task ("WHEN Control Panel ") {
+		task ("When Control Panel ") {
 			TestTraining.ClickControlPanel();
 		}
 
-		task ("then check if Confirmation its exist or not") {
-			TestTraining.VerifyCONF(item = "CONFIGURATION");
+		task ("Then check if Confirmation its exist or not") {
+			AssertTextEquals.assertText(
+				locator1 = "FileTest#CHECK_CONF",
+				value1 = "CONFIGURATION")
+			
 		}
 	}
 

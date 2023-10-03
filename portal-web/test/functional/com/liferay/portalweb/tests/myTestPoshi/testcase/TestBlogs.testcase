@@ -26,10 +26,16 @@ definition {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 
-		task ("Then Create a new Blog") {
+		task ("When Create a new Blog") {
 			TestTraining.CreateBlogs(
 				entryContent = "This is Blog Content",
 				entryTitle = "This is Title");
+		}
+		task ("Then confirm the creation") {
+			AssertElementPresent(
+				key_entryTitle = "This is Title",
+				key_tagName = "This is Title",
+				locator1 = "BlogsEntry#TAG")
 		}
 	}
 
@@ -44,8 +50,15 @@ definition {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 
-		task ("Then Delete the Blog contain this Title") {
+		task ("When Delete the Blog contain this Title") {
 			TestTraining.DeleteBlog(rowEntry = "This is Title");
+		}
+
+		task ("Then confirm the delete") {
+			AssertElementNotPresent(
+				key_entryTitle = "This is Title",
+				key_tagName = "This is Title",
+				locator1 = "BlogsEntry#TAG")
 		}
 	}
 
@@ -60,11 +73,19 @@ definition {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 
-		task ("Then Edit the Blog") {
+		task ("When Edit the Blog") {
 			TestTraining.EditBlogs(
 				entryTitle = "This is Title",
 				entryTitleEdit = "This Title is Edited");
 		}
+
+		task ("Then confirm the edit") {
+			AssertElementPresent(
+				key_entryTitle = "This is Title",
+				key_tagName = "This is Title",
+				locator1 = "BlogsEntry#TAG")
+		}
+		
 	}
 
 	@description = "Can Search Blogs"
@@ -78,11 +99,17 @@ definition {
 			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 
-		task ("Then can Search for Blogs") {
+		task ("When can Search for Blogs") {
 			BlogsEntry.searchCP(
 				entryContent = "Blogs Content",
 				entrySearchTerm = "This is ",
 				entryTitle = "This is Title");
+		}
+		task ("Then confirm the Search") {
+			AssertElementPresent(
+				key_entryTitle = "This is Title",
+				key_tagName = "This is Title",
+				locator1 = "BlogsEntry#TAG")
 		}
 	}
 

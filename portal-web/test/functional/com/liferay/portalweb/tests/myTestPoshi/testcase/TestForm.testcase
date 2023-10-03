@@ -21,7 +21,7 @@ definition {
 
 	@description = "Add some fields in form part"
 	@priority = 5
-	test CreateForm {
+	test CanCreateFormsuccessfully {
 		task ("GIVEN Go to Form") {
 			ApplicationsMenuHelper.openApplicationsMenu();
 		}
@@ -68,7 +68,7 @@ definition {
 				portlet = "Forms");
 		}
 
-		task ("Then Verify the results") {
+		task ("Then confirm the form is created") {
 			TestTraining.VerifyTheResultForm();
 		}
 	}
