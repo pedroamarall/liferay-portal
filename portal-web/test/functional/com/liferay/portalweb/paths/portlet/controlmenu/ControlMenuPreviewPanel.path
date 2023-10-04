@@ -42,7 +42,7 @@
 </tr>
 <tr>
 	<td>BUTTON_EXIT</td>
-	<td>//button[@class='btn btn-monospaced btn-unstyled close sidenav-close']</td>
+	<td>//div[contains(@class,'simulation-panel')]//button[contains(@class,'btn btn-monospaced')]</td>
 	<td></td>
 </tr>
 <tr>
