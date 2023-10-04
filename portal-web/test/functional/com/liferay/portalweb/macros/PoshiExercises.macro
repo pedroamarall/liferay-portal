@@ -183,25 +183,11 @@ definition {
 		Form.save();
 	}
 
-	macro editBlog_old {
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Blogs");
-
-		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry 1 Title");
-
-		BlogsEntry.editTitle(
-			entryTitle = "Blogs Entry 1 Title",
-			entryTitleEdit = "Blogs Entry 1 (Edited) Title");
-
-		Button.clickPublish();
-	}
-	
 	macro editBlog {
 		JSONBlog.updateEntry(
-			groupName = "Guest",
-			entryTitle = "Blogs Entry 1 Title",
 			entryContent = "Blogs Entry 1 Content",
+			entryTitle = "Blogs Entry 1 Title",
+			groupName = "Guest",
 			newEntryContent = "Blogs Entry 1 (Edited) Content");
 	}
 
