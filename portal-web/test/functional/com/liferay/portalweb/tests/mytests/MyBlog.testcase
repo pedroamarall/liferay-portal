@@ -24,7 +24,7 @@ definition {
 
 	@description = "Create blog and add entries to it"
 	@priority = 5
-	test CanCreateBlog {
+	test CanCreateBlogSuccessfullyAndAddEntriesToIt {
 		task ("Given the Blogs Portlet is added to the page") {
 			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
 
@@ -60,7 +60,7 @@ definition {
 
 	@description = "Delete a blog"
 	@priority = 5
-	test CanDeleteBlog {
+	test CanDeleteBlogSuccessfully {
 		task ("Given the Blogs Portlet is added to the page") {
 			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
 
@@ -112,7 +112,7 @@ definition {
 
 	@description = "Edit a blog"
 	@priority = 5
-	test CanEditBlog {
+	test CanEditBlogSuccessfully {
 		task ("Given the Blogs Portlet is added to the page") {
 			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
 
@@ -148,16 +148,16 @@ definition {
 			// To make sure the blog entry exists after editing it
 
 			AssertVisible(
-				locator1 = "Card#CARD",
-				key_card = "title1");
-			
+				key_card = "title1",
+				locator1 = "Card#CARD");
+
 			AssertClick.assertTextClickAt(
 				locator1 = "BlogsEntry#TITLE_LINK",
 				value1 = "title1");
 
 			AssertVisible(
-				locator1 = "Card#CARD",
-				key_card = "title1");
+				key_card = "title1",
+				locator1 = "Card#CARD");
 
 			// To assert the change made to the blog entry
 
@@ -169,7 +169,7 @@ definition {
 
 	@description = "Search a blog"
 	@priority = 5
-	test CanSearchBlogs {
+	test CanSearchAndDisplayBlogSuccessfully {
 		task ("Given the Blogs Portlet is added to the page") {
 			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
 
@@ -197,8 +197,9 @@ definition {
 		}
 
 		task ("When the User searches for Blog Entry 1") {
+
 			// Could not find the appropriate JSON call for this
-			
+
 			BlogsEntry.searchCP(
 				entrySearchTerm = "title1",
 				entryTitle = "title1",
@@ -211,7 +212,9 @@ definition {
 			AssertVisible(
 				key_card = "title1",
 				locator1 = "Card#CARD");
+
 			//Blogs.viewEntryPresent(entryTitle = "title1");
+
 		}
 
 		task ("And Blog Entry 2 should not display") {
