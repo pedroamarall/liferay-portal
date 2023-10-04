@@ -33,8 +33,6 @@ definition {
 			Navigator.openURL();
 		}
 
-		// Since This is a repeated task I will put the given of all testcases in the Setup to avoid repition
-
 		task ("Given The portlet DM page") {
 			DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 		}
@@ -49,9 +47,6 @@ definition {
 	@description = "Upload File to DM"
 	@priority = 5
 	test CanCreateDM {
-
-		// Just Remember the given task is on the setup level.
-
 		task ("When The user publish The Document and (Upload the file)") {
 			DMDocument.addCP(
 				dmDocumentDescription = "DM Document Description",
@@ -69,9 +64,6 @@ definition {
 	@description = "Delete File From DM"
 	@priority = 5
 	test CanDeleteDM {
-
-		// Just Remember the given task is on the setup level.
-
 		task ("When the User delete a document") {
 			DMDocument.deleteCP(dmDocumentTitle = ${dmDocumentTitle});
 		}
@@ -90,9 +82,6 @@ definition {
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel!"
 	@priority = 5
 	test CanDownloadDM {
-
-		// Just Remember the given task is on the setup level.
-
 		task ("When the user download document from DMTest1") {
 			DMDocument.downloadCP(
 				dmDocumentSize = "9 KB",
@@ -109,9 +98,6 @@ definition {
 	@description = "Edit File in DM"
 	@priority = 5
 	test CanEditDM {
-
-		// Just Remember the given task is on the setup level.
-
 		task ("When user edit the document, uploaded a new file, and publish") {
 			DMDocument.editCP(
 				dmDocumentFileEdit = "really-youness-edit.png",
