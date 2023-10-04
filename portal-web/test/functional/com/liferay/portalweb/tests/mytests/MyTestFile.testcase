@@ -29,9 +29,9 @@ definition {
 		}
 
 		task ("When the Simulation menu is opened and custom screen size is selected") {
-			Testy.Previewsize();
+			Testy.previewsize();
 
-			Testy.Applycustomsize();
+			Click(locator1 = "MyTests#APPLY_CUSTOM_SIZE");
 		}
 
 		task ("And the Simulation menu is closed") {
@@ -47,7 +47,9 @@ definition {
 		}
 
 		task ("Then assert that the values defined in step 4 persisted") {
-			Testy.ValidateApply();
+			Testy.validateApply(
+				
+			);
 		}
 	}
 

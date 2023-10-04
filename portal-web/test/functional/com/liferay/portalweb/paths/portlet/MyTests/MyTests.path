@@ -13,22 +13,22 @@
 
 <tr>
 	<td>CONFIGURATION</td>
-	<td>//*[@id="nav_control_panel.configuration"]</td>
+	<td>//ul[@class="list-unstyled" and preceding-sibling::h2[@class="applications-menu-nav-header c-my-3"][text()="Configuration"]]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>CLOSE_SIMULATION</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationPanelId"]/div[1]/div[1]/button</td>
+	<td>//div[contains(@class, 'cadmin') and contains(@class, 'lfr-admin-panel') and contains(@class, 'open-admin-panel')]//button[@class='btn btn-monospaced btn-unstyled close sidenav-close' and @aria-label='Close']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>ALERTE</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_customSizeSelector"]/div[2]/div/div[2]/div</td>
+	<td>//div[@class='mt-3 alert alert-info']//*[contains(text(), 'Custom Size')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>APPLY_CUSTOM_SIZE</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_customSizeSelector"]/button</td>
+	<td>//button[@class='w-100 btn btn-secondary' and @type='button' and @aria-label='Apply Custom Size']</td>
 	<td></td>
 </tr>
 <tr>
@@ -40,3 +40,4 @@
 </table>
 </body>
 </html>
+

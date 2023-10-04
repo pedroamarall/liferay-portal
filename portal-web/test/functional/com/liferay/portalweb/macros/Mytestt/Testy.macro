@@ -1,10 +1,6 @@
 definition {
 
-	macro Applycustomsize {
-		Click(locator1 = "MyTests#APPLY_CUSTOM_SIZE");
-	}
-
-	macro CreateNewForm {
+	macro createNewForm {
 		FormsAdmin.addForm();
 
 		Form.editName(formName = "First Form");
@@ -28,21 +24,22 @@ definition {
 		Form.save();
 	}
 
-	macro Previewsize {
+	macro previewsize {
 		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
 
 		Type.sendKeys(
 			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
-			value1 = 1920);
-
+			value1 = ${height});
+		
 		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
 
 		Type.sendKeys(
 			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
-			value1 = 1080);
+			value1 =${width});
+			
 	}
 
-	macro TranslateFormFrench {
+	macro translateFormFrench {
 		Form.addTranslation(localizedLanguage = "French (France)");
 
 		Click(
@@ -62,13 +59,21 @@ definition {
 		Form.save();
 	}
 
-	macro ValidateApply {
+	macro validateApply {
+        
+		AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
+
+		Click(locator1 = "ControlMenu#SIMULATION");
+
 		AssertTextEquals(
+
 			locator1 = "MyTests#ALERTE",
-			value1 = "Custom Size 1920x1080 Applied");
+			value1 = "Custom Size  ${height}x${width} Applied");
+
+         
 	}
 
-	macro ValidateFormPublish {
+	macro validateFormPublish {
 		Form.publishForm();
 
 		FormsAdminNavigator.gotoPublishedForm();
