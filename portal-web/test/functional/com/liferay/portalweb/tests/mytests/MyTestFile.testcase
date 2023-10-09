@@ -85,13 +85,13 @@ definition {
 	test ValidateConfigurationStringAtControlPanel {
 		task ("Given the applications menu is opened") {
 			ApplicationsMenuHelper.openApplicationsMenu();
-			
+
 			AssertElementPresent(locator1 = "ApplicationsMenu#APPLICATIONS_MENU");
 		}
 
 		task ("When the user clicks on control panel") {
 			ApplicationsMenu.gotoPanel(panel = "Control Panel");
-			
+
 			AssertElementPresent(locator1 = "ApplicationsMenu#ACTIVE_PANEL");
 		}
 
