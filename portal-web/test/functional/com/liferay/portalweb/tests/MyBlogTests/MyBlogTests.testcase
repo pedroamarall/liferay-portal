@@ -30,10 +30,9 @@ definition {
 		}
 
 		task ("When the user adds a Blog Entry") {
-			JSONBlog.addEntry(
+			Blogs.addEntry(
 				entryContent = "blog test",
 				entryTitle = "blog test");
-			Refresh();	
 		}
 
 		task ("Then the Blog Entry should display on the page") {
@@ -64,33 +63,20 @@ definition {
 			Refresh();
 		}
 
-		task ("And two Blog Entries exists") {
-			AssertElementPresent(
-				key_entryTitle = "Blog1",
-				key_tagName = "Blog1",
-				locator1 = "BlogsEntry#TAG");
-
-			AssertElementPresent(
-				key_entryTitle = "Blog2",
-				key_tagName = "Blog2",
-				locator1 = "BlogsEntry#TAG");
-		}
 		task ("When User deletes Blog Entry 1") {
-			JSONBlog.moveEntryToTrash(
-				entryTitle = "Blog1",
-				groupName = "Guest" );		
-
-            Refresh();
+			LexiconEntry.gotoEntryMenuItemNoError(
+				menuItem = "Delete",
+				rowEntry = "Blog1");
 		}
 
-		task ("Then Blog Entry 1 sould not exist") {
+		task ("Then Blog Entry 1 should not exist") {
 			AssertElementNotPresent(
 				key_entryTitle = "Blog1",
 				key_tagName = "Blog1",
 				locator1 = "BlogsEntry#TAG");
 		}
 
-		task ("And Blog entry 1 sould exist") {
+		task ("And Blog entry 2 should exist") {
 			AssertElementPresent(
 				key_entryTitle = "Blog2",
 				key_tagName = "Blog2",
@@ -117,11 +103,15 @@ definition {
 		}
 
         task("When the user edits blog entry"){
-			JSONBlog.updateEntry(
+			LexiconEntry.gotoEntry(rowEntry = "Blog1");
+
+			BlogsEntry.editEntryContent(
 				entryContent = "1st Blog",
+				entryContentEdit = "1st Blog edit",
 				entryTitle = "Blog1",
-				groupName = "Guest");
-            Refresh();			
+				entryTitleEdit = "Blog1 Edit");
+
+			PortletEntry.publish();	
 		}
 
 		task ("Then: the Blog Entry should be edited") {
@@ -152,11 +142,10 @@ definition {
 				entryTitle = "soumiatamrani");
 		}
 		task ("When the user searches for Blog Entry 1") {
-			BlogsEntry.searchCP(
+		BlogsEntry.searchCP(
 				entryContent = "1st Blog",
 				entrySearchTerm = "Blog1",
 				entryTitle = "Blog1");
-				Refresh();
 		}
 
 

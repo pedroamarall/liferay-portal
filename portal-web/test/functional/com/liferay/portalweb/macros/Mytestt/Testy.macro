@@ -36,7 +36,7 @@ definition {
 		Type.sendKeys(
 			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
 			value1 =${width});
-			
+		
 	}
 
 	macro translateFormFrench {
@@ -59,19 +59,6 @@ definition {
 		Form.save();
 	}
 
-	macro validateApply {
-        
-		AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
-
-		Click(locator1 = "ControlMenu#SIMULATION");
-
-		AssertTextEquals(
-
-			locator1 = "MyTests#ALERTE",
-			value1 = "Custom Size  ${height}x${width} Applied");
-
-         
-	}
 
 	macro validateFormPublish {
 		Form.publishForm();

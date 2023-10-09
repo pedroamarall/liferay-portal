@@ -29,7 +29,11 @@ definition {
 		}
 
 		task ("When the Simulation menu is opened and custom screen size is selected") {
-			Testy.previewsize();
+			
+			var width = 1088;
+			var height = 1922;
+			Testy.previewsize(height = ${height},
+				width = ${width});
 
 			Click(locator1 = "MyTests#APPLY_CUSTOM_SIZE");
 		}
@@ -47,9 +51,14 @@ definition {
 		}
 
 		task ("Then assert that the values defined in step 4 persisted") {
-			Testy.validateApply(
-				
-			);
+			AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
+
+		Click(locator1 = "ControlMenu#SIMULATION");
+
+		AssertTextEquals(
+
+			locator1 = "MyTests#ALERTE",
+			value1 = "Custom Size  ${height}x${width} Applied");
 		}
 	}
 
