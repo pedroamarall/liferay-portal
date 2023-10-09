@@ -78,7 +78,7 @@ definition {
 	test CanSearchBlogs {
 
 		task ("Given Go to Blogs part") {
-			Blogs.addEntry(
+			JSONBlog.addEntry(
 				entryContent = "Blog Content Liferay",
 				entryTitle = "Blog Liferay");
 		}
