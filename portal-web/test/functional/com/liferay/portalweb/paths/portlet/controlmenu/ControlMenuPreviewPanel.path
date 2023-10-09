@@ -8,6 +8,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">ControlMenuPreviewPanel</td></tr>
 </thead>
+
 <tbody>
 <tr>
 	<td>PREVIEW_DATA_DEVICE_BUTTON</td>
