@@ -1,0 +1,160 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutPG();
+	}
+
+	@description = "Create a Blog"
+	@priority = 5
+	test CanSuccessfullyCreateBlog {
+		task ("Given The Blogs Portlet is added to the page") {
+			PoshiExercises.addBlogsToPage();
+		}
+
+		task ("When The user adds a Blog Entry") {
+			PoshiExercises.addBlogEntry(
+				blogContent = "Blogs Entry 1 Content",
+				blogTitle = "Blogs Entry 1 Title");
+
+			Refresh();
+		}
+
+		task ("Then The Blog Entry should display on the page") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			Blogs.viewEntryPresent(entryTitle = "Blogs Entry 1 Title test");
+		}
+	}
+
+	@description = "Delete a Blog"
+	@priority = 5
+	test CanSuccessfullyDeleteBlog {
+		task ("Given The Blogs Portlet is added to the page") {
+			PoshiExercises.addBlogsToPage();
+		}
+
+		task ("And 2 Blog Entries exist") {
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry 1 Content",
+				entryTitle = "Blogs Entry 1 Title");
+
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry 2 Content",
+				entryTitle = "Blogs Entry 2 Title");
+
+			Refresh();
+		}
+
+		task ("When The User deletes Blog Entry 1") {
+			BlogsEntry.moveToRecycleBinCP(entryTitle = "Blogs Entry 1 Title");
+
+			Refresh();
+		}
+
+		task ("Then Blog Entry 1 should not exist") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			Blogs.viewEntryNotPresent(entryTitle = "Blogs Entry 1 Title");
+
+			Navigator.openURL();
+		}
+
+		task ("And Blog Entry 2 should exist") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			Blogs.viewEntryPresent(entryTitle = "Blogs Entry 2 Title");
+		}
+	}
+
+	@description = "Edit a Blog"
+	@priority = 5
+	test CanSuccessfullyEditBlog {
+		task ("Given The Blogs Portlet is added to the page") {
+			PoshiExercises.addBlogsToPage();
+		}
+
+		task ("And A Blog Entry exists") {
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry 1 Content",
+				entryTitle = "Blogs Entry 1 Title");
+
+			Refresh();
+		}
+
+		task ("When The User edits the blog Entry") {
+			PoshiExercises.editBlog(
+				blogTitle = "Blogs Entry 1 Title",
+				editedBlogTitle = "Blogs Entry 1 (Edited) Title",
+				entryTitle = "Blogs Entry 1 Title");
+
+			Refresh();
+		}
+
+		task ("Then Validate That The Blog Entry has been edited") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			Blogs.viewEntryPresent(entryTitle = "Blogs Entry 1 (Edited) Title");
+		}
+	}
+
+	@description = "Search for a Blog"
+	@priority = 5
+	test CanSuccessfullySearchForBlog {
+		task ("Given The Blogs Portlet is added to the page") {
+			PoshiExercises.addBlogsToPage();
+		}
+
+		task ("And 2 Blog Entries are added") {
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry 1 Content",
+				entryTitle = "Blogs Entry 1 Title");
+
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry 2 Content",
+				entryTitle = "Blogs Entry 2 Title");
+		}
+
+		task ("When The User searches for Blog Entry 1") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+
+			BlogsEntry.searchCP(
+				entryContent = "Blogs Entry 1 Content",
+				entrySearchTerm = 1,
+				entryTitle = "Blogs Entry 1 Title");
+		}
+
+		task ("Then Blog Entry 1 should display") {
+			Blogs.viewEntryPresent(entryTitle = "Blogs Entry 1 Title");
+		}
+
+		task ("And Blog Entry 2 should not display") {
+			Blogs.viewEntryNotPresent(entryTitle = "Blogs Entry 2 Title");
+		}
+	}
+
+}
