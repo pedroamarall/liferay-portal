@@ -1,0 +1,129 @@
+definition {
+
+	macro createFormwithField {
+		FormsAdmin.addForm();
+
+		Form.editName(formName = ${formName});
+
+		Form.editPageTitle(
+			formPageName = ${formPageName},
+			formTitleNumber = 1);
+
+		Form.gotoAddField(
+			fieldPositionNumber = 0,
+			fieldType = "Text");
+
+		Form.editFieldLabelMetal(fieldValue = ${textLabelEnglish});
+
+		Form.closeSidebar();
+
+		Form.save();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = ${ageLabelEnglish});
+
+		Form.save();
+	}
+
+	macro modifyWithHeightAndAplyCustomSize {
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = ${height});
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+			value1 = ${width});
+
+		Click(locator1 = "myTests#APPLY_CUSTOM_SIZE");
+	}
+
+	macro selectCustomOption {
+		Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
+
+		Click(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+	}
+
+	macro translateLabelFeild {
+		Form.addTranslation(localizedLanguage = "French (France)");
+
+		Form.editPageTitle(
+			formPageName = "Francais",
+			formTitleNumber = 1);
+
+		Click(
+			key_name = "Full Name",
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = "Label",
+			fieldValue = ${textLabelFrench});
+
+		Click(
+			key_name = "Age",
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = "Label",
+			fieldValue = ${ageLabelFrench});
+
+		Form.save();
+	}
+
+	macro validateFormCreating {
+		Form.publishForm();
+
+		FormsAdminNavigator.gotoPublishedForm();
+
+		FormFields.editText(
+			fieldName = "Full Name",
+			fieldValue = ${englishFullName});
+
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = ${englishAge});
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "français-France");
+
+		FormFields.editText(
+			fieldName = "nom et prénom",
+			fieldValue = ${frenchFullName});
+
+		FormFields.editText(
+			fieldName = "âge",
+			fieldValue = ${frenchAge});
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoViewEntries();
+	}
+
+	macro validateTheAlerte {
+		AssertTextEquals(
+			locator1 = "myTests#ALERTE",
+			value1 = "Custom Size ${height}x${width} Applied");
+	}
+
+}

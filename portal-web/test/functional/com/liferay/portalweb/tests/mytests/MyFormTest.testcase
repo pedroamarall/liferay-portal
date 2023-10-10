@@ -1,0 +1,57 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Create a New form with Text feild and Numeric feild"
+	@priority = 5
+	test AddFormWithTextFeildAndNumericFeild {
+		task ("Given: Create The Form With The Feilds") {
+			var formName = "Form 1";
+			var formPageName = "English";
+			var textLabelFrench = "nom et prénom";
+			var ageLabelFrench = "âge";
+			var textLabelEnglish = "Full Name";
+			var ageLabelEnglish = "Age";
+			var englishFullName = "full name en";
+			var englishAge = 122;
+			var frenchFullName = "nom et prnom fr";
+			var frenchAge = 122;
+
+			MyTests.createFormwithField(
+				ageLabelEnglish = ${ageLabelEnglish},
+				formName = ${formName},
+				formPageName = ${formPageName},
+				textLabelEnglish = ${textLabelEnglish});
+		}
+
+		task ("When: Translate The Label Fields") {
+			MyTests.translateLabelFeild(
+				ageLabelFrench = ${ageLabelFrench},
+				textLabelFrench = ${textLabelFrench});
+		}
+
+		task ("Then: Validate That The Form is Created") {
+			MyTests.validateFormCreating(
+				englishAge = ${englishAge},
+				englishFullName = ${englishFullName},
+				frenchAge = ${frenchAge},
+				frenchFullName = ${frenchFullName});
+		}
+	}
+
+}
