@@ -26,7 +26,7 @@ definition {
 	@priority = 5
 	test CanCreateBlogSuccessfullyAndAddEntriesToIt {
 		task ("Given the Blogs Portlet is added to the page") {
-			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+			Click(locator1 = "Icon#EDIT_PENCIL");
 
 			PageEditor.addWidgetViaKeyboard(
 				categoryName = "Collaboration",
@@ -39,22 +39,21 @@ definition {
 			ProductMenu.gotoPortlet(
 				category = "Content & Data",
 				portlet = "Blogs");
+
+			BlogsNavigator.gotoAddEntry();
 		}
 
 		task ("When the user adds a Blog Entry") {
-			JSONBlog.addEntry(
+			BlogsEntry.addEntryContent(
 				entryContent = "content1",
+				entrySubtitle = "sub-title1",
 				entryTitle = "title1");
 
-			Refresh();
+			PortletEntry.publish();
 		}
 
 		task ("Then the Blog Entry should display on the page") {
-			AssertTextEquals(
-				locator1 = "BlogsEntry#TITLE",
-				value1 = "title1");
-
-			BlogsNavigator.gotoEntryCP(entryTitle = "title1");
+			Blogs.viewEntryPresent(entryTitle = "title1");
 		}
 	}
 
@@ -62,7 +61,7 @@ definition {
 	@priority = 5
 	test CanDeleteBlogSuccessfully {
 		task ("Given the Blogs Portlet is added to the page") {
-			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+			Click(locator1 = "Icon#EDIT_PENCIL");
 
 			PageEditor.addWidgetViaKeyboard(
 				categoryName = "Collaboration",
@@ -90,23 +89,19 @@ definition {
 		}
 
 		task ("When the User deletes Blog Entry 1") {
-			JSONBlog.moveEntryToTrash(
-				entryTitle = "title1",
-				groupName = "Guest");
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
 
-			Refresh();
+			BlogsEntry.moveToRecycleBinCP(entryTitle = "title1");
 		}
 
 		task ("Then Blog Entry 1 should not exist") {
-			AssertElementNotPresent(
-				key_listEntry = "title1",
-				locator1 = "LexiconList#LIST_ENTRY");
+			Blogs.viewEntryNotPresent(entryTitle = "title1");
 		}
 
 		task ("And Blog Entry 2 should exist") {
-			AssertVisible(
-				key_card = "title2",
-				locator1 = "Card#CARD");
+			Blogs.viewEntryPresent(entryTitle = "title2");
 		}
 	}
 
@@ -114,7 +109,7 @@ definition {
 	@priority = 5
 	test CanEditBlogSuccessfully {
 		task ("Given the Blogs Portlet is added to the page") {
-			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+			Click(locator1 = "Icon#EDIT_PENCIL");
 
 			PageEditor.addWidgetViaKeyboard(
 				categoryName = "Collaboration",
@@ -136,34 +131,19 @@ definition {
 		}
 
 		task ("When the User edits the blog Entry") {
-			JSONBlog.updateEntry(
-				entryContent = "content1",
+			BlogsNavigator.gotoEntryCP(entryTitle = "title1");
+
+			BlogsEntry.editTitle(
 				entryTitle = "title1",
-				subtitle = "subtitle1");
+				entryTitleEdit = "title11");
+
+			PortletEntry.publish();
 		}
 
 		task ("Then the Blog Entry should be edited") {
-			Refresh();
-
-			// To make sure the blog entry exists after editing it
-
 			AssertVisible(
-				key_card = "title1",
+				key_card = "title11",
 				locator1 = "Card#CARD");
-
-			AssertClick.assertTextClickAt(
-				locator1 = "BlogsEntry#TITLE_LINK",
-				value1 = "title1");
-
-			AssertVisible(
-				key_card = "title1",
-				locator1 = "Card#CARD");
-
-			// To assert the change made to the blog entry
-
-			AssertVisible(
-				locator1 = "BlogsEntry#SUBTITLE",
-				value1 = "subtitle1");
 		}
 	}
 
@@ -171,7 +151,7 @@ definition {
 	@priority = 5
 	test CanSearchAndDisplayBlogSuccessfully {
 		task ("Given the Blogs Portlet is added to the page") {
-			Click.waitForMenuToggleJSClick(locator1 = "Icon#EDIT_PENCIL");
+			Click(locator1 = "Icon#EDIT_PENCIL");
 
 			PageEditor.addWidgetViaKeyboard(
 				categoryName = "Collaboration",
@@ -197,9 +177,6 @@ definition {
 		}
 
 		task ("When the User searches for Blog Entry 1") {
-
-			// Could not find the appropriate JSON call for this
-
 			BlogsEntry.searchCP(
 				entrySearchTerm = "title1",
 				entryTitle = "title1",
@@ -209,18 +186,11 @@ definition {
 		}
 
 		task ("Then Blog Entry 1 should display") {
-			AssertVisible(
-				key_card = "title1",
-				locator1 = "Card#CARD");
-
-			//Blogs.viewEntryPresent(entryTitle = "title1");
-
+			Blogs.viewEntryPresent(entryTitle = "title1");
 		}
 
 		task ("And Blog Entry 2 should not display") {
-			AssertElementNotPresent(
-				key_listEntry = "title2",
-				locator1 = "LexiconList#LIST_ENTRY");
+			Blogs.viewEntryNotPresent(entryTitle = "title2");
 		}
 	}
 
