@@ -24,6 +24,7 @@ definition {
 	test CanCreateBlog {
 		task ("Given the Blogs Portlet is added to the page") {
 			Navigator.openURL();
+
 			ProductMenu.gotoPortlet(
 				category = "Content & Data",
 				portlet = "Blogs");
@@ -42,7 +43,8 @@ definition {
 				locator1 = "BlogsEntry#TAG");
 		}
 	}
-    @description = "Delete Blog succefully"  
+
+	@description = "Delete Blog succefully"
 	test CanDeleteBlog {
 		task ("Given the Blogs Portlet is added to the page") {
 			Navigator.openURL();
@@ -56,10 +58,11 @@ definition {
 			JSONBlog.addEntry(
 				entryContent = "1st Blog",
 				entryTitle = "Blog1");
-	        
-	        JSONBlog.addEntry(
+
+			JSONBlog.addEntry(
 				entryContent = "2nd Blog",
 				entryTitle = "Blog2");
+
 			Refresh();
 		}
 
@@ -80,8 +83,7 @@ definition {
 			AssertElementPresent(
 				key_entryTitle = "Blog2",
 				key_tagName = "Blog2",
-				locator1 = "BlogsEntry#TAG"
-			);
+				locator1 = "BlogsEntry#TAG");
 		}
 	}
 
@@ -90,19 +92,17 @@ definition {
 			ProductMenu.gotoPortlet(
 				category = "Content & Data",
 				portlet = "Blogs");
-
 		}
 
-
 		task ("And add a Blog Entry") {
-			
 			JSONBlog.addEntry(
 				entryContent = "1st Blog",
 				entryTitle = "Blog1");
-				Refresh();
+
+			Refresh();
 		}
 
-        task("When the user edits blog entry"){
+		task ("When the user edits blog entry") {
 			LexiconEntry.gotoEntry(rowEntry = "Blog1");
 
 			BlogsEntry.editEntryContent(
@@ -111,15 +111,14 @@ definition {
 				entryTitle = "Blog1",
 				entryTitleEdit = "Blog1 Edit");
 
-			PortletEntry.publish();	
+			PortletEntry.publish();
 		}
 
 		task ("Then: the Blog Entry should be edited") {
-		AssertElementPresent(
+			AssertElementPresent(
 				key_entryTitle = "Blog1",
 				key_tagName = "Blog1",
-				locator1 = "BlogsEntry#TAG"
-			);
+				locator1 = "BlogsEntry#TAG");
 		}
 	}
 
@@ -136,18 +135,18 @@ definition {
 			JSONBlog.addEntry(
 				entryContent = "1st Blog",
 				entryTitle = "Blog1");
-		
+
 			JSONBlog.addEntry(
 				entryContent = "soumia",
 				entryTitle = "soumiatamrani");
 		}
+
 		task ("When the user searches for Blog Entry 1") {
-		BlogsEntry.searchCP(
+			BlogsEntry.searchCP(
 				entryContent = "1st Blog",
 				entrySearchTerm = "Blog1",
 				entryTitle = "Blog1");
 		}
-
 
 		task ("Then Blog Entry 1 should display") {
 			AssertVisible(
