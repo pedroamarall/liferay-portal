@@ -20,36 +20,36 @@ definition {
 	test CanSuccessfullyCreateAndTranslateForm {
 		task ("Given A Form with a Text field and a Numeric field is created") {
 			PoshiExercises.CreateEnglishForm(
-				field_Position_Number_1 = 0,
-				field_Position_Number_2 = 1,
-				field_Type = "Numeric",
-				fieldValue_Age = "Age",
-				fieldValue_Name = "Full Name",
-				form_Name = "Form 1",
-				form_Page_Name = "English",
-				form_Title_Number = 1);
+				field_position_number_1 = 0,
+				field_position_number_2 = 1,
+				field_type = "Numeric",
+				fieldValue_age = "Age",
+				fieldValue_name = "Full Name",
+				form_name = "Form 1",
+				form_page_name = "English",
+				form_title_number = 1);
 		}
 
 		task ("And We translate the field titles into French and Portuguese") {
 			PoshiExercises.AddFrenchTranslation(
-				fieldName_Label1 = "label",
-				fieldName_Label2 = "label",
-				fieldValue_AgeFr = "Âge",
-				fieldValue_NameFr = "Nom et Prénom",
-				form_Page_Name = "Français",
-				form_Title_Number = 1,
-				key_name_Age = "Age",
-				key_name_Name = "Full Name");
+				fieldName_label1 = "label",
+				fieldName_label2 = "label",
+				fieldValue_ageFr = "Âge",
+				fieldValue_nameFr = "Nom et Prénom",
+				form_page_name = "Français",
+				form_title_number = 1,
+				key_name_age = "Age",
+				key_name_name = "Full Name");
 
 			PoshiExercises.AddPortugueseTranslation(
-				fieldName_Label1 = "label",
-				fieldName_Label2 = "label",
-				fieldValue_AgeBr = "Idade",
-				fieldValue_NameBr = "Nome completo",
-				form_Page_Name = "Português",
-				form_Title_Number = 1,
-				key_name_Age = "Age",
-				key_name_Name = "Full Name");
+				fieldName_label1 = "label",
+				fieldName_label2 = "label",
+				fieldValue_ageBr = "Idade",
+				fieldValue_nameBr = "Nome completo",
+				form_page_name = "Português",
+				form_title_number = 1,
+				key_name_age = "Age",
+				key_name_name = "Full Name");
 		}
 
 		task ("And We publish the Form") {
@@ -62,43 +62,43 @@ definition {
 
 		task ("When We validate the title translation when changing the form language on the page and fill the english form") {
 			PoshiExercises.ValidateLanguageAndFillOutFormEnglish(
-				fieldLabel_Age = "Age",
-				fieldLabel_Name = "Full Name",
-				fieldName_Age = "Age",
-				fieldName_Name = "Full Name",
-				fieldValue_Age = 21,
-				fieldValue_Name = "Ayoub Er-rfife");
+				fieldLabel_age = "Age",
+				fieldLabel_name = "Full Name",
+				fieldName_age = "Age",
+				fieldName_name = "Full Name",
+				fieldValue_age = 21,
+				fieldValue_name = "Ayoub Er-rfife");
 
 			Form.submitAgain();
 		}
 
 		task ("And We validate the title translation when changing the form language on the page and fill the french form") {
 			PoshiExercises.ValidateLanguageAndFillOutFormFrench(
-				fieldLabel_Age = "Âge",
-				fieldLabel_Name = "Nom et Prénom",
-				fieldName_Age = "Âge",
-				fieldName_Name = "Nom et Prénom",
-				fieldValue_Age = 22,
-				fieldValue_Name = "Ilyass Hossni");
+				fieldLabel_age = "Âge",
+				fieldLabel_name = "Nom et Prénom",
+				fieldName_age = "Âge",
+				fieldName_name = "Nom et Prénom",
+				fieldValue_age = 22,
+				fieldValue_name = "Ilyass Hossni");
 
 			Form.submitAgain();
 		}
 
 		task ("And We validate the title translation when changing the form language on the page and fill the portuguese form") {
 			PoshiExercises.ValidateLanguageAndFillOutFormPortuguese(
-				fieldLabel_Age = "Idade",
-				fieldLabel_Name = "Nome completo",
-				fieldName_Age = "Idade",
-				fieldName_Name = "Nome completo",
-				fieldValue_Age = 21,
-				fieldValue_Name = "Houssam Abouelhaoul");
+				fieldLabel_age = "Idade",
+				fieldLabel_name = "Nome completo",
+				fieldName_age = "Idade",
+				fieldName_name = "Nome completo",
+				fieldValue_age = 21,
+				fieldValue_name = "Houssam Abouelhaoul");
 		}
 
 		task ("Then View and Assert Entries") {
 			Navigator.openURL();
 
 			PoshiExercises.GoToViewEntries(
-				EllipsisMenuItem = "View Entries",
+				ellipsisMenuItem = "View Entries",
 				portletCategory = "Content & Data",
 				portletName = "Forms");
 
