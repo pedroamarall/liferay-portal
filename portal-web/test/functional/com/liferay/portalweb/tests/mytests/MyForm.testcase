@@ -22,54 +22,12 @@ definition {
 		}
 	}
 
-	@description = "Create a Form with a Text field and a Numeric field"
-	@priority = 5
-	test CreateFormWithTwoFields {
-		task ("Given the form was added") {
-			FormsAdmin.addForm(formName = "Form 1");
-		}
-
-		task ("When the user adds text and numeric fields") {
-			Form.editName(formTitle = "Form 1");
-
-			Form.editDescription();
-
-			Form.editPageTitle(
-				formPageName = "Created Form Page Name",
-				formTitleNumber = 1);
-
-			Form.addTextField(fieldPositionNumber = 0);
-
-			Form.editFieldLabelMetal(fieldValue = "Full Name");
-
-			Form.closeSidebar();
-
-			Form.gotoAddField(
-				fieldPositionNumber = 1,
-				fieldType = "Numeric");
-
-			Form.editFieldLabelMetal(fieldValue = "Age");
-
-			Form.closeSidebar();
-		}
-
-		task ("Then save the form") {
-			Form.save();
-
-			AssertTextEquals.assertPartialText(
-				locator1 = "Message#SUCCESS",
-				value1 = "Your request completed successfully.");
-		}
-	}
-
 	@description = "Publish the Form > Navigate to the published Form and validate the title translations when changing the form language on the page"
 	@priority = 5
 	test PublishFormAndValidateTitleTranslations {
 		task ("Given the form was added") {
 			FormsAdmin.addForm(formName = "Form 1");
-		}
 
-		task ("When the user adds text and numeric fields and save the form") {
 			Form.editName(formTitle = "Form 1");
 
 			Form.editDescription();
@@ -95,7 +53,7 @@ definition {
 			Form.save();
 		}
 
-		task ("And add translation") {
+		task ("When the user adds the translation") {
 			Form.addTranslation(localizedLanguage = "Arabic (Saudi Arabia)");
 
 			FormViewBuilder.editFieldLabel(
@@ -147,9 +105,7 @@ definition {
 			FormPortlet.clickSubmit();
 
 			AssertElementPresent(locator1 = "Message#SUCCESS");
-		}
 
-		task ("Then validate translations") {
 			Navigator.openURL();
 
 			ProductMenu.gotoPortlet(
@@ -157,7 +113,9 @@ definition {
 				portlet = "Forms");
 
 			FormsAdminNavigator.gotoViewEntries();
+		}
 
+		task ("Then validate translations") {
 			AssertTextPresent(value1 = "Ilyass Hossni");
 
 			AssertTextPresent(value1 = 21);
