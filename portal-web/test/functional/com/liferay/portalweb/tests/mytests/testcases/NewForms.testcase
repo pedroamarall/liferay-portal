@@ -36,8 +36,7 @@ definition {
 	}
 
 	test CanFormBeSubmitted {
-
-		task("Given form created with two fields") {
+		task ("Given form created with two fields") {
 			FormsAdmin.addForm();
 
 			Form.editName(formName = "Test Form");
@@ -47,15 +46,15 @@ definition {
 			Form.editFieldLabelMetal(fieldValue = "Age");
 
 			Form.save();
-			
+
 			Form.gotoAddField(fieldType = "Text");
 
 			Form.editFieldLabelMetal(fieldValue = "Full Name");
 
 			Form.save();
 		}
-		
-		task("And frensh translation added") {
+
+		task ("And frensh translation added") {
 			Form.addTranslation(localizedLanguage = "French (France)");
 
 			FormViewBuilder.clickFieldLabel(fieldLabel = "Full Name");
@@ -71,7 +70,7 @@ definition {
 			Form.publishForm();
 		}
 
-		task("When the two forms are submitted") {
+		task ("When the two forms are submitted") {
 			FormsAdminNavigator.gotoPublishedForm();
 
 			FormFields.viewTextField(
@@ -130,7 +129,6 @@ definition {
 				menuItem = "View",
 				rowEntry = "Younes Fatihi");
 		}
-
 	}
 
 }
