@@ -37,17 +37,17 @@
 </tr>
 <tr>
 	<td>APPLY_CUSTOM_SIZE</td>
-	<td>//button[@aria-label='Apply Custom Size']</td>
+	<td>//*[@aria-label='Apply Custom Size']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>PREVIEW_EXIT</td>
-	<td>//div[contains(@class, 'simulation')]//button[contains(@aria-label,'Close')]</td>
+	<td>//*[contains(@class, 'simulation') and contains(@id,'simulation')]//*[contains(@aria-label,'Close')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>PREVIEW_APPLIED_CHANGES</td>
-	<td>//div[contains(text(),'Applied') and contains(@class, 'autofit-section')]</td>
+	<td>//*[contains(text(),'Applied') and contains(@class, 'autofit-section')]</td>
 	<td></td>
 </tr>
 </tbody>
