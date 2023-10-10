@@ -1,0 +1,242 @@
+definition {
+
+	macro AddBlogEntry {
+		JSONBlog.addEntry(
+			entryContent = ${entryContent},
+			entryTitle = ${entryTitle});
+	}
+
+	macro AddBlogsToPage {
+		Navigator.openURL();
+
+		Click(locator1 = "Icon#EDIT_PENCIL");
+
+		PageEditor.addWidgetViaKeyboard(
+			categoryName = "Collaboration",
+			upCount = 1,
+			widgetName = "Blogs");
+
+		Button.clickPublish();
+	}
+
+	macro AddFrenchTranslation {
+		Form.addTranslation(localizedLanguage = "French (France)");
+
+		Form.editPageTitle(
+			formPageName = ${form_Page_Name},
+			formTitleNumber = ${form_Title_Number});
+
+		Click(
+			key_name = ${key_name_Name},
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = ${fieldName_Label1},
+			fieldValue = ${fieldValue_NameFr});
+
+		Click(
+			key_name = ${key_name_Age},
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = ${fieldName_Label2},
+			fieldValue = ${fieldValue_AgeFr});
+
+		Form.save();
+	}
+
+	macro AddPortugueseTranslation {
+		Form.addTranslation(localizedLanguage = "Portuguese (Brazil)");
+
+		Form.editPageTitle(
+			formPageName = ${form_Page_Name},
+			formTitleNumber = ${form_Title_Number});
+
+		Click(
+			key_name = ${key_name_Name},
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = ${fieldName_Label1},
+			fieldValue = ${fieldValue_NameBr});
+
+		Click(
+			key_name = ${key_name_Age},
+			locator1 = "FormFields#FIELD_TARGET_LABEL");
+
+		FormFields.editText(
+			fieldName = ${fieldName_Label2},
+			fieldValue = ${fieldValue_AgeBr});
+
+		Form.save();
+	}
+
+	macro CheckForStringConfiguration {
+		AssertTextPresent(
+			locator1 = "ApplicationsMenu#CATEGORY",
+			value1 = ${stringValue});
+	}
+
+	macro ChooseCustomDevice {
+		AssertElementPresent(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+
+		Click(
+			key_deviceType = "Custom",
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
+	}
+
+	macro ConfirmCustomDeviceSize {
+		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
+
+		Click(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
+	}
+
+	macro CreateEnglishForm {
+		FormsAdmin.addForm();
+
+		Form.editName(formName = ${form_Name});
+
+		Form.editPageTitle(
+			formPageName = ${form_Page_Name},
+			formTitleNumber = ${form_Title_Number});
+
+		Form.addTextField(fieldPositionNumber = ${field_Position_Number_1});
+
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue_Name});
+
+		Form.save();
+
+		Form.gotoAddField(
+			fieldPositionNumber = ${field_Position_Number_2},
+			fieldType = ${field_Type});
+
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue_Age});
+
+		Form.save();
+	}
+
+	macro editBlogContent {
+		JSONBlog.updateEntry(
+			entryContent = ${entryContent},
+			entryTitle = ${entryTitle},
+			groupName = ${groupName},
+			newEntryContent = ${newEntryContent});
+	}
+
+	macro ExitSimulationMenu {
+		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#BUTTON_EXIT");
+
+		Click(locator1 = "ControlMenuPreviewPanel#BUTTON_EXIT");
+	}
+
+	macro GoToViewEntries {
+		ProductMenu.gotoPortlet(
+			category = ${portletCategory},
+			portlet = ${portletName});
+
+		AssertElementPresent(locator1 = "Icon#VERTICAL_ELLIPSIS_BUTTON");
+
+		Click(locator1 = "Icon#VERTICAL_ELLIPSIS_BUTTON");
+
+		MenuItem.clickNoError(menuItem = ${EllipsisMenuItem});
+	}
+
+	macro NavigateToControlPanel {
+		ApplicationsMenuHelper.openApplicationsMenu();
+
+		ApplicationsMenu.gotoPanel(panel = "Control Panel");
+	}
+
+	macro OpenAppMenu {
+		AssertElementPresent(locator1 = "ApplicationsMenu#TOGGLE");
+
+		Click(locator1 = "ApplicationsMenu#TOGGLE");
+	}
+
+	macro OpenSimulationMenu {
+		AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
+
+		Click(locator1 = "ControlMenu#SIMULATION");
+	}
+
+	macro SetCustomHeight {
+		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = ${customHeight});
+	}
+
+	macro SetCustomWidth {
+		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+			value1 = ${customWidth});
+	}
+
+	macro ValidateLanguageAndFillOutFormEnglish {
+		FormViewBuilder.validateFieldLabel(fieldLabel = ${fieldLabel_Name});
+
+		FormFields.editText(
+			fieldName = ${fieldName_Name},
+			fieldValue = ${fieldValue_Name});
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = ${fieldLabel_Age});
+
+		FormFields.editText(
+			fieldName = ${fieldName_Age},
+			fieldValue = ${fieldValue_Age});
+
+		FormPortlet.clickSubmit();
+	}
+
+	macro ValidateLanguageAndFillOutFormFrench {
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "français-France");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = ${fieldLabel_Name});
+
+		FormFields.editText(
+			fieldName = ${fieldName_Name},
+			fieldValue = ${fieldValue_Name});
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = ${fieldLabel_Age});
+
+		FormFields.editText(
+			fieldName = ${fieldName_Age},
+			fieldValue = ${fieldValue_Age});
+
+		FormPortlet.clickSubmit();
+	}
+
+	macro ValidateLanguageAndFillOutFormPortuguese {
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "fr-FR",
+			newLanguage = "português-Brasil");
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = ${fieldLabel_Name});
+
+		FormFields.editText(
+			fieldName = ${fieldName_Name},
+			fieldValue = ${fieldValue_Name});
+
+		FormViewBuilder.validateFieldLabel(fieldLabel = ${fieldLabel_Age});
+
+		FormFields.editText(
+			fieldName = ${fieldName_Age},
+			fieldValue = ${fieldValue_Age});
+
+		FormPortlet.clickSubmit();
+
+		Form.submitAgain();
+	}
+
+}
