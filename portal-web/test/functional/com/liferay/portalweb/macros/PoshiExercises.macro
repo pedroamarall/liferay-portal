@@ -1,5 +1,15 @@
 definition {
 
+	macro addBlogEntry {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Blogs");
+
+		Blogs.addEntry(
+			entryContent = ${blogContent},
+			entryTitle = ${blogTitle});
+	}
+	
 	macro addBlogsToPage {
 		Navigator.openURL();
 
