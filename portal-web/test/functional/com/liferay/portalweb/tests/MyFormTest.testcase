@@ -1,0 +1,106 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
+
+		task ("Login") {
+			User.firstLoginPG();
+		}
+
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "Create a New form with Text feild and Numeric feild"
+	@priority = 5
+	test AddFormWithTextFeildAndNumericFeild {
+		task ("Given Create The Form With The Fields") {
+			FormsAdmin.addForm();
+
+			Form.editName(formName = "Form 1");
+
+			Form.editPageTitle(
+				formPageName = "English",
+				formTitleNumber = 1);
+
+			Form.gotoAddField(
+				fieldPositionNumber = 0,
+				fieldType = "Text");
+
+			Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+			Form.closeSidebar();
+
+			Form.save();
+
+			Form.gotoAddField(
+				fieldPositionNumber = 1,
+				fieldType = "Numeric");
+
+			Form.editFieldLabelMetal(fieldValue = "Age");
+
+			Form.save();
+		}
+
+		task ("When The Form Is Filled In Both Lg anguages") {
+			MyTests.translateFormLabelFieldAndPublish(
+				ageLabelFrench = "âge",
+				textLabelFrench = "nom et prénom");
+
+			FormsAdminNavigator.gotoPublishedForm();
+
+			FormFields.editText(
+				fieldName = "Full Name",
+				fieldValue = "full name en");
+
+			FormFields.editText(
+				fieldName = "Age",
+				fieldValue = 122);
+
+			FormPortlet.submit();
+
+			Form.submitAgain();
+
+			FormPortletConfiguration.changeLanguage(
+				currentLanguage = "en-US",
+				newLanguage = "français-France");
+
+			FormFields.editText(
+				fieldName = "nom et prénom",
+				fieldValue = "nom et prnom fr");
+
+			FormFields.editText(
+				fieldName = "âge",
+				fieldValue = 122);
+
+			FormPortlet.submit();
+
+			Form.submitAgain();
+		}
+
+		task ("Then Validate That The Form is Created") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Forms");
+
+			FormsAdminNavigator.gotoViewEntries();
+
+			LexiconEntry.viewEntryName(rowEntry = "nom et prnom fr");
+		}
+	}
+
+}

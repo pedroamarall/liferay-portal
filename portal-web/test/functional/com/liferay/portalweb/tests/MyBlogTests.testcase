@@ -1,0 +1,119 @@
+@component-name = "portal-lima"
+definition {
+
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
+
+		task ("Login") {
+			User.firstLoginPG();
+		}
+
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
+
+		task ("Given the Blogs Portlet is added to the page") {
+			JSONBlog.addEntry(
+				entryContent = "first Blog",
+				entryTitle = "first Blog");
+
+			JSONBlog.addEntry(
+				entryContent = "second Blog",
+				entryTitle = "second Blog");
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if (${testPortalInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@description = "Can Create a Blog"
+	@priority = 5
+	test CanCreateBlogSuccessfully {
+		task ("When Create a Blog Entry") {
+			Blogs.addEntry(
+				entryContent = "first Blog new",
+				entryTitle = "first Blog new");
+		}
+
+		task ("Then Confirm That The Blog is Created With Success") {
+			AssertElementPresent(
+				key_entryTitle = "first Blog new",
+				key_tagName = "first Blog new",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "Can Delete a Blog"
+	@priority = 5
+	test CanDeleteBlogSuccessfully {
+		task ("When Delete The Blog Entry") {
+			var rowEntry = "first Blog";
+
+			LexiconEntry.gotoEntryMenuItem(
+				menuItem = "Delete",
+				rowEntry = ${rowEntry});
+		}
+
+		task ("Then Confirm The Blog is Deleted With Success") {
+			AssertElementNotPresent(
+				key_entryTitle = "first Blog",
+				key_tagName = "first Blog",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "Can Edit a Blog"
+	@priority = 5
+	test CanEditBlogSuccessfully {
+		task ("When Edit The Blog Entry") {
+			LexiconEntry.gotoEntry(rowEntry = "first Blog");
+
+			BlogsEntry.editEntryContent(
+				entryContent = "first Blog",
+				entryContentEdit = "first Blog edit",
+				entryTitle = "first Blog",
+				entryTitleEdit = "first Blog edit");
+
+			PortletEntry.publish();
+		}
+
+		task ("Then Confirm The Blog is Edited With Success") {
+			AssertElementPresent(
+				key_entryTitle = "first Blog edit",
+				key_tagName = "first Blog edit",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "Can Search Blogs"
+	@priority = 5
+	test CanSearchBlogsSuccessfully {
+		task ("When Searche for the Blog Entry") {
+			BlogsEntry.searchCP(
+				entryContent = "first Blog",
+				entrySearchTerm = "first Blog",
+				entryTitle = "first Blog");
+		}
+
+		task ("Then Confirm The Search") {
+			AssertElementPresent(
+				key_entryTitle = "first Blog",
+				key_tagName = "first Blog",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+}
