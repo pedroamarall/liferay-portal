@@ -35,92 +35,102 @@ definition {
 		}
 	}
 
-	test CanBeTransledToEnglishAndFrensh {
-		FormsAdmin.addForm();
+	test CanFormBeSubmitted {
 
-		Form.editName(formName = "Test Form");
+		task("Given form created with two fields") {
+			FormsAdmin.addForm();
 
-		Form.gotoAddField(fieldType = "Numeric");
+			Form.editName(formName = "Test Form");
 
-		Form.editFieldLabelMetal(fieldValue = "Age");
+			Form.gotoAddField(fieldType = "Numeric");
 
-		Form.save();
+			Form.editFieldLabelMetal(fieldValue = "Age");
 
-		Form.gotoAddField(fieldType = "Text");
+			Form.save();
+			
+			Form.gotoAddField(fieldType = "Text");
 
-		Form.editFieldLabelMetal(fieldValue = "Full Name");
+			Form.editFieldLabelMetal(fieldValue = "Full Name");
 
-		Form.save();
+			Form.save();
+		}
+		
+		task("And frensh translation added") {
+			Form.addTranslation(localizedLanguage = "French (France)");
 
-		Form.addTranslation(localizedLanguage = "French (France)");
+			FormViewBuilder.clickFieldLabel(fieldLabel = "Full Name");
 
-		FormViewBuilder.clickFieldLabel(fieldLabel = "Full Name");
+			Form.editElementSetFieldLabel(fieldValue = "Nom Complet");
 
-		Form.editElementSetFieldLabel(fieldValue = "Nom Complet");
+			FormViewBuilder.clickFieldLabel(fieldLabel = "Age");
 
-		FormViewBuilder.clickFieldLabel(fieldLabel = "Age");
+			Form.editElementSetFieldLabel(fieldValue = "Âge");
 
-		Form.editElementSetFieldLabel(fieldValue = "Âge");
+			Form.save();
 
-		Form.save();
+			Form.publishForm();
+		}
 
-		Form.publishForm();
+		task("When the two forms are submitted") {
+			FormsAdminNavigator.gotoPublishedForm();
 
-		FormsAdminNavigator.gotoPublishedForm();
+			FormFields.viewTextField(
+				fieldLabel = "Full Name",
+				fieldName = "Text");
 
-		FormFields.viewTextField(
-			fieldLabel = "Full Name",
-			fieldName = "Text");
+			FormFields.editText(
+				fieldName = "Text",
+				fieldValue = "Younes Fatihi");
 
-		FormFields.editText(
-			fieldName = "Text",
-			fieldValue = "Younes Fatihi");
+			FormFields.viewTextField(
+				fieldLabel = "Age",
+				fieldName = "Numeric");
 
-		FormFields.viewTextField(
-			fieldLabel = "Age",
-			fieldName = "Numeric");
+			FormFields.editText(
+				fieldName = "Numeric",
+				fieldValue = 22);
 
-		FormFields.editText(
-			fieldName = "Numeric",
-			fieldValue = 22);
+			FormPortlet.submitSuccessfully();
 
-		FormPortlet.submitSuccessfully();
+			Form.submitAgain();
 
-		Form.submitAgain();
+			FormPortletConfiguration.changeLanguage(
+				currentLanguage = "en-US",
+				newLanguage = "français-France");
 
-		FormPortletConfiguration.changeLanguage(
-			currentLanguage = "en-US",
-			newLanguage = "français-France");
+			FormFields.viewTextField(
+				fieldLabel = "Nom Complet",
+				fieldName = "Text");
 
-		FormFields.viewTextField(
-			fieldLabel = "Nom Complet",
-			fieldName = "Text");
+			FormFields.editText(
+				fieldName = "Text",
+				fieldValue = "Younes Fatihi");
 
-		FormFields.editText(
-			fieldName = "Text",
-			fieldValue = "Younes Fatihi");
+			FormFields.viewTextField(
+				fieldLabel = "Âge",
+				fieldName = "Numeric");
 
-		FormFields.viewTextField(
-			fieldLabel = "Âge",
-			fieldName = "Numeric");
+			FormFields.editText(
+				fieldName = "Numeric",
+				fieldValue = 22);
 
-		FormFields.editText(
-			fieldName = "Numeric",
-			fieldValue = 22);
+			FormPortlet.submitSuccessfully();
+		}
 
-		FormPortlet.submitSuccessfully();
+		task ("Then assert entries are added") {
+			Navigator.openURL();
 
-		Navigator.openURL();
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Forms");
 
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Forms");
+			FormsAdminNavigator.gotoViewEntries();
 
-		FormsAdminNavigator.gotoViewEntries();
+			LexiconEntry.gotoEntryMenuItem(
+				menuItem = "View",
+				rowEntry = "Younes Fatihi");
+		}
 
-		LexiconEntry.gotoEntryMenuItem(
-			menuItem = "View",
-			rowEntry = "Younes Fatihi");
 	}
 
 }
