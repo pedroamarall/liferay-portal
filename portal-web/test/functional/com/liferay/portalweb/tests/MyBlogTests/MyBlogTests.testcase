@@ -42,7 +42,7 @@ definition {
 				locator1 = "BlogsEntry#TAG");
 		}
 	}
-
+    @description = "Delete Blog succefully"  
 	test CanDeleteBlog {
 		task ("Given the Blogs Portlet is added to the page") {
 			Navigator.openURL();
