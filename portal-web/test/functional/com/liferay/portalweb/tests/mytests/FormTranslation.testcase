@@ -1,0 +1,113 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		User.logoutPG();
+	}
+
+	@description = "Create, translate, fill out and validate a Form"
+	@priority = 5
+	test CanSuccessfullyCreateAndTranslateForm {
+		task ("Given A Form with a Text field and a Numeric field is created") {
+			PoshiExercises.createEnglishForm(
+				field_position_number_1 = 0,
+				field_position_number_2 = 1,
+				field_type = "Numeric",
+				fieldValue_age = "Age",
+				fieldValue_name = "Full Name",
+				form_name = "Form 1",
+				form_page_name = "English",
+				form_title_number = 1);
+		}
+
+		task ("And We translate the field titles into French and Portuguese") {
+			PoshiExercises.addFrenchTranslation(
+				fieldName_label1 = "label",
+				fieldName_label2 = "label",
+				fieldValue_ageFr = "Âge",
+				fieldValue_nameFr = "Nom et Prénom",
+				form_page_name = "Français",
+				form_title_number = 1,
+				key_name_age = "Age",
+				key_name_name = "Full Name");
+
+			PoshiExercises.addPortugueseTranslation(
+				fieldName_label1 = "label",
+				fieldName_label2 = "label",
+				fieldValue_ageBr = "Idade",
+				fieldValue_nameBr = "Nome completo",
+				form_page_name = "Português",
+				form_title_number = 1,
+				key_name_age = "Age",
+				key_name_name = "Full Name");
+		}
+
+		task ("And We publish the Form") {
+			Form.publishForm();
+		}
+
+		task ("And Navigate to the published Form") {
+			FormsAdminNavigator.gotoPublishedForm();
+		}
+
+		task ("When We validate the title translation when changing the form language on the page and fill the english form") {
+			PoshiExercises.usingEnglishToFillForm(
+				fieldLabel_age = "Age",
+				fieldLabel_name = "Full Name",
+				fieldName_age = "Age",
+				fieldName_name = "Full Name",
+				fieldValue_age = 21,
+				fieldValue_name = "Ayoub Er-rfife");
+
+			Form.submitAgain();
+		}
+
+		task ("And We validate the title translation when changing the form language on the page and fill the french form") {
+			PoshiExercises.switchingToFrenchToFillForm(
+				fieldLabel_age = "Âge",
+				fieldLabel_name = "Nom et Prénom",
+				fieldName_age = "Âge",
+				fieldName_name = "Nom et Prénom",
+				fieldValue_age = 22,
+				fieldValue_name = "Ilyass Hossni");
+
+			Form.submitAgain();
+		}
+
+		task ("And We validate the title translation when changing the form language on the page and fill the portuguese form") {
+			PoshiExercises.switchingToPortugueseToFillForm(
+				fieldLabel_age = "Idade",
+				fieldLabel_name = "Nome completo",
+				fieldName_age = "Idade",
+				fieldName_name = "Nome completo",
+				fieldValue_age = 21,
+				fieldValue_name = "Houssam Abouelhaoul");
+		}
+
+		task ("Then View and Assert Entries") {
+			Navigator.openURL();
+
+			PoshiExercises.goToViewEntries(
+				ellipsisMenuItem = "View Entries",
+				portletCategory = "Content & Data",
+				portletName = "Forms");
+
+			AssertTextPresent(value1 = "Ayoub Er-rfife");
+
+			AssertTextPresent(value1 = "Ilyass Hossni");
+
+			AssertTextPresent(value1 = "Houssam Abouelhaoul");
+		}
+	}
+
+}
