@@ -15,7 +15,7 @@ definition {
 	macro deleteBlogEntry {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Delete",
-			rowEntry = "Blogs Entry Title");
+			rowEntry = ${rowEntry});
 	}
 
 	macro editBlogEntry {

@@ -46,7 +46,7 @@ definition {
 		}
 
 		task ("When delete the blog entry") {
-			MyBlogs.deleteBlogEntry();
+			MyBlogs.deleteBlogEntry(rowEntry = "Blogs Entry Title");
 		}
 
 		task ("Then validate the blog is found") {
