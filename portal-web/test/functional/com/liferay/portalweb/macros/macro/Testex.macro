@@ -1,0 +1,52 @@
+definition {
+
+	macro addBlogEntry {
+		var entryContent = "Blogs Entry Content";
+		var entryTitle = "Blogs Entry Title";
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoAddEntry();
+
+		BlogsEntry.addEntryContent(
+			entryContent = ${entryContent},
+			entryTitle = ${entryTitle});
+	}
+
+	macro Applycustomsize {
+		Click(locator1 = "Testex#APPLY_CUSTOM_SIZE");
+	}
+
+	macro deleteBlogEntry {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Delete",
+			rowEntry = ${rowEntry});
+	}
+
+	macro editBlogEntry {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = ${rowEntry});
+
+		BlogsEntry.editTitle(
+			entryTitle = ${entryTitle},
+			entryTitleEdit = ${entryTitleEdit});
+
+		Button.clickPublish();
+	}
+
+	macro Previewsize {
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = 1920);
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+			value1 = 1080);
+	}
+
+}
