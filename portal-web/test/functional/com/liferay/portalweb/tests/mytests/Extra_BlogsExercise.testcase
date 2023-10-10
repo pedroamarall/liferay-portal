@@ -23,9 +23,9 @@ definition {
 		}
 
 		task ("When The user adds a Blog Entry") {
-			JSONBlog.addEntry(
-				entryContent = "Blogs Entry 1 Content",
-				entryTitle = "Blogs Entry 1 Title");
+			PoshiExercises.addBlogEntry(
+				blogContent = "Blogs Entry 1 Content",
+				blogTitle = "Blogs Entry 1 Title");
 
 			Refresh();
 		}
