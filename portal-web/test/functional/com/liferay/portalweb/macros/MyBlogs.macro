@@ -1,0 +1,14 @@
+definition {
+
+	macro Addblog {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Blogs");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs",
+			entryTitle = "Test");
+
+		Refresh();
+		}
+	}
