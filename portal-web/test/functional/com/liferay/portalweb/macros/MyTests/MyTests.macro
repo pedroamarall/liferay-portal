@@ -1,6 +1,6 @@
 definition {
 
-	macro createFormwithField {
+	macro createFormWithField {
 		FormsAdmin.addForm();
 
 		Form.editName(formName = ${formName});
@@ -78,7 +78,7 @@ definition {
 		Form.save();
 	}
 
-	macro validateFormCreating {
+	macro editAndValidateForm {
 		Form.publishForm();
 
 		FormsAdminNavigator.gotoPublishedForm();
@@ -120,10 +120,5 @@ definition {
 		FormsAdminNavigator.gotoViewEntries();
 	}
 
-	macro validateTheAlerte {
-		AssertTextEquals(
-			locator1 = "myTests#ALERTE",
-			value1 = "Custom Size ${height}x${width} Applied");
-	}
 
 }

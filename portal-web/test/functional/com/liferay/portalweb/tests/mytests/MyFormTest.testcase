@@ -20,7 +20,7 @@ definition {
 	@description = "Create a New form with Text feild and Numeric feild"
 	@priority = 5
 	test AddFormWithTextFeildAndNumericFeild {
-		task ("Given: Create The Form With The Feilds") {
+		task ("Given Create The Form With The Feilds") {
 			var formName = "Form 1";
 			var formPageName = "English";
 			var textLabelFrench = "nom et prénom";
@@ -39,13 +39,13 @@ definition {
 				textLabelEnglish = ${textLabelEnglish});
 		}
 
-		task ("When: Translate The Label Fields") {
+		task ("When Translate The Label Fields") {
 			MyTests.translateLabelFeild(
 				ageLabelFrench = ${ageLabelFrench},
 				textLabelFrench = ${textLabelFrench});
 		}
 
-		task ("Then: Validate That The Form is Created") {
+		task ("Then Validate That The Form is Created") {
 			MyTests.validateFormCreating(
 				englishAge = ${englishAge},
 				englishFullName = ${englishFullName},
