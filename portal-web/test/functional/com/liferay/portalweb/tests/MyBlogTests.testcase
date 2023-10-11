@@ -1,0 +1,109 @@
+@component-name = "portal-lima"
+definition {
+
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
+
+		task ("Login") {
+			User.firstLoginPG();
+		}
+
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
+
+		task ("Given the Blogs Portlet is added to the page") {
+			JSONBlog.addEntry(
+				entryContent = "Blogs",
+				entryTitle = "Test");
+
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+		}
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if (${testPortalInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@description = "Can Create a Blog Entry"
+	@priority = 5
+	test CanCreateBlogEntry {
+		task ("When the user adds a Blog Entry") {
+			BlogsNavigator.gotoAddEntry();
+
+			BlogsEntry.addEntryContent(
+				entryContent = "New Blogs Entry",
+				entryTitle = "New Blogs Entry");
+		}
+
+		task ("Then the Blog Entry should display on the page") {
+			AssertElementPresent(
+				key_entryTitle = "New Blogs Entry",
+				key_tagName = "New Blogs Entry",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "Can Delete a Blog"
+	@priority = 5
+	test CanDeleteBlogEntry {
+		task ("When the Blogs Portlet is deleted from the page Entry") {
+			LexiconEntry.gotoEntryMenuItem(
+				menuItem = "Delete",
+				rowEntry = "Test");
+		}
+
+		task ("Then the Blogs should not exist") {
+			Blogs.viewEntryNotPresent(listEntry = "Test");
+		}
+	}
+
+	@description = "Can edit a Blog"
+	@priority = 5
+	test CanEditBlogEntry {
+		task ("When the User edits the blog Entry") {
+			LexiconEntry.gotoEntryMenuItem(
+				menuItem = "Edit",
+				rowEntry = "Test");
+
+			BlogsEntry.editTitle(
+				entryTitle = "Test",
+				entryTitleEdit = "New title");
+
+			Button.clickPublish();
+		}
+
+		task ("Then the blog Entry should be edited and displayed") {
+			AssertElementPresent(
+				key_entryTitle = "New title",
+				key_tagName = "New title",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "Can Search Blogs"
+	@priority = 5
+	test CanSearchBlogsEntry {
+		task ("When user searched for blog entry ") {
+			BlogsEntry.searchCP(
+				entrySearchTerm = "Test",
+				entryTitle = "Test");
+		}
+
+		task ("Then Blog Entry should display ") {
+			AssertElementPresent(
+				key_entryTitle = "Test",
+				key_tagName = "Test",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+}
