@@ -1,58 +1,57 @@
 definition {
 
-	macro addfieldsForm {
+	macro addFieldsForm {
 		Form.editName(formName = ${formName});
 
-			Form.editDescription(formDescription = ${formDescription});
+		Form.editDescription(formDescription = ${formDescription});
 
-			Form.editPageTitle(
-				formPageName = "${formPageName}",
-				formTitleNumber = ${formTitleNumber});
+		Form.editPageTitle(
+			formPageName = ${formPageName},
+			formTitleNumber = ${formTitleNumber});
 
-			Form.gotoAddField(
-				fieldPositionNumber = ${fieldPositionNumber},
-				fieldType = ${fieldType1});
+		Form.gotoAddField(
+			fieldPositionNumber = ${fieldPositionNumber},
+			fieldType = ${fieldType1});
 
-			Form.editFieldLabelMetal(fieldValue = ${fieldValue1});
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue1});
 
-			Form.closeSidebar();
+		Form.closeSidebar();
 
-			Form.save();
+		Form.save();
 
-			Form.gotoAddField(
-				fieldPositionNumber = ${fieldPositionNumber2},
-				fieldType = ${fieldType2});
+		Form.gotoAddField(
+			fieldPositionNumber = ${fieldPositionNumber2},
+			fieldType = ${fieldType2});
 
-			Form.editFieldLabelMetal(fieldValue = ${fieldValue2});
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue2});
 
-			Form.save();
-
+		Form.save();
 	}
-	macro changeFieldsform {
 
+	macro changeFieldsForm {
 		Form.editName(formName = "form frc ");
 
-			Form.editDescription(formDescription = "form en frc");
+		Form.editDescription(formDescription = "form en frc");
 
-			Form.editPageTitle(
-				formPageName = "Creation formulaire en frc",
-				formTitleNumber = 1);
+		Form.editPageTitle(
+			formPageName = "Creation formulaire en frc",
+			formTitleNumber = 1);
 
-			Click(
-				key_fieldName = "Full Name",
-				locator1 = "FormFields#TEXT_FIELD");
+		Click(
+			key_fieldName = "Full Name",
+			locator1 = "FormFields#TEXT_FIELD");
 
-			Form.editFieldLabelMetal(fieldValue = "Nom Prenom");
+		Form.editFieldLabelMetal(fieldValue = "Nom Prenom");
 
-			Click(
-				key_fieldName = "Age",
-				locator1 = "FormFields#TEXT_FIELD");
+		Click(
+			key_fieldName = "Age",
+			locator1 = "FormFields#TEXT_FIELD");
 
-			Form.editFieldLabelMetal(fieldValue = "Age");
+		Form.editFieldLabelMetal(fieldValue = "Age");
 
-			Form.save();
-
+		Form.save();
 	}
+
 	macro CheckForm {
 		FormsAdminNavigator.gotoViewEntries();
 
@@ -60,7 +59,7 @@ definition {
 
 		LexiconEntry.viewEntryContent(
 			rowAny = ${rowAny},
-			rowEntry =${rowEntry2});
+			rowEntry = ${rowEntry2});
 	}
 
 	macro editBlogEntry {
@@ -74,31 +73,33 @@ definition {
 
 		Button.clickPublish();
 	}
+
 	macro fillForm {
 		FormFields.editText(
-				fieldName = "Full Name",
-				fieldValue = "Adnan");
+			fieldName = "Full Name",
+			fieldValue = "Adnan");
 
-			FormFields.editText(
-				fieldName = "Age",
-				fieldValue = 22);
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 22);
 
-			FormPortlet.submit();
+		FormPortlet.submit();
 
-			Form.submitAgain();
+		Form.submitAgain();
 	}
+
 	macro fillFormFrench {
 		FormFields.editText(
-				fieldName = "Nom Prenom",
-				fieldValue = "Adnan");
+			fieldName = "Nom Prenom",
+			fieldValue = "Adnan");
 
-			FormFields.editText(
-				fieldName = "Age",
-				fieldValue = 22);
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 22);
 
-			FormPortlet.submit();
+		FormPortlet.submit();
 
-			Form.submitAgain();
+		Form.submitAgain();
 	}
 
 	macro previewSize {
