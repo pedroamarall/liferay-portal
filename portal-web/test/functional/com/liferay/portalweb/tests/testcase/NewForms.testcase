@@ -4,11 +4,15 @@ definition {
 	property testray.main.component.name = "Forms";
 
 	setUp {
-		TestCase.setUpPortalInstance();
-
-		User.firstLoginPG();
-
-		Navigator.openURL();
+        task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
+		task ("Login") {
+			User.firstLoginPG();
+		}
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
 	}
 
 	tearDown {
@@ -17,9 +21,9 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@description = "Create a New form with Text feild and Numeric feild"
+	@description = "Create a New form with Translation"
 	@priority = 5
-	test Createform {
+	test CanICreateFormWithTranslation {
 		task ("Given open Menu ") {
 			ApplicationsMenuHelper.openApplicationsMenu();
 		}

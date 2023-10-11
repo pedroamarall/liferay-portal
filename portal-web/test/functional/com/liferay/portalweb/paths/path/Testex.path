@@ -27,7 +27,7 @@
 </tr>
 <tr>
 	<td>APPLY_CUSTOM_SIZE</td>
-	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_customSizeSelector"]//button[contains(@class, 'btn-secondary')]</td>
+	<td>//button[@aria-label='Apply Custom Size']</td>
 	<td></td>
 </tr>
 </tbody>

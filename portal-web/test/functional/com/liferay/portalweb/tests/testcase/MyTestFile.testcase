@@ -1,14 +1,19 @@
-@component-name = "portal-web-forms-and-data-lists"
+@component-name = "portal-simulation-menu"
 definition {
 
-	property testray.main.component.name = "Forms";
+	property testray.component.names = "Simulation";
+	property testray.main.component.name = "Simulation";
 
 	setUp {
-		TestCase.setUpPortalInstance();
-
-		User.firstLoginPG();
-
-		Navigator.openURL();
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
+		task ("Login") {
+			User.firstLoginPG();
+		}
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
 	}
 
 	tearDown {
@@ -21,7 +26,7 @@ definition {
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
 		task ("Given Open the Simulation menu") {
-			Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
+			Click(locator1 = "ControlMenu#SIMULATION");
 
 			Click(
 				key_deviceType = "Custom",
@@ -39,7 +44,7 @@ definition {
 		}
 
 		task ("Then Check the values defined on Height and Width") {
-			Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
+			Click(locator1 = "ControlMenu#SIMULATION");
 
 			Click(
 				key_deviceType = "Custom",
