@@ -1,0 +1,76 @@
+@component-name = "portal-simulation-menu"
+definition {
+
+	property testray.component.names = "Simulation";
+	property testray.main.component.name = "Simulation";
+
+	setUp {
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
+
+		task ("Login") {
+			User.firstLoginPG();
+		}
+
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "To test if the screen size values can be customized and validate the values are well set"
+	@priority = 5
+	test SetScreenSizeAndValidateValues {
+		var width = 1080;
+		var height = 1920;
+
+		task ("Given The Simulation Panel") {
+			Click(locator1 = "MyTestFile#SIMULATION_MENU");
+		}
+
+		task ("When setting the custom size of the screen as width is ${width} and height is ${height}") {
+			MyTestFile.SetSize(
+				height = ${height},
+				width = ${width});
+		}
+
+		task ("Then I verify if the custom still exists ") {
+			Click(locator1 = "MyTestFile#SIMULATION_MENU");
+
+			Click(locator1 = "MyTestFile#SIMULATION_MENU");
+
+			AssertTextPresent(
+				locator1 = "MyTestFile#HEIGHT_VALUE",
+				value1 = ${height});
+
+			AssertTextPresent(
+				locator1 = "MyTestFile#WIDTH_VALUE",
+				value1 = ${width});
+		}
+	}
+
+	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
+	@priority = 5
+	test ValidateConfigurationStringAtControlPanel {
+		task ("Given the application Menu") {
+			ApplicationsMenuHelper.openApplicationsMenu();
+		}
+
+		task ("When the application menu point to Control Panel") {
+			ApplicationsMenu.gotoPanel(panel = "Control Panel");
+		}
+
+		task ("Then the configuration tab should exist") {
+			AssertElementPresent(
+				category = "Configuration",
+				locator1 = "MyTestFile#CONFIGURATION_SECTION");
+		}
+	}
+
+}

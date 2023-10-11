@@ -1,0 +1,21 @@
+definition {
+
+	macro SetSize {
+		Click(locator1 = "MyTestFile#CUSTOM_BUTTON");
+
+		TripleClick(locator1 = "MyTestFile#HEIGHT_VALUE");
+
+		Type.sendKeys(
+			locator1 = "MyTestFile#HEIGHT_VALUE",
+			value1 = ${height});
+
+		TripleClick(locator1 = "MyTestFile#WIDTH_VALUE");
+
+		Type.sendKeys(
+			locator1 = "MyTestFile#WIDTH_VALUE",
+			value1 = ${width});
+
+		Click(locator1 = "MyTestFile#APPLY_CUSTOM");
+	}
+
+}
