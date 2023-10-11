@@ -70,7 +70,7 @@ definition {
 			Form.publishForm();
 		}
 
-		task ("When the two forms are submitted") {
+		task ("And the english form is submitted") {
 			FormsAdminNavigator.gotoPublishedForm();
 
 			FormFields.viewTextField(
@@ -90,13 +90,17 @@ definition {
 				fieldValue = 22);
 
 			FormPortlet.submitSuccessfully();
+		}
 
+		task ("When changing language") {
 			Form.submitAgain();
 
 			FormPortletConfiguration.changeLanguage(
 				currentLanguage = "en-US",
 				newLanguage = "français-France");
+		}
 
+		task ("And the frensh form is submitted") {
 			FormFields.viewTextField(
 				fieldLabel = "Nom Complet",
 				fieldName = "Text");
