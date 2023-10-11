@@ -22,13 +22,12 @@
 </tr>
 <tr>
 	<td>ALERTE</td>
-	<td>//*[contains(text(),'Custom Size 1920x1080 Applied')]
-</td>
+	<td>//*[contains(text(),'Custom Size 1920x1080 Applied')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>APPLY_CUSTOM_SIZE</td>
-	<td>//button[text()='Apply Custom Size']</td>
+	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_customSizeSelector"]//button[contains(@class, 'btn-secondary')]</td>
 	<td></td>
 </tr>
 </tbody>

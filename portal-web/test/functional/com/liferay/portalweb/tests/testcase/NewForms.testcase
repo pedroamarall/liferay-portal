@@ -20,83 +20,68 @@ definition {
 	@description = "Create a New form with Text feild and Numeric feild"
 	@priority = 5
 	test Createform {
-		task ("Given:Create a Form with a Text field and a Numeric field ") {
+		task ("Given open Menu ") {
+			ApplicationsMenuHelper.openApplicationsMenu();
+		}
+		task ("When add new form") {
 			FormsAdmin.addForm();
+		}
 
-			Form.editName(formName = "form ENG");
-
-			Form.editDescription(formDescription = "form  ENG");
-
-			Form.editPageTitle(
+		task ("And add some fields full name and age"){
+			Testex.Addfieldsform(
+				fieldType1 = "Text", 
+				fieldValue1 = "Full Name",
+				fieldType2 = "Numeric",
+				fieldValue2 = "Age",
+				formTitleNumber = 1,
 				formPageName = "Created Form EN",
-				formTitleNumber = 1);
-
-			Form.gotoAddField(
+				formName = "form ENG",
+				formDescription = "form ENG",
 				fieldPositionNumber = 0,
-				fieldType = "Text");
+				fieldPositionNumber2 = 1);
+		}	
+			
+		
 
-			Form.editFieldLabelMetal(fieldValue = "Full Name");
-
-			Form.closeSidebar();
-
-			Form.save();
-
-			Form.gotoAddField(
-				fieldPositionNumber = 1,
-				fieldType = "Numeric");
-
-			Form.editFieldLabelMetal(fieldValue = "Age");
-
-			Form.save();
-		}
-
-		task ("Then: Translates field titles into English and French") {
+		task ("And add translator ") {
 			Form.addTranslation(localizedLanguage = "French (France)");
-
-			Form.editName(formName = "form frc ");
-
-			Form.editDescription(formDescription = "form en frc");
-
-			Form.editPageTitle(
-				formPageName = "Creation formulaire en frc",
-				formTitleNumber = 1);
-
-			Click(
-				key_fieldName = "Full Name",
-				locator1 = "FormFields#TEXT_FIELD");
-
-			Form.editFieldLabelMetal(fieldValue = "Nom Prenom");
-
-			Click(
-				key_fieldName = "Age",
-				locator1 = "FormFields#TEXT_FIELD");
-
-			Form.editFieldLabelMetal(fieldValue = "Age");
-
-			Form.save();
 		}
+		task ("And translate label to french") {
+			Testex.Changefieldsform(
+				formName = "form frc",
+				formDescription = "form en frc",
+			    formPageName = "Creation formulaire en frc",
+				formTitleNumber = 1,
+				fieldValue1 = "Nom Prenom",
+				fieldValue2 = "Age");
+		}	
 
-		task ("And: Publish the Form for validate the submitted content ") {
+			
+
+		task ("And Publish Form ") {
 			Form.publishForm();
 
 			FormsAdminNavigator.gotoPublishedForm();
-
-			FormFields.editText(
-				fieldName = "Full Name",
-				fieldValue = "Adnan");
-
-			FormFields.editText(
-				fieldName = "Age",
-				fieldValue = 22);
-
-			FormPortlet.submit();
-
-			Form.submitAgain();
-
+		} 
+		task ("And fill the form in eng"){
+			Testex.fillform(
+				fieldValue1 = "Adnan",
+				fieldValue2 = 22,
+				fieldName1 = "Full Name",
+				fieldName2 = "Age");
+		}
+		task ("And Change the language in french"){
 			FormPortletConfiguration.changeLanguage(
 				currentLanguage = "en-US",
 				newLanguage = "français-France");
-
+		}
+		task ("And fill the form in french"){
+			Testex.fillformfr(
+				fieldValue1 = "Adnan",
+				fieldValue2 = 22,
+				fieldName1 = "Nom Prenom",
+				fieldName2 = "Age");
+		}
 			FormFields.editText(
 				fieldName = "Nom Prenom",
 				fieldValue = "Adnan");
@@ -109,13 +94,19 @@ definition {
 
 			Form.submitAgain();
 
+		task ("And Navigate to the Form page") {
 			Navigator.openURL();
 
 			ProductMenu.gotoPortlet(
 				category = "Content & Data",
 				portlet = "Forms");
-
-			FormsAdminNavigator.gotoViewEntries();
+		}
+		task ("Then Check the form is created") {
+			Testex.CheckForm(
+				rowEntry = "Adnan",
+				rowAny = "Adnan",
+				rowEntry2 = "Adnan"
+			);
 		}
 	}
 

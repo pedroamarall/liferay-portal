@@ -12,15 +12,67 @@ definition {
 			entryContent = ${entryContent},
 			entryTitle = ${entryTitle});
 	}
+	macro addfieldsform {
+		Form.editName(formName = ${formName});
 
-	macro Applycustomsize {
-		Click(locator1 = "Testex#APPLY_CUSTOM_SIZE");
+			Form.editDescription(formDescription = ${formDescription});
+
+			Form.editPageTitle(
+				formPageName = "${formPageName}",
+				formTitleNumber = ${formTitleNumber});
+
+			Form.gotoAddField(
+				fieldPositionNumber = ${fieldPositionNumber},
+				fieldType = ${fieldType1});
+
+			Form.editFieldLabelMetal(fieldValue = ${fieldValue1});
+
+			Form.closeSidebar();
+
+			Form.save();
+
+			Form.gotoAddField(
+				fieldPositionNumber = ${fieldPositionNumber2},
+				fieldType = ${fieldType2});
+
+			Form.editFieldLabelMetal(fieldValue = ${fieldValue2});
+
+			Form.save();
+
 	}
+	macro changefieldsform {
 
-	macro deleteBlogEntry {
-		LexiconEntry.gotoEntryMenuItem(
-			menuItem = "Delete",
-			rowEntry = ${rowEntry});
+		Form.editName(formName = "form frc ");
+
+			Form.editDescription(formDescription = "form en frc");
+
+			Form.editPageTitle(
+				formPageName = "Creation formulaire en frc",
+				formTitleNumber = 1);
+
+			Click(
+				key_fieldName = "Full Name",
+				locator1 = "FormFields#TEXT_FIELD");
+
+			Form.editFieldLabelMetal(fieldValue = "Nom Prenom");
+
+			Click(
+				key_fieldName = "Age",
+				locator1 = "FormFields#TEXT_FIELD");
+
+			Form.editFieldLabelMetal(fieldValue = "Age");
+
+			Form.save();
+
+	}
+	macro CheckForm {
+		FormsAdminNavigator.gotoViewEntries();
+
+		LexiconEntry.viewEntryName(rowEntry = ${rowEntry});
+
+		LexiconEntry.viewEntryContent(
+			rowAny = ${rowAny},
+			rowEntry =${rowEntry2});
 	}
 
 	macro editBlogEntry {
@@ -34,8 +86,34 @@ definition {
 
 		Button.clickPublish();
 	}
+	macro fillform {
+		FormFields.editText(
+				fieldName = "Full Name",
+				fieldValue = "Adnan");
 
-	macro Previewsize {
+			FormFields.editText(
+				fieldName = "Age",
+				fieldValue = 22);
+
+			FormPortlet.submit();
+
+			Form.submitAgain();
+	}
+	macro fillformfr {
+		FormFields.editText(
+				fieldName = "Nom Prenom",
+				fieldValue = "Adnan");
+
+			FormFields.editText(
+				fieldName = "Age",
+				fieldValue = 22);
+
+			FormPortlet.submit();
+
+			Form.submitAgain();
+	}
+
+	macro previewsize {
 		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
 
 		Type.sendKeys(

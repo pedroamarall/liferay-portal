@@ -20,7 +20,7 @@ definition {
 	@description = "Set Screen size to custom and validate values"
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
-		task ("Given: Open the Simulation menu") {
+		task ("Given Open the Simulation menu") {
 			Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
 
 			Click(
@@ -28,17 +28,17 @@ definition {
 				locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 		}
 
-		task ("When : Select the screen size for the customized option for Set Height to 1920 px and Width to 1080 px") {
+		task ("When Select the screen size for the customized option for Set Height to 1920 px and Width to 1080 px") {
 			Testex.Previewsize();
 
-			Testex.Applycustomsize();
+			Click(locator1 = "Testex#APPLY_CUSTOM_SIZE");
 		}
 
-		task ("And : Close the Simulation menu ") {
+		task ("And Close the Simulation menu ") {
 			Click(locator1 = "Testex#CLOSE_SIMULATION_MENU");
 		}
 
-		task ("And : Check the values defined on Height and Width") {
+		task ("Then Check the values defined on Height and Width") {
 			Click.waitForMenuToggleJSClick(locator1 = "ControlMenu#SIMULATION");
 
 			Click(
@@ -54,17 +54,17 @@ definition {
 	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
 	@priority = 5
 	test ValidateConfigurationStringAtControlPanel {
-		task ("Given:Open the Application Menu ") {
+		task ("Given Open the Application Menu ") {
 			ApplicationsMenuHelper.openApplicationsMenu();
 		}
 
-		task ("When:Switch to Control Panel") {
+		task ("When Switch to Control Panel") {
 			ApplicationsMenu.gotoPanel(
 				category = "Configuration",
 				panel = "Control Panel");
 		}
 
-		task ("Then : Validate that the CONFIGURATION section is displayed ") {
+		task ("Then Validate that the CONFIGURATION section is displayed ") {
 			AssertElementPresent(locator1 = "Testex#SECTION_CONFIGURATION");
 		}
 	}
