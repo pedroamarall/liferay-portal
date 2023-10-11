@@ -26,24 +26,24 @@ definition {
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
 		task ("Given the simulation menu is opened") {
-			MyMacros.OpenSimulationMenu();
+			MyMacros.openSimulationMenu();
 		}
 
 		task ("When the user sets the screen size") {
-			MyMacros.ChangeToCustom();
+			MyMacros.changeToCustom();
 
-			MyMacros.SetHeight(height = 1920);
+			MyMacros.setHeight(height = 1920);
 
-			MyMacros.SetWidth(width = 1080);
+			MyMacros.setWidth(width = 1080);
 
-			MyMacros.ApplyCustomSize();
+			MyMacros.applyCustomSize();
 
-			MyMacros.CloseSimulationMenu();
-
-			MyMacros.OpenSimulationMenu();
+			MyMacros.closeSimulationMenu();
 		}
 
 		task ("Then validate the values defined") {
+			MyMacros.openSimulationMenu();
+
 			AssertTextEquals.assertPartialText(
 				locator1 = "ControlMenuPreviewPanel#PREVIEW_APPLIED_CHANGES",
 				value1 = "Applied");
