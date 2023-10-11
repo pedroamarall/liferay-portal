@@ -1,0 +1,88 @@
+@component-name = "portal-web-forms-and-data-lists"
+definition {
+
+	property testray.main.component.name = "Forms";
+
+	setUp {
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
+
+		task ("Login") {
+			User.firstLoginPG();
+		}
+
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
+	}
+
+	tearDown {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+	}
+
+	@description = "To test if a Form can be Created , translated to French and published succefully	"
+	@priority = 5
+	test CreateFormAddTranslationThenVerifyIfTranslationExist {
+		task ("Given This new form created") {
+			FormsAdmin.addForm();
+
+			Form.editName(formName = "Exercice#6");
+
+			Form.editDescription(formDescription = "This form is in Enlglish - US");
+
+			Form.gotoAddField(
+				fieldPositionNumber = 0,
+				fieldType = "Text");
+
+			FormFields.editText(
+				fieldName = "Label",
+				fieldValue = "Full Name");
+
+			Form.save();
+
+			Form.gotoAddField(
+				fieldPositionNumber = 1,
+				fieldType = "Numeric");
+
+			FormFields.editText(
+				fieldName = "Label",
+				fieldValue = "Age");
+
+			Form.save();
+		}
+
+		task ("When I add a translation, edit the fields and publish the translated form") {
+			Form.addTranslation(localizedLanguage = "French (France)");
+
+			Form.editName(formName = "Exercice#6");
+
+			Form.editDescription(formDescription = "Ce formulaire est en Francais - FR");
+
+			Form.addTranslation(localizedLanguage = "French (France)");
+
+			FormViewBuilder.clickFieldLabel(fieldLabel = "Full Name");
+
+			Form.editElementSetFieldLabel(fieldValue = "Nom Complet");
+
+			FormViewBuilder.clickFieldLabel(fieldLabel = "Age");
+
+			Form.editElementSetFieldLabel(fieldValue = "Âge");
+
+			Form.save();
+
+			Form.publishForm();
+		}
+
+		task ("Then I verify if the translation exists") {
+			FormsAdminNavigator.gotoPreviewForm();
+
+			Navigator.selectSpecificWindow(windowTitle = "Form - Forms");
+
+			FormPortletConfiguration.viewTranslationLanguage(language = "français-France");
+		}
+	}
+
+}
