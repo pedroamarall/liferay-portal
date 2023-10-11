@@ -8,9 +8,11 @@ definition {
 		task ("Open new Instance of Liferay") {
 			TestCase.setUpPortalInstance();
 		}
+
 		task ("Login") {
 			User.firstLoginPG();
 		}
+
 		task ("Navigate to the Instance") {
 			Navigator.openURL();
 		}

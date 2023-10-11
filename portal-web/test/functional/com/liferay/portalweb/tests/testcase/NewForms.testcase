@@ -4,12 +4,14 @@ definition {
 	property testray.main.component.name = "Forms";
 
 	setUp {
-        task ("Open new Instance of Liferay") {
+		task ("Open new Instance of Liferay") {
 			TestCase.setUpPortalInstance();
 		}
+
 		task ("Login") {
 			User.firstLoginPG();
 		}
+
 		task ("Navigate to the Instance") {
 			Navigator.openURL();
 		}
@@ -27,76 +29,78 @@ definition {
 		task ("Given open Menu ") {
 			ApplicationsMenuHelper.openApplicationsMenu();
 		}
+
 		task ("When add new form") {
 			FormsAdmin.addForm();
 		}
 
-		task ("And add some fields full name and age"){
+		task ("And add some fields full name and age") {
 			Testex.Addfieldsform(
-				fieldType1 = "Text", 
-				fieldValue1 = "Full Name",
-				fieldType2 = "Numeric",
-				fieldValue2 = "Age",
-				formTitleNumber = 1,
-				formPageName = "Created Form EN",
-				formName = "form ENG",
-				formDescription = "form ENG",
 				fieldPositionNumber = 0,
-				fieldPositionNumber2 = 1);
-		}	
-			
-		
+				fieldPositionNumber2 = 1,
+				fieldType1 = "Text",
+				fieldType2 = "Numeric",
+				fieldValue1 = "Full Name",
+				fieldValue2 = "Age",
+				formDescription = "form ENG",
+				formName = "form ENG",
+				formPageName = "Created Form EN",
+				formTitleNumber = 1);
+		}
 
 		task ("And add translator ") {
 			Form.addTranslation(localizedLanguage = "French (France)");
 		}
+
 		task ("And translate label to french") {
 			Testex.Changefieldsform(
-				formName = "form frc",
-				formDescription = "form en frc",
-			    formPageName = "Creation formulaire en frc",
-				formTitleNumber = 1,
 				fieldValue1 = "Nom Prenom",
-				fieldValue2 = "Age");
-		}	
-
-			
+				fieldValue2 = "Age",
+				formDescription = "form en frc",
+				formName = "form frc",
+				formPageName = "Creation formulaire en frc",
+				formTitleNumber = 1);
+		}
 
 		task ("And Publish Form ") {
 			Form.publishForm();
 
 			FormsAdminNavigator.gotoPublishedForm();
-		} 
-		task ("And fill the form in eng"){
-			Testex.fillform(
-				fieldValue1 = "Adnan",
-				fieldValue2 = 22,
-				fieldName1 = "Full Name",
-				fieldName2 = "Age");
 		}
-		task ("And Change the language in french"){
+
+		task ("And fill the form in eng") {
+			Testex.fillform(
+				fieldName1 = "Full Name",
+				fieldName2 = "Age",
+				fieldValue1 = "Adnan",
+				fieldValue2 = 22);
+		}
+
+		task ("And Change the language in french") {
 			FormPortletConfiguration.changeLanguage(
 				currentLanguage = "en-US",
 				newLanguage = "français-France");
 		}
-		task ("And fill the form in french"){
+
+		task ("And fill the form in french") {
 			Testex.fillformfr(
-				fieldValue1 = "Adnan",
-				fieldValue2 = 22,
 				fieldName1 = "Nom Prenom",
-				fieldName2 = "Age");
+				fieldName2 = "Age",
+				fieldValue1 = "Adnan",
+				fieldValue2 = 22);
 		}
-			FormFields.editText(
-				fieldName = "Nom Prenom",
-				fieldValue = "Adnan");
 
-			FormFields.editText(
-				fieldName = "Age",
-				fieldValue = 22);
+		FormFields.editText(
+			fieldName = "Nom Prenom",
+			fieldValue = "Adnan");
 
-			FormPortlet.submit();
+		FormFields.editText(
+			fieldName = "Age",
+			fieldValue = 22);
 
-			Form.submitAgain();
+		FormPortlet.submit();
+
+		Form.submitAgain();
 
 		task ("And Navigate to the Form page") {
 			Navigator.openURL();
@@ -105,12 +109,12 @@ definition {
 				category = "Content & Data",
 				portlet = "Forms");
 		}
+
 		task ("Then Check the form is created") {
 			Testex.CheckForm(
-				rowEntry = "Adnan",
 				rowAny = "Adnan",
-				rowEntry2 = "Adnan"
-			);
+				rowEntry = "Adnan",
+				rowEntry2 = "Adnan");
 		}
 	}
 

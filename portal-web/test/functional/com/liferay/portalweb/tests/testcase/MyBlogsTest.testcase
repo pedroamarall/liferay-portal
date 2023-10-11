@@ -4,15 +4,18 @@ definition {
 	property testray.main.component.name = "Blogs";
 
 	setUp {
-        task ("Open new Instance of Liferay") {
+		task ("Open new Instance of Liferay") {
 			TestCase.setUpPortalInstance();
 		}
+
 		task ("Login") {
 			User.firstLoginPG();
 		}
+
 		task ("Navigate to the Instance") {
 			Navigator.openURL();
 		}
+
 		task ("Given the Blogs Portlet is added to the page") {
 			JSONBlog.addEntry(
 				entryContent = "My first Blog",
@@ -21,7 +24,8 @@ definition {
 			JSONBlog.addEntry(
 				entryContent = "Blogs Entry 2",
 				entryTitle = "Blogs Entry 2");
-		    BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 		}
 	}
 
@@ -36,14 +40,12 @@ definition {
 	@description = "Can Create a Blog"
 	@priority = 5
 	test CanCreateBlogEntry {
-
 		task ("When the user adds a Blog Entry") {
-			
-		BlogsNavigator.gotoAddEntry();
+			BlogsNavigator.gotoAddEntry();
 
-		BlogsEntry.addEntryContent(
-			entryContent = "New Blogs Entry",
-			entryTitle = "New Blogs Entry");
+			BlogsEntry.addEntryContent(
+				entryContent = "New Blogs Entry",
+				entryTitle = "New Blogs Entry");
 		}
 
 		task ("Then the Blog Entry should display on the page") {
@@ -57,11 +59,10 @@ definition {
 	@description = "Can Delete a Blog"
 	@priority = 5
 	test CanDeleteBlogEntry {
-
 		task ("When delete the blog entry") {
 			LexiconEntry.gotoEntryMenuItem(
-			menuItem = "Delete",
-			rowEntry = "Blogs Entry 2");
+				menuItem = "Delete",
+				rowEntry = "Blogs Entry 2");
 		}
 
 		task ("Then Check that the blog has been delete") {
@@ -75,7 +76,6 @@ definition {
 	@description = " Can Edit a Blog"
 	@priority = 5
 	test CanEditBlogEntry {
-
 		task ("When Edit the blog title") {
 			Testex.editBlogEntry(
 				entryTitle = "Blogs Entry 2",
@@ -94,10 +94,10 @@ definition {
 	@priority = 5
 	test CanSearchBlogsEntries {
 		task ("When search for the blog entry ") {
-				BlogsEntry.searchCP(
-					entryContent = "My first Blog",
-					entrySearchTerm = "My first Blog",
-					entryTitle = "My first Blogt");
+			BlogsEntry.searchCP(
+				entryContent = "My first Blog",
+				entrySearchTerm = "My first Blog",
+				entryTitle = "My first Blogt");
 		}
 
 		task ("Then Check the first Blog should display") {
@@ -114,4 +114,5 @@ definition {
 				locator1 = "BlogsEntry#TAG");
 		}
 	}
+
 }
