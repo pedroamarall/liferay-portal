@@ -1,0 +1,111 @@
+@component-name = "portal-lima"
+definition {
+
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		task ("Open new Instance of Liferay") {
+			TestCase.setUpPortalInstance();
+		}
+
+		task ("Login") {
+			User.firstLoginPG();
+		}
+
+		task ("Navigate to the Instance") {
+			Navigator.openURL();
+		}
+
+		task ("Given Go to Blogs part") {
+			JSONBlog.addEntry(
+				entryContent = "This is the Blog Content",
+				entryTitle = "This is The title of the Blog");
+
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+		}
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if (${testPortalInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@description = "To test if a Blog Entry can be created succefully"
+	@priority = 5
+	test CanICreateBlog {
+		task ("When Create a new Blog") {
+			Blogs.addEntry(
+				entryContent = "This is the Blog Content",
+				entryTitle = "This is The title of the Blog");
+		}
+
+		task ("Then confirm the creation") {
+			AssertElementPresent(
+				key_entryTitle = "This is The title of the Blog",
+				key_tagName = "This is The title of the Blog",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "To test if a Blog Entry can be deleted succefully"
+	@priority = 5
+	test CanIDeleteBlog {
+		task ("When Deleting the Blog Entry that contains the Title Below") {
+			LexiconEntry.gotoEntryMenuItem(
+				menuItem = "Delete",
+				rowEntry = "This is The title of the Blog");
+		}
+
+		task ("Then confirm the deletion was done successfully") {
+			AssertElementNotPresent(
+				key_entryTitle = "This is The title of the Blog",
+				key_tagName = "This is The title of the Blog",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "To test if a Blog Entry can be Edited succefully "
+	@priority = 5
+	test CanIEditBlogEntry {
+		task ("When Editing a Blog Entry") {
+			LexiconEntry.gotoEntryMenuItem(
+				menuItem = "Edit",
+				rowEntry = "This is The title of the Blog");
+
+			BlogsEntry.editTitle(
+				entryTitle = "This is The title of the Blog",
+				entryTitleEdit = "This is the Edited Title");
+
+			Button.clickPublish();
+		}
+
+		task ("Then validate that the edit has been done succefully") {
+			AssertElementPresent(
+				key_entryTitle = "This is the Edited Title",
+				key_tagName = "This is the Edited Title",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "To test if a Blog Entry can be searched and found in the results shown"
+	@priority = 5
+	test CanISearchBlogs {
+		task ("When Searching for Blogs") {
+			BlogsEntry.searchCP(
+				entryContent = "Blogs Content",
+				entrySearchTerm = "This is ",
+				entryTitle = "This is The title of the Blog");
+		}
+
+		task ("Then validates that the	Search exists") {
+			AssertElementPresent(
+				key_entryTitle = "This is The title of the Blog",
+				key_tagName = "This is The title of the Blog",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+}
