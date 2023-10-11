@@ -12,12 +12,6 @@ definition {
 		PortletEntry.publish();
 	}
 
-	macro deleteBlogEntry {
-		LexiconEntry.gotoEntryMenuItem(
-			menuItem = "Delete",
-			rowEntry = ${rowEntry});
-	}
-
 	macro editBlogEntry {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = ${menuItem},
@@ -28,12 +22,6 @@ definition {
 			entryTitleEdit = ${entryTitleEdit});
 
 		Button.clickPublish();
-	}
-
-	macro searchBlogEntry {
-		BlogsEntry.searchCP(
-			entrySearchTerm = ${entrySearchTerm},
-			entryTitle = ${entrySearchTerm});
 	}
 
 }

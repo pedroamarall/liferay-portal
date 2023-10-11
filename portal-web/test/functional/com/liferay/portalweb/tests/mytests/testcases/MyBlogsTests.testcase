@@ -19,9 +19,9 @@ definition {
 		}
 	}
 
-	@description = "Can Create a Blog"
+	@description = "Can Create a Blog successfully"
 	@priority = 5
-	test CanCreateBlog {
+	test CanCreateBlogSuccessfully {
 		task ("Given the blog creation") {
 			MyBlogs.addBlogEntry(
 				entryContent = "Blogs Entry Content",
@@ -36,17 +36,19 @@ definition {
 		}
 	}
 
-	@description = "Can Delete a Blog"
+	@description = "Can Delete a Blog successfully"
 	@priority = 5
-	test CanDeleteBlog {
+	test CanDeleteBlogSuccessfully {
 		task ("Given the blog already created") {
-			MyBlogs.addBlogEntry(
+			JSONBlog.addEntry(
 				entryContent = "Blogs Entry Content",
 				entryTitle = "Blogs Entry Title");
 		}
 
 		task ("When delete the blog entry") {
-			MyBlogs.deleteBlogEntry(rowEntry = "Blogs Entry Title");
+			LexiconEntry.gotoEntryMenuItem(
+				menuItem = "Delete",
+				rowEntry = "Blogs Entry Title");
 		}
 
 		task ("Then validate the blog is found") {
@@ -57,11 +59,11 @@ definition {
 		}
 	}
 
-	@description = "Can Edit a Blog"
+	@description = "Can Edit a Blog successfully"
 	@priority = 5
-	test CanEditBlog {
+	test CanEditBlogSuccessfully {
 		task ("Given the blog already created") {
-			MyBlogs.addBlogEntry(
+			JSONBlog.addEntry(
 				entryContent = "Blogs Entry Content",
 				entryTitle = "Blogs Entry Title");
 		}
@@ -86,13 +88,13 @@ definition {
 	@priority = 5
 	test CanSearchBlogs {
 		task ("Given the blog already created") {
-			MyBlogs.addBlogEntry(
+			JSONBlog.addEntry(
 				entryContent = "Blogs Entry Content",
 				entryTitle = "Blogs Entry Title");
 		}
 
 		task ("When search for the blog entry and validate its existensse") {
-			MyBlogs.searchBlogEntry(
+			BlogsEntry.searchCP(
 				entrySearchTerm = "Blogs",
 				entryTitle = "Blogs Entry Title");
 		}
