@@ -1,12 +1,12 @@
 definition {
 
-	macro ApplyCustomSize {
+	macro applyCustomSize {
 		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
 
 		Click(locator1 = "ControlMenuPreviewPanel#APPLY_CUSTOM_SIZE");
 	}
 
-	macro ChangeToCustom {
+	macro changeToCustom {
 		AssertElementPresent(
 			key_deviceType = "Custom",
 			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
@@ -16,19 +16,91 @@ definition {
 			locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 	}
 
-	macro CloseSimulationMenu {
+	macro closeSimulationMenu {
 		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
 
 		Click(locator1 = "ControlMenuPreviewPanel#PREVIEW_EXIT");
 	}
 
-	macro OpenSimulationMenu {
+	macro createFormAndEditAndSave {
+		FormsAdmin.addForm(formName = "Form 1");
+
+		Form.editName(formTitle = "Form 1");
+
+		Form.editDescription();
+
+		Form.editPageTitle(
+			formPageName = "Created Form Page Name",
+			formTitleNumber = 1);
+
+		Form.addTextField(fieldPositionNumber = 0);
+
+		Form.editFieldLabelMetal(fieldValue = "Full Name");
+
+		Form.closeSidebar();
+
+		Form.gotoAddField(
+			fieldPositionNumber = 1,
+			fieldType = "Numeric");
+
+		Form.editFieldLabelMetal(fieldValue = "Age");
+
+		Form.closeSidebar();
+
+		Form.save();
+	}
+
+	macro fillFormInArabic {
+		FormPortletConfiguration.changeLanguage(
+			currentLanguage = "en-US",
+			newLanguage = "العربية-السعودية");
+
+		AssertTextPresent(value1 = "الاسم الكامل");
+
+		AssertTextPresent(value1 = "العمر");
+
+		FormViewBuilder.editText(
+			fieldName = "الاسم الكامل",
+			fieldValue = "أحمد بن محمد الحمداني الجيلالي آل سعود");
+
+		FormViewBuilder.editText(
+			fieldName = "العمر",
+			fieldValue = 21);
+	}
+
+	macro fillFormInFrench {
+		FormsAdminNavigator.gotoPublishedForm();
+
+		FormViewBuilder.editText(
+			fieldName = "Full Name",
+			fieldValue = "Ilyass Hossni");
+
+		FormViewBuilder.editText(
+			fieldName = "Age",
+			fieldValue = 21);
+	}
+
+	macro goToViewEntriesForm {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Forms");
+
+		AssertElementPresent(locator1 = "Icon#VERTICAL_ELLIPSIS_BUTTON");
+
+		Click(locator1 = "Icon#VERTICAL_ELLIPSIS_BUTTON");
+
+		MenuItem.clickNoError(menuItem = "View Entries");
+	}
+
+	macro openSimulationMenu {
 		AssertElementPresent(locator1 = "ControlMenu#SIMULATION");
 
 		Click(locator1 = "ControlMenu#SIMULATION");
 	}
 
-	macro SetHeight {
+	macro setHeight {
 		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
 
 		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
@@ -38,7 +110,7 @@ definition {
 			value1 = ${height});
 	}
 
-	macro SetWidth {
+	macro setWidth {
 		AssertElementPresent(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
 
 		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
