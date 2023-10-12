@@ -1,67 +1,119 @@
 definition {
 
-	macro clickOnForm {
-		FormsAdmin.addForm();
+	macro addFieldsForm {
+		Form.editName(formName = ${formName});
+
+		Form.editDescription(formDescription = ${formDescription});
 
 		Form.editPageTitle(
-			formPageName = "English",
-			formTitleNumber = 1);
+			formPageName = ${formPageName},
+			formTitleNumber = ${formTitleNumber});
 
 		Form.gotoAddField(
-			fieldPositionNumber = 0,
-			fieldType = "Text");
+			fieldPositionNumber = ${fieldPositionNumber},
+			fieldType = ${fieldType1});
 
-		Form.editFieldLabelMetal(fieldValue = "Full Name");
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue1});
+
+		Form.closeSidebar();
 
 		Form.save();
 
 		Form.gotoAddField(
-			fieldPositionNumber = 1,
-			fieldType = "Numeric");
+			fieldPositionNumber = ${fieldPositionNumber2},
+			fieldType = ${fieldType2});
 
-		Form.editFieldLabelMetal(fieldValue = "Age");
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue2});
 
 		Form.save();
+	}
 
-		// Select Form Translation
+	macro changeFieldsForm {
+		Form.editName(formName = ${formName});
 
-		Form.addTranslation(localizedLanguage = "French (France)");
+		Form.editDescription(formDescription = ${formDescription});
 
 		Form.editPageTitle(
-			formPageName = "French",
-			formTitleNumber = 1);
+			formPageName = ${formPageName},
+			formTitleNumber = ${formTitleNumber});
 
 		Click(
 			key_fieldName = "Full Name",
 			locator1 = "FormFields#TEXT_FIELD");
 
-		Form.editFieldLabelMetal(fieldValue = "nom et prénom");
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue1});
 
 		Click(
 			key_fieldName = "Age",
 			locator1 = "FormFields#TEXT_FIELD");
 
-		Form.editFieldLabelMetal(fieldValue = "âge");
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue2});
 
 		Form.save();
 	}
 
-	macro PublishandValidate {
-		Form.publishForm();
+	macro checkForm {
+		FormsAdminNavigator.gotoViewEntries();
 
-		//FormsAdminNavigator.gotoPublishedForm();
+		LexiconEntry.viewEntryName(rowEntry = ${rowEntry});
 
-		FormsAdminNavigator.gotoPreviewForm();
+		LexiconEntry.viewEntryContent(
+			rowAny = ${rowAny},
+			rowEntry = ${rowEntry2});
+	}
 
-		Navigator.selectSpecificWindow(windowTitle = "Form - Forms");
+	macro editBlogEntry {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = ${rowEntry});
 
-		FormPortletConfiguration.changeLanguage(
-			currentLanguage = "en-US",
-			newLanguage = "français-France");
+		BlogsEntry.editTitle(
+			entryTitle = ${entryTitle},
+			entryTitleEdit = ${entryTitleEdit});
 
-		FormViewBuilder.validateFieldLabel(fieldLabel = "nom et prénom");
+		Button.clickPublish();
+	}
 
-		FormViewBuilder.validateFieldLabel(fieldLabel = "âge");
+	macro fillFormEnglish {
+		FormFields.editText(
+			fieldName = ${fieldName1},
+			fieldValue = ${fieldValue1});
+
+		FormFields.editText(
+			fieldName = ${fieldName2},
+			fieldValue = ${fieldValue2});
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+	}
+
+	macro fillFormFrench {
+		FormFields.editText(
+			fieldName = ${fieldName1},
+			fieldValue = ${fieldValue1});
+
+		FormFields.editText(
+			fieldName = ${fieldName2},
+			fieldValue = ${fieldValue2});
+
+		FormPortlet.submit();
+
+		Form.submitAgain();
+	}
+
+	macro setHeightAndWidth {
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
+			value1 = ${heightValue});
+
+		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
+
+		Type.sendKeys(
+			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
+			value1 = ${widthValue});
 	}
 
 }

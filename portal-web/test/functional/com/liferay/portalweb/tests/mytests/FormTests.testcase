@@ -1,35 +1,95 @@
 @component-name = "portal-web-forms-and-data-lists"
 definition {
-    property testray.main.component.name = "Forms";
 
-    setUp {
-        TestCase.setUpPortalInstance();
+	property testray.main.component.name = "Forms";
 
-        User.firstLoginPG();
+	setUp {
+		TestCase.setUpPortalInstance();
 
-        Navigator.openURL();
-    }
+		User.firstLoginPG();
 
-    tearDown {
-        User.logoutPG();
-            
-    }
+		Navigator.openURL();
+	}
 
-    @description = "Create a Form with a Text field and a Numeric field "
-    @priority = "5"
-    test CheckPortlet{
-        ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Forms");
-        
-    }
+	tearDown {
+		User.logoutPG();
+	}
 
-    @description = "Create a Form and translate titles "
-    @priority = "5"
-    test AddForm{
-        TestForm.clickOnForm();
-    }
+	@description = "Create a Form and translate titles "
+	@priority = 5
+	test CreateFormWithTranslation {
+		task ("Given A Form is created with a Text field and a numeric field") {
+			ApplicationsMenuHelper.openApplicationsMenu();
 
-    
-    
-}                                                                               
+			FormsAdmin.addForm();
+
+			TestForm.addFieldsForm(
+				fieldPositionNumber = 0,
+				fieldPositionNumber2 = 1,
+				fieldType1 = "Text",
+				fieldType2 = "Numeric",
+				fieldValue1 = "Full Name",
+				fieldValue2 = "Age",
+				formDescription = "form ENG",
+				formName = "form ENG",
+				formPageName = "Created Form EN",
+				formTitleNumber = 1);
+		}
+
+		task ("And The field titles are translated to french") {
+			Form.addTranslation(localizedLanguage = "French (France)");
+
+			TestForm.changeFieldsForm(
+				fieldValue1 = "Nom Prenom",
+				fieldValue2 = "Age",
+				formDescription = "form en frc",
+				formName = "form frc",
+				formPageName = "Creation formulaire en frc",
+				formTitleNumber = 1);
+		}
+
+		task ("And We publish the Form") {
+			Form.publishForm();
+		}
+
+		task ("And Navigate to the published Form") {
+			FormsAdminNavigator.gotoPublishedForm();
+		}
+
+		task ("When We fill the english form") {
+			TestForm.fillFormEnglish(
+				fieldName1 = "Full Name",
+				fieldName2 = "Age",
+				fieldValue1 = "Mohammed",
+				fieldValue2 = 23);
+		}
+
+		task ("And We switch to french and fill the form") {
+			FormPortletConfiguration.changeLanguage(
+				currentLanguage = "en-US",
+				newLanguage = "français-France");
+
+			TestForm.fillFormFrench(
+				fieldName1 = "Nom Prenom",
+				fieldName2 = "Age",
+				fieldValue1 = "Mohammed",
+				fieldValue2 = 23);
+		}
+
+		task ("And Navigate to the Forms portlet") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Forms");
+		}
+
+		task ("Then View and Assert Entries") {
+			TestForm.checkForm(
+				rowAny = "Mohammed",
+				rowEntry = "Mohammed",
+				rowEntry2 = "Mohammed");
+		}
+	}
+
+}
