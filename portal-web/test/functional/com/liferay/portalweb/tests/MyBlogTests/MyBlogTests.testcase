@@ -1,0 +1,164 @@
+@component-name = "portal-lima"
+definition {
+
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if (${testPortalInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@description = "Create Blog succefully"
+	@priority = 5
+	test CanCreateBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("When the user adds a Blog Entry") {
+			Blogs.addEntry(
+				entryContent = "blog test",
+				entryTitle = "blog test");
+		}
+
+		task ("Then the Blog Entry should display on the page") {
+			AssertElementPresent(
+				key_entryTitle = "blog test",
+				key_tagName = "blog test",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	@description = "Delete Blog succefully"
+	test CanDeleteBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("And 1st & 2nd blogs entry are added") {
+			JSONBlog.addEntry(
+				entryContent = "1st Blog",
+				entryTitle = "Blog1");
+
+			JSONBlog.addEntry(
+				entryContent = "2nd Blog",
+				entryTitle = "Blog2");
+
+			Refresh();
+		}
+
+		task ("When User deletes Blog Entry 1") {
+			LexiconEntry.gotoEntryMenuItemNoError(
+				menuItem = "Delete",
+				rowEntry = "Blog1");
+		}
+
+		task ("Then Blog Entry 1 should not exist") {
+			AssertElementNotPresent(
+				key_entryTitle = "Blog1",
+				key_tagName = "Blog1",
+				locator1 = "BlogsEntry#TAG");
+		}
+
+		task ("And Blog entry 2 should exist") {
+			AssertElementPresent(
+				key_entryTitle = "Blog2",
+				key_tagName = "Blog2",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	test CanEditBlog {
+		task ("Given the Blogs Portlet is added to the page") {
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("And add a Blog Entry") {
+			JSONBlog.addEntry(
+				entryContent = "1st Blog",
+				entryTitle = "Blog1");
+
+			Refresh();
+		}
+
+		task ("When the user edits blog entry") {
+			LexiconEntry.gotoEntry(rowEntry = "Blog1");
+
+			BlogsEntry.editEntryContent(
+				entryContent = "1st Blog",
+				entryContentEdit = "1st Blog edit",
+				entryTitle = "Blog1",
+				entryTitleEdit = "Blog1 Edit");
+
+			PortletEntry.publish();
+		}
+
+		task ("Then: the Blog Entry should be edited") {
+			AssertElementPresent(
+				key_entryTitle = "Blog1",
+				key_tagName = "Blog1",
+				locator1 = "BlogsEntry#TAG");
+		}
+	}
+
+	test CanSearchBlogs {
+		task ("Given the Blogs Portlet is added to the page") {
+			Navigator.openURL();
+
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
+		}
+
+		task ("And Given that two blog entries are added") {
+			JSONBlog.addEntry(
+				entryContent = "1st Blog",
+				entryTitle = "Blog1");
+
+			JSONBlog.addEntry(
+				entryContent = "soumia",
+				entryTitle = "soumiatamrani");
+		}
+
+		task ("When the user searches for Blog Entry 1") {
+			BlogsEntry.searchCP(
+				entryContent = "1st Blog",
+				entrySearchTerm = "Blog1",
+				entryTitle = "Blog1");
+		}
+
+		task ("Then Blog Entry 1 should display") {
+			AssertVisible(
+				key_card = "Blog1",
+				locator1 = "Card#CARD");
+		}
+
+		task ("And Blog Entry 2 should not display") {
+			AssertElementNotPresent(
+				key_listEntry = "soumiatamrani",
+				locator1 = "LexiconList#LIST_ENTRY");
+		}
+	}
+
+}
