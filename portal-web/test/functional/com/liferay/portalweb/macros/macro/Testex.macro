@@ -29,25 +29,25 @@ definition {
 	}
 
 	macro changeFieldsForm {
-		Form.editName(formName = "form frc ");
+		Form.editName(formName = ${formName});
 
-		Form.editDescription(formDescription = "form en frc");
+		Form.editDescription(formDescription = ${formDescription});
 
 		Form.editPageTitle(
-			formPageName = "Creation formulaire en frc",
-			formTitleNumber = 1);
+			formPageName = ${formPageName},
+			formTitleNumber = ${formTitleNumber});
 
 		Click(
 			key_fieldName = "Full Name",
 			locator1 = "FormFields#TEXT_FIELD");
 
-		Form.editFieldLabelMetal(fieldValue = "Nom Prenom");
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue1});
 
 		Click(
 			key_fieldName = "Age",
 			locator1 = "FormFields#TEXT_FIELD");
 
-		Form.editFieldLabelMetal(fieldValue = "Age");
+		Form.editFieldLabelMetal(fieldValue = ${fieldValue2});
 
 		Form.save();
 	}
@@ -74,14 +74,14 @@ definition {
 		Button.clickPublish();
 	}
 
-	macro fillForm {
+	macro fillFormEnglish {
 		FormFields.editText(
-			fieldName = "Full Name",
-			fieldValue = "Adnan");
+			fieldName = ${fieldName1},
+			fieldValue = ${fieldValue1});
 
 		FormFields.editText(
-			fieldName = "Age",
-			fieldValue = 22);
+			fieldName = ${fieldName2},
+			fieldValue = ${fieldValue2});
 
 		FormPortlet.submit();
 
@@ -90,30 +90,30 @@ definition {
 
 	macro fillFormFrench {
 		FormFields.editText(
-			fieldName = "Nom Prenom",
-			fieldValue = "Adnan");
+			fieldName = ${fieldName1},
+			fieldValue = ${fieldValue1});
 
 		FormFields.editText(
-			fieldName = "Age",
-			fieldValue = 22);
+			fieldName = ${fieldName2},
+			fieldValue = ${fieldValue2});
 
 		FormPortlet.submit();
 
 		Form.submitAgain();
 	}
 
-	macro previewSize {
+	macro SetHeightAndWidth {
 		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD");
 
 		Type.sendKeys(
 			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_HEIGHT_FIELD",
-			value1 = 1920);
+			value1 = ${heightValue});
 
 		TripleClick(locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD");
 
 		Type.sendKeys(
 			locator1 = "ControlMenuPreviewPanel#PREVIEW_CUSTOM_WIDTH_FIELD",
-			value1 = 1080);
+			value1 = ${widthValue});
 	}
 
 }

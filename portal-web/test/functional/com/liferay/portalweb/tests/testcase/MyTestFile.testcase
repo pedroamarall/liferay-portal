@@ -27,7 +27,7 @@ definition {
 	@description = "Set Screen size to custom and validate values"
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
-		task ("Given Open the Simulation menu") {
+		task ("Given We Open the Simulation menu") {
 			Click(locator1 = "ControlMenu#SIMULATION");
 
 			Click(
@@ -35,8 +35,10 @@ definition {
 				locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 		}
 
-		task ("When Select the screen size for the customized option for Set Height to 1920 px and Width to 1080 px") {
-			Testex.Previewsize();
+		task ("When We Select the screen size for the customized option for Set Height to 1920 px and Width to 1080 px") {
+			Testex.SetHeightAndWidth(
+				heightValue = 1920,
+				widthValue = 1080);
 
 			Click(locator1 = "Testex#APPLY_CUSTOM_SIZE");
 		}
@@ -65,7 +67,7 @@ definition {
 			ApplicationsMenuHelper.openApplicationsMenu();
 		}
 
-		task ("When Switch to Control Panel") {
+		task ("When We open the Control Panel") {
 			ApplicationsMenu.gotoPanel(
 				category = "Configuration",
 				panel = "Control Panel");

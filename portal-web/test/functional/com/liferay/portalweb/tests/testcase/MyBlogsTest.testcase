@@ -15,18 +15,6 @@ definition {
 		task ("Navigate to the Instance") {
 			Navigator.openURL();
 		}
-
-		task ("Given the Blogs Portlet is added to the page") {
-			JSONBlog.addEntry(
-				entryContent = "My first Blog",
-				entryTitle = "My first Blog");
-
-			JSONBlog.addEntry(
-				entryContent = "Blogs Entry 2",
-				entryTitle = "Blogs Entry 2");
-
-			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
-		}
 	}
 
 	tearDown {
@@ -39,7 +27,11 @@ definition {
 
 	@description = "Can Create a Blog"
 	@priority = 5
-	test CanCreateBlogEntry {
+	test CanSuccessfullyCreateBlogEntry {
+		task ("Given Go to Blogs part") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+		}
+
 		task ("When the user adds a Blog Entry") {
 			BlogsNavigator.gotoAddEntry();
 
@@ -48,7 +40,7 @@ definition {
 				entryTitle = "New Blogs Entry");
 		}
 
-		task ("Then the Blog Entry should display on the page") {
+		task ("Then Check the Blog Entry display on the page") {
 			AssertElementPresent(
 				key_entryTitle = "New Blogs Entry",
 				key_tagName = "New Blogs Entry",
@@ -58,7 +50,19 @@ definition {
 
 	@description = "Can Delete a Blog"
 	@priority = 5
-	test CanDeleteBlogEntry {
+	test CanSuccessfullyDeleteBlogEntry {
+		task ("Given the Blogs Portlet is added to the page") {
+			JSONBlog.addEntry(
+				entryContent = "My first Blog",
+				entryTitle = "My first Blog");
+
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry 2",
+				entryTitle = "Blogs Entry 2");
+
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+		}
+
 		task ("When delete the blog entry") {
 			LexiconEntry.gotoEntryMenuItem(
 				menuItem = "Delete",
@@ -75,7 +79,15 @@ definition {
 
 	@description = " Can Edit a Blog"
 	@priority = 5
-	test CanEditBlogEntry {
+	test CanSuccessfullyEditBlogEntry {
+		task ("Given the Blogs Portlet is added to the page") {
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry 2",
+				entryTitle = "Blogs Entry 2");
+
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+		}
+
 		task ("When Edit the blog title") {
 			Testex.editBlogEntry(
 				entryTitle = "Blogs Entry 2",
@@ -83,7 +95,7 @@ definition {
 		}
 
 		task ("Then Check that the blog has been edited") {
-			AssertElementNotPresent(
+			AssertElementPresent(
 				key_entryTitle = "This blogs has been edited",
 				key_tagName = "This blogs has been edited",
 				locator1 = "BlogsEntry#TAG");
@@ -92,26 +104,38 @@ definition {
 
 	@description = "Can Search Blogs"
 	@priority = 5
-	test CanSearchBlogsEntries {
-		task ("When search for the blog entry ") {
-			BlogsEntry.searchCP(
+	test CanSuccessfullySearchBlogsEntries {
+		task ("Given the Blogs Portlet is added to the page") {
+			JSONBlog.addEntry(
 				entryContent = "My first Blog",
-				entrySearchTerm = "My first Blog",
-				entryTitle = "My first Blogt");
-		}
+				entryTitle = "My first Blog");
 
-		task ("Then Check the first Blog should display") {
-			AssertElementPresent(
-				key_entryTitle = "My first Blog",
-				key_tagName = "My first Blogt",
-				locator1 = "BlogsEntry#TAG");
-		}
+			JSONBlog.addEntry(
+				entryContent = "Blogs Entry 2",
+				entryTitle = "Blogs Entry 2");
 
-		task ("And Check the second Blog should not display") {
-			AssertElementNotPresent(
-				key_entryTitle = "Blogs Entry 2",
-				key_tagName = "Blogs Entry 2",
-				locator1 = "BlogsEntry#TAG");
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			task ("When search for the blog entry ") {
+				BlogsEntry.searchCP(
+					entryContent = "My first Blog",
+					entrySearchTerm = "My first Blog",
+					entryTitle = "My first Blogt");
+			}
+
+			task ("Then Check the first Blog should display") {
+				AssertElementPresent(
+					key_entryTitle = "My first Blog",
+					key_tagName = "My first Blogt",
+					locator1 = "BlogsEntry#TAG");
+			}
+
+			task ("And Check the second Blog should not display") {
+				AssertElementNotPresent(
+					key_entryTitle = "Blogs Entry 2",
+					key_tagName = "Blogs Entry 2",
+					locator1 = "BlogsEntry#TAG");
+			}
 		}
 	}
 

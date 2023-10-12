@@ -25,17 +25,13 @@ definition {
 
 	@description = "Create a New form with Translation"
 	@priority = 5
-	test CanICreateFormWithTranslation {
-		task ("Given open Menu ") {
+	test CanCreateFormWithTranslation {
+		task ("Given A Form is created with a Text field and a numeric field") {
 			ApplicationsMenuHelper.openApplicationsMenu();
-		}
 
-		task ("When add new form") {
 			FormsAdmin.addForm();
-		}
 
-		task ("And add some fields full name and age") {
-			Testex.Addfieldsform(
+			Testex.addFieldsForm(
 				fieldPositionNumber = 0,
 				fieldPositionNumber2 = 1,
 				fieldType1 = "Text",
@@ -48,12 +44,10 @@ definition {
 				formTitleNumber = 1);
 		}
 
-		task ("And add translator ") {
+		task ("And The field titles are translated to french") {
 			Form.addTranslation(localizedLanguage = "French (France)");
-		}
 
-		task ("And translate label to french") {
-			Testex.Changefieldsform(
+			Testex.changeFieldsForm(
 				fieldValue1 = "Nom Prenom",
 				fieldValue2 = "Age",
 				formDescription = "form en frc",
@@ -62,47 +56,35 @@ definition {
 				formTitleNumber = 1);
 		}
 
-		task ("And Publish Form ") {
+		task ("And We publish the Form") {
 			Form.publishForm();
+		}
 
+		task ("And Navigate to the published Form") {
 			FormsAdminNavigator.gotoPublishedForm();
 		}
 
-		task ("And fill the form in eng") {
-			Testex.fillform(
+		task ("When We fill the english form") {
+			Testex.fillFormEnglish(
 				fieldName1 = "Full Name",
 				fieldName2 = "Age",
 				fieldValue1 = "Adnan",
 				fieldValue2 = 22);
 		}
 
-		task ("And Change the language in french") {
+		task ("And We switch to french and fill the form") {
 			FormPortletConfiguration.changeLanguage(
 				currentLanguage = "en-US",
 				newLanguage = "français-France");
-		}
 
-		task ("And fill the form in french") {
-			Testex.fillformfr(
+			Testex.fillFormFrench(
 				fieldName1 = "Nom Prenom",
 				fieldName2 = "Age",
 				fieldValue1 = "Adnan",
 				fieldValue2 = 22);
 		}
 
-		FormFields.editText(
-			fieldName = "Nom Prenom",
-			fieldValue = "Adnan");
-
-		FormFields.editText(
-			fieldName = "Age",
-			fieldValue = 22);
-
-		FormPortlet.submit();
-
-		Form.submitAgain();
-
-		task ("And Navigate to the Form page") {
+		task ("And Navigate to the Forms portlet") {
 			Navigator.openURL();
 
 			ProductMenu.gotoPortlet(
@@ -110,7 +92,7 @@ definition {
 				portlet = "Forms");
 		}
 
-		task ("Then Check the form is created") {
+		task ("Then View and Assert Entries") {
 			Testex.CheckForm(
 				rowAny = "Adnan",
 				rowEntry = "Adnan",
