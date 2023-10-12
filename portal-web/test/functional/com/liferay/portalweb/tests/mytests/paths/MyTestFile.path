@@ -14,23 +14,22 @@
 		<tbody>
 			<tr>
 				<td>APPLICATION_MENU</td>
-				<td>//button[contains(@data-qa-id, 'applicationsMenu')]</td>
+				<td>//*[contains(@data-qa-id, 'applicationsMenu')]</td>
 				<td></td>
 			</tr>
 			<tr>
 				<td>CONTROL_PANEL</td>
-				<td>//button[contains(@id, '_com_liferay_product_navigation_applications_menu_web_internal_portlet_ProductNavigationApplicationsMenuPortlet_tab_2')]/span
-				</td>
+				<td>//*[contains(@id, 'NavigationApplicationsMenu')]//*[contains(.,'Control Panel')]</td>
 				<td></td>
 			</tr>
 			<tr>
 				<td>CONFIGURATION_SECTION</td>
-				<td>//*[contains(@id, "nav_control_panel.configuration")]</td>
+				<td>//*[contains(@id, "configuration")]</td>
 				<td></td>
 			</tr>
 			<tr>
 				<td>SIMULATION_MENU</td>
-				<td>//*[contains(@id, "_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_simulationToggleId")]</td>
+				<td>//*[contains(@class,'user-control-group')]//*[contains(@class,'simulation-icon')]</td>
 				<td></td>
 			</tr>
 			<tr>
