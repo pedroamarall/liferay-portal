@@ -252,8 +252,11 @@
 			<message key="starting.uppercase.required" value="''{0}'' should start with an uppercase character for {1} ''{2}''" />
 		</module>
 		<module name="com.liferay.source.formatter.checkstyle.check.ChainingCheck">
+			<property name="applyToTypeCast" value="true" />
 			<property name="category" value="Styling" />
 			<property name="description" value="Checks that method chaining can be used when possible." />
+			<message key="chaining.avoid.parentheses" value="Avoid chaining on expressions with parentheses" />
+			<message key="chaining.avoid.type.cast" value="Avoid chaining on Type Cast" />
 			<message key="chaining.required" value="Chaining on ''{0}'' is preferred" />
 			<message key="response.unsorted" value="Method calls between ''Response.status'' and ''Response.build'' should be sorted" />
 		</module>
@@ -688,8 +691,12 @@
 		</module>
 		<module name="com.liferay.source.formatter.checkstyle.check.ResourcePermissionCheck">
 			<property name="category" value="Bug Prevention" />
+			<property name="checkModelClassName" value="true" />
 			<property name="description" value="Performs several checks on `*ResourcePermission` classes." />
-			<message key="remove.service.ranking.property" value="Remove property ''{0}'' from @Component annotation" />
+			<property name="enabled" value="false" />
+			<message key="model.class.name.mismatch" value="Expected `model.class.name` property value to be ''{0}'' but is ''{1}''" />
+			<message key="model.class.name.missing" value="The `model.class.name` property is missing from the @Component annotation" />
+			<message key="remove.service.ranking.property" value="Remove property ''{0}'' from the @Component annotation" />
 		</module>
 		<module name="com.liferay.source.formatter.checkstyle.check.ResourcePermissionFactoryCheck">
 			<property name="category" value="Performance" />

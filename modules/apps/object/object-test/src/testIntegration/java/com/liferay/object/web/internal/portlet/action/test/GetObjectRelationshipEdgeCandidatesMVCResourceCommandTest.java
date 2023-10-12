@@ -15,6 +15,7 @@ import com.liferay.object.model.ObjectRelationship;
 import com.liferay.object.service.ObjectDefinitionLocalService;
 import com.liferay.object.service.ObjectRelationshipLocalService;
 import com.liferay.object.service.test.util.ObjectDefinitionTestUtil;
+import com.liferay.object.service.test.util.ObjectRelationshipTestUtil;
 import com.liferay.object.service.test.util.TreeTestUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -30,6 +31,7 @@ import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.test.rule.FeatureFlags;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.util.LocalizedMapUtil;
@@ -46,6 +48,7 @@ import org.junit.runner.RunWith;
 /**
  * @author Feliphe Marinho
  */
+@FeatureFlags("LPS-187142")
 @RunWith(Arquillian.class)
 public class GetObjectRelationshipEdgeCandidatesMVCResourceCommandTest {
 
@@ -67,7 +70,7 @@ public class GetObjectRelationshipEdgeCandidatesMVCResourceCommandTest {
 				TestPropsValues.getCompanyId(), "C_AAA");
 
 		ObjectDefinition objectDefinitionAAAA =
-			ObjectDefinitionTestUtil.addObjectDefinition(
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
 				"AAAA", _objectDefinitionLocalService);
 
 		ObjectRelationship objectRelationshipAAA_AAAA =
@@ -77,7 +80,7 @@ public class GetObjectRelationshipEdgeCandidatesMVCResourceCommandTest {
 				objectDefinitionAAAA.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				StringUtil.randomId(),
+				StringUtil.randomId(), false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		Assert.assertEquals(
@@ -157,7 +160,7 @@ public class GetObjectRelationshipEdgeCandidatesMVCResourceCommandTest {
 				objectDefinitionAAAA.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				StringUtil.randomId(),
+				StringUtil.randomId(), false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		Assert.assertEquals(
@@ -185,7 +188,7 @@ public class GetObjectRelationshipEdgeCandidatesMVCResourceCommandTest {
 		// Object definition, not hierarchical structure
 
 		ObjectDefinition objectDefinitionBBB =
-			ObjectDefinitionTestUtil.addObjectDefinition(
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
 				"BBB", _objectDefinitionLocalService);
 
 		ObjectRelationship objectRelationshipBBB_AAAA =
@@ -195,7 +198,7 @@ public class GetObjectRelationshipEdgeCandidatesMVCResourceCommandTest {
 				objectDefinitionAAAA.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				StringUtil.randomId(),
+				StringUtil.randomId(), false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		Assert.assertEquals(
@@ -216,6 +219,125 @@ public class GetObjectRelationshipEdgeCandidatesMVCResourceCommandTest {
 
 		_objectRelationshipLocalService.deleteObjectRelationship(
 			objectRelationshipBBB_AAAA.getObjectRelationshipId());
+	}
+
+	@Test
+	public void testIsEdgeCandidate() throws Exception {
+
+		// Child object definition published
+
+		ObjectDefinition childObjectDefinition1 =
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
+				"A" + RandomTestUtil.randomString(),
+				_objectDefinitionLocalService);
+
+		_objectDefinitionLocalService.publishCustomObjectDefinition(
+			TestPropsValues.getUserId(),
+			childObjectDefinition1.getObjectDefinitionId());
+
+		ObjectDefinition parentObjectDefinition1 =
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
+				"B" + RandomTestUtil.randomString(),
+				_objectDefinitionLocalService);
+
+		ObjectRelationship objectRelationship1 =
+			ObjectRelationshipTestUtil.addObjectRelationship(
+				_objectRelationshipLocalService, parentObjectDefinition1,
+				childObjectDefinition1);
+
+		Assert.assertEquals(
+			_jsonFactory.createJSONArray(
+			).toString(),
+			_getObjectRelationshipEdgeCandidatesJSONArray(
+				0, childObjectDefinition1.getObjectDefinitionId()
+			).toString());
+
+		_objectRelationshipLocalService.deleteObjectRelationship(
+			objectRelationship1.getObjectRelationshipId());
+
+		// Many to many object relationship
+
+		ObjectDefinition objectDefinition1 =
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
+				"A" + RandomTestUtil.randomString(),
+				_objectDefinitionLocalService);
+		ObjectDefinition objectDefinition2 =
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
+				"B" + RandomTestUtil.randomString(),
+				_objectDefinitionLocalService);
+
+		ObjectRelationship objectRelationship2 =
+			_objectRelationshipLocalService.addObjectRelationship(
+				TestPropsValues.getUserId(),
+				objectDefinition1.getObjectDefinitionId(),
+				objectDefinition2.getObjectDefinitionId(), 0,
+				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
+				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
+				StringUtil.randomId(), false,
+				ObjectRelationshipConstants.TYPE_MANY_TO_MANY);
+
+		Assert.assertEquals(
+			_jsonFactory.createJSONArray(
+			).toString(),
+			_getObjectRelationshipEdgeCandidatesJSONArray(
+				0, objectDefinition2.getObjectDefinitionId()
+			).toString());
+
+		_objectRelationshipLocalService.deleteObjectRelationship(
+			objectRelationship2.getObjectRelationshipId());
+
+		// Parent object definition published
+
+		ObjectDefinition childObjectDefinition2 =
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
+				"A" + RandomTestUtil.randomString(),
+				_objectDefinitionLocalService);
+
+		ObjectDefinition parentObjectDefinition2 =
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
+				"B" + RandomTestUtil.randomString(),
+				_objectDefinitionLocalService);
+
+		_objectDefinitionLocalService.publishCustomObjectDefinition(
+			TestPropsValues.getUserId(),
+			parentObjectDefinition2.getObjectDefinitionId());
+
+		ObjectRelationship objectRelationship3 =
+			ObjectRelationshipTestUtil.addObjectRelationship(
+				_objectRelationshipLocalService, parentObjectDefinition2,
+				childObjectDefinition2);
+
+		Assert.assertEquals(
+			_jsonFactory.createJSONArray(
+			).toString(),
+			_getObjectRelationshipEdgeCandidatesJSONArray(
+				0, childObjectDefinition2.getObjectDefinitionId()
+			).toString());
+
+		_objectRelationshipLocalService.deleteObjectRelationship(
+			objectRelationship3.getObjectRelationshipId());
+
+		// Self object relationship
+
+		ObjectDefinition objectDefinition3 =
+			ObjectDefinitionTestUtil.addCustomObjectDefinition(
+				"A" + RandomTestUtil.randomString(),
+				_objectDefinitionLocalService);
+
+		ObjectRelationship objectRelationship4 =
+			ObjectRelationshipTestUtil.addObjectRelationship(
+				_objectRelationshipLocalService, objectDefinition3,
+				objectDefinition3);
+
+		Assert.assertEquals(
+			_jsonFactory.createJSONArray(
+			).toString(),
+			_getObjectRelationshipEdgeCandidatesJSONArray(
+				0, childObjectDefinition1.getObjectDefinitionId()
+			).toString());
+
+		_objectRelationshipLocalService.deleteObjectRelationship(
+			objectRelationship4.getObjectRelationshipId());
 	}
 
 	private String _getEdgeLabel(

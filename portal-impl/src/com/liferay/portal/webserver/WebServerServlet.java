@@ -103,6 +103,7 @@ import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.ServiceProxyFactory;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.Validator_IW;
@@ -203,7 +204,8 @@ public class WebServerServlet extends HttpServlet {
 				for (int i = 1; i < pathArray.length; i++) {
 					try {
 						Folder folder = DLAppLocalServiceUtil.getFolder(
-							groupId, folderId, pathArray[i]);
+							groupId, folderId,
+							URLCodec.decodeURL(pathArray[i]));
 
 						folderId = folder.getFolderId();
 					}
@@ -332,7 +334,10 @@ public class WebServerServlet extends HttpServlet {
 
 			_checkResourcePermission(httpServletRequest, httpServletResponse);
 
-			if (_lastModified) {
+			String ifNoneMatch = httpServletRequest.getHeader(
+				HttpHeaders.IF_NONE_MATCH);
+
+			if ((ifNoneMatch == null) && _lastModified) {
 				long lastModified = getLastModified(httpServletRequest);
 
 				if (lastModified > 0) {
@@ -912,7 +917,7 @@ public class WebServerServlet extends HttpServlet {
 
 			try {
 				Folder folder = DLAppServiceUtil.getFolder(
-					groupId, folderId, name);
+					groupId, folderId, URLCodec.decodeURL(name));
 
 				folderId = folder.getFolderId();
 			}
@@ -923,7 +928,9 @@ public class WebServerServlet extends HttpServlet {
 
 				String title = name;
 
-				sendFile(httpServletResponse, user, groupId, folderId, title);
+				sendFile(
+					httpServletResponse, user, groupId, folderId,
+					URLCodec.decodeURL(title));
 
 				return;
 			}
@@ -983,7 +990,8 @@ public class WebServerServlet extends HttpServlet {
 			webServerEntries.add(webServerEntry);
 		}
 
-		sendHTML(httpServletResponse, path, webServerEntries);
+		sendHTML(
+			httpServletResponse, URLCodec.decodeURL(path), webServerEntries);
 	}
 
 	protected void sendFile(

@@ -5,9 +5,7 @@
 
 package com.liferay.portal.scheduler.quartz.internal;
 
-import com.liferay.osgi.util.service.Snapshot;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
 import com.liferay.portal.kernel.dao.db.DBType;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -16,6 +14,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageBus;
 import com.liferay.portal.kernel.model.Release;
+import com.liferay.portal.kernel.module.service.Snapshot;
 import com.liferay.portal.kernel.scheduler.JobState;
 import com.liferay.portal.kernel.scheduler.JobStateSerializeUtil;
 import com.liferay.portal.kernel.scheduler.SchedulerEngine;
@@ -693,9 +692,7 @@ public class QuartzSchedulerEngine implements SchedulerEngine {
 		Properties properties = _props.getProperties(propertiesPrefix, true);
 
 		if (useQuartzCluster) {
-			DB db = DBManagerUtil.getDB();
-
-			DBType dbType = db.getDBType();
+			DBType dbType = DBManagerUtil.getDBType();
 
 			if (dbType == DBType.SQLSERVER) {
 				String lockHandlerClassName = properties.getProperty(

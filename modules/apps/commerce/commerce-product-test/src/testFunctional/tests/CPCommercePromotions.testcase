@@ -17,7 +17,7 @@ definition {
 	@description = "This is a test for COMMERCE-8569. Verify multiple Price Entries can be set in the same Promotion for the same SKU"
 	@priority = 5
 	test AllowMultiplePriceEntriesInTheSamePromotion {
-		property custom.properties = "jsonws.web.service.paths.excludes=${line.separator}company.security.strangers.verify=false";
+		property custom.properties = "company.security.strangers.verify=false${line.separator}jsonws.web.service.paths.excludes=";
 		property osgi.module.configuration.file.names = "com.liferay.commerce.price.list.configuration.CommercePriceEntryConfiguration.config";
 		property osgi.module.configurations = "checkInterval=\"1\"";
 		property portal.acceptance = "true";
@@ -68,8 +68,6 @@ definition {
 			SelectFrame.selectFrameNoLoading(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
 
 			CommerceEntry.setExpirationTime(minutesToExpire = 2);
-
-			Button.clickSave();
 		}
 
 		task ("And given a Test Promotion entry for U-Joint that is set to publish in 3 minutes") {

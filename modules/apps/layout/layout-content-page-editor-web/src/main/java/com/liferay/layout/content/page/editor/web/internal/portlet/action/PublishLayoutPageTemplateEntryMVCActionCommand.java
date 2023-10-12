@@ -5,6 +5,7 @@
 
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
+import com.liferay.layout.constants.LayoutTypeSettingsConstants;
 import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.layout.content.page.editor.web.internal.util.layout.structure.LayoutStructureUtil;
 import com.liferay.layout.helper.LayoutCopyHelper;
@@ -78,12 +79,12 @@ public class PublishLayoutPageTemplateEntryMVCActionCommand
 		String key = "layoutPageTemplatePublished";
 
 		if (layoutPageTemplateEntry.getType() ==
-				LayoutPageTemplateEntryTypeConstants.TYPE_DISPLAY_PAGE) {
+				LayoutPageTemplateEntryTypeConstants.DISPLAY_PAGE) {
 
 			key = "displayPagePublished";
 		}
 		else if (layoutPageTemplateEntry.getType() ==
-					LayoutPageTemplateEntryTypeConstants.TYPE_MASTER_LAYOUT) {
+					LayoutPageTemplateEntryTypeConstants.MASTER_LAYOUT) {
 
 			key = "masterPagePublished";
 		}
@@ -125,10 +126,10 @@ public class PublishLayoutPageTemplateEntryMVCActionCommand
 		UnicodeProperties draftLayoutypeSettingsUnicodeProperties =
 			draftLayout.getTypeSettingsProperties();
 
-		draftLayoutypeSettingsUnicodeProperties.put(
-			"published", Boolean.TRUE.toString());
 		draftLayoutypeSettingsUnicodeProperties.remove(
-			"designConfigurationModified");
+			LayoutTypeSettingsConstants.KEY_DESIGN_CONFIGURATION_MODIFIED);
+		draftLayoutypeSettingsUnicodeProperties.put(
+			LayoutTypeSettingsConstants.KEY_PUBLISHED, Boolean.TRUE.toString());
 
 		draftLayout.setTypeSettingsProperties(
 			draftLayoutypeSettingsUnicodeProperties);

@@ -30,7 +30,7 @@ definition {
 	@description = "If virtual.hosts.strict.access=true is set, do not redirect to a default instance if there is no associated company"
 	@priority = 4
 	test DoNotRedirectToDefaultInstanceWithNoCompany {
-		property custom.properties = "virtual.hosts.valid.hosts=localhost,127.0.0.1,www.able.com${line.separator}virtual.hosts.strict.access=true";
+		property custom.properties = "virtual.hosts.strict.access=true${line.separator}virtual.hosts.valid.hosts=localhost,127.0.0.1,www.able.com";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 
@@ -149,7 +149,7 @@ definition {
 
 		WebContentNavigator.gotoEditCP(webContentTitle = "éöő");
 
-		WebContent.viewFriendlyURLCP(friendlyURL = "eoo");
+		WebContent.viewFriendlyURLCP(friendlyURL = "éöő");
 	}
 
 	@description = "This is a use case for LPS-161024. Verify uppercase virtual host names added to a site's url are converted to lowercase."
@@ -336,7 +336,7 @@ definition {
 
 		task ("View the inline text on Home page is in English as default") {
 			ContentPages.viewFragmentText(
-				fragmentName = "heading",
+				fragmentName = "paragraph",
 				id = "element-text",
 				text = "Welcome to Liferay");
 		}
@@ -354,7 +354,7 @@ definition {
 
 		task ("View the inline text on Home page is in Chinese") {
 			ContentPages.viewFragmentText(
-				fragmentName = "heading",
+				fragmentName = "paragraph",
 				id = "element-text",
 				text = "欢迎来到Liferay");
 		}
@@ -372,7 +372,7 @@ definition {
 
 		task ("View the inline text on Home page is in Portuguese") {
 			ContentPages.viewFragmentText(
-				fragmentName = "heading",
+				fragmentName = "paragraph",
 				id = "element-text",
 				text = "Bem Vindo ao Liferay");
 		}
@@ -390,7 +390,7 @@ definition {
 
 		task ("View the inline text on Home page is in French") {
 			ContentPages.viewFragmentText(
-				fragmentName = "heading",
+				fragmentName = "paragraph",
 				id = "element-text",
 				text = "Bienvenue à Liferay");
 		}

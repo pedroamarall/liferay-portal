@@ -31,6 +31,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>PRODUCT_DETAILS_PRICE_TABLE_HEADER</td>
+	<td>//th//span[text()='${key_columnName}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PRODUCT_DETAILS_PRICE_TABLE_FIELD_ENTRY</td>
+	<td>//tbody//tr[@class][${key_index}]//td[text()='${key_fieldValue}']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>FS_IMAGE_GALLERY_ARROW_NEXT</td>
 	<td>//div[@class='arrow next']</td>
 	<td></td>
@@ -108,6 +118,26 @@
 <tr>
 	<td>FS_PRODUCT_OPTIONS_SELECT</td>
 	<td>//div/label[text()='${key_optionName}']/..//select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FS_PRODUCT_UOM_SELECT</td>
+	<td>//select[contains(@class,'unit-of-measure-selector')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FS_PRODUCT_UOM_SELECT_DISABLED</td>
+	<td>//select[(@disabled)][contains(@class,'unit-of-measure-selector')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FS_PRODUCT_UOM_SELECTOR_VALUE</td>
+	<td>//select[contains(@class,'unit-of-measure-selector')]//option[contains(@value,'${uomName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FS_PRODUCT_UOM_SELECTOR_VALUE_BY_INDEX</td>
+	<td>//select[contains(@class,'unit-of-measure-selector')]//option[${index}][contains(@value,'${uomName}')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -212,7 +242,7 @@
 </tr>
 <tr>
 	<td>PRODUCT_DETAILS_QUANTITY_OPTION</td>
-	<td>//header//h2[text()='${key_productName}']//..//following-sibling::div[4]//option[@value='${key_optionValue}']</td>
+	<td>//header//h2[text()='${key_productName}']//..//following-sibling::div[5]//option[@value='${key_optionValue}']</td>
 	<td></td>
 </tr>
 <tr>

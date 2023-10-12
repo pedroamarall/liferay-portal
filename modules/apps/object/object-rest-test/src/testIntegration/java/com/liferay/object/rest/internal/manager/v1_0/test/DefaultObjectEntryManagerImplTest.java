@@ -157,7 +157,7 @@ import org.junit.runner.RunWith;
 /**
  * @author Feliphe Marinho
  */
-@FeatureFlags({"LPS-164801", "LPS-172017"})
+@FeatureFlags("LPS-164801")
 @RunWith(Arquillian.class)
 public class DefaultObjectEntryManagerImplTest
 	extends BaseObjectEntryManagerImplTestCase {
@@ -179,7 +179,7 @@ public class DefaultObjectEntryManagerImplTest
 		_originalPermissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 		_simpleDateFormat = DateFormatFactoryUtil.getSimpleDateFormat(
-			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+			"yyyy-MM-dd");
 
 		adminUser = TestPropsValues.getUser();
 
@@ -384,7 +384,7 @@ public class DefaultObjectEntryManagerImplTest
 				_objectDefinition2.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				"oneToManyRelationshipName",
+				"oneToManyRelationshipName", false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		_addAggregationObjectField(
@@ -444,7 +444,7 @@ public class DefaultObjectEntryManagerImplTest
 				_objectDefinition3.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				"oneToManyRelationshipName",
+				"oneToManyRelationshipName", false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		_objectDefinition3.setAccountEntryRestrictedObjectFieldId(
@@ -578,10 +578,7 @@ public class DefaultObjectEntryManagerImplTest
 			_objectDefinition1.getObjectDefinitionId(),
 			"countAggregationObjectFieldName1");
 
-		DateFormat dateFormat = DateFormatFactoryUtil.getSimpleDateFormat(
-			"yyyy-MM-dd");
-
-		String currentDateString = dateFormat.format(new Date());
+		String currentDateString = _simpleDateFormat.format(new Date());
 
 		_objectFilterLocalService.addObjectFilter(
 			adminUser.getUserId(), objectField.getObjectFieldId(), "createDate",
@@ -761,7 +758,7 @@ public class DefaultObjectEntryManagerImplTest
 				_objectDefinition1.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				StringUtil.randomId(),
+				StringUtil.randomId(), false,
 				ObjectRelationshipConstants.TYPE_MANY_TO_MANY);
 
 		_addAggregationObjectField(
@@ -1109,7 +1106,7 @@ public class DefaultObjectEntryManagerImplTest
 				objectDefinition2.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				"oneToManyRelationship",
+				"oneToManyRelationship", false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		_addRelatedObjectEntries(
@@ -1700,20 +1697,22 @@ public class DefaultObjectEntryManagerImplTest
 
 		// Range expression
 
+		String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+
 		testGetObjectEntries(
 			HashMapBuilder.put(
 				"filter",
-				_buildRangeExpression(
+				buildRangeExpression(
 					childObjectEntry1.getDateCreated(), new Date(),
-					"dateCreated")
+					"dateCreated", pattern)
 			).build(),
 			childObjectEntry1, childObjectEntry2);
 		testGetObjectEntries(
 			HashMapBuilder.put(
 				"filter",
-				_buildRangeExpression(
+				buildRangeExpression(
 					childObjectEntry1.getDateModified(), new Date(),
-					"dateModified")
+					"dateModified", pattern)
 			).build(),
 			childObjectEntry1, childObjectEntry2);
 
@@ -2001,7 +2000,7 @@ public class DefaultObjectEntryManagerImplTest
 				childObjectDefinition.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				StringUtil.randomId(),
+				StringUtil.randomId(), false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		ObjectDefinition accountEntryObjectDefinition =
@@ -2015,7 +2014,7 @@ public class DefaultObjectEntryManagerImplTest
 				childObjectDefinition.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				StringUtil.randomId(),
+				StringUtil.randomId(), false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		childObjectDefinition.setAccountEntryRestrictedObjectFieldId(
@@ -2070,25 +2069,19 @@ public class DefaultObjectEntryManagerImplTest
 
 		Assert.assertEquals(objectEntries.toString(), 1, objectEntries.size());
 
-		_objectRelationshipLocalService.deleteObjectRelationship(
-			objectRelationship1.getObjectRelationshipId());
-
-		_objectRelationshipLocalService.deleteObjectRelationship(
-			objectRelationship2.getObjectRelationshipId());
+		objectDefinitionLocalService.deleteObjectDefinition(
+			childObjectDefinition);
 	}
 
 	@Test
 	public void testPartialUpdateObjectEntry() throws Exception {
-		DateFormat dateFormat = DateFormatFactoryUtil.getSimpleDateFormat(
-			"yyyy-MM-dd");
-
 		ObjectEntry objectEntry = _defaultObjectEntryManager.addObjectEntry(
 			dtoConverterContext, _objectDefinition2,
 			new ObjectEntry() {
 				{
 					properties = HashMapBuilder.<String, Object>put(
 						"dateObjectFieldName",
-						dateFormat.format(RandomTestUtil.nextDate())
+						_simpleDateFormat.format(RandomTestUtil.nextDate())
 					).put(
 						"decimalObjectFieldName", RandomTestUtil.randomDouble()
 					).put(
@@ -2978,15 +2971,6 @@ public class DefaultObjectEntryManagerImplTest
 		return StringBundler.concat(
 			"(", fieldName, "/any(x:",
 			StringUtil.merge(valuesList, includes ? " or " : " and "), "))");
-	}
-
-	private String _buildRangeExpression(
-		Date date1, Date date2, String fieldName) {
-
-		return StringBundler.concat(
-			"(( ", fieldName, " ge ", _simpleDateFormat.format(date1),
-			") and ( ", fieldName, " le ", _simpleDateFormat.format(date2),
-			"))");
 	}
 
 	private ObjectDefinition _createObjectDefinition(

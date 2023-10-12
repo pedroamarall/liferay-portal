@@ -7,6 +7,7 @@ package com.liferay.source.formatter.processor;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.source.formatter.SourceFormatterArgs;
+import com.liferay.source.formatter.check.UpgradeCatchAllCheck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,15 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 	}
 
 	@Test
+	public void testUpgradeCatchAllCheck() throws Exception {
+		UpgradeCatchAllCheck.setTestMode(true);
+
+		test(
+			"upgrade/UpgradeCatchAllCheck.testjava",
+			UpgradeCatchAllCheck.getExpectedMessages());
+	}
+
+	@Test
 	public void testUpgradeDLUtilCheck() throws Exception {
 		test("upgrade/UpgradeJavaDLUtilCheck.testjava");
 		test("upgrade/UpgradeJSPDLUtilCheck.testjsp");
@@ -75,6 +85,11 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 			).addDependentFileName(
 				"upgrade/upgrade-include-resource-check/bnd.testbnd"
 			));
+	}
+
+	@Test
+	public void testUpgradeJavaAccountPortletKeysCheck() throws Exception {
+		test("upgrade/UpgradeJavaAccountPortletKeysCheck.testjava");
 	}
 
 	@Test
@@ -126,6 +141,11 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 	}
 
 	@Test
+	public void testUpgradeJavaBaseModelListenerCheck() throws Exception {
+		test("upgrade/UpgradeJavaBaseModelListenerCheck.testjava");
+	}
+
+	@Test
 	public void testUpgradeJavaBasePanelAppExtendedClassesCheck()
 		throws Exception {
 
@@ -153,8 +173,22 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 	}
 
 	@Test
-	public void testUpgradeJavaCommerceRegionCheck() throws Exception {
-		test("upgrade/UpgradeJavaCommerceRegionCheck.testjava");
+	public void testUpgradeJavaCommerceOrderItemServicesCheck()
+		throws Exception {
+
+		test(
+			"upgrade/UpgradeJavaCommerceOrderItemServicesCheck.testjava",
+			StringBundler.concat(
+				"Unable to format methods addCommerceOrderItem and ",
+				"deleteCommerceOrderItems from CommerceOrderItemLocalService, ",
+				"CommerceOrderItemLocalServiceUtil, CommerceOrderItemService, ",
+				"CommerceOrderItemServiceUtil. Fill the new parameters ",
+				"manually, see LPS-196580"));
+	}
+
+	@Test
+	public void testUpgradeJavaCommerceOrderValidatorCheck() throws Exception {
+		test("upgrade/UpgradeJavaCommerceOrderValidatorCheck.testjava");
 	}
 
 	@Test
@@ -184,11 +218,6 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 	}
 
 	@Test
-	public void testUpgradeJavaExtractTextMethodCheck() throws Exception {
-		test("upgrade/UpgradeJavaExtractTextMethodCheck.testjava");
-	}
-
-	@Test
 	public void testUpgradeJavaFacetedSearcherCheck() throws Exception {
 		test("upgrade/UpgradeJavaFacetedSearcherCheck.testjava");
 	}
@@ -204,12 +233,34 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 	}
 
 	@Test
+	public void testUpgradeJavaFetchAssetCategoryByExternalReferenceCodeCheck()
+		throws Exception {
+
+		test(
+			"upgrade/UpgradeJavaFetchAssetCategoryByExternalReference" +
+				"CodeCheck.testjava",
+			StringBundler.concat(
+				"The fetchAssetCategoryByExternalReferenceCode method from ",
+				"AssetCategoryLocalService and AssetCategoryLocalServiceUtil ",
+				"no longer uses companyId as a parameter and has changed the ",
+				"order of its parameters. Fill the new parameters manually, ",
+				"see LPS-194134."));
+	}
+
+	@Test
 	public void testUpgradeJavaFetchCPDefinitionByCProductExternalReferenceCodeCheck()
 		throws Exception {
 
 		test(
 			"upgrade/UpgradeJavaFetchCPDefinitionByCProductExternal" +
 				"ReferenceCodeCheck.testjava");
+	}
+
+	@Test
+	public void testUpgradeJavaGetFDSTableSchemaParameterCheck()
+		throws Exception {
+
+		test("upgrade/UpgradeJavaGetFDSTableSchemaParameterCheck.testjava");
 	}
 
 	@Test
@@ -235,6 +286,11 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 		throws Exception {
 
 		test("upgrade/UpgradeJavaGetLayoutDisplayPageProviderCheck.testjava");
+	}
+
+	@Test
+	public void testUpgradeJavaGetLeftCategoryIdMethodCheck() throws Exception {
+		test("upgrade/UpgradeJavaGetLeftCategoryIdMethodCheck.testjava");
 	}
 
 	@Test
@@ -272,11 +328,6 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 	}
 
 	@Test
-	public void testUpgradeJavaOnAfterUpdateParameterCheck() throws Exception {
-		test("upgrade/UpgradeJavaOnAfterUpdateParameterCheck.testjava");
-	}
-
-	@Test
 	public void testUpgradeJavaPhoneLocalServiceUtilCheck() throws Exception {
 		test("upgrade/UpgradeJavaPhoneLocalServiceUtilCheck.testjava");
 	}
@@ -298,18 +349,6 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 		throws Exception {
 
 		test("upgrade/UpgradeJavaSchedulerEntryImplConstructorCheck.testjava");
-	}
-
-	@Test
-	public void testUpgradeJavaSearchVocabulariesMethodCheck()
-		throws Exception {
-
-		test(
-			"upgrade/UpgradeJavaSearchVocabulariesMethodCheck.testjava",
-			StringBundler.concat(
-				"Unable to format searchVocabularies method from ",
-				"AssetVocabularyService and AssetVocabularyLocalService. Fill ",
-				"the new parameters manually, see LPS-189866"));
 	}
 
 	@Test
@@ -343,16 +382,31 @@ public class UpgradeSourceProcessorTest extends BaseSourceProcessorTestCase {
 	public void testUpgradeJavaUserLocalServiceUtilCheck() throws Exception {
 		test(
 			"upgrade/UpgradeJavaUserLocalServiceUtilCheck.testjava",
-			StringBundler.concat(
-				"Could not resolve types of updateStatus method. The method ",
-				"signature has changed to updateStatus(long userId,",
-				"int status, ServiceContext serviceContext). Fill the new ",
-				"parameter manually."));
+			new String[] {
+				StringBundler.concat(
+					"Unable to format method addUser from UserLocalService, ",
+					"UserLocalServiceUtil, UserService and UserServiceUtil. ",
+					"Fill the new parameter manually, see LPS-192661 and ",
+					"LPS-196617."),
+				StringBundler.concat(
+					"Unable to format method updateStatus from ",
+					"UserLocalService, UserLocalServiceUtil, UserService and ",
+					"UserServiceUtil. The method signature has changed to ",
+					"updateStatus(long userId, int status, ServiceContext ",
+					"serviceContext). Fill the new parameter manually, see ",
+					"LPS-191999.")
+			});
 	}
 
 	@Test
 	public void testUpgradeJSPFieldSetGroupCheck() throws Exception {
 		test("upgrade/UpgradeJSPFieldSetGroupCheck.testjsp");
+	}
+
+	@Test
+	public void testUpgradePortletDisplayCheck() throws Exception {
+		test("upgrade/UpgradeJavaPortletDisplayCheck.testjava");
+		test("upgrade/UpgradeJSPPortletDisplayCheck.testjsp");
 	}
 
 	@Test

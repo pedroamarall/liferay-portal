@@ -450,7 +450,11 @@ export function ModalAddFilter({
 			selectedFilterBy?.businessType === 'Relationship');
 
 	return (
-		<ClayModal disableAutoClose={disableAutoClose} observer={observer}>
+		<ClayModal
+			center
+			disableAutoClose={disableAutoClose}
+			observer={observer}
+		>
 			<ClayModal.Header>{header}</ClayModal.Header>
 
 			<ClayModal.Body>
@@ -460,6 +464,7 @@ export function ModalAddFilter({
 							'there-are-no-columns-available'
 						)}
 						error={errors.selectedFilterBy}
+						id="modalAddFilterBy"
 						items={filteredAvailableFields}
 						label={Liferay.Language.get('filter-by')}
 						onActive={(item) =>

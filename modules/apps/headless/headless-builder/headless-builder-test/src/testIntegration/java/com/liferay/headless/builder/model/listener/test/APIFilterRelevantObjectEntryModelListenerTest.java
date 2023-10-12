@@ -5,6 +5,7 @@
 
 package com.liferay.headless.builder.model.listener.test;
 
+import com.liferay.headless.builder.application.APIApplication;
 import com.liferay.headless.builder.test.BaseTestCase;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -31,7 +32,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
  * @author Alberto Javier Moreno Lage
  */
 @DataGuard(scope = DataGuard.Scope.METHOD)
-@FeatureFlags({"LPS-167253", "LPS-178642"})
+@FeatureFlags("LPS-178642")
 public class APIFilterRelevantObjectEntryModelListenerTest
 	extends BaseTestCase {
 
@@ -146,7 +147,6 @@ public class APIFilterRelevantObjectEntryModelListenerTest
 				"headless-builder/filters", Http.Method.POST
 			).toString(),
 			JSONCompareMode.LENIENT);
-
 		JSONAssert.assertEquals(
 			JSONUtil.put(
 				"status", "BAD_REQUEST"
@@ -165,7 +165,26 @@ public class APIFilterRelevantObjectEntryModelListenerTest
 				"headless-builder/filters", Http.Method.POST
 			).toString(),
 			JSONCompareMode.LENIENT);
-
+		JSONAssert.assertEquals(
+			JSONUtil.put(
+				"status", "BAD_REQUEST"
+			).put(
+				"title",
+				"Object entry value exceeds the maximum length of 1000 " +
+					"characters for object field \"oDataFilter\""
+			).toString(),
+			HTTPTestUtil.invokeToJSONObject(
+				JSONUtil.put(
+					"objectFieldERC", RandomTestUtil.randomString()
+				).put(
+					"oDataFilter", RandomTestUtil.randomString(1001)
+				).put(
+					"r_apiEndpointToAPIFilters_c_apiEndpointERC",
+					_API_ENDPOINT_ERC
+				).toString(),
+				"headless-builder/filters", Http.Method.POST
+			).toString(),
+			JSONCompareMode.LENIENT);
 		JSONAssert.assertEquals(
 			JSONUtil.put(
 				"status", "BAD_REQUEST"
@@ -210,7 +229,8 @@ public class APIFilterRelevantObjectEntryModelListenerTest
 					).put(
 						"retrieveType", "collection"
 					).put(
-						"scope", "company"
+						"scope",
+						APIApplication.Endpoint.Scope.COMPANY.getValue()
 					))
 			).put(
 				"apiApplicationToAPISchemas",
@@ -310,7 +330,7 @@ public class APIFilterRelevantObjectEntryModelListenerTest
 			).put(
 				"portlet", true
 			).put(
-				"scope", "company"
+				"scope", APIApplication.Endpoint.Scope.COMPANY.getValue()
 			).put(
 				"status", JSONUtil.put("code", 0)
 			).toString(),

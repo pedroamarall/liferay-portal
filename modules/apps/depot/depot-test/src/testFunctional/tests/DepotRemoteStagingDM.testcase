@@ -2,7 +2,7 @@
 definition {
 
 	property app.server.bundles.size = "1";
-	property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
+	property custom.properties = "auth.verifier.TunnelAuthVerifier.hosts.allowed=${line.separator}tunneling.servlet.shared.secret=1234567890123456";
 	property databases.size = "1";
 	property minimum.slave.ram = "24";
 	property portal.release = "true";
@@ -2200,11 +2200,11 @@ definition {
 			pageName = "Test Page",
 			siteName = "Site Name");
 
-		SearchPortlets.addWidgetsViaUI(searchPortletList = "Search Results,Search Bar");
+		SearchPage.addWidgetsOnWidgetPageViaUI(searchPortletList = "Search Results,Search Bar");
 
-		SearchPortlets.searchWidget(searchTerm = "DM Document Title");
+		SearchPage.searchWidget(searchTerm = "DM Document Title");
 
-		SearchResultPortlet.viewSearchResultNotPresent(
+		SearchResults.viewSearchResultNotPresent(
 			searchAssetTitle = "DM Document Title",
 			searchAssetType = "Document");
 	}

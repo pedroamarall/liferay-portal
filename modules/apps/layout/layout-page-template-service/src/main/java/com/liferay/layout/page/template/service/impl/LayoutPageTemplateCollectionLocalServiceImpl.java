@@ -16,6 +16,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
 import com.liferay.portal.kernel.dao.orm.WildcardMode;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
@@ -103,6 +104,22 @@ public class LayoutPageTemplateCollectionLocalServiceImpl
 
 		layoutPageTemplateCollectionPersistence.remove(
 			layoutPageTemplateCollection);
+
+		if (FeatureFlagManagerUtil.isEnabled("LPS-189856")) {
+			List<LayoutPageTemplateCollection> layoutPageTemplateCollections =
+				layoutPageTemplateCollectionPersistence.findByG_P(
+					layoutPageTemplateCollection.getGroupId(),
+					layoutPageTemplateCollection.
+						getLayoutPageTemplateCollectionId());
+
+			for (LayoutPageTemplateCollection curLayoutPageTemplateCollection :
+					layoutPageTemplateCollections) {
+
+				layoutPageTemplateCollectionLocalService.
+					deleteLayoutPageTemplateCollection(
+						curLayoutPageTemplateCollection);
+			}
+		}
 
 		// Resources
 
@@ -248,6 +265,31 @@ public class LayoutPageTemplateCollectionLocalServiceImpl
 				return newName;
 			}
 		}
+	}
+
+	@Override
+	public LayoutPageTemplateCollection updateLayoutPageTemplateCollection(
+			long layoutPageTemplateCollectionId, String name)
+		throws PortalException {
+
+		LayoutPageTemplateCollection layoutPageTemplateCollection =
+			layoutPageTemplateCollectionPersistence.findByPrimaryKey(
+				layoutPageTemplateCollectionId);
+
+		if (!Objects.equals(layoutPageTemplateCollection.getName(), name)) {
+			_validate(
+				layoutPageTemplateCollection.getGroupId(), name,
+				layoutPageTemplateCollection.getType());
+		}
+
+		layoutPageTemplateCollection.setLayoutPageTemplateCollectionKey(
+			_generateLayoutPageTemplateCollectionKey(
+				layoutPageTemplateCollection.getGroupId(), name,
+				layoutPageTemplateCollection.getType()));
+		layoutPageTemplateCollection.setName(name);
+
+		return layoutPageTemplateCollectionPersistence.update(
+			layoutPageTemplateCollection);
 	}
 
 	@Override

@@ -5,6 +5,7 @@
 
 package com.liferay.layout.page.template.service.impl;
 
+import com.liferay.layout.constants.LayoutTypeSettingsConstants;
 import com.liferay.layout.helper.LayoutCopyHelper;
 import com.liferay.layout.page.template.constants.LayoutPageTemplateActionKeys;
 import com.liferay.layout.page.template.constants.LayoutPageTemplateEntryTypeConstants;
@@ -15,8 +16,10 @@ import com.liferay.layout.page.template.model.LayoutPageTemplateEntryTable;
 import com.liferay.layout.page.template.service.LayoutPageTemplateCollectionLocalService;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalService;
 import com.liferay.layout.page.template.service.base.LayoutPageTemplateEntryServiceBaseImpl;
+import com.liferay.petra.sql.dsl.Column;
 import com.liferay.petra.sql.dsl.DSLQueryFactoryUtil;
 import com.liferay.petra.sql.dsl.Table;
+import com.liferay.petra.sql.dsl.base.BaseTable;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.petra.sql.dsl.spi.expression.Scalar;
 import com.liferay.portal.aop.AopService;
@@ -34,7 +37,10 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
+import java.sql.Types;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
@@ -67,8 +73,8 @@ public class LayoutPageTemplateEntryServiceImpl
 		return layoutPageTemplateEntryLocalService.addLayoutPageTemplateEntry(
 			getUserId(), groupId, layoutPageTemplateCollectionId, classNameId,
 			classTypeId, name,
-			LayoutPageTemplateEntryTypeConstants.TYPE_DISPLAY_PAGE,
-			masterLayoutPlid, status, serviceContext);
+			LayoutPageTemplateEntryTypeConstants.DISPLAY_PAGE, masterLayoutPlid,
+			status, serviceContext);
 	}
 
 	@Override
@@ -90,7 +96,8 @@ public class LayoutPageTemplateEntryServiceImpl
 	@Override
 	public LayoutPageTemplateEntry copyLayoutPageTemplateEntry(
 			long groupId, long layoutPageTemplateCollectionId,
-			long sourceLayoutPageTemplateEntryId, ServiceContext serviceContext)
+			long sourceLayoutPageTemplateEntryId, boolean copyPermissions,
+			ServiceContext serviceContext)
 		throws Exception {
 
 		_portletResourcePermission.check(
@@ -99,7 +106,7 @@ public class LayoutPageTemplateEntryServiceImpl
 
 		return layoutPageTemplateEntryLocalService.copyLayoutPageTemplateEntry(
 			getUserId(), groupId, layoutPageTemplateCollectionId,
-			sourceLayoutPageTemplateEntryId, serviceContext);
+			sourceLayoutPageTemplateEntryId, copyPermissions, serviceContext);
 	}
 
 	@Override
@@ -127,7 +134,7 @@ public class LayoutPageTemplateEntryServiceImpl
 				getUserId(), sourceLayout.getGroupId(),
 				targetLayoutPageTemplateCollection.
 					getLayoutPageTemplateCollectionId(),
-				0, 0, name, LayoutPageTemplateEntryTypeConstants.TYPE_BASIC, 0,
+				0, 0, name, LayoutPageTemplateEntryTypeConstants.BASIC, 0,
 				false, 0, 0, sourceLayout.getMasterLayoutPlid(),
 				WorkflowConstants.STATUS_DRAFT, serviceContext);
 
@@ -146,7 +153,8 @@ public class LayoutPageTemplateEntryServiceImpl
 			draftLayout.getTypeSettingsProperties();
 
 		typeSettingsUnicodeProperties.put(
-			"published", Boolean.FALSE.toString());
+			LayoutTypeSettingsConstants.KEY_PUBLISHED,
+			Boolean.FALSE.toString());
 
 		draftLayout.setTypeSettingsProperties(typeSettingsUnicodeProperties);
 
@@ -230,17 +238,17 @@ public class LayoutPageTemplateEntryServiceImpl
 		long groupId, long layoutPageTemplateCollectionId, int type, int start,
 		int end, OrderByComparator<Object> orderByComparator) {
 
-		Table<?> tempLayoutPageTemplateCollectionAndLayoutPageTemplateEntry =
-			_getTempLayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable(
+		Table<?> layoutPageTemplateCollectionAndLayoutPageTemplateEntryTable =
+			_getLayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable(
 				groupId, layoutPageTemplateCollectionId, type);
 
 		return _getLayoutPageTemplateCollectionAndLayoutPageTemplateEntries(
 			DSLQueryFactoryUtil.select(
-				tempLayoutPageTemplateCollectionAndLayoutPageTemplateEntry
+				layoutPageTemplateCollectionAndLayoutPageTemplateEntryTable
 			).from(
-				tempLayoutPageTemplateCollectionAndLayoutPageTemplateEntry
+				layoutPageTemplateCollectionAndLayoutPageTemplateEntryTable
 			).orderBy(
-				tempLayoutPageTemplateCollectionAndLayoutPageTemplateEntry,
+				layoutPageTemplateCollectionAndLayoutPageTemplateEntryTable,
 				orderByComparator
 			).limit(
 				start, end
@@ -251,16 +259,16 @@ public class LayoutPageTemplateEntryServiceImpl
 	public int getLayoutPageCollectionsAndLayoutPageTemplateEntriesCount(
 		long groupId, long layoutPageTemplateCollectionId, int type) {
 
-		Table<?> tempLayoutPageTemplateCollectionAndLayoutPageTemplateEntry =
-			_getTempLayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable(
+		Table<?> layoutPageTemplateCollectionAndLayoutPageTemplateEntryTable =
+			_getLayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable(
 				groupId, layoutPageTemplateCollectionId, type);
 
 		return layoutPageTemplateEntryPersistence.dslQueryCount(
 			DSLQueryFactoryUtil.countDistinct(
-				tempLayoutPageTemplateCollectionAndLayoutPageTemplateEntry.
+				layoutPageTemplateCollectionAndLayoutPageTemplateEntryTable.
 					getColumn("layoutPageTemplateEntryId")
 			).from(
-				tempLayoutPageTemplateCollectionAndLayoutPageTemplateEntry
+				layoutPageTemplateCollectionAndLayoutPageTemplateEntryTable
 			));
 	}
 
@@ -857,7 +865,7 @@ public class LayoutPageTemplateEntryServiceImpl
 	}
 
 	private Table<?>
-		_getTempLayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable(
+		_getLayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable(
 			long groupId, long layoutPageTemplateCollectionId, int type) {
 
 		return DSLQueryFactoryUtil.select(
@@ -866,7 +874,10 @@ public class LayoutPageTemplateEntryServiceImpl
 				0L
 			).as(
 				"layoutPageTemplateCollectionId"
-			)
+			),
+			LayoutPageTemplateEntryTable.INSTANCE.name,
+			LayoutPageTemplateEntryTable.INSTANCE.createDate,
+			LayoutPageTemplateEntryTable.INSTANCE.modifiedDate
 		).from(
 			LayoutPageTemplateEntryTable.INSTANCE
 		).where(
@@ -874,7 +885,7 @@ public class LayoutPageTemplateEntryServiceImpl
 				groupId
 			).and(
 				() -> {
-					if (layoutPageTemplateCollectionId != -1) {
+					if (layoutPageTemplateCollectionId >= 0) {
 						return LayoutPageTemplateEntryTable.INSTANCE.
 							layoutPageTemplateCollectionId.eq(
 								layoutPageTemplateCollectionId);
@@ -893,7 +904,10 @@ public class LayoutPageTemplateEntryServiceImpl
 					"layoutPageTemplateEntryId"
 				),
 				LayoutPageTemplateCollectionTable.INSTANCE.
-					layoutPageTemplateCollectionId
+					layoutPageTemplateCollectionId,
+				LayoutPageTemplateCollectionTable.INSTANCE.name,
+				LayoutPageTemplateCollectionTable.INSTANCE.createDate,
+				LayoutPageTemplateCollectionTable.INSTANCE.modifiedDate
 			).from(
 				LayoutPageTemplateCollectionTable.INSTANCE
 			).where(
@@ -901,7 +915,7 @@ public class LayoutPageTemplateEntryServiceImpl
 					groupId
 				).and(
 					() -> {
-						if (layoutPageTemplateCollectionId != -1) {
+						if (layoutPageTemplateCollectionId >= 0) {
 							return LayoutPageTemplateCollectionTable.INSTANCE.
 								parentLayoutPageTemplateCollectionId.eq(
 									layoutPageTemplateCollectionId);
@@ -914,7 +928,8 @@ public class LayoutPageTemplateEntryServiceImpl
 				)
 			)
 		).as(
-			"tempLayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable"
+			"layoutPageTemplateCollectionAndLayoutPageTemplateEntryTableTable",
+			LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable.INSTANCE
 		);
 	}
 
@@ -945,5 +960,39 @@ public class LayoutPageTemplateEntryServiceImpl
 		target = "(component.name=com.liferay.layout.page.template.internal.security.permission.resource.LayoutPageTemplatePortletResourcePermission)"
 	)
 	private PortletResourcePermission _portletResourcePermission;
+
+	private static class
+		LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable
+			extends BaseTable
+				<LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable> {
+
+		public static final
+			LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable
+				INSTANCE =
+					new LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable();
+
+		public final Column
+			<LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable, Date>
+				createDateColumn = createColumn(
+					"createDate", Date.class, Types.TIMESTAMP,
+					Column.FLAG_DEFAULT);
+		public final Column
+			<LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable, Date>
+				modifiedDateColumn = createColumn(
+					"modifiedDate", Date.class, Types.TIMESTAMP,
+					Column.FLAG_DEFAULT);
+		public final Column
+			<LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable,
+			 String> nameColumn = createColumn(
+				"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+
+		private LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable() {
+			super(
+				"LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable",
+				LayoutPageTemplateCollectionAndLayoutPageTemplateEntryTable::
+					new);
+		}
+
+	}
 
 }

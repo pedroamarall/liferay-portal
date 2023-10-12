@@ -230,6 +230,8 @@ definition {
 	@description = "Assert we can publish the publication with split message board threads."
 	@priority = 4
 	test PublishSplitMessageBoardThreads {
+		property test.liferay.virtual.instance = "false";
+
 		HeadlessSite.addSite(siteName = "Site Name");
 
 		JSONLayout.addPublicLayout(
@@ -382,15 +384,15 @@ definition {
 
 		Publications.viewNeedsManualResolution(
 			entryTitle = "Asset",
-			warningMessage = "Modification Conflict");
+			warningMessage = "Entity Recently Updated");
 
 		Publications.viewNeedsManualResolution(
 			entryTitle = "Message Boards Thread",
-			warningMessage = "Modification Conflict");
+			warningMessage = "Entity Recently Updated");
 
 		Publications.viewNeedsManualResolution(
 			entryTitle = "Message Boards Message",
-			warningMessage = "Modification Conflict");
+			warningMessage = "Entity Recently Updated");
 
 		PublicationsChanges.discardChanges(
 			changeCategory = "Message Boards Thread",

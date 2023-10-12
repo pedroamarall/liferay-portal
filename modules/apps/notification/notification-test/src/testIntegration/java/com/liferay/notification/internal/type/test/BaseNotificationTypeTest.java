@@ -110,6 +110,10 @@ public class BaseNotificationTypeTest {
 				return simpleDateFormat.format(RandomTestUtil.nextDate());
 			}
 		).put(
+			"emailTextObjectField",
+			StringUtil.toLowerCase(RandomTestUtil.randomString()) +
+				"@liferay.com"
+		).put(
 			"integerObjectField", RandomTestUtil.nextInt()
 		).put(
 			"picklistObjectField",
@@ -197,6 +201,13 @@ public class BaseNotificationTypeTest {
 						LocalizedMapUtil.getLocalizedMap(
 							RandomTestUtil.randomString())
 					).name(
+						"emailTextObjectField"
+					).build(),
+					new TextObjectFieldBuilder(
+					).labelMap(
+						LocalizedMapUtil.getLocalizedMap(
+							RandomTestUtil.randomString())
+					).name(
 						"textObjectField"
 					).build()));
 
@@ -236,7 +247,7 @@ public class BaseNotificationTypeTest {
 				childObjectDefinition.getObjectDefinitionId(), 0,
 				ObjectRelationshipConstants.DELETION_TYPE_PREVENT,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-				StringUtil.randomId(),
+				StringUtil.randomId(), false,
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		_childAuthorTermValues = HashMapBuilder.<String, Object>put(
@@ -377,6 +388,7 @@ public class BaseNotificationTypeTest {
 			Arrays.asList(
 				getTermName("booleanObjectField"),
 				getTermName("dateObjectField"),
+				getTermName("emailTextObjectField"),
 				getTermName("integerObjectField"),
 				getTermName("picklistObjectField"),
 				getTermName("textObjectField"),

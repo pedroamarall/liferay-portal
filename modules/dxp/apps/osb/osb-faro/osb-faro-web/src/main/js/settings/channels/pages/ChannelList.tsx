@@ -302,7 +302,7 @@ const ChannelList: React.FC<IChannelListProps> = ({
 		{setFieldError, setSubmitting}: FormikActions<FormValues>
 	) => {
 		API.channels
-			.create({groupId, name: name.trim()})
+			.create({groupId, name: encodeURIComponent(name).trim()})
 			.then(({id, name}) => {
 				addAlert({
 					alertType: Alert.Types.Success,
@@ -534,7 +534,7 @@ const ChannelList: React.FC<IChannelListProps> = ({
 					page={page}
 					query={query}
 					renderNav={authorized ? renderNav : null}
-					renderRowActions={renderRowActions}
+					renderRowActions={authorized ? renderRowActions : null}
 					rowIdentifier='id'
 					showCheckbox={authorized}
 					total={data?.total}

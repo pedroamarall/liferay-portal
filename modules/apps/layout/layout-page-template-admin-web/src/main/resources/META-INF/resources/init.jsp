@@ -12,6 +12,7 @@
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %><%@
 taglib uri="http://liferay.com/tld/clay" prefix="clay" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %><%@
+taglib uri="http://liferay.com/tld/portal-workflow" prefix="liferay-portal-workflow" %><%@
 taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
 taglib uri="http://liferay.com/tld/react" prefix="react" %><%@
 taglib uri="http://liferay.com/tld/site-navigation" prefix="liferay-site-navigation" %><%@
@@ -20,7 +21,6 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
 <%@ page import="com.liferay.frontend.taglib.servlet.taglib.util.EmptyResultMessageKeys" %><%@
-page import="com.liferay.layout.importer.LayoutsImporterResultEntry" %><%@
 page import="com.liferay.layout.page.template.admin.constants.LayoutPageTemplateAdminPortletKeys" %><%@
 page import="com.liferay.layout.page.template.admin.web.internal.constants.LayoutPageTemplateAdminWebKeys" %><%@
 page import="com.liferay.layout.page.template.admin.web.internal.dao.search.LayoutPageTemplateResultRowSplitter" %><%@
@@ -28,6 +28,7 @@ page import="com.liferay.layout.page.template.admin.web.internal.display.context
 page import="com.liferay.layout.page.template.admin.web.internal.display.context.AssetDisplayPageUsagesManagementToolbarDisplayContext" %><%@
 page import="com.liferay.layout.page.template.admin.web.internal.display.context.DisplayPageDisplayContext" %><%@
 page import="com.liferay.layout.page.template.admin.web.internal.display.context.DisplayPageManagementToolbarDisplayContext" %><%@
+page import="com.liferay.layout.page.template.admin.web.internal.display.context.DisplayPageTemplateInfoPanelDisplayContext" %><%@
 page import="com.liferay.layout.page.template.admin.web.internal.display.context.ImportDisplayContext" %><%@
 page import="com.liferay.layout.page.template.admin.web.internal.display.context.LayoutPageTemplateCollectionsDisplayContext" %><%@
 page import="com.liferay.layout.page.template.admin.web.internal.display.context.LayoutPageTemplateCollectionsManagementToolbarDisplayContext" %><%@
@@ -70,21 +71,24 @@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder" %><%@
 page import="com.liferay.portal.kernel.service.LayoutPrototypeServiceUtil" %><%@
 page import="com.liferay.portal.kernel.servlet.MultiSessionMessages" %><%@
+page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.util.GetterUtil" %><%@
 page import="com.liferay.portal.kernel.util.HashMapBuilder" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ListUtil" %><%@
-page import="com.liferay.portal.kernel.util.MapUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
+page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.workflow.WorkflowConstants" %><%@
 page import="com.liferay.portal.model.impl.LayoutPrototypeImpl" %><%@
 page import="com.liferay.portal.util.PropsValues" %>
 
+<%@ page import="java.text.DateFormat" %><%@
+page import="java.text.Format" %>
+
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.List" %><%@
-page import="java.util.Map" %><%@
 page import="java.util.Objects" %>
 
 <%@ page import="javax.portlet.PortletRequest" %><%@
