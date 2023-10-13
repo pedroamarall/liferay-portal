@@ -55,7 +55,7 @@ definition {
 				locator1 = "ControlMenuPreviewPanel#PREVIEW_DATA_DEVICE_BUTTON");
 
 			AssertTextEquals(
-				locator1 = "Testex#ALERTE",
+				locator1 = "Testex#ALERT",
 				value1 = "Custom Size 1920x1080 Applied");
 		}
 	}
