@@ -43,7 +43,9 @@ definition {
 	@priority = 5
 	test CanSuccessfullyCreateBlogEntry {
 		task ("When the user adds a Blog Entry") {
-			BlogsEntry.addEntry(
+			BlogsNavigator.gotoAddEntry();
+
+			BlogsEntry.addEntryContent(
 				entryContent = "New Blogs Entry",
 				entryTitle = "New Blogs Entry");
 		}
