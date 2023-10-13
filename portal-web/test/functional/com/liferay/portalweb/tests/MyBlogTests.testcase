@@ -33,7 +33,7 @@ definition {
 		}
 	}
 
-	@description = "Can Create a Blog Entry"
+	@description = "Can successfully create a blog entry"
 	@priority = 5
 	test CanCreateBlogEntrySuccessfully {
 		task ("When the user adds a Blog Entry") {
@@ -52,7 +52,7 @@ definition {
 		}
 	}
 
-	@description = "Can Delete a Blog"
+	@description = "Can successfully delete a blog entry"
 	@priority = 5
 	test CanDeleteBlogEntrySuccessfully {
 		task ("When the Blogs Portlet is deleted from the page Entry") {
@@ -66,7 +66,7 @@ definition {
 		}
 	}
 
-	@description = "Can edit a Blog"
+	@description = "Can successfully edit a blog entry"
 	@priority = 5
 	test CanEditBlogEntrySuccefully {
 		task ("When the User edits the blog Entry") {
@@ -89,7 +89,7 @@ definition {
 		}
 	}
 
-	@description = "Can Search Blogs"
+	@description = "Can successfully Search a blog entry"
 	@priority = 5
 	test CanSearchBlogsEntrySuccessfully {
 		task ("When user searched for blog entry ") {

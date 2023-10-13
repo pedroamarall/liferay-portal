@@ -25,7 +25,7 @@ definition {
 		}
 	}
 
-	test  CreateFormWithTextFeildAndNumericFeild{
+	test CreateFormWithTextFeildAndNumericFeild {
 		task ("Given a Form with a text field and a Numeric field") {
 			FormsAdmin.addForm();
 
@@ -117,8 +117,7 @@ definition {
 
 			FormsAdminNavigator.gotoViewEntries();
 
-			LexiconEntry.viewEntryName(
-				rowEntry = "Samireddebbarhi");
+			LexiconEntry.viewEntryName(rowEntry = "Samireddebbarhi");
 		}
 	}
 
