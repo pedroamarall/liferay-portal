@@ -25,7 +25,7 @@ definition {
 		}
 	}
 
-	test NewForm {
+	test  CreateFormWithTextFeildAndNumericFeild{
 		task ("Given a Form with a text field and a Numeric field") {
 			FormsAdmin.addForm();
 
@@ -108,7 +108,7 @@ definition {
 			FormPortlet.submitSuccessfully();
 		}
 
-		task ("Then assert the entries are added succefully") {
+		task ("Then validate the Forms is created succefully") {
 			Navigator.openURL();
 
 			ProductMenu.gotoPortlet(
@@ -117,8 +117,7 @@ definition {
 
 			FormsAdminNavigator.gotoViewEntries();
 
-			LexiconEntry.gotoEntryMenuItem(
-				menuItem = "View",
+			LexiconEntry.viewEntryName(
 				rowEntry = "Samireddebbarhi");
 		}
 	}

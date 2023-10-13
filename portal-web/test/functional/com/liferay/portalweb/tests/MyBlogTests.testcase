@@ -35,7 +35,7 @@ definition {
 
 	@description = "Can Create a Blog Entry"
 	@priority = 5
-	test CanCreateBlogEntry {
+	test CanCreateBlogEntrySuccessfully {
 		task ("When the user adds a Blog Entry") {
 			BlogsNavigator.gotoAddEntry();
 
@@ -54,7 +54,7 @@ definition {
 
 	@description = "Can Delete a Blog"
 	@priority = 5
-	test CanDeleteBlogEntry {
+	test CanDeleteBlogEntrySuccessfully {
 		task ("When the Blogs Portlet is deleted from the page Entry") {
 			LexiconEntry.gotoEntryMenuItem(
 				menuItem = "Delete",
@@ -68,7 +68,7 @@ definition {
 
 	@description = "Can edit a Blog"
 	@priority = 5
-	test CanEditBlogEntry {
+	test CanEditBlogEntrySuccefully {
 		task ("When the User edits the blog Entry") {
 			LexiconEntry.gotoEntryMenuItem(
 				menuItem = "Edit",
@@ -91,7 +91,7 @@ definition {
 
 	@description = "Can Search Blogs"
 	@priority = 5
-	test CanSearchBlogsEntry {
+	test CanSearchBlogsEntrySuccessfully {
 		task ("When user searched for blog entry ") {
 			BlogsEntry.searchCP(
 				entrySearchTerm = "Test",
