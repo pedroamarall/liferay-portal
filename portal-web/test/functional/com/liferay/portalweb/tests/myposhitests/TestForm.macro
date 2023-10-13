@@ -28,6 +28,28 @@ definition {
 		Form.save();
 	}
 
+	macro checkForm {
+		FormsAdminNavigator.gotoViewEntries();
+
+		LexiconEntry.viewEntryName(rowEntry = ${rowEntry});
+
+		LexiconEntry.viewEntryContent(
+			rowAny = ${rowAny},
+			rowEntry = ${rowEntry2});
+	}
+
+	macro editBlogEntry {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = ${rowEntry});
+
+		BlogsEntry.editTitle(
+			entryTitle = ${entryTitle},
+			entryTitleEdit = ${entryTitleEdit});
+
+		Button.clickPublish();
+	}
+
 	macro editFieldsForm {
 		Form.editName(formName = ${formName});
 
@@ -50,28 +72,6 @@ definition {
 		Form.editFieldLabelMetal(fieldValue = ${fieldValue2});
 
 		Form.save();
-	}
-
-	macro checkForm {
-		FormsAdminNavigator.gotoViewEntries();
-
-		LexiconEntry.viewEntryName(rowEntry = ${rowEntry});
-
-		LexiconEntry.viewEntryContent(
-			rowAny = ${rowAny},
-			rowEntry = ${rowEntry2});
-	}
-
-	macro editBlogEntry {
-		LexiconEntry.gotoEntryMenuItem(
-			menuItem = "Edit",
-			rowEntry = ${rowEntry});
-
-		BlogsEntry.editTitle(
-			entryTitle = ${entryTitle},
-			entryTitleEdit = ${entryTitleEdit});
-
-		Button.clickPublish();
 	}
 
 	macro fillFormEnglish {
