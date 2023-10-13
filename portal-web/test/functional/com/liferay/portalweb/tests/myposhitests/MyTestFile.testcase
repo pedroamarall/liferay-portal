@@ -51,4 +51,22 @@ definition {
 		}
 	}
 
+	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
+	@priority = 5
+	test ValidateConfigurationStringAtControlPanel {
+		task ("Given Open the Application Menu ") {
+			ApplicationsMenuHelper.openApplicationsMenu();
+		}
+
+		task ("When We open the Control Panel") {
+			ApplicationsMenu.gotoPanel(
+				category = "Configuration",
+				panel = "Control Panel");
+		}
+
+		task ("Then Validate that the CONFIGURATION section is displayed ") {
+			AssertElementPresent(locator1 = "MyTest#CONFIGURATION");
+		}
+	}
+
 }
