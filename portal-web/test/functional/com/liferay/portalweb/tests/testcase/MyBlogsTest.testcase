@@ -25,7 +25,9 @@ definition {
 				entryContent = "Blogs Entry 2",
 				entryTitle = "Blogs Entry 2");
 
-			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Blogs");
 		}
 	}
 
@@ -41,9 +43,7 @@ definition {
 	@priority = 5
 	test CanSuccessfullyCreateBlogEntry {
 		task ("When the user adds a Blog Entry") {
-			BlogsNavigator.gotoAddEntry();
-
-			BlogsEntry.addEntryContent(
+			BlogsEntry.addEntry(
 				entryContent = "New Blogs Entry",
 				entryTitle = "New Blogs Entry");
 		}
