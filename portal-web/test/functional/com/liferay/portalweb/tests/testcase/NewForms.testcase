@@ -31,7 +31,7 @@ definition {
 
 			FormsAdmin.addForm();
 
-			Testex.addFieldsForm(
+			Testex.addEnglishForm(
 				fieldPositionNumber = 0,
 				fieldPositionNumber2 = 1,
 				fieldType1 = "Text",
@@ -47,7 +47,7 @@ definition {
 		task ("And The field titles are translated to french") {
 			Form.addTranslation(localizedLanguage = "French (France)");
 
-			Testex.changeFieldsForm(
+			Testex.addFrenchTranslationForm(
 				fieldValue1 = "Nom Prenom",
 				fieldValue2 = "Age",
 				formDescription = "form en frc",
@@ -65,7 +65,7 @@ definition {
 		}
 
 		task ("When We fill the english form") {
-			Testex.fillFormEnglish(
+			Testex.fillFormFields(
 				fieldName1 = "Full Name",
 				fieldName2 = "Age",
 				fieldValue1 = "Adnan",
@@ -77,7 +77,7 @@ definition {
 				currentLanguage = "en-US",
 				newLanguage = "français-France");
 
-			Testex.fillFormFrench(
+			Testex.fillFormFields(
 				fieldName1 = "Nom Prenom",
 				fieldName2 = "Age",
 				fieldValue1 = "Adnan",

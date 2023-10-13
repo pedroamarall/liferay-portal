@@ -1,6 +1,6 @@
 definition {
 
-	macro addFieldsForm {
+	macro addEnglishForm {
 		Form.editName(formName = ${formName});
 
 		Form.editDescription(formDescription = ${formDescription});
@@ -28,7 +28,7 @@ definition {
 		Form.save();
 	}
 
-	macro changeFieldsForm {
+	macro addFrenchTranslationForm {
 		Form.editName(formName = ${formName});
 
 		Form.editDescription(formDescription = ${formDescription});
@@ -74,21 +74,7 @@ definition {
 		Button.clickPublish();
 	}
 
-	macro fillFormEnglish {
-		FormFields.editText(
-			fieldName = ${fieldName1},
-			fieldValue = ${fieldValue1});
-
-		FormFields.editText(
-			fieldName = ${fieldName2},
-			fieldValue = ${fieldValue2});
-
-		FormPortlet.submit();
-
-		Form.submitAgain();
-	}
-
-	macro fillFormFrench {
+	macro fillFormFields {
 		FormFields.editText(
 			fieldName = ${fieldName1},
 			fieldValue = ${fieldValue1});

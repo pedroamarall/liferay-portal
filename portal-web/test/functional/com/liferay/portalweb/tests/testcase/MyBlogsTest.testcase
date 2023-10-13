@@ -97,13 +97,13 @@ definition {
 			BlogsEntry.searchCP(
 				entryContent = "My first Blog",
 				entrySearchTerm = "My first Blog",
-				entryTitle = "My first Blogt");
+				entryTitle = "My first Blogs");
 		}
 
 		task ("Then Check the first Blog should display") {
 			AssertElementPresent(
 				key_entryTitle = "My first Blog",
-				key_tagName = "My first Blogt",
+				key_tagName = "My first Blog",
 				locator1 = "BlogsEntry#TAG");
 		}
 
