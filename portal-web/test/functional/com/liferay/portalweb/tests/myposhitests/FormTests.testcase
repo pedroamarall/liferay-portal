@@ -28,8 +28,8 @@ definition {
 				fieldPositionNumber2 = 1,
 				fieldType1 = "Text",
 				fieldType2 = "Numeric",
-				fieldValue1 = "Full Name",
-				fieldValue2 = "Age",
+				fieldValue_english1 = "Full Name",
+				fieldValue_english2 = "Age",
 				formDescription = "form ENG",
 				formName = "form ENG",
 				formPageName = "Created Form EN",
@@ -40,8 +40,8 @@ definition {
 			Form.addTranslation(localizedLanguage = "French (France)");
 
 			TestForm.editFieldsForm(
-				fieldValue1 = "Nom Prenom",
-				fieldValue2 = "Age",
+				fieldValue_french1 = "Nom Prenom",
+				fieldValue_french2 = "Age",
 				formDescription = "form en frc",
 				formName = "form frc",
 				formPageName = "Creation formulaire en frc",

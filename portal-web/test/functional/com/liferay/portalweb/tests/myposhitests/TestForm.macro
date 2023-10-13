@@ -28,7 +28,7 @@ definition {
 		Form.save();
 	}
 
-	macro changeFieldsForm {
+	macro editFieldsForm {
 		Form.editName(formName = ${formName});
 
 		Form.editDescription(formDescription = ${formDescription});
