@@ -4,7 +4,7 @@ definition {
 	property testray.main.component.name = "Forms";
 
 	setUp {
-		task ("Open new Instance of Liferay") {
+		task ("Open New Instance of Liferay") {
 			TestCase.setUpPortalInstance();
 		}
 
@@ -12,7 +12,7 @@ definition {
 			User.firstLoginPG();
 		}
 
-		task ("Navigate to the Instance") {
+		task ("Navigate To The Instance") {
 			Navigator.openURL();
 		}
 	}
@@ -23,7 +23,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@description = "Create a New form with Text feild and Numeric feild"
+	@description = "Create A New Form With Text Field And Numeric Field"
 	@priority = 5
 	test AddFormWithTextFieldAndNumericField {
 		task ("Given Create The Form With The Fields") {
@@ -90,7 +90,7 @@ definition {
 			Form.submitAgain();
 		}
 
-		task ("Then Validate That The Form is Created") {
+		task ("Then Validate That The Form Is Created") {
 			Navigator.openURL();
 
 			ProductMenu.gotoPortlet(

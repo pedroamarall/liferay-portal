@@ -21,7 +21,7 @@
 	<td></td>
 </tr>
 <tr>
-	<td>ALERTE</td>
+	<td>ALERT</td>
 	<td>//*[@id="_com_liferay_product_navigation_simulation_web_portlet_SimulationPortlet_customSizeSelector"]//*[contains(@class, 'autofit-col-expand')]</td>
 	<td></td>
 </tr>

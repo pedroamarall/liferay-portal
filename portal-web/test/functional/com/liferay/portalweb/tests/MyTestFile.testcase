@@ -4,7 +4,7 @@ definition {
 	property testray.main.component.name = "Forms";
 
 	setUp {
-		task ("Open new Instance of Liferay") {
+		task ("Open New Instance Of Liferay") {
 			TestCase.setUpPortalInstance();
 		}
 
@@ -12,7 +12,7 @@ definition {
 			User.firstLoginPG();
 		}
 
-		task ("Navigate to the Instance") {
+		task ("Navigate To The Instance") {
 			Navigator.openURL();
 		}
 	}
@@ -23,7 +23,7 @@ definition {
 			userLoginFullName = "Test Test");
 	}
 
-	@description = "Set Screen size to custom and validate values"
+	@description = "Set Screen Size To Custom And Validate Values"
 	@priority = 5
 	test SetScreenSizeAndValidateValues {
 		task ("Given Go To Simulation") {
@@ -41,16 +41,16 @@ definition {
 			Click(locator1 = "myTests#CLOSE_SUMULATION");
 		}
 
-		task ("Then Confirm The Custom Size is Applied") {
+		task ("Then Confirm The Custom Size Is Applied") {
 			MyTests.selectCustomOption();
 
 			AssertTextEquals(
-				locator1 = "myTests#ALERTE",
+				locator1 = "myTests#ALERT",
 				value1 = "Custom Size ${height}x${width} Applied");
 		}
 	}
 
-	@description = "Access Portal Global Menu and validate CONFIGURATION string at Control Panel"
+	@description = "Access Portal Global Menu And Validate Configuration String At Control Panel"
 	@priority = 5
 	test ValidateConfigurationStringAtControlPanel {
 		task ("Given Go To Menu") {
@@ -61,7 +61,7 @@ definition {
 			ApplicationsMenu.gotoPanel(panel = "Control Panel");
 		}
 
-		task ("Then Validate The Configuration is Displayed") {
+		task ("Then Validate The Configuration Is Displayed") {
 			AssertElementPresent(locator1 = "myTests#CONFIGURATION");
 		}
 	}

@@ -4,7 +4,7 @@ definition {
 	property testray.main.component.name = "Blogs";
 
 	setUp {
-		task ("Open new Instance of Liferay") {
+		task ("Open New Instance Of Liferay") {
 			TestCase.setUpPortalInstance();
 		}
 
@@ -12,11 +12,11 @@ definition {
 			User.firstLoginPG();
 		}
 
-		task ("Navigate to the Instance") {
+		task ("Navigate To The Instance") {
 			Navigator.openURL();
 		}
 
-		task ("Given the Blogs Portlet is added to the page") {
+		task ("Given The Blogs Portlet Is Added To The Page") {
 			JSONBlog.addEntry(
 				entryContent = "first Blog",
 				entryTitle = "first Blog");
@@ -39,16 +39,16 @@ definition {
 		}
 	}
 
-	@description = "Can Create a Blog"
+	@description = "Can Create A Blog"
 	@priority = 5
 	test CanCreateBlogSuccessfully {
-		task ("When Create a Blog Entry") {
+		task ("When Create A Blog Entry") {
 			Blogs.addEntry(
 				entryContent = "first Blog new",
 				entryTitle = "first Blog new");
 		}
 
-		task ("Then Confirm That The Blog is Created With Success") {
+		task ("Then Confirm That The Blog Is Created With Success") {
 			AssertElementPresent(
 				key_entryTitle = "first Blog new",
 				key_tagName = "first Blog new",
@@ -56,7 +56,7 @@ definition {
 		}
 	}
 
-	@description = "Can Delete a Blog"
+	@description = "Can Delete A Blog"
 	@priority = 5
 	test CanDeleteBlogSuccessfully {
 		task ("When Delete The Blog Entry") {
@@ -67,7 +67,7 @@ definition {
 				rowEntry = ${rowEntry});
 		}
 
-		task ("Then Confirm The Blog is Deleted With Success") {
+		task ("Then Confirm The Blog Is Deleted With Success") {
 			AssertElementNotPresent(
 				key_entryTitle = "first Blog",
 				key_tagName = "first Blog",
@@ -75,7 +75,7 @@ definition {
 		}
 	}
 
-	@description = "Can Edit a Blog"
+	@description = "Can Edit A Blog"
 	@priority = 5
 	test CanEditBlogSuccessfully {
 		task ("When Edit The Blog Entry") {
@@ -90,7 +90,7 @@ definition {
 			PortletEntry.publish();
 		}
 
-		task ("Then Confirm The Blog is Edited With Success") {
+		task ("Then Confirm The Blog Is Edited With Success") {
 			AssertElementPresent(
 				key_entryTitle = "first Blog edit",
 				key_tagName = "first Blog edit",
@@ -98,10 +98,10 @@ definition {
 		}
 	}
 
-	@description = "Can Search Blogs"
+	@description = "Can Search A Blogs"
 	@priority = 5
 	test CanSearchBlogsSuccessfully {
-		task ("When Searche for the Blog Entry") {
+		task ("When Searche For The Blog Entry") {
 			BlogsEntry.searchCP(
 				entryContent = "first Blog",
 				entrySearchTerm = "first Blog",
