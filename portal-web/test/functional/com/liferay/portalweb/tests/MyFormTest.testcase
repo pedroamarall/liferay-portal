@@ -25,7 +25,7 @@ definition {
 
 	@description = "Create a New form with Text feild and Numeric feild"
 	@priority = 5
-	test AddFormWithTextFeildAndNumericFeild {
+	test AddFormWithTextFieldAndNumericField {
 		task ("Given Create The Form With The Fields") {
 			FormsAdmin.addForm();
 
@@ -54,7 +54,7 @@ definition {
 			Form.save();
 		}
 
-		task ("When The Form Is Filled In Both Lg anguages") {
+		task ("When The Form Is Filled In Both Languages") {
 			MyTests.translateFormLabelFieldAndPublish(
 				ageLabelFrench = "âge",
 				textLabelFrench = "nom et prénom");
