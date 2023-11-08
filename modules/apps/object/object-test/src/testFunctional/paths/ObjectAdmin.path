@@ -31,6 +31,11 @@
 		<td></td>
 	</tr>
 	<tr>
+		<td>ADD_ENTRY_DROPDOWN</td>
+		<td>//button[contains(@class,'dropdown-item') and contains(text(),'${key_value}')]</td>
+		<td></td>
+	</tr>
+	<tr>
 		<td>ADD_ENTRY_SAVE_BUTTON</td>
 		<td>//span[contains(text(),'Save')]</td>
 		<td></td>
@@ -198,6 +203,11 @@
 	<tr>
 		<td>OBJECT_IMPORT_FIELDS</td>
 		<td>//label[contains(text(),'${fieldName}')]/following::input[@class='form-control' and @value='${valueName}']</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>OBJECT_SCHEMAS</td>
+		<td>//button[contains(@class,'button-select-trigger display-placeholder btn btn-primary')]</td>
 		<td></td>
 	</tr>
 	<tr>
@@ -378,6 +388,11 @@
 	<tr>
 		<td>TABLE_LIST_TITLE</td>
 		<td>//div[contains(@class,'table-list-title') and contains (.,'${key_name}')]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>TABLE_LIST_DESCRIPTION</td>
+		<td>//div[contains(@class,'dnd-td') and contains (.,'${key_name}')]</td>
 		<td></td>
 	</tr>
 	<tr>
@@ -568,6 +583,11 @@
 	<tr>
 		<td>PLACEHOLDER_DELETE_RELATIONSHIP</td>
 		<td>//input[contains(@placeholder,'Confirm Relationship Name')]</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>OBJECT_DROPDOWN</td>
+		<td>//button[contains(@id,'selectTrigger')]</td>
 		<td></td>
 	</tr>
 	<tr>
