@@ -166,6 +166,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>DESCRIPTION_FIELD</td>
+	<td>//*[contains(@id,'schemaDescriptionField')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>DESCRIPTION</td>
 	<td>//input[contains(@id,'description')]</td>
 	<td></td>
@@ -173,6 +178,11 @@
 <tr>
 	<td>DESTINATION_URL</td>
 	<td>//input[contains(@name,'destinationURL_${key_index}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>INFO_NAME_TITLE</td>
+	<td>//*[contains(@id,'schemaNameField')]</td>
 	<td></td>
 </tr>
 <tr>
