@@ -12,6 +12,23 @@
           <context context-type="source">adaptive-media__liferay-releng-app-description</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2651642" resname="asset-tags-validator__liferay-releng-app-description" approved="yes">
+        <source>The Asset Tags Validator app ensures page validation when viewing a single asset from the Asset Publisher.</source>
+        <target state="final">The Asset Tags Validate app ensures page validation when viewing a single asset from the Asset Publisher.</target>
+        <context-group purpose="information">
+          <context context-type="source">asset-tags-validator__liferay-releng-app-description</context>
+        </context-group>
+        <note from="Assumpta-Alconost" priority="4">@alconost  @brian.wulbern 
+
+I'm not translating the name of the app for now?</note>
+      </trans-unit>
+      <trans-unit id="2651644" resname="bean-portlet__liferay-releng-app-description" approved="yes">
+        <source>Bean Portlet provides CDI &quot;bean portlets&quot; capability. It lets you register portlets using annotations such as @PortletConfiguration and its @Inject annotation obtains dependencies via Contexts and Dependency Injection (CDI). Bean portlets are a feature of the Portlet 3.0 Specification as defined by JSR 362.&lt;br /&gt;&lt;br /&gt;The Bean Portlet modules install to LIFERAY_HOME/osgi/modules/static.</source>
+        <target state="final">Bean Portlet provides CDI &quot;bean portlets&quot; capability. It lets you register portlets using annotations such as @PortletConfiguration and its @Inject annotation obtains dependencies via Contexts and Dependency Injection (CDI). Bean portlets are a feature of the Portlet 3.0 Specification as defined by JSR 362.&lt;br /&gt;&lt;br /&gt;The Bean Portlet modules install to LIFERAY_HOME/osgi/modules/static.</target>
+        <context-group purpose="information">
+          <context context-type="source">bean-portlet__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2651646" resname="bookmarks__liferay-releng-app-description" approved="yes">
         <source>The Bookmarks app adds a widget that can be used to list and organize bookmarks. Placing the Bookmarks widget on a site page lets administrators curate bookmarks of interest for the entire community. The widget can bookmark internal portal pages as well as external URLs.&lt;br /&gt;&lt;br /&gt;After installing this app, you can access the Bookmarks widget from the Widgets menu.</source>
         <target state="final">The Bookmarks app adds a widget that can be used to list and organise bookmarks. Placing the Bookmarks widget on a site page lets administrators curate bookmarks of interest for the entire community. The widget can bookmark internal portal pages as well as external URLs.&lt;br /&gt;&lt;br /&gt;After installing this app, you can access the Bookmarks widget from the Widgets menu.</target>
@@ -32,6 +49,13 @@ Yeah, Bookmarks is the name of the app/widget, so it may get confusing if one st
         <target state="final">With Liferay Data Engine, use high level APIs to quickly assemble scalable, flexible business applications. Without writing persistence code or complex custom business logic, you can call the Data Engine APIs to create an entire application.&lt;br /&gt;&lt;br /&gt;The Data Definition API is at the core of the Data Engine. It lets you:&lt;br /&gt;* Define the fields of the data definition.&lt;br /&gt;* Execute CRUD operations on Data Definitions.&lt;br /&gt;* Define validation rules for data definition elements.&lt;br /&gt;&lt;br /&gt;The Data Record Collection API collects the data records backed by the data definition.&lt;br /&gt;* Execute CRUD operations on Data Record Collections and their Data Records.&lt;br /&gt;&lt;br /&gt;The Data Layouts API lets you add and edit data layouts to style the Data Definition's form.&lt;br /&gt;&lt;br /&gt;This kind of flexible app builder helps modern businesses remain competitive. Customised digital solutions do not build themselves, but the Data Engine's APIs make it painless to rapidly create new applications.</target>
         <context-group purpose="information">
           <context context-type="source">data-engine__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651650" resname="document-library-google-docs__liferay-releng-app-description" approved="yes">
+        <source>The Liferay Plugin for Google Drive&amp;trade; lets users create shortcuts to Google Drive&amp;trade; files in their Documents and Media repositories. These documents can be viewed and managed from Documents and Media. Once deployed, you can configure this app from the Control Panel.</source>
+        <target state="final">The Liferay Plugin for Google Drive&amp;trade; lets users create shortcuts to Google Drive&amp;trade; files in their Documents and Media repositories. These documents can be viewed and managed from Documents and Media. Once deployed, you can configure this app from the Control Panel.</target>
+        <context-group purpose="information">
+          <context context-type="source">document-library-google-docs__liferay-releng-app-description</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5656795" resname="knowledge-base__liferay-releng-app-description" translate="no" approved="yes">
