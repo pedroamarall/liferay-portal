@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file id="61192" original="/master/bundle.properties" source-language="en" target-language="uk" datatype="plaintext" project-id="289277" tool-id="crowdin">
+    <header>
+      <tool tool-id="crowdin" tool-name="Crowdin" tool-version="1.1"/>
+    </header>
+    <body>
+      <trans-unit id="2651640" resname="adaptive-media__liferay-releng-app-description" approved="yes">
+        <source>The Adaptive Media app tailors media in your portal to the device consuming it. Since users often consume media on multiple devices that have different screen sizes and capabilities, you should make sure that your portal presents that media in a manner suitable for each device. For example, portal administrators can configure the Adaptive Media app to send high-res images to high-res devices, low-res images to low-res devices, and so on. This ensures that your users have the best possible experience when consuming media from your portal, regardless of the device they use.&lt;br /&gt;&lt;br /&gt;Note that at this time, the Adaptive Media app only works with images in Documents and Media, Blogs, and Web Content.&lt;br /&gt;&lt;br /&gt;Once installed, the Adaptive Media app appears in the Control Panel, under the Configuration menu.</source>
+        <target state="final">Додаток «Адаптивні медіа» адаптує медіа на вашому порталі до пристрою, який його споживає. Оскільки користувачі часто переглядають медіа на різних пристроях з різними розмірами екранів і можливостями, ви повинні переконатися, що ваш портал представляє ці медіа у спосіб, придатний для кожного пристрою. Наприклад, адміністратори порталу можуть налаштувати додаток «Адаптивні медіа» так, щоб вона надсилала зображення з високою роздільною здатністю на пристрої з високою роздільною здатністю, зображення з низькою роздільною здатністю - на пристрої з низькою роздільною здатністю тощо. Це гарантує, що ваші користувачі отримають найкращі враження від перегляду медіа з вашого порталу, незалежно від пристрою, яким вони користуються. &lt;br /&gt;&lt;br /&gt;Зверніть увагу, що наразі додаток «Адаптивні медіа» працює лише з зображеннями в розділах «Документи та медіа», «Блоги» та «Веб-вміст».&lt;br /&gt;&lt;br /&gt;Після встановлення додаток Adaptive Media з'явиться в Панелі керування в меню «Конфігурація».</target>
+        <context-group purpose="information">
+          <context context-type="source">adaptive-media__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
