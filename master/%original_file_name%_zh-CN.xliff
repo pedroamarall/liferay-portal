@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file id="61192" original="/master/bundle.properties" source-language="en" target-language="zh-CN" datatype="plaintext" project-id="289277" tool-id="crowdin">
+    <header>
+      <tool tool-id="crowdin" tool-name="Crowdin" tool-version="1.1"/>
+    </header>
+    <body>
+      <trans-unit id="2651640" resname="adaptive-media__liferay-releng-app-description" approved="yes">
+        <source>The Adaptive Media app tailors media in your portal to the device consuming it. Since users often consume media on multiple devices that have different screen sizes and capabilities, you should make sure that your portal presents that media in a manner suitable for each device. For example, portal administrators can configure the Adaptive Media app to send high-res images to high-res devices, low-res images to low-res devices, and so on. This ensures that your users have the best possible experience when consuming media from your portal, regardless of the device they use.&lt;br /&gt;&lt;br /&gt;Note that at this time, the Adaptive Media app only works with images in Documents and Media, Blogs, and Web Content.&lt;br /&gt;&lt;br /&gt;Once installed, the Adaptive Media app appears in the Control Panel, under the Configuration menu.</source>
+        <target state="final">Adaptive Media 应用可在您的门户中针对使用它的设备定制媒体。由于用户经常在具有不同屏幕尺寸和功能的多台设备上使用媒体，因此应确保门户以适合每种设备的方式呈现该媒体。例如，门户管理员可以将 Adaptive Media 应用配置为将高分辨率图像发送到高分辨率设备，将低分辨率图像发送到低分辨率设备，等等。这样一来，当您的用户浏览门户中的媒体时，无论他们使用哪种设备，都能确保获得最佳体验。&lt;br /&gt;&lt;br /&gt;请注意，目前，Adaptive Media 应用仅适用于文档与媒体、博客以及 Web 内容中的图像。&lt;br /&gt;&lt;br /&gt;安装后，Adaptive Media 应用将出现在&quot;控制面板&quot;中的&quot;配置&quot;菜单下。</target>
+        <context-group purpose="information">
+          <context context-type="source">adaptive-media__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651642" resname="asset-tags-validator__liferay-releng-app-description" approved="yes">
+        <source>The Asset Tags Validator app ensures page validation when viewing a single asset from the Asset Publisher.</source>
+        <target state="final">从资产发布器查看单个资产时，Asset Tags Validator 应用可确保页面验证。</target>
+        <context-group purpose="information">
+          <context context-type="source">asset-tags-validator__liferay-releng-app-description</context>
+        </context-group>
+        <note from="Assumpta-Alconost" priority="4">@alconost  @brian.wulbern 
+
+I'm not translating the name of the app for now?</note>
+      </trans-unit>
+      <trans-unit id="2651644" resname="bean-portlet__liferay-releng-app-description" approved="yes">
+        <source>Bean Portlet provides CDI &quot;bean portlets&quot; capability. It lets you register portlets using annotations such as @PortletConfiguration and its @Inject annotation obtains dependencies via Contexts and Dependency Injection (CDI). Bean portlets are a feature of the Portlet 3.0 Specification as defined by JSR 362.&lt;br /&gt;&lt;br /&gt;The Bean Portlet modules install to LIFERAY_HOME/osgi/modules/static.</source>
+        <target state="final">Bean Portlet 提供 CDI&quot;bean portlet&quot;功能。借助此功能，您可以使用 @PortletConfiguration 之类的注解注册 portlet，其 @Inject 注解通过上下文和依赖项注入 (CDI) 获得依赖项。Bean Portlet 是 JSR 362 定义的 Portlet 3.0 规范的一项功能。&lt;br /&gt;&lt;br /&gt;Bean Portlet 模块安装到 LIFERAY_HOME/osgi/modules/static 中。</target>
+        <context-group purpose="information">
+          <context context-type="source">bean-portlet__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651646" resname="bookmarks__liferay-releng-app-description" approved="yes">
+        <source>The Bookmarks app adds a widget that can be used to list and organize bookmarks. Placing the Bookmarks widget on a site page lets administrators curate bookmarks of interest for the entire community. The widget can bookmark internal portal pages as well as external URLs.&lt;br /&gt;&lt;br /&gt;After installing this app, you can access the Bookmarks widget from the Widgets menu.</source>
+        <target state="final">Bookmarks 应用添加了可用于列出和组织书签的微件。通过将 Bookmarks 微件放置在站点页面上，管理员可以为整个社区策划令用户感兴趣的书签。微件可以将内部门户页面以及外部网址添加为书签。&lt;br /&gt;&lt;br /&gt;安装此应用后，您可以从&quot;微件&quot;菜单访问 Bookmarks 微件。</target>
+        <context-group purpose="information">
+          <context context-type="source">bookmarks__liferay-releng-app-description</context>
+        </context-group>
+        <note from="Assumpta-Alconost" priority="4">@alconost  @brian.wulbern 
+
+Not translating the name of the app for now.</note>
+        <note from="REMOVED_USER" priority="4">+</note>
+        <note from="Brian Wulbern (brian.wulbern)" priority="4">@Assumpta-Alconost, @rafag, so sorry I missed this comment!  Just came across it when reviewing other strings.  I only filter for Comments flagged with Issue when replying to comments.
+
+Yeah, Bookmarks is the name of the app/widget, so it may get confusing if one starts to translate it.  I don't think we have a strong preference either way, as each language may tend towards translating more of the technical terms / proper nouns, some tend towards keeping more in English.</note>
+        <note from="REMOVED_USER" priority="4">@brian.wulbern Thank you, Brian. Leaving &quot;Bookmarks&quot; untranslated, then.</note>
+      </trans-unit>
+      <trans-unit id="5656793" resname="data-engine__liferay-releng-app-description" translate="no" approved="yes">
+        <source>With Liferay Data Engine, use high level APIs to quickly assemble scalable, flexible business applications. Without writing persistence code or complex custom business logic, you can call the Data Engine APIs to create an entire application.&lt;br /&gt;&lt;br /&gt;The Data Definition API is at the core of the Data Engine. It lets you:&lt;br /&gt;* Define the fields of the data definition.&lt;br /&gt;* Execute CRUD operations on Data Definitions.&lt;br /&gt;* Define validation rules for data definition elements.&lt;br /&gt;&lt;br /&gt;The Data Record Collection API collects the data records backed by the data definition.&lt;br /&gt;* Execute CRUD operations on Data Record Collections and their Data Records.&lt;br /&gt;&lt;br /&gt;The Data Layouts API lets you add and edit data layouts to style the Data Definition's form.&lt;br /&gt;&lt;br /&gt;This kind of flexible app builder helps modern businesses remain competitive. Customized digital solutions do not build themselves, but the Data Engine's APIs make it painless to rapidly create new applications.</source>
+        <target state="final">借助 Liferay Data Engine，可以使用高级 API 快速组装可扩展且灵活的业务应用程序。无需编写持久性代码或复杂的自定义业务逻辑，只需调用 Data Engine API 即可创建整个应用程序。&lt;br /&gt;&lt;br /&gt;Data Definition API 是 Data Engine 的核心。它支持：&lt;br /&gt;* 定义数据定义的字段。&lt;br /&gt;* 对数据定义执行 CRUD 操作。&lt;br /&gt;* 定义数据定义元素的验证规则。&lt;br /&gt;&lt;br /&gt;Data Record Collection API 收集由数据定义提供支持的数据记录。&lt;br /&gt;* 对数据记录收集及其数据记录执行 CRUD 操作。&lt;br /&gt;&lt;br /&gt;Data Layouts API 允许用户添加和编辑数据布局来设置数据定义表单的样式。&lt;br /&gt;&lt;br /&gt;这种灵活的应用构建器可帮助现代企业保持竞争力。定制化数字解决方案无法自行构建，但是，借助 Data Engine 的 API，可以轻松自如地快速创建新的应用程序。</target>
+        <context-group purpose="information">
+          <context context-type="source">data-engine__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651650" resname="document-library-google-docs__liferay-releng-app-description" approved="yes">
+        <source>The Liferay Plugin for Google Drive&amp;trade; lets users create shortcuts to Google Drive&amp;trade; files in their Documents and Media repositories. These documents can be viewed and managed from Documents and Media. Once deployed, you can configure this app from the Control Panel.</source>
+        <target state="final">适用于 Google Drive&amp;trade; 的 Liferay 插件允许用户在文档与媒体存储库中创建 Google Drive&amp;trade; 文件的快捷方式。可以从&quot;文档与媒体&quot;查看和管理这些文档。部署后，您可以从&quot;控制面板&quot;配置此应用。</target>
+        <context-group purpose="information">
+          <context context-type="source">document-library-google-docs__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651652" resname="headless__liferay-releng-app-description" approved="yes">
+        <source>The Liferay REST APIs app exposes a new breed of RESTful APIs that interact with Liferay services. These APIs let developers consume Liferay services in a straightforward and flexible way. For example, developers can consume portal resources like documents, blogs, or structured content via fully RESTful APIs that support several response formats like JSON or XML. &lt;br /&gt;&lt;br /&gt;This app has no visual component in the portal. After installing it, you can begin accessing the APIs in the corresponding URLs that you can check via http://[host]:[port]/o/api.</source>
+        <target state="final">Liferay REST API 应用提供了一种与 Liferay 服务交互的新型 RESTful API。借助这些 API，开发者能够以直接、灵活的方式使用 Liferay 服务。例如，开发者可以通过支持多种响应格式（如 JSON 或 XML）的完全 RESTful API 来使用门户资源，例如文档、博客或结构化内容。&lt;br /&gt;&lt;br /&gt;此应用在门户中没有可视化组件。安装后，可以利用可通过 http://[host]:[port]/o/api 检查的相应 URL 来访问这些 API。</target>
+        <context-group purpose="information">
+          <context context-type="source">headless__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5656795" resname="knowledge-base__liferay-releng-app-description" translate="no" approved="yes">
+        <source>Liferay's Knowledge Base app provides a means for creating and organizing articles within a site. The knowledge base is perfect for creating and organizing information more formally than in a wiki. For example, it can be used to organize and display professional product documentation. The knowledge base lets you import article source files written in Markdown, so you can work on them offline before publishing. Its integration with GitHub allows you to give users access to contribute fixes or improvements to articles. It is easy to set up the knowledge base with a workflow that requires articles to be approved before they are published. Additionally, it allows administrators to create article templates. Templates can be used to ensure that certain kinds of articles possess a common structure and include certain kinds of information. Knowledge base articles can be categorized to make them easy to find. They can also be organized hierarchically to form complete books or guides. There are multiple portlets included in this app.&lt;br /&gt;&lt;br /&gt;This app will appear in your Application menu and Site Administration once installed.</source>
+        <target state="final">Liferay 的 Knowledge Base 应用提供了一种在站点内创建和组织文章的方法。与 Wiki 相比，知识库是以更正式的方式创建和组织信息的理想选择。例如，它可用于组织和显示专业产品文档。借助知识库，用户可以导入以 Markdown 编写的文章源文件，这样便可在发布前以离线方式使用它们。借助与 GitHub 的集成，您可以向用户授予对文章进行修正或改进的权限。使用要求文章先获得批准然后再发布的工作流来建立知识库十分简单。此外，它还允许管理员创建文章模板。模板可用于确保特定种类的文章具有通用的结构并包含特定种类的信息。可以对知识库文章进行分类，以便让它们更易于查找。另外，也可以分层次组织知识库文章以形成完整的书籍或指南。此应用中包含多个 portlet。&lt;br /&gt;&lt;br /&gt;安装后，此应用将显示在&quot;应用程序&quot;菜单和&quot;站点管理&quot;中。</target>
+        <context-group purpose="information">
+          <context context-type="source">knowledge-base__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651658" resname="marketplace__liferay-releng-app-description" approved="yes">
+        <source>Liferay Marketplace is an integral part of the Liferay platform experience for all users. Enterprise subscribers also have exclusive access to Liferay Subscription Apps through the Liferay Marketplace. Log in with your Liferay account to browse hundreds of apps to help you build your business or technical solution.</source>
+        <target state="final">对于所有用户而言，Liferay Marketplace 是 Liferay 平台体验不可或缺的一部分。此外，企业订阅用户还可以通过 Liferay Marketplace 独家访问 Liferay Subscription 应用。使用 Liferay 帐户登录即可浏览数百个应用，以帮助您打造商业或技术解决方案。</target>
+        <context-group purpose="information">
+          <context context-type="source">marketplace__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651660" resname="oauth2-provider__liferay-releng-app-description" approved="yes">
+        <source>Liferay Plugin for OAuth 2.0 is an industry-standard authorization protocol. Users can seamlessly share select credentials from another website to log into yours. It works by authorizing password-less access to portions of user-owned resources (such as an email address, a user profile picture, or something else from your account) and other permissioned resources.</source>
+        <target state="final">OAuth 2.0 是一种行业标准的授权协议。用户可以无缝选择其他网站的凭据以登录您的网站。它的工作原理是授权无密码访问一部分用户拥有的资源（例如电子邮件地址、用户个人资料照片或您帐户中的其他内容）和其他允许的资源。</target>
+        <context-group purpose="information">
+          <context context-type="source">oauth2-provider__liferay-releng-app-description</context>
+        </context-group>
+        <note from="Taishiro-Alconost" priority="4">@liferay-is There are errors in the source text. I guess &quot;Liferay Plugin for&quot; should be removed as the plugin is not protocol. Also, &quot;share select credentials&quot; is grammatically incorrect. I guess &quot;share&quot; is unnecessary.
+
+https://web.liferay.com/ja/marketplace/-/mp/application/109572023</note>
+        <note from="REMOVED_USER" priority="4">@Taishiro-Alconost I guess &quot;select&quot; means &quot;specific&quot; here, it's not a verb. And &quot;Liferay Plugin for OAuth 2.0&quot; is an application name, so it seems correct. But let's wait for an official reply from @liferay-is.</note>
+        <note from="Brian Wulbern (brian.wulbern)" priority="4">@Taishiro-Alconost sorry for the delay getting back to you.  This string has a lot to it, and therefore, a lot of places for unintentional interpretations.
+
+We actually have a plugin naming standard wherein any 3rd party integrations must be dealt with in a particular way.  In this case, for an app, we call it &quot;Liferay Plugin *for* {3rd_party_service}&quot;.  We also have &quot;Liferay Connector for...&quot; and &quot;Translator using...&quot; to deal with that 3rd party relationship and to show a purely code integration relationship.  So the name chosen in this string follows one of our naming conventions.
+
+With &quot;seamlessly share *select* credentials&quot; - I'd say this can come down to preference, and @rafag noted the sense.  To indicate 'a subset' or 'certain grouping' , I've seen some people say &quot;select&quot; and others say &quot;selected&quot; - there's definitely some wiggle room, and I think either can work.  The idea it's trying to convey is that not only can a User *share* credentials, but they can *choose which ones* they would like to share.
+
+I'm not adamant on each word being accounted for exactly this way in Japanese, so I'm sure you know of a better way to capture the sense I described above in Japanese, and I trust you'll make the best judgment. :)</note>
+        <note from="Taishiro-Alconost" priority="4">@brian.wulbern @rafag Thank you, updated accordingly.</note>
+        <note from="Rita Schaff (rita.schaff)" priority="4">The customer would like to have a consistent translation for &quot;Password&quot;. Currently, it is either &quot;Kennwort&quot; or &quot;Passwort&quot;. &quot;Kennwort&quot; seems to be used in most places, so we should change every occurrence to that.</note>
+      </trans-unit>
+      <trans-unit id="2651662" resname="portal-reports-engine-console__liferay-releng-app-description" approved="yes">
+        <source>Leverage Liferay Reports's easy to use and intuitive UI for creating and scheduling report generation runs. The Liferay Reports app packages a reporting engine with Jasper Reports, an excellent implementation, giving you out-of-the-box ability to upload report definitions (designed in a report designer) into Reports Admin, and run them from the Definitions tab. Generate reports manually or schedule report generation runs. Export reports to HTML, CSV, XLS, PDF, and more. Reports can be viewed in the Reports Admin application in the Control Panel, or on a page with the Reports Display application, and can also be delivered via email.</source>
+        <target state="final">利用 Liferay Reports 易于使用的直观 UI 来创建和安排报表生成运行。Liferay Reports 应用将报表引擎与 Jasper Reports 这个出色的实现封装到一起，让您能够立即将报表定义（在报表设计器中设计）上传到 Reports Admin 中，然后从&quot;定义&quot;选项卡运行它们。手动生成报表或安排报表生成运行。以 HTML、CSV、XLS、PDF 等格式导出报表。可以在&quot;控制面板&quot;的 Reports Admin 应用中或者在 Reports Display 应用的页面上查看报表，也可以通过电子邮件发送报表。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-reports-engine-console__liferay-releng-app-description</context>
+        </context-group>
+        <note from="Taishiro-Alconost" priority="4">@liferay-is I guess &quot;packages&quot; is used in the sense of &quot;implements&quot;. Is my understanding correct?</note>
+        <note from="Assumpta-Alconost" priority="4">+</note>
+        <note from="Brian Wulbern (brian.wulbern)" priority="4">@Taishiro-Alconost, yep, you are correct :)</note>
+        <note from="Taishiro-Alconost" priority="4">@brian.wulbern Thank you for confirming!</note>
+      </trans-unit>
+      <trans-unit id="5656797" resname="portal-rules-engine-drools__liferay-releng-app-description" translate="no" approved="yes">
+        <source>Liferay Digital Enterprise provides an implementation of a JSR-94 compliant rules engine as a web app, based on the popular open source Drools project. A rules engine provides a means to separate the rules or logic of an application from the remaining code. This allows for a more declarative style of programming where the rules define what is happening, without describing how it is happening. This makes it much easier to read than nested 'if-else' blocks of code. It is also easier to make changes without introducing bugs in your code. The rules are also written in a language that is easier for non-developers to understand. This makes it easier for business users to validate and even modify the rules without having to involve developers.&lt;br /&gt;&lt;br /&gt;This app installs as a Liferay service.</source>
+        <target state="final">Liferay Digital Enterprise 基于流行的开源 Drools 项目，以 Web 应用形式提供了一种符合 JSR-94 的规则引擎的实现。规则引擎提供了一种将应用程序的规则或逻辑与其余代码分离的方法。这样便可实现一种更具声明性的编程风格，其中规则定义了正在发生的事情，但没有描述它是如何发生的。这让它比嵌套的&quot;if-else&quot;代码块更容易阅读。此外，进行更改也更加轻松，而且不会将错误引入代码。规则还以更易于让非开发者理解的语言编写。利用这种优势，商业用户能够更轻松地验证甚至修改规则，而无需开发者参与。&lt;br /&gt;&lt;br /&gt;此应用作为 Liferay 服务安装。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-rules-engine-drools__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651666" resname="portal-search-elasticsearch-cross-cluster-replication__liferay-releng-app-description" approved="yes">
+        <source>The ${liferay.releng.app.title.prefix} Enterprise Search Cross-Cluster Replication app lets you perform read operations from a local cluster that has been configured to replicate, or follow, the indices of a remote cluster. The local cluster containing the replicated indices must be configured manually before this app can execute requests against it. You can find more information about Cross-Cluster Replication at https://www.elastic.co/guide/en/elasticsearch/reference/7.9/xpack-ccr.html.&lt;br /&gt;To learn about compatibility, see the compatibility matrix: https://help.liferay.com/hc/en-us/articles/360016511651#Liferay-Enterprise-Search.</source>
+        <target state="final">借助 ${liferay.releng.app.title.prefix} Enterprise Search Cross-Cluster Replication 应用，可以从已配置为复制或遵循远程群集索引的本地群集中执行读取操作。在此应用可以对其执行请求之前，必须手动配置包含复制索引的本地群集。可以在 https://www.elastic.co/guide/en/elasticsearch/reference/7.9/xpack-ccr.html 中找到有关跨群集复制的更多信息。&lt;br /&gt;要了解兼容性，请参见兼容性矩阵：https://help.liferay.com/hc/en-us/articles/360016511651#Liferay-Enterprise-Search。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-search-elasticsearch-cross-cluster-replication__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651668" resname="portal-search-elasticsearch-monitoring__liferay-releng-app-description" approved="yes">
+        <source>The ${liferay.releng.app.title.prefix} Enterprise Search Monitoring app monitors your Elasticsearch cluster in real time by providing a view of the Kibana Monitoring UI through a Liferay DXP instance.&lt;br /&gt;According to Elastic's website, &quot;From the Kibana Monitoring UI, you can spot issues at a glance and delve into the system behavior over time to diagnose operational issues.&quot;&lt;br /&gt;You must install Kibana before using the ${liferay.releng.app.title.prefix} Enterprise Search Monitoring plugin. You can find more information about Monitoring Elasticsearch at https://www.elastic.co/guide/en/kibana/current/xpack-monitoring.html.&lt;br /&gt;To learn about compatibility, see the compatibility matrix: https://help.liferay.com/hc/en-us/articles/360016511651#Liferay-Enterprise-Search.</source>
+        <target state="final">${liferay.releng.app.title.prefix} Enterprise Search Monitoring 应用通过 Liferay DXP 实例提供 Kibana Monitoring UI 的视图，从而实时监视 Elasticsearch 群集。&lt;br /&gt;根据 Elastic 网站，&quot;在 Kibana Monitoring UI 中，您可以一目了然地发现问题，并随着时间深入研究系统行为来诊断操作问题。&quot;&lt;br /&gt;必须先安装 Kibana，然后才能使用 ${liferay.releng.app.title.prefix} Enterprise Search Monitoring 插件。可以在 https://www.elastic.co/guide/en/kibana/current/xpack-monitoring.html 中找到有关 Monitoring Elasticsearch 的更多信息。&lt;br /&gt;要了解兼容性，请参见兼容性矩阵：https://help.liferay.com/hc/en-us/articles/360016511651#Liferay-Enterprise-Search。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-search-elasticsearch-monitoring__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6899074" resname="portal-search-elasticsearch7__liferay-releng-app-description" approved="yes">
+        <source>${liferay.releng.app.title.prefix} Connector to Elasticsearch 7 connects Liferay Portal or Liferay DXP to Elasticsearch 7.9 search engines.&lt;br /&gt;For detailed compatibility information, see the Search Engine Compatibility Matrix: https://help.liferay.com/hc/en-us/articles/360016511651.</source>
+        <target state="final">Elasticsearch 7 的 ${liferay.releng.app.title.prefix} Connector 可将 Liferay Portal 或 Liferay DXP 连接到 Elasticsearch 7.9+。&lt;br /&gt;有关详细的兼容性信息，请参见搜索引擎兼容性矩阵：https://help.liferay.com/hc/en-us/articles/360016511651。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-search-elasticsearch7__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5656799" resname="portal-search-learning-to-rank__liferay-releng-app-description" translate="no" approved="yes">
+        <source>The ${liferay.releng.app.title.prefix} Enterprise Search Learning to Rank app exposes Liferay DXP search queries to re-scoring via the Elasticsearch Learning to Rank plugin. Install a plugin to Elasticsearch, install this application to Liferay DXP, mix in a bit of data science, and you can point Liferay search queries at a trained Learning to Rank model that you have uploaded to the Elasticsearch plugin. Your Liferay queries are re-scored by the AI-trained model to produce better search results for your Liferay DXP end users.&lt;br /&gt;To learn about compatibility, see the compatibility matrix: https://help.liferay.com/hc/en-us/articles/360016511651#Liferay-Enterprise-Search.</source>
+        <target state="final">${liferay.releng.app.title.prefix} Enterprise Search Learning to Rank 应用可通过 Elasticsearch Learning to Rank 插件向重新评分提供 Liferay DXP 搜索查询。将插件安装到 Elasticsearch，将此应用程序安装到 Liferay DXP，再结合一些数据科学，随后便可将 Liferay 搜索查询指向已上传到 Elasticsearch 插件并且经过训练的排序学习模型。通过经过 AI 训练的模型对 Liferay 查询进行重新评分，以便为 Liferay DXP 最终用户提供更好的搜索结果。&lt;br /&gt;要了解兼容性，请参见兼容性矩阵：https://help.liferay.com/hc/en-us/articles/360016511651#Liferay-Enterprise-Search。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-search-learning-to-rank__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7014700" resname="portal-search-opensearch2__liferay-releng-app-description" approved="yes">
+        <source>This connector integrates Liferay DXP with OpenSearch 2.12, the open source and enterprise grade search engine.&lt;br /&gt;OpenSearch offers lexical search for text data, robust scalability and extensibility, and vector search for applications using embeddings, such as Liferay's Semantic Search.&lt;br /&gt;The installation of this app requires specific configurations covered in the official documentation. For detailed compatibility information, see the Search Engine Compatibility Matrix: https://help.liferay.com/hc/en-us/articles/360016511651.</source>
+        <target state="final">${liferay.releng.app.title.prefix} OpenSearch 2 连接器将 Liferay Portal 或 Liferay DXP 连接到 OpenSearch 2.8.0 搜索引擎。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-search-opensearch2__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4463953" resname="portal-search-solr8__liferay-releng-app-description" translate="no" approved="yes">
+        <source>This app integrates Liferay DXP with Apache Solr 8, the popular open source enterprise search platform from the Apache Lucene project. Solr includes powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing distributed search and index replication, and it powers the search and navigation features of many of the world's largest internet sites. The installation of this app requires specific configurations listed in the Official Documentation. On installing, enabling, and configuring this app, Liferay DXP communicates with a remotely deployed Solr 8 server for indexing and searching.&lt;br /&gt;For detailed compatibility information, including the compatible Solr 8 minor versions and required Liferay DXP patch levels, see the Search Engine Compatibility Matrix: https://help.liferay.com/hc/en-us/articles/360016511651.</source>
+        <target state="final">此应用提供了与 Apache Solr 8 的集成，Apache Solr 8 是一个来自 Apache Lucene 项目的流行开源企业搜索平台。它的主要功能包括强大的全文本搜索、命中结果高亮显示、分面搜索、动态群集、数据库集成、富文档（例如 Word、PDF）处理和地理空间搜索。Solr 具有高度可扩展性，可提供分布式搜索和索引复制，并且为许多世界上最大的互联网站点的搜索和导航功能提供支持。此应用的安装需要官方文档中列出的特定配置。安装并启用此应用后，Liferay Portal 和 Liferay DXP 将与远程部署的 Solr 服务器通信以进行索引和搜索。&lt;br /&gt;有关详细的兼容性信息，请参见搜索引擎兼容性矩阵：https://help.liferay.com/hc/en-us/articles/360016511651。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-search-solr8__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7355155" resname="portal-web__liferay-releng-app-description" approved="yes">
+        <source>Liferay Plugin for OAuth 2.0 is an industry-standard authorization protocol. Users can seamlessly share select credentials from another website to log into yours. It works by authorizing password-less access to portions of user-owned resources (such as an email address, a user profile picture, or something else from your account) and other permissioned resources.</source>
+        <target state="final">Liferay Plugin for OAuth 2.0 是一种行业标准的授权协议。用户可以无缝分享其他网站的特定凭据来登录您的网站。它的工作原理是授权无密码访问用户拥有的一部分资源（例如电子邮件地址、用户个人资料照片或您帐户中的其他内容）和其他允许的资源。</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-web__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651674" resname="push-notifications__liferay-releng-app-description" approved="yes">
+        <source>The Liferay Push app exposes a framework that lets developers send push notifications from Liferay to native Android and iOS apps. By leveraging Liferay Push, you can ensure that your users know about the latest information in your Liferay instance, no matter where they are. Push also functions seamlessly with Liferay Screens. Installing the Liferay Push app automatically exposes its push framework. This app also contains a Control Panel portlet that you can use to send test push notifications.</source>
+        <target state="final">Liferay Push 应用提供了一个框架，借助此框架，开发者可将 Liferay 的推送通知发送到原生 Android 和 iOS 应用。通过利用 Liferay Push，可以确保您的用户无论在何处都可以了解 Liferay 实例中的最新信息。此外，Push 还可与 Liferay Screens 无缝配合。安装 Liferay Push 应用会自动提供其推送框架。此应用还包含一个控制面板 portlet，可用于发送测试推送通知。</target>
+        <context-group purpose="information">
+          <context context-type="source">push-notifications__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6899078" resname="salesforce-connector__liferay-releng-app-description" approved="yes">
+        <source>Connect Salesforce Sales Cloud with Liferay DXP for a seamless customer experience. With the Liferay Connector to Salesforce, automatically sync accounts and contacts from Salesforce Sales Cloud to Liferay DXP for a seamless customer onboarding. Automatically bring products and prices into Liferay DXP so you only need to manage products in a single place. Push orders from Liferay DXP to Salesforce Sales Cloud for improved reporting and visibility within your sales network. Finally, configure, schedule and monitor the jobs all within Liferay.&lt;br /&gt;&lt;br /&gt;Salesforce to Liferay:&lt;br /&gt;&lt;br /&gt;* Contacts&lt;br /&gt; Products&lt;br /&gt;* Price Books&lt;br /&gt;* Price Book Entries&lt;br /&gt;&lt;br /&gt;Liferay to Salesforce and Salesforce to Liferay&lt;br /&gt;&lt;br /&gt;* Accounts&lt;br /&gt;* Addresses&lt;br /&gt;* Orders&lt;br /&gt;* Order Items&lt;br /&gt;* Order Notes&lt;br /&gt;&lt;br /&gt;The Liferay Connector to Salesforce is compatible with Liferay DXP 7.4 and Salesforce API version 44.0 (SOAP).</source>
+        <target state="final">将 Salesforce Sales Cloud 与 Liferay DXP 连接，获得无缝的客户体验。使用 Liferay Connector to Salesforce，自动将 Salesforce Sales Cloud 中的帐户和联系人同步到 Liferay DXP，以实现无缝的客户入门。自动将产品和价格导入 Liferay DXP，因此您只需在一个地方管理产品。将订单从 Liferay DXP 推送到 Salesforce Sales Cloud，改进您的销售网络中的报告和可见性功能。最后，在 Liferay 中配置、安排和监控所有作业。&lt;br /&gt;&lt;br /&gt;Salesforce 到 Liferay：&lt;br /&gt;&lt;br /&gt;* 联系人&lt;br /&gt; 产品&lt;br /&gt;* 价格簿&lt;br /&gt;* 价格簿条目&lt;br /&gt;&lt;br /&gt;Liferay 到 Salesforce 及 Salesforce 到 Liferay&lt;br /&gt;&lt;br /&gt;* 帐户&lt;br /&gt;* 地址&lt;br /&gt;* 订单&lt;br /&gt;* 订单条目&lt;br /&gt;* 订单备注&lt;br /&gt;&lt;br /&gt;Liferay Connector to Salesforce 与 Liferay DXP 7.4+ 和 Salesforce API 版本 44.0 (SOAP) 兼容。</target>
+        <context-group purpose="information">
+          <context context-type="source">salesforce-connector__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651676" resname="saml__liferay-releng-app-description" approved="yes">
+        <source>Security Assertion Markup Language 2.0 (SAML 2.0) is a version of the SAML OASIS standard for exchanging authentication and authorization data between security domains. SAML 2.0 is an XML-based protocol that uses security tokens containing assertions to pass information about a principal (usually an end-user) between an identity provider and a web service. SAML 2.0 enables web-based authentication and authorization scenarios including single sign-on (SSO). This app enables Liferay to act as a SAML 2.0 Identity Provider (IdP) or Service Provider (SP). It is built on top of OpenSAML and uses the Java Keystore for providing certificates/credentials for security. Once this app is installed, additional configuration is required to adapt the app with your local SAML environment and configuration. Visit the Documentation link to learn more about SAML and its configuration options.&lt;br /&gt;&lt;br /&gt;Supported SAML Providers: PingFederate, ADFS, Shibboleth, Siteminder, and OpenAM.</source>
+        <target state="final">Security Assertion Markup Language 2.0 (SAML 2.0) 是 SAML OASIS 标准的一个版本，用于在安全域之间交换身份验证和授权数据。SAML 2.0 是一种基于 XML 的协议，它使用包含断言的安全令牌在身份提供商和 Web 服务之间传递有关委托人（通常是最终用户）的信息。SAML 2.0 支持基于 Web 的身份验证和授权方案，包括单点登录 (SSO)。借助此应用，Liferay 可以充当 SAML 2.0 身份提供商 (IdP) 或服务提供商 (SP)。它在 OpenSAML 之上构建，使用 Java 密钥库来提供安全性证书/凭证。安装此应用后，需要其他配置才能使该应用适合您的本地 SAML 环境和配置。访问文档链接以详细了解 SAML 及其配置选项。&lt;br /&gt;&lt;br /&gt;受支持的 SAML 提供商：PingFederate、ADFS、Shibboleth、Siteminder 和 OpenAM。</target>
+        <context-group purpose="information">
+          <context context-type="source">saml__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3479109" resname="search-experiences__liferay-releng-app-description" approved="yes">
+        <source>The ${liferay.releng.app.title.prefix} Enterprise Search Experiences app includes a suite of features that unlock the full potential of Liferay's search framework for all Liferay users. The initial release introduces the &quot;Search Blueprints&quot; feature. With Blueprints, search administrators can&lt;br /&gt;&lt;br /&gt;* Tweak Liferay's default search behavior, or completely override it&lt;br /&gt;* Provide context-aware search results based on the search user's attributes&lt;br /&gt;&lt;br /&gt;Search Blueprints enables search administrators to refine Liferay's default search behavior or build completely custom search algorithms using a no-code visual query builder. Each Blueprint is composed of multiple building blocks called &quot;Elements&quot;; each Element influences the search query in some way. For example, compose a Blueprint by adding one Element that hides content tagged &quot;expired&quot;, another that ignores comments, and another that includes fields normally ignored by the default search algorithm.&lt;br /&gt;&lt;br /&gt;You can configure each Element using familiar UI controls like input fields, dropdown lists, and date pickers. Several convenient elements are included with the Blueprints app (e.g., Elements for boosting results by geolocation, content freshness, time-based conditional boosts, etc.). In addition, you can create new Elements to harness the full capabilities of Liferay's search framework.&lt;br /&gt;&lt;br /&gt;Search Blueprints are context-aware. You can provide personalized search results based on the user's profile, roles, location, local time, segment, etc. For example, a Blueprint can boost manufacturing industry case studies based on the user's email address or job title.&lt;br /&gt;&lt;br /&gt;Each search page can use a different Blueprint, allowing unique search algorithms for different search use cases like intranets, commerce, and marketing sites.</source>
+        <target state="final">${liferay.releng.app.title.prefix} Enterprise Search Experiences 应用程序套件为非开发者释放了 Liferay 搜索框架的全部功能。此版本引入了&quot;Search Blueprints&quot;应用，使搜索管理员能够调整 Liferay 的默认搜索行为或者使用无代码可视化查询构建器构建完全自定义的搜索算法。每个蓝图由多个&quot;元素&quot;组成，其中每个元素都会以某种方式影响搜索查询。例如，一个元素可以隐藏标记为&quot;过期&quot;的内容，另一个元素可以忽略搜索评论，而另一个元素可以包含在默认搜索算法中通常被忽略的字段。每个元素都可以使用熟悉的 UI 控件（如输入字段、下拉列表和日期选择器）进行配置。有一些开箱即用的元素，例如用于按地理位置、内容新鲜度、基于时间的条件性促进因子等促进结果的元素。高级用户可以创建自己的元素来充分利用 Liferay 搜索框架的全部功能。&lt;br /&gt;&lt;br /&gt;蓝图还具有上下文感知能力，支持根据用户的个人资料、角色、位置、当地时间、细分市场等提供个性化的搜索结果。例如，蓝图可以根据用户的电子邮件地址或职位来促进制造业案例研究。每个搜索页面都可以与不同的蓝图相关联，从而为不同的搜索用例（如内网、商务和营销站点）提供独特的搜索算法。</target>
+        <context-group purpose="information">
+          <context context-type="source">search-experiences__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651680" resname="sharepoint-rest__liferay-releng-app-description" approved="yes">
+        <source>The Liferay REST Connector for SharePoint lets users interact with files in SharePoint libraries from within a Liferay Documents and Media library. This app makes available in the Documents and Media Library a SharePoint repository type for mounting SharePoint libraries. Within such a repository, users can view, add, modify, and move files and folders. The app propagates actions performed in the SharePoint library to the SharePoint repository in the Liferay Documents and Media Library, and vice versa.&lt;br /&gt;&lt;br /&gt;Here are some of the app's capabilities:&lt;br /&gt;&lt;br /&gt;* Reading/writing documents and folders&lt;br /&gt;* Document check-in, check-out, and undo check-out&lt;br /&gt;* Downloading documents&lt;br /&gt;* Moving folders and documents within the repository&lt;br /&gt;* Getting revision history&lt;br /&gt;* Reverting to a revision&lt;br /&gt;&lt;br /&gt;The Liferay REST Connector for SharePoint:&lt;br /&gt;&lt;br /&gt;* Works with SharePoint 2016 and SharePoint Online&lt;br /&gt;* Uses Azure ACS with OAuth 2 for SharePoint server authorization (you must therefore enable HTTPS support in your app server)&lt;br /&gt;&lt;br /&gt;Connect your Liferay Digital Experience Platform with your SharePoint libraries today!&lt;br /&gt;&lt;br /&gt;Important Change: The name of this app was recently changed. Please visit https://help.liferay.com/hc/en-us/articles/360018233992 for further information about the installation procedure.</source>
+        <target state="final">借助 Liferay REST Connector for SharePoint，用户可以通过 Liferay 文档与媒体库同 SharePoint 库中的文件进行交互。此应用在文档与媒体库中提供了一种可用于安装 SharePoint 库的 SharePoint 存储库类型。在此类存储库中，用户可以查看、添加、修改和移动文件及文件夹。此应用会将在 SharePoint 库中执行的操作传播到 Liferay 文档与媒体库中的 SharePoint 存储库，反之亦然。&lt;br /&gt;&lt;br /&gt;下面列出了此应用的一些功能：&lt;br /&gt;&lt;br /&gt;* 读取/写入文档和文件夹&lt;br /&gt;* 文档签入、签出和撤消签出&lt;br /&gt;* 下载文档&lt;br /&gt;* 在存储库中移动文件夹和文档&lt;br /&gt;* 获取修订历史&lt;br /&gt;* 恢复到某个修订版&lt;br /&gt;&lt;br /&gt;Liferay REST Connector for SharePoint：&lt;br /&gt;&lt;br /&gt;* 可与 SharePoint 2016 和 SharePoint Online 配合使用&lt;br /&gt;* 将 Azure ACS 与用于 SharePoint 服务器授权的 OAuth 2 配合使用（必须在应用服务器中启用 HTTPS 支持）&lt;br /&gt;&lt;br /&gt;立即将 Liferay Digital Experience Platform 与 SharePoint 库连接！&lt;br /&gt;&lt;br /&gt;重要更改：此应用的名称最近发生了更改。要了解有关安装过程的更多信息，请访问 https://help.liferay.com/hc/en-us/articles/360018233992。</target>
+        <context-group purpose="information">
+          <context context-type="source">sharepoint-rest__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2827636" resname="sharepoint-soap__liferay-releng-app-description" approved="yes">
+        <source>The Liferay SOAP Connector for SharePoint app lets users interact with files in SharePoint libraries from within a Liferay Documents and Media library. This app makes available in the Documents and Media Library a SharePoint repository type for mounting SharePoint libraries. Within such a repository, users can view, add, modify, and move files and folders. The app propagates actions performed in the SharePoint library to the SharePoint repository in the Liferay Documents and Media Library, and vice versa.&lt;br /&gt;&lt;br /&gt;Here are some of the app's capabilities:&lt;br /&gt;&lt;br /&gt;* Reading/writing documents and folders&lt;br /&gt;* Document check-in, check-out, and undo check-out&lt;br /&gt;* Downloading documents&lt;br /&gt;* Moving folders and documents within the repository&lt;br /&gt;* Getting revision history&lt;br /&gt;* Reverting to a revision&lt;br /&gt;&lt;br /&gt;The current version of the app works with SharePoint 2013.&lt;br /&gt;&lt;br /&gt;Connect your Liferay Digital Experience Platform with your SharePoint libraries today!&lt;br /&gt;&lt;br /&gt;Important Change: The name of this app was recently changed. Please visit https://help.liferay.com/hc/en-us/articles/360018233992 for further information about the installation procedure.</source>
+        <target state="final">借助 Liferay SOAP Connector for SharePoint 应用，用户可以通过 Liferay 文档与媒体库同 SharePoint 库中的文件进行交互。此应用在文档与媒体库中提供了一种可用于安装 SharePoint 库的 SharePoint 存储库类型。在此类存储库中，用户可以查看、添加、修改和移动文件及文件夹。此应用会将在 SharePoint 库中执行的操作传播到 Liferay 文档与媒体库中的 SharePoint 存储库，反之亦然。&lt;br /&gt;&lt;br /&gt;下面列出了此应用的一些功能：&lt;br /&gt;&lt;br /&gt;* 读取/写入文档和文件夹&lt;br /&gt;* 文档签入、签出和撤消签出&lt;br /&gt;* 下载文档&lt;br /&gt;* 在存储库中移动文件夹和文档&lt;br /&gt;* 获取修订历史&lt;br /&gt;* 恢复到某个修订版&lt;br /&gt;&lt;br /&gt;可与 SharePoint 2013 配合使用&lt;br /&gt;&lt;br /&gt;立即将 Liferay Digital Experience Platform 与 SharePoint 库连接！&lt;br /&gt;&lt;br /&gt;重要更改：此应用的名称最近发生了更改。要了解有关安装过程的更多信息，请访问 https://help.liferay.com/hc/en-us/articles/360018233992。</target>
+        <context-group purpose="information">
+          <context context-type="source">sharepoint-soap__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651684" resname="static__liferay-releng-app-description" approved="yes">
+        <source>The Static app contains an important group of extenders and utilities that Liferay statically installs before installing any dynamic OSGi modules. The app's functionality includes a log4j extender, an OSGi WAB extender, configuration utilities, OSGi deployment utilities, target platform indexing, and more.&lt;br /&gt;&lt;br /&gt;This suite is available in the ${liferay.releng.app.title.prefix} bundle.</source>
+        <target state="final">Static 应用包含一组重要的扩展程序和实用工具，Liferay 会在安装任何动态 OSGi 模块之前静态安装这些扩展程序和实用工具。此应用的功能包括 log4j 扩展程序、OSGi WAB 扩展程序、配置实用工具、OSGi 部署实用工具、目标平台索引等。&lt;br /&gt;&lt;br /&gt;${liferay.releng.app.title.prefix} 捆绑包中提供了此套件。</target>
+        <context-group purpose="information">
+          <context context-type="source">static__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
