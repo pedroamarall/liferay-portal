@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file id="61192" original="/master/bundle.properties" source-language="en" target-language="cs" datatype="plaintext" project-id="289277" tool-id="crowdin">
+    <header>
+      <tool tool-id="crowdin" tool-name="Crowdin" tool-version="1.1"/>
+    </header>
+    <body>
+      <trans-unit id="2651640" resname="adaptive-media__liferay-releng-app-description" approved="yes">
+        <source>The Adaptive Media app tailors media in your portal to the device consuming it. Since users often consume media on multiple devices that have different screen sizes and capabilities, you should make sure that your portal presents that media in a manner suitable for each device. For example, portal administrators can configure the Adaptive Media app to send high-res images to high-res devices, low-res images to low-res devices, and so on. This ensures that your users have the best possible experience when consuming media from your portal, regardless of the device they use.&lt;br /&gt;&lt;br /&gt;Note that at this time, the Adaptive Media app only works with images in Documents and Media, Blogs, and Web Content.&lt;br /&gt;&lt;br /&gt;Once installed, the Adaptive Media app appears in the Control Panel, under the Configuration menu.</source>
+        <target state="final">Adaptivní midea app na míru midea ve vasem portálu ke spotrebe konzumovat to. Od uzivatelu Protože uživatelé často používají média na více zařízeních, která mají různé velikosti obrazovky a možnosti, měli byste se ujistit, že váš portál prezentuje tato média způsobem vhodným pro každé zařízení. Správci portálu mohou například nakonfigurovat aplikaci Adaptive Media tak, aby posílala obrázky s vysokým rozlišením do zařízení s vysokým rozlišením, obrázky s nízkým rozlišením do zařízení s nízkým rozlišením a tak dále. To zajistí, že vaši uživatelé budou mít nejlepší možný zážitek při konzumaci médií z vašeho portálu, bez ohledu na to, jaké zařízení používají.&lt;br /&gt;&lt;br /&gt;Upozorňujeme, že v současné době aplikace Adaptive Media funguje pouze s obrázky v Dokumentech a médiích , blogy a webový obsah.&lt;br /&gt;&lt;br /&gt;Po instalaci se aplikace Adaptive Media zobrazí v Ovládacích panelech v nabídce Konfigurace.</target>
+        <context-group purpose="information">
+          <context context-type="source">adaptive-media__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2651642" resname="asset-tags-validator__liferay-releng-app-description" approved="yes">
+        <source>The Asset Tags Validator app ensures page validation when viewing a single asset from the Asset Publisher.</source>
+        <target state="final">Aktiva aplikace pro validaci značek zajistit validaci stránek při prohlížení jediné aktivum Z aktiva vydavatel.</target>
+        <context-group purpose="information">
+          <context context-type="source">asset-tags-validator__liferay-releng-app-description</context>
+        </context-group>
+        <note from="Assumpta-Alconost" priority="4">@alconost  @brian.wulbern 
+
+I'm not translating the name of the app for now?</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
