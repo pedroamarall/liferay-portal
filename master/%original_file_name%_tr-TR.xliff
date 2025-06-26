@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file id="61192" original="/master/bundle.properties" source-language="en" target-language="tr" datatype="plaintext" project-id="289277" tool-id="crowdin">
+    <header>
+      <tool tool-id="crowdin" tool-name="Crowdin" tool-version="1.1"/>
+    </header>
+    <body>
+      <trans-unit id="2651642" resname="asset-tags-validator__liferay-releng-app-description" approved="yes">
+        <source>The Asset Tags Validator app ensures page validation when viewing a single asset from the Asset Publisher.</source>
+        <target state="final">Varlık Etiketleri Doğrulayıcı uygulaması, Varlık Yayıncısı'ndan tek bir varlığı görüntülerken sayfa doğrulamasını sağlar.</target>
+        <context-group purpose="information">
+          <context context-type="source">asset-tags-validator__liferay-releng-app-description</context>
+        </context-group>
+        <note from="Assumpta-Alconost" priority="4">@alconost  @brian.wulbern 
+
+I'm not translating the name of the app for now?</note>
+      </trans-unit>
+      <trans-unit id="2651668" resname="portal-search-elasticsearch-monitoring__liferay-releng-app-description" approved="yes">
+        <source>The ${liferay.releng.app.title.prefix} Enterprise Search Monitoring app monitors your Elasticsearch cluster in real time by providing a view of the Kibana Monitoring UI through a Liferay DXP instance.&lt;br /&gt;According to Elastic's website, &quot;From the Kibana Monitoring UI, you can spot issues at a glance and delve into the system behavior over time to diagnose operational issues.&quot;&lt;br /&gt;You must install Kibana before using the ${liferay.releng.app.title.prefix} Enterprise Search Monitoring plugin. You can find more information about Monitoring Elasticsearch at https://www.elastic.co/guide/en/kibana/current/xpack-monitoring.html.&lt;br /&gt;To learn about compatibility, see the compatibility matrix: https://help.liferay.com/hc/en-us/articles/360016511651#Liferay-Enterprise-Search.</source>
+        <target state="final">Enterprise Search Monitoring uygulaması, bir Liferay DXP örneği aracılığıyla Kibana Monitoring UI'nin bir görünümünü sağlayarak Elasticsearch kümenizi gerçek zamanlı olarak izler. Elastic'in web sitesine göre, &quot;Kibana Monitoring UI'den, sorunları bir bakışta tespit edebilir ve operasyonel sorunları teşhis etmek için zaman içinde sistem davranışını inceleyebilirsiniz. Kullanmadan önce Kibana'yı kurmalısınız. Kurumsal Arama İzleme eklentisi. Elasticsearch'ü İzleme hakkında daha fazla bilgiyi https://www.elastic.co/guide/en/kibana/current/xpack-monitoring.html adresinde bulabilirsiniz.</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-search-elasticsearch-monitoring__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6899074" resname="portal-search-elasticsearch7__liferay-releng-app-description" approved="yes">
+        <source>${liferay.releng.app.title.prefix} Connector to Elasticsearch 7 connects Liferay Portal or Liferay DXP to Elasticsearch 7.9 search engines.&lt;br /&gt;For detailed compatibility information, see the Search Engine Compatibility Matrix: https://help.liferay.com/hc/en-us/articles/360016511651.</source>
+        <target state="final">${liferay.releng.app.title.prefix} Elasticsearch 7 bağlayıcısı, Liferay Portal veya Liferay DXP'yi Elasticsearch 7.9+ arama motorlarına bağlar.&lt;br /&gt;Ayrıntılı uyumluluk bilgileri için Arama Motoru Uyumluluk Matrisine bakın: https://help.liferay.com/hc/en-us/articles/360016511651.</target>
+        <context-group purpose="information">
+          <context context-type="source">portal-search-elasticsearch7__liferay-releng-app-description</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
