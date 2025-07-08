@@ -11,10 +11,12 @@ import com.liferay.depot.service.DepotEntryLocalService;
 import com.liferay.exportimport.kernel.service.StagingLocalService;
 import com.liferay.headless.admin.site.client.dto.v1_0.ContentPageSpecification;
 import com.liferay.headless.admin.site.client.dto.v1_0.ContentPageTemplate;
-import com.liferay.headless.admin.site.client.dto.v1_0.ItemExternalReference;
+import com.liferay.headless.admin.site.client.dto.v1_0.ContentPageTemplateSettings;
+import com.liferay.headless.admin.site.client.dto.v1_0.NavigationSettings;
 import com.liferay.headless.admin.site.client.dto.v1_0.PageTemplate;
 import com.liferay.headless.admin.site.client.dto.v1_0.PageTemplateSet;
 import com.liferay.headless.admin.site.client.dto.v1_0.WidgetPageTemplate;
+import com.liferay.headless.admin.site.client.dto.v1_0.WidgetPageTemplateSettings;
 import com.liferay.headless.admin.site.client.pagination.Page;
 import com.liferay.headless.admin.site.client.problem.Problem;
 import com.liferay.headless.admin.site.client.resource.v1_0.PageTemplateResource;
@@ -451,6 +453,38 @@ public class PageTemplateResourceTest extends BasePageTemplateResourceTestCase {
 				testGroup, widgetPageTemplate.getExternalReferenceCode()),
 			testGroup.getExternalReferenceCode());
 
+		WidgetPageTemplate expectedWidgetPageTemplate =
+			_getUpdatedWidgetPageTemplate(
+				testGroup, widgetPageTemplate.getExternalReferenceCode());
+
+		WidgetPageTemplate putWidgetPageTemplate = new WidgetPageTemplate();
+
+		BeanTestUtil.copyProperties(
+			expectedWidgetPageTemplate, putWidgetPageTemplate);
+
+		expectedWidgetPageTemplate.setPageTemplateSettings(
+			() -> new WidgetPageTemplateSettings() {
+				{
+					setLayoutTemplateId(PropsValues.DEFAULT_LAYOUT_TEMPLATE_ID);
+					setNavigationSettings(
+						new NavigationSettings() {
+							{
+								setTargetType(TargetType.SPECIFIC_FRAME);
+							}
+						});
+					setType(Type.WIDGET_PAGE_TEMPLATE_SETTINGS);
+				}
+			});
+
+		putWidgetPageTemplate.setPageTemplateSettings(() -> null);
+
+		assertEquals(
+			expectedWidgetPageTemplate,
+			pageTemplateResource.putSiteSiteByExternalReferenceCodePageTemplate(
+				testGroup.getExternalReferenceCode(),
+				putWidgetPageTemplate.getExternalReferenceCode(),
+				putWidgetPageTemplate));
+
 		_enableLocalStaging();
 
 		_assertProblemException(
@@ -506,9 +540,9 @@ public class PageTemplateResourceTest extends BasePageTemplateResourceTestCase {
 	@Override
 	protected String[] getAdditionalAssertFieldNames() {
 		return new String[] {
-			"active", "description_i18n", "externalReferenceCode",
-			"keywordItemExternalReferences", "name", "name_i18n",
-			"pageTemplateSet", "taxonomyCategoryItemExternalReferences"
+			"active", "description_i18n", "externalReferenceCode", "keywords",
+			"name", "name_i18n", "pageTemplateSet", "pageTemplateSettings",
+			"taxonomyCategoryItemExternalReferences"
 		};
 	}
 
@@ -672,11 +706,14 @@ public class PageTemplateResourceTest extends BasePageTemplateResourceTestCase {
 				externalReferenceCode = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				keywordItemExternalReferences =
-					AssetTestUtil.randomKeywordItemExternalReferences(
-						serviceContext);
+				keywords = AssetTestUtil.randomKeywords(serviceContext);
 				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				pageTemplateSet = _getPageTemplateSet(group);
+				pageTemplateSettings = new ContentPageTemplateSettings() {
+					{
+						setType(Type.CONTENT_PAGE_TEMPLATE_SETTINGS);
+					}
+				};
 				taxonomyCategoryItemExternalReferences =
 					AssetTestUtil.randomTaxonomyCategoryItemExternalReferences(
 						testCompany.getGroupId(), serviceContext);
@@ -810,12 +847,17 @@ public class PageTemplateResourceTest extends BasePageTemplateResourceTestCase {
 			).build());
 
 		widgetPageTemplate.setPageTemplateSet(_getPageTemplateSet(group));
+		widgetPageTemplate.setPageTemplateSettings(
+			_getWidgetPageTemplateSettings());
 
 		return widgetPageTemplate;
 	}
 
 	private WidgetPageTemplate _getWidgetPageTemplate(Group group)
 		throws Exception {
+
+		String randomName = StringUtil.toLowerCase(
+			RandomTestUtil.randomString());
 
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(group.getGroupId());
@@ -836,20 +878,48 @@ public class PageTemplateResourceTest extends BasePageTemplateResourceTestCase {
 					RandomTestUtil.randomString());
 				hiddenFromNavigation = RandomTestUtil.randomBoolean();
 				key = StringUtil.toLowerCase(RandomTestUtil.randomString());
-				keywordItemExternalReferences = new ItemExternalReference[0];
-
-				name = StringUtil.toLowerCase(RandomTestUtil.randomString());
-
+				keywords = AssetTestUtil.randomKeywords(serviceContext);
+				name = randomName;
 				name_i18n = HashMapBuilder.put(
-					LocaleUtil.toBCP47LanguageId(LocaleUtil.getDefault()), name
+					LocaleUtil.toBCP47LanguageId(LocaleUtil.getDefault()),
+					randomName
 				).build();
-
 				pageTemplateSet = _getPageTemplateSet(group);
+				pageTemplateSettings = _getWidgetPageTemplateSettings();
 				taxonomyCategoryItemExternalReferences =
 					AssetTestUtil.randomTaxonomyCategoryItemExternalReferences(
 						testCompany.getGroupId(), serviceContext);
 				type = PageTemplate.Type.WIDGET_PAGE_TEMPLATE;
 				uuid = StringUtil.toLowerCase(RandomTestUtil.randomString());
+			}
+		};
+	}
+
+	private WidgetPageTemplateSettings _getWidgetPageTemplateSettings() {
+		return new WidgetPageTemplateSettings() {
+			{
+				setLayoutTemplateId(
+					() -> {
+						if (RandomTestUtil.randomBoolean()) {
+							return "1_column";
+						}
+
+						return "2_columns_ii";
+					});
+				setNavigationSettings(
+					new NavigationSettings() {
+						{
+							if (RandomTestUtil.randomBoolean()) {
+								setTarget("_blank");
+								setTargetType(() -> TargetType.NEW_TAB);
+							}
+							else {
+								setTarget(RandomTestUtil::randomString);
+								setTargetType(() -> TargetType.SPECIFIC_FRAME);
+							}
+						}
+					});
+				setType(Type.WIDGET_PAGE_TEMPLATE_SETTINGS);
 			}
 		};
 	}

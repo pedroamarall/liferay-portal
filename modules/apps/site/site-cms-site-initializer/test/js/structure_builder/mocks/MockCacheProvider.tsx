@@ -5,66 +5,62 @@
 
 import React, {ReactNode} from 'react';
 
-import PicklistService from '../../../../src/main/resources/META-INF/resources/js/services/PicklistService';
-import SpaceService from '../../../../src/main/resources/META-INF/resources/js/services/SpaceService';
+import PicklistService from '../../../../src/main/resources/META-INF/resources/js/common/services/PicklistService';
+import SpaceService from '../../../../src/main/resources/META-INF/resources/js/common/services/SpaceService';
+import {Picklist} from '../../../../src/main/resources/META-INF/resources/js/common/types/Picklist';
+import {Space} from '../../../../src/main/resources/META-INF/resources/js/common/types/Space';
 import {CacheContext} from '../../../../src/main/resources/META-INF/resources/js/structure_builder/contexts/CacheContext';
-import StructureService from '../../../../src/main/resources/META-INF/resources/js/structure_builder/services/StructureService';
-import {Structures} from '../../../../src/main/resources/META-INF/resources/js/structure_builder/types/Structure';
-import {Picklist} from '../../../../src/main/resources/META-INF/resources/js/types/Picklist';
-import {Space} from '../../../../src/main/resources/META-INF/resources/js/types/Space';
-
-export const broadcastRefMock = {
-	current: {
-		addEventListener: jest.fn(),
-		postMessage: jest.fn(),
-		removeEventListener: jest.fn(),
-	} as unknown as BroadcastChannel,
-};
+import ObjectDefinitionService from '../../../../src/main/resources/META-INF/resources/js/structure_builder/services/ObjectDefinitionService';
+import {ObjectDefinitions} from '../../../../src/main/resources/META-INF/resources/js/structure_builder/types/ObjectDefinition';
 
 function getCache({
+	objectDefinitions,
 	picklists,
 	spaces,
-	structures,
 }: {
+	objectDefinitions?: ObjectDefinitions;
 	picklists?: Picklist[];
 	spaces?: Space[];
-	structures?: Structures;
 }) {
 	return {
-		picklists: {
+		'object-definitions': {
+			data: objectDefinitions || new Map(),
+			fetcher: ObjectDefinitionService.getObjectDefinitions,
+			status: objectDefinitions ? ('saved' as const) : ('idle' as const),
+		},
+		'picklists': {
 			data: picklists || [],
 			fetcher: PicklistService.getPicklists,
 			status: picklists ? ('saved' as const) : ('idle' as const),
 		},
-		spaces: {
+		'spaces': {
 			data: spaces || [],
 			fetcher: SpaceService.getSpaces,
 			status: spaces ? ('saved' as const) : ('idle' as const),
-		},
-		structures: {
-			data: structures || new Map(),
-			fetcher: StructureService.getStructures,
-			status: structures ? ('saved' as const) : ('idle' as const),
 		},
 	};
 }
 
 export function MockCacheProvider({
 	children,
+	objectDefinitions,
 	picklists,
 	spaces,
-	structures,
 }: {
 	children: ReactNode;
+	objectDefinitions?: ObjectDefinitions;
 	picklists?: Picklist[];
 	spaces?: Space[];
-	structures?: Structures;
 }) {
 	return (
 		<CacheContext.Provider
 			value={{
-				broadcastRef: broadcastRefMock,
-				cache: getCache({picklists, spaces, structures}),
+				cache: getCache({
+					objectDefinitions,
+					picklists,
+					spaces,
+				}),
+				promisesRef: {current: {}},
 				update: () => {},
 			}}
 		>

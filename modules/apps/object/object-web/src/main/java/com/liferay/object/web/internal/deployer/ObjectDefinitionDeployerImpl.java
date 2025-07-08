@@ -18,6 +18,7 @@ import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.document.library.util.DLURLHelper;
+import com.liferay.dynamic.data.mapping.expression.DDMExpressionFactory;
 import com.liferay.friendly.url.info.item.provider.InfoItemFriendlyURLProvider;
 import com.liferay.friendly.url.info.item.updater.InfoItemFriendlyURLUpdater;
 import com.liferay.friendly.url.service.FriendlyURLEntryLocalService;
@@ -208,9 +209,9 @@ public class ObjectDefinitionDeployerImpl implements ObjectDefinitionDeployer {
 
 		ObjectFieldInfoFieldConverter objectFieldInfoFieldConverter =
 			new ObjectFieldInfoFieldConverter(
-				_listTypeEntryLocalService, _objectConfiguration,
-				_objectDefinitionLocalService, _objectFieldLocalService,
-				_objectFieldSettingLocalService,
+				_ddmExpressionFactory, _listTypeEntryLocalService,
+				_objectConfiguration, _objectDefinitionLocalService,
+				_objectFieldLocalService, _objectFieldSettingLocalService,
 				_objectRelationshipLocalService, _objectScopeProviderRegistry,
 				_objectStateFlowLocalService, _objectStateLocalService, _portal,
 				_restContextPathResolverRegistry, _userLocalService);
@@ -496,9 +497,9 @@ public class ObjectDefinitionDeployerImpl implements ObjectDefinitionDeployer {
 				HashMapDictionaryBuilder.<String, Object>put(
 					"item.class.name", objectDefinition.getClassName()
 				).build()),
-			FeatureFlagManagerUtil.registerService(
-				_bundleContext, "LPD-35914", Portlet.class,
-				enabled -> new ObjectEntriesPortlet(
+			_bundleContext.registerService(
+				Portlet.class,
+				new ObjectEntriesPortlet(
 					_objectActionLocalService,
 					objectDefinition.getObjectDefinitionId(),
 					_objectDefinitionLocalService,
@@ -506,7 +507,7 @@ public class ObjectDefinitionDeployerImpl implements ObjectDefinitionDeployer {
 					_objectFieldLocalService, _objectScopeProviderRegistry,
 					_objectViewLocalService, _portal,
 					portletResourcePermission),
-				enabled -> HashMapDictionaryBuilder.<String, Object>put(
+				HashMapDictionaryBuilder.<String, Object>put(
 					"com.liferay.portlet.company",
 					objectDefinition.getCompanyId()
 				).put(
@@ -520,9 +521,6 @@ public class ObjectDefinitionDeployerImpl implements ObjectDefinitionDeployer {
 
 						return "category.hidden";
 					}
-				).put(
-					"com.liferay.portlet.preferences-unique-per-layout",
-					!enabled
 				).put(
 					"jakarta.portlet.display-name",
 					objectDefinition.getPluralLabel(LocaleUtil.getSiteDefault())
@@ -686,9 +684,17 @@ public class ObjectDefinitionDeployerImpl implements ObjectDefinitionDeployer {
 				PanelApp.class,
 				new ObjectEntriesPanelApp(
 					objectDefinition,
-					() -> _portletLocalService.getPortletById(
-						objectDefinition.getCompanyId(),
-						objectDefinition.getPortletId())),
+					() -> {
+						com.liferay.portal.kernel.model.Portlet portlet =
+							_portletLocalService.getPortletById(
+								objectDefinition.getCompanyId(),
+								objectDefinition.getPortletId());
+
+						portlet.setControlPanelEntryCategory(
+							objectDefinition.getPanelCategoryKey());
+
+						return portlet;
+					}),
 				HashMapDictionaryBuilder.<String, Object>put(
 					"panel.app.order:Integer",
 					objectDefinition.getPanelAppOrder()
@@ -769,6 +775,9 @@ public class ObjectDefinitionDeployerImpl implements ObjectDefinitionDeployer {
 		_attachmentUploadResponseHandler =
 			new AttachmentUploadResponseHandler();
 	private BundleContext _bundleContext;
+
+	@Reference
+	private DDMExpressionFactory _ddmExpressionFactory;
 
 	@Reference(target = "(upload.response.handler.system.default=true)")
 	private UploadResponseHandler _defaultUploadResponseHandler;

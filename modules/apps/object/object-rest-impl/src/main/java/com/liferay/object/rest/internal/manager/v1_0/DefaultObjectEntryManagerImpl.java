@@ -184,7 +184,8 @@ public class DefaultObjectEntryManagerImpl
 			_objectEntryService.addObjectEntry(
 				groupId, objectDefinition.getObjectDefinitionId(),
 				_getObjectEntryFolderId(
-					objectDefinition.getCompanyId(), groupId, objectEntry),
+					objectDefinition.getCompanyId(), groupId, objectEntry,
+					serviceContext),
 				objectEntry.getDefaultLanguageId(),
 				_toObjectValues(
 					dtoConverterContext.getLocale(), objectDefinition,
@@ -265,7 +266,7 @@ public class DefaultObjectEntryManagerImpl
 	public ObjectEntry copyObjectEntryByVersion(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception {
 
 		if (!objectDefinition.isEnableObjectEntryVersioning()) {
@@ -274,7 +275,7 @@ public class DefaultObjectEntryManagerImpl
 
 		ObjectEntry objectEntry = getObjectEntryByVersion(
 			dtoConverterContext, externalReferenceCode, objectDefinition,
-			version);
+			scopeKey, version);
 
 		return _copyVersionedObjectEntry(
 			dtoConverterContext, objectDefinition, objectEntry);
@@ -331,7 +332,7 @@ public class DefaultObjectEntryManagerImpl
 	@Override
 	public void deleteObjectEntryByVersion(
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception {
 
 		if (!objectDefinition.isEnableObjectEntryVersioning()) {
@@ -341,7 +342,7 @@ public class DefaultObjectEntryManagerImpl
 		com.liferay.object.model.ObjectEntry serviceBuilderObjectEntry =
 			_objectEntryService.getObjectEntry(
 				externalReferenceCode, objectDefinition.getCompanyId(),
-				getGroupId(objectDefinition, null));
+				getGroupId(objectDefinition, scopeKey));
 
 		_checkObjectEntryObjectDefinitionId(
 			objectDefinition, serviceBuilderObjectEntry);
@@ -424,14 +425,14 @@ public class DefaultObjectEntryManagerImpl
 	public ObjectEntry expireObjectEntryByVersion(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception {
 
 		return _expireObjectEntryVersion(
 			dtoConverterContext, objectDefinition,
 			_objectEntryService.getObjectEntry(
 				externalReferenceCode, objectDefinition.getCompanyId(),
-				getGroupId(objectDefinition, null)),
+				getGroupId(objectDefinition, scopeKey)),
 			version);
 	}
 
@@ -756,12 +757,12 @@ public class DefaultObjectEntryManagerImpl
 	public ObjectEntry getObjectEntryByVersion(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception {
 
 		ObjectEntry objectEntry = getObjectEntry(
 			objectDefinition.getCompanyId(), dtoConverterContext,
-			externalReferenceCode, objectDefinition, null);
+			externalReferenceCode, objectDefinition, scopeKey);
 
 		return getObjectEntryByVersion(
 			dtoConverterContext, objectEntry.getId(), version);
@@ -938,13 +939,13 @@ public class DefaultObjectEntryManagerImpl
 	public Page<ObjectEntry> getVersionedObjectEntries(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			Pagination pagination)
+			String scopeKey, Pagination pagination)
 		throws Exception {
 
 		com.liferay.object.model.ObjectEntry serviceBuilderObjectEntry =
 			objectEntryLocalService.getObjectEntry(
-				externalReferenceCode,
-				objectDefinition.getObjectDefinitionId());
+				externalReferenceCode, objectDefinition.getCompanyId(),
+				getGroupId(objectDefinition, scopeKey));
 
 		return getVersionedObjectEntries(
 			dtoConverterContext, serviceBuilderObjectEntry.getObjectEntryId(),
@@ -985,14 +986,14 @@ public class DefaultObjectEntryManagerImpl
 	public ObjectEntry restoreObjectEntryByVersion(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception {
 
 		return _restoreVersionedObjectEntry(
 			dtoConverterContext, objectDefinition,
 			getObjectEntryByVersion(
 				dtoConverterContext, externalReferenceCode, objectDefinition,
-				version));
+				scopeKey, version));
 	}
 
 	@Override
@@ -1565,7 +1566,8 @@ public class DefaultObjectEntryManagerImpl
 	}
 
 	private long _getObjectEntryFolderId(
-		long companyId, long groupId, ObjectEntry objectEntry) {
+		long companyId, long groupId, ObjectEntry objectEntry,
+		ServiceContext serviceContext) {
 
 		String objectEntryFolderExternalReferenceCode =
 			objectEntry.getObjectEntryFolderExternalReferenceCode();
@@ -1578,9 +1580,10 @@ public class DefaultObjectEntryManagerImpl
 		try {
 			ObjectEntryFolder objectEntryFolder =
 				_objectEntryFolderLocalService.
-					getObjectEntryFolderByExternalReferenceCode(
+					getOrAddIncompleteObjectEntryFolder(
 						objectEntryFolderExternalReferenceCode, groupId,
-						companyId);
+						companyId, serviceContext.getGuestOrUserId(),
+						serviceContext);
 
 			return objectEntryFolder.getObjectEntryFolderId();
 		}
@@ -1774,52 +1777,6 @@ public class DefaultObjectEntryManagerImpl
 		return false;
 	}
 
-	private void _processAttachment(
-			ObjectDefinition objectDefinition, ObjectEntry objectEntry,
-			ObjectField objectField, String scopeKey,
-			ServiceContext serviceContext)
-		throws Exception {
-
-		if (objectField.isLocalized()) {
-			Object propertyValue = objectEntry.getPropertyValue(
-				objectField.getI18nObjectFieldName());
-
-			if ((propertyValue == null) ||
-				!(propertyValue instanceof Map<?, ?>)) {
-
-				return;
-			}
-
-			Map<String, Serializable> localizedValues =
-				(Map<String, Serializable>)propertyValue;
-
-			for (Map.Entry<String, Serializable> entry :
-					localizedValues.entrySet()) {
-
-				long fileEntryId = _processAttachment(
-					objectDefinition, objectField, entry.getValue(), scopeKey,
-					serviceContext);
-
-				if (fileEntryId > 0) {
-					entry.setValue(fileEntryId);
-				}
-			}
-
-			return;
-		}
-
-		long fileEntryId = _processAttachment(
-			objectDefinition, objectField,
-			objectEntry.getPropertyValue(objectField.getName()), scopeKey,
-			serviceContext);
-
-		if (fileEntryId > 0) {
-			Map<String, Object> properties = objectEntry.getProperties();
-
-			properties.put(objectField.getName(), fileEntryId);
-		}
-	}
-
 	private long _processAttachment(
 			ObjectDefinition objectDefinition, ObjectField objectField,
 			Object propertyValue, String scopeKey,
@@ -1954,6 +1911,46 @@ public class DefaultObjectEntryManagerImpl
 		}
 
 		return serviceBuilderFileEntry.getFileEntryId();
+	}
+
+	private void _processAttachment(
+			ObjectDefinition objectDefinition, ObjectField objectField,
+			String scopeKey, ServiceContext serviceContext,
+			Map<String, Object> values)
+		throws Exception {
+
+		if (objectField.isLocalized()) {
+			Object value = values.get(objectField.getI18nObjectFieldName());
+
+			if ((value == null) || !(value instanceof Map<?, ?>)) {
+				return;
+			}
+
+			Map<String, Serializable> localizedValues =
+				(Map<String, Serializable>)value;
+
+			for (Map.Entry<String, Serializable> entry :
+					localizedValues.entrySet()) {
+
+				long fileEntryId = _processAttachment(
+					objectDefinition, objectField, entry.getValue(), scopeKey,
+					serviceContext);
+
+				if (fileEntryId > 0) {
+					entry.setValue(fileEntryId);
+				}
+			}
+
+			return;
+		}
+
+		long fileEntryId = _processAttachment(
+			objectDefinition, objectField, values.get(objectField.getName()),
+			scopeKey, serviceContext);
+
+		if (fileEntryId > 0) {
+			values.put(objectField.getName(), fileEntryId);
+		}
 	}
 
 	private void _processVulcanAggregation(
@@ -2155,6 +2152,11 @@ public class DefaultObjectEntryManagerImpl
 				_addAction(
 					ActionKeys.UPDATE, "patchObjectEntry",
 					serviceBuilderObjectEntry, dtoConverterContext.getUriInfo())
+			).put(
+				"versions",
+				_addAction(
+					ActionKeys.VIEW, "getObjectEntriesVersionsPage",
+					serviceBuilderObjectEntry, dtoConverterContext.getUriInfo())
 			).build();
 
 			String methodName = null;
@@ -2253,8 +2255,8 @@ public class DefaultObjectEntryManagerImpl
 					ObjectFieldConstants.BUSINESS_TYPE_ATTACHMENT)) {
 
 				_processAttachment(
-					objectDefinition, objectEntry, objectField, scopeKey,
-					serviceContext);
+					objectDefinition, objectField, scopeKey, serviceContext,
+					properties);
 			}
 
 			Object value = ObjectEntryValuesUtil.getValue(

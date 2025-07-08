@@ -5,6 +5,7 @@
 
 package com.liferay.jenkins.results.parser.testray;
 
+import com.liferay.jenkins.results.parser.BuildReport;
 import com.liferay.jenkins.results.parser.DownstreamBuildReport;
 import com.liferay.jenkins.results.parser.JenkinsResultsParserUtil;
 import com.liferay.jenkins.results.parser.TestReport;
@@ -36,6 +37,18 @@ public class FunctionalBatchBuildTestrayCaseResult
 		}
 
 		_functionalTestClass = (FunctionalTestClass)testClass;
+	}
+
+	@Override
+	public BuildReport getBuildReport() {
+		DownstreamBuildReport cachedDownstreamBuildReport =
+			_functionalTestClass.getCachedDownstreamBuildReport();
+
+		if (cachedDownstreamBuildReport != null) {
+			return cachedDownstreamBuildReport;
+		}
+
+		return super.getBuildReport();
 	}
 
 	@Override
@@ -115,6 +128,13 @@ public class FunctionalBatchBuildTestrayCaseResult
 
 	@Override
 	public TestReport getTestReport() {
+		TestReport cachedTestReport =
+			_functionalTestClass.getCachedTestReport();
+
+		if (cachedTestReport != null) {
+			return cachedTestReport;
+		}
+
 		DownstreamBuildReport downstreamBuildReport =
 			getDownstreamBuildReport();
 
@@ -160,9 +180,7 @@ public class FunctionalBatchBuildTestrayCaseResult
 
 		return getTestrayAttachment(
 			getBuildReport(), "Poshi Console",
-			JenkinsResultsParserUtil.combine(
-				getAxisBuildURLPath(), "/",
-				JenkinsResultsParserUtil.fixURL(name), "/console.txt.gz"));
+			"/" + JenkinsResultsParserUtil.fixURL(name) + "/console.txt.gz");
 	}
 
 	private TestrayAttachment _getPoshiReportTestrayAttachment() {
@@ -176,9 +194,7 @@ public class FunctionalBatchBuildTestrayCaseResult
 
 		return getTestrayAttachment(
 			getBuildReport(), "Poshi Report",
-			JenkinsResultsParserUtil.combine(
-				getAxisBuildURLPath(), "/",
-				JenkinsResultsParserUtil.fixURL(name), "/index.html.gz"));
+			"/" + JenkinsResultsParserUtil.fixURL(name) + "/index.html.gz");
 	}
 
 	private TestrayAttachment _getPoshiSummaryTestrayAttachment() {
@@ -192,9 +208,7 @@ public class FunctionalBatchBuildTestrayCaseResult
 
 		return getTestrayAttachment(
 			getBuildReport(), "Poshi Summary",
-			JenkinsResultsParserUtil.combine(
-				getAxisBuildURLPath(), "/",
-				JenkinsResultsParserUtil.fixURL(name), "/summary.html.gz"));
+			"/" + JenkinsResultsParserUtil.fixURL(name) + "/summary.html.gz");
 	}
 
 	private final FunctionalTestClass _functionalTestClass;

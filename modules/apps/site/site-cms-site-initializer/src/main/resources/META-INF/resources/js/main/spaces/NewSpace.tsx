@@ -4,16 +4,15 @@
  */
 
 import ClayButton from '@clayui/button';
-import Form, {ClayInput} from '@clayui/form';
 import ClayLayout from '@clayui/layout';
 import {useFormik} from 'formik';
 import {openToast} from 'frontend-js-components-web';
 import {navigate} from 'frontend-js-web';
 import React from 'react';
 
-import SpaceService from '../../services/SpaceService';
-import SpaceSticker, {LogoColor} from '../components/SpaceSticker';
-import {FieldText} from '../components/forms';
+import SpaceService from '../../common/services/SpaceService';
+import {LogoColor} from '../../common/types/Space';
+import focusInvalidElement from '../../common/utils/focusInvalidElement';
 import {
 	invalidCharacters,
 	maxLength,
@@ -24,7 +23,7 @@ import {
 } from '../components/forms/validations';
 import {getImage} from '../util/getImage';
 import {NewSpaceFormSection} from './NewSpaceFormSection';
-import SpaceColorDropdown from './SpaceLogoColorDropdown';
+import BaseFields from './SpaceBaseFields';
 
 export interface NewSpaceProps {
 	baseAddSpaceMembersURL: string;
@@ -33,6 +32,7 @@ export interface NewSpaceProps {
 const NewSpace = ({baseAddSpaceMembersURL}: NewSpaceProps) => {
 	const {
 		errors,
+		handleBlur,
 		handleChange,
 		handleSubmit,
 		isSubmitting,
@@ -100,59 +100,31 @@ const NewSpace = ({baseAddSpaceMembersURL}: NewSpaceProps) => {
 					step={1}
 					title={Liferay.Language.get('create-a-space')}
 				>
-					<label htmlFor="sticker">
-						{Liferay.Language.get('space-logo')}
-					</label>
-
-					<SpaceSticker
-						className="d-block"
-						displayType={values.logoColor}
-						hideName
-						id="sticker"
-						name={values.name || 'S'}
-						size="xl"
+					<BaseFields
+						errors={errors}
+						onBlurName={handleBlur}
+						onChangeDescription={(value) =>
+							setFieldValue('description', value)
+						}
+						onChangeLogoColor={(color) =>
+							setFieldValue('logoColor', color)
+						}
+						onChangeName={handleChange}
+						touched={touched}
+						values={values}
 					/>
-
-					<SpaceColorDropdown
-						className="my-4"
-						onChange={(color) => {
-							setFieldValue('logoColor', color);
-						}}
-					/>
-
-					<FieldText
-						errorMessage={touched.name ? errors.name : undefined}
-						label={Liferay.Language.get('space-name')}
-						name="name"
-						onChange={handleChange}
-						placeholder={Liferay.Language.get('enter-a-space-name')}
-						required
-						value={values.name}
-					/>
-
-					<Form.Group>
-						<label htmlFor="description">
-							{Liferay.Language.get('description')}
-						</label>
-
-						<ClayInput
-							component="textarea"
-							id="description"
-							name="description"
-							onChange={handleChange}
-							placeholder={Liferay.Language.get(
-								'enter-a-description-for-your-space'
-							)}
-							type="text"
-							value={values.description}
-						/>
-					</Form.Group>
 
 					<ClayButton.Group className="mb-0 w-100" spaced vertical>
 						<ClayButton
 							className="mt-4"
 							disabled={shouldDisableContinueBtn}
 							onClick={() => {
+								if (errors.name) {
+									focusInvalidElement();
+
+									return;
+								}
+
 								submitForm();
 							}}
 						>

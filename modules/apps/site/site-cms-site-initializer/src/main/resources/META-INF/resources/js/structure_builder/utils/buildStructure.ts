@@ -5,96 +5,178 @@
 
 import {isNullOrUndefined} from '@liferay/layout-js-components-web';
 
-import {ObjectDefinition, ObjectField} from '../types/ObjectDefinition';
+import {
+	ObjectDefinition,
+	ObjectDefinitions,
+	ObjectField,
+	ObjectRelationship,
+} from '../types/ObjectDefinition';
 import {ReferencedStructure, Structure} from '../types/Structure';
+import {Uuid} from '../types/Uuid';
 import {Field, FieldType, MultiselectField, SingleSelectField} from './field';
 import getUuid from './getUuid';
+import isCustomObjectField from './isCustomObjectField';
 
-export default function buildStructure(
-	objectDefinition: ObjectDefinition
-): Structure | null {
-	if (!objectDefinition) {
-		return null;
-	}
+export default function buildStructure({
+	mainObjectDefinition,
+	objectDefinitions,
+}: {
+	mainObjectDefinition: ObjectDefinition;
+	objectDefinitions: ObjectDefinitions;
+}): Structure {
+	const uuid = getUuid();
 
-	const fields: Structure['fields'] = new Map();
-
-	objectDefinition.objectFields?.forEach((objectField) => {
-		if (objectField.system || objectField.businessType === 'Relationship') {
-			return;
-		}
-
-		const indexableConfig = {
-			indexed: objectField.indexed,
-		} as Field['indexableConfig'];
-
-		if (indexableConfig.indexed) {
-			indexableConfig.indexedAsKeyword =
-				objectField.indexedAsKeyword ?? false;
-			indexableConfig.indexedLanguageId =
-				objectField.indexedLanguageId !== ''
-					? objectField.indexedLanguageId
-					: undefined;
-		}
-
-		const uuid = getUuid();
-
-		const field: Field = {
-			erc: objectField.externalReferenceCode,
-			indexableConfig,
-			label: objectField.label,
-			localized: objectField.localized,
-			name: objectField.name,
-			required: objectField.required,
-			settings: getFieldSettings(objectField),
-			type: getFieldType(objectField),
-			uuid,
-		};
-
-		if (
-			(field.type === 'single-select' || field.type === 'multiselect') &&
-			!isNullOrUndefined(objectField.listTypeDefinitionId)
-		) {
-			(field as SingleSelectField | MultiselectField).picklistId =
-				objectField.listTypeDefinitionId;
-		}
-
-		fields.set(uuid, field);
-	});
-
-	objectDefinition.objectRelationships?.forEach((objectRelationship) => {
-		const uuid = getUuid();
-
-		const referencedStructure: ReferencedStructure = {
-			erc: objectRelationship.objectDefinitionExternalReferenceCode2,
-			name: objectRelationship.name,
-			type: 'referenced-structure',
-			uuid,
-		};
-
-		fields.set(uuid, referencedStructure);
-	});
-
-	const isPublished = objectDefinition.status?.label === 'approved';
+	const isPublished = mainObjectDefinition.status?.code === 0;
 
 	return {
-		erc: objectDefinition.externalReferenceCode,
-		error: null,
-		fields,
-		history: {
-			deletedFields: false,
-		},
-		id: objectDefinition.id ?? null,
-		invalids: new Map(),
-		label: objectDefinition.label,
-		name: objectDefinition.name ?? '',
-		publishedFields: isPublished ? new Set(fields.keys()) : new Set(),
-		selection: [],
-		spaces: getSpaces(objectDefinition),
+		children: buildChildren({
+			objectDefinition: mainObjectDefinition,
+			objectDefinitions,
+			parent: uuid,
+		}),
+		erc: mainObjectDefinition.externalReferenceCode,
+		id: mainObjectDefinition.id ?? null,
+		label: mainObjectDefinition.label,
+		name: mainObjectDefinition.name ?? '',
+		spaces: getSpaces(mainObjectDefinition),
 		status: isPublished ? 'published' : 'draft',
-		type: objectDefinition.objectFolderExternalReferenceCode as Structure['type'],
-		unsavedChanges: false,
+		type: mainObjectDefinition.objectFolderExternalReferenceCode as Structure['type'],
 		uuid: getUuid(),
+	};
+}
+
+export function buildChildren({
+	ancestors = [],
+	objectDefinition,
+	objectDefinitions,
+	parent,
+}: {
+	ancestors?: Array<ObjectDefinition['externalReferenceCode']>;
+	objectDefinition: ObjectDefinition;
+	objectDefinitions: ObjectDefinitions;
+	parent: Uuid;
+}) {
+	const objectFields = objectDefinition.objectFields || [];
+	const objectRelationships = objectDefinition.objectRelationships || [];
+
+	const children: Structure['children'] = new Map();
+
+	if (ancestors.includes(objectDefinition.externalReferenceCode)) {
+		return children;
+	}
+
+	for (const objectField of objectFields) {
+		if (!isCustomObjectField(objectField)) {
+			continue;
+		}
+
+		const field = buildField({objectField, parent});
+
+		children.set(field.uuid, field);
+	}
+
+	for (const objectRelationship of objectRelationships) {
+		const referencedStructure = buildReferencedStructure({
+			ancestors: [...ancestors, objectDefinition.externalReferenceCode],
+			erc: objectRelationship.objectDefinitionExternalReferenceCode2,
+			objectDefinitions,
+			parent,
+			relationshipName: objectRelationship.name,
+		});
+
+		children.set(referencedStructure.uuid, referencedStructure);
+	}
+
+	return children;
+}
+
+export function buildField({
+	objectField,
+	parent,
+}: {
+	objectField: ObjectField;
+	parent: Uuid;
+}) {
+	const indexableConfig = {
+		indexed: objectField.indexed,
+	} as Field['indexableConfig'];
+
+	if (indexableConfig.indexed) {
+		indexableConfig.indexedAsKeyword =
+			objectField.indexedAsKeyword ?? false;
+		indexableConfig.indexedLanguageId =
+			objectField.indexedLanguageId !== ''
+				? objectField.indexedLanguageId
+				: undefined;
+	}
+
+	const uuid = getUuid();
+
+	const field: Field = {
+		erc: objectField.externalReferenceCode,
+		indexableConfig,
+		label: objectField.label,
+		localized: objectField.localized,
+		name: objectField.name,
+		parent,
+		required: objectField.required,
+		settings: getFieldSettings(objectField),
+		type: getFieldType(objectField),
+		uuid,
+	};
+
+	if (
+		(field.type === 'single-select' || field.type === 'multiselect') &&
+		!isNullOrUndefined(objectField.listTypeDefinitionId)
+	) {
+		(field as SingleSelectField | MultiselectField).picklistId =
+			objectField.listTypeDefinitionId;
+	}
+
+	return field;
+}
+
+export function buildReferencedStructure({
+	ancestors,
+	erc,
+	objectDefinitions,
+	parent,
+	relationshipName,
+}: {
+	ancestors: Array<ObjectDefinition['externalReferenceCode']>;
+	erc: ReferencedStructure['erc'];
+	objectDefinitions: ObjectDefinitions;
+	parent: Uuid;
+	relationshipName: ObjectRelationship['name'];
+}): ReferencedStructure {
+	const uuid = getUuid();
+
+	const objectDefinition = objectDefinitions.get(erc)!;
+
+	const url = new URL(window.location.href);
+
+	url.searchParams.set('objectDefinitionId', String(objectDefinition.id));
+	url.searchParams.set(
+		'objectFolderExternalReferenceCode',
+		String(objectDefinition.objectFolderExternalReferenceCode)
+	);
+
+	return {
+		children: buildChildren({
+			ancestors,
+			objectDefinition,
+			objectDefinitions,
+			parent: uuid,
+		}),
+		editURL: url.href,
+		erc,
+		label: objectDefinition.label,
+		name: objectDefinition.name!,
+		parent,
+		relationshipName,
+		spaces: getSpaces(objectDefinition),
+		type: 'referenced-structure',
+		uuid,
 	};
 }
 
@@ -169,7 +251,7 @@ function getFieldType(objectField: ObjectField): FieldType {
 	return DB_TYPE_TO_FIELD_TYPE[objectField.DBType];
 }
 
-function getSpaces(objectDefinition: ObjectDefinition) {
+export function getSpaces(objectDefinition: ObjectDefinition) {
 	const settings = objectDefinition.objectDefinitionSettings || [];
 
 	const acceptedGroupExternalReferenceCodes = settings.find(

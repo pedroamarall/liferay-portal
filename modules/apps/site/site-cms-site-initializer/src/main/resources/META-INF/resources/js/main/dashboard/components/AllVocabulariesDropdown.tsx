@@ -5,11 +5,15 @@
 
 import React, {useContext, useState} from 'react';
 
-import ApiHelper from '../../../services/ApiHelper';
+import ApiHelper from '../../../common/services/ApiHelper';
 import {ViewDashboardContext} from '../ViewDashboardContext';
 import {buildQueryString} from '../utils/buildQueryString';
 import {FilterDropdown, Item} from './FilterDropdown';
-import {IAllFiltersDropdown, initialVocabulary} from './InventoryAnalysisCard';
+import {
+	IAllFiltersDropdown,
+	filterBySpaces,
+	initialFilters,
+} from './InventoryAnalysisCard';
 
 const AllVocabulariesDropdown: React.FC<IAllFiltersDropdown> = ({
 	className,
@@ -21,7 +25,7 @@ const AllVocabulariesDropdown: React.FC<IAllFiltersDropdown> = ({
 	} = useContext(ViewDashboardContext);
 
 	const [vocabularies, setVocabularies] = useState<Item[]>([
-		initialVocabulary,
+		initialFilters.vocabulary,
 	]);
 
 	const [dropdownActive, setDropdownActive] = useState(false);
@@ -45,11 +49,7 @@ const AllVocabulariesDropdown: React.FC<IAllFiltersDropdown> = ({
 						return true;
 					}
 
-					// Decreasing 1 on id due a bug on Objects
-
-					return assetLibraries.some(
-						({id}) => String(id - 1) === space.value
-					);
+					return filterBySpaces(assetLibraries, space.value);
 				})
 				.map(({id, name}) => ({
 					label: name,
@@ -79,7 +79,9 @@ const AllVocabulariesDropdown: React.FC<IAllFiltersDropdown> = ({
 				const vocabularies = await fetchVocabularies(value);
 
 				setVocabularies(
-					value ? vocabularies : [initialVocabulary, ...vocabularies]
+					value
+						? vocabularies
+						: [initialFilters.vocabulary, ...vocabularies]
 				);
 
 				setLoading(false);
@@ -94,7 +96,7 @@ const AllVocabulariesDropdown: React.FC<IAllFiltersDropdown> = ({
 
 				const vocabularies = await fetchVocabularies();
 
-				setVocabularies([initialVocabulary, ...vocabularies]);
+				setVocabularies([initialFilters.vocabulary, ...vocabularies]);
 
 				setLoading(false);
 			}}

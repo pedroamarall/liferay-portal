@@ -884,10 +884,6 @@ public interface PropsKeys {
 	public static final String DL_FILE_ENTRY_PREVIEW_VIDEO_WIDTH =
 		"dl.file.entry.preview.video.width";
 
-	public static final String
-		DL_FILE_ENTRY_RAW_METADATA_PROCESSOR_EXCLUDED_MIME_TYPES =
-			"dl.file.entry.raw.metadata.processor.excluded.mime.types";
-
 	public static final String DL_FILE_ENTRY_THUMBNAIL_CUSTOM_1_MAX_HEIGHT =
 		"dl.file.entry.thumbnail.custom1.max.height";
 
@@ -2735,6 +2731,12 @@ public interface PropsKeys {
 
 	public static final String UPGRADE_DATABASE_AUTO_RUN =
 		"upgrade.database.auto.run";
+
+	public static final String UPGRADE_DATABASE_DL_STORAGE_CHECK_DISABLED =
+		"upgrade.database.dl.storage.check.disabled";
+
+	public static final String UPGRADE_DATABASE_PREUPGRADE_VERIFY_ENABLED =
+		"upgrade.database.preupgrade.verify.enabled";
 
 	public static final String UPGRADE_DATABASE_TRANSACTIONS_DISABLED =
 		"upgrade.database.transactions.disabled";

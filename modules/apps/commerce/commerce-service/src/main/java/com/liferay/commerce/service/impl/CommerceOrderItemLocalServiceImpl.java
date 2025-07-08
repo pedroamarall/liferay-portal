@@ -1656,10 +1656,27 @@ public class CommerceOrderItemLocalServiceImpl
 	}
 
 	private JSONArray _getCPDefinitionOptionRelValueJSONArray(
-			CPDefinitionOptionRel cpDefinitionOptionRel, JSONObject jsonObject)
+			CPDefinitionOptionRel cpDefinitionOptionRel, long cpInstanceId,
+			JSONObject jsonObject)
 		throws PortalException {
 
 		JSONArray valueJSONArray = _jsonFactory.createJSONArray();
+
+		if (cpDefinitionOptionRel.isSkuContributor()) {
+			CPDefinitionOptionValueRel cpDefinitionOptionValueRel =
+				_cpInstanceOptionValueRelLocalService.
+					fetchCPDefinitionOptionValueRel(
+						cpDefinitionOptionRel.getCPDefinitionOptionRelId(),
+						cpInstanceId);
+
+			if (cpDefinitionOptionValueRel == null) {
+				throw new CPDefinitionOptionRelException();
+			}
+
+			valueJSONArray.put(cpDefinitionOptionValueRel.getKey());
+
+			return valueJSONArray;
+		}
 
 		if (JSONUtil.isEmpty(jsonObject)) {
 			return valueJSONArray;
@@ -1692,6 +1709,19 @@ public class CommerceOrderItemLocalServiceImpl
 		CommerceOptionType commerceOptionType =
 			_commerceOptionTypeRegistry.getCommerceOptionType(
 				cpDefinitionOptionRel.getCommerceOptionTypeKey());
+
+		if ((commerceOptionType != null) &&
+			CPConstants.PRODUCT_OPTION_DOCUMENT_LIBRARY_KEY.equals(
+				commerceOptionType.getKey()) &&
+			JSONUtil.isJSONObject(valueJSONArray.getString(0))) {
+
+			JSONObject valueJSONObject = _jsonFactory.createJSONObject(
+				valueJSONArray.getString(0));
+
+			if (JSONUtil.isEmpty(valueJSONObject)) {
+				valueJSONArray = _jsonFactory.createJSONArray();
+			}
+		}
 
 		if ((commerceOptionType != null) &&
 			commerceOptionType.isValid(
@@ -1795,8 +1825,8 @@ public class CommerceOrderItemLocalServiceImpl
 			JSONObject jsonObject = _getCPDefinitionOptionRelJSONObject(
 				cpDefinitionOptionRel, jsonArray);
 
-			if ((cpDefinitionOptionRel.isRequired() ||
-				 cpDefinitionOptionRel.isSkuContributor()) &&
+			if (cpDefinitionOptionRel.isRequired() &&
+				!cpDefinitionOptionRel.isSkuContributor() &&
 				JSONUtil.isEmpty(jsonObject)) {
 
 				throw new CPDefinitionOptionRelException();
@@ -1804,7 +1834,8 @@ public class CommerceOrderItemLocalServiceImpl
 
 			JSONArray cpDefinitionOptionRelValueJSONArray =
 				_getCPDefinitionOptionRelValueJSONArray(
-					cpDefinitionOptionRel, jsonObject);
+					cpDefinitionOptionRel, cpInstance.getCPInstanceId(),
+					jsonObject);
 
 			JSONObject sanitizedJSONObject = _jsonFactory.createJSONObject(
 			).put(
@@ -2996,6 +3027,10 @@ public class CommerceOrderItemLocalServiceImpl
 
 	@Reference
 	private CPInstanceLocalService _cpInstanceLocalService;
+
+	@Reference
+	private CPDefinitionOptionValueRelLocalService
+		_cpInstanceOptionValueRelLocalService;
 
 	@Reference
 	private CPInstanceUnitOfMeasureLocalService

@@ -21,6 +21,7 @@ interface IResponse {
 }
 
 interface IProps {
+	gcsSessionURL: string;
 	initiateUpload: (params: IParams) => Promise<IResponse | null>;
 	loading: boolean;
 	ticketAttachmentId: string;
@@ -29,6 +30,7 @@ interface IProps {
 const useTicketAttachmentsInitiateUpload = (): IProps => {
 	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
+	const [gcsSessionURL, setGCSSessionURL] = useState('');
 	const [ticketAttachmentId, setTicketAttachmentId] = useState('');
 
 	const initiateUpload = useCallback(
@@ -55,6 +57,12 @@ const useTicketAttachmentsInitiateUpload = (): IProps => {
 
 				const responseJSON = await response.json();
 
+				sessionStorage.setItem(
+					'gcsSessionURL',
+					responseJSON.gcsSessionURL
+				);
+
+				setGCSSessionURL(responseJSON.gcsSessionURL);
 				setTicketAttachmentId(responseJSON.ticketAttachmentId);
 
 				return {
@@ -64,8 +72,6 @@ const useTicketAttachmentsInitiateUpload = (): IProps => {
 				};
 			}
 			catch (uploadError) {
-				console.error('Initiate upload error:', uploadError);
-
 				if ((uploadError as any).status === 409) {
 					navigate(`/${ticketId}/attachment-already-exists`, {
 						state: {
@@ -79,8 +85,7 @@ const useTicketAttachmentsInitiateUpload = (): IProps => {
 
 				navigate(`/${ticketId}/unexpected-error`, {
 					state: {
-						attachmentName: fileName,
-						ticketId,
+						message: String(uploadError),
 					},
 				});
 
@@ -94,6 +99,7 @@ const useTicketAttachmentsInitiateUpload = (): IProps => {
 	);
 
 	return {
+		gcsSessionURL,
 		initiateUpload,
 		loading,
 		ticketAttachmentId,

@@ -165,7 +165,6 @@ import com.liferay.portal.kernel.systemevent.SystemEventHierarchyEntryThreadLoca
 import com.liferay.portal.kernel.templateparser.TransformerListener;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ContentTypes;
@@ -4278,10 +4277,6 @@ public class JournalArticleLocalServiceImpl
 
 		int oldStatus = article.getStatus();
 
-		article = updateStatus(
-			userId, article.getId(), WorkflowConstants.STATUS_IN_TRASH,
-			new HashMap<>(), new ServiceContext());
-
 		List<JournalArticle> articleVersions =
 			journalArticlePersistence.findByG_A(
 				article.getGroupId(), article.getArticleId());
@@ -4296,6 +4291,10 @@ public class JournalArticleLocalServiceImpl
 			articleVersionStatusOVPs = getArticleVersionStatuses(
 				articleVersions);
 		}
+
+		article = updateStatus(
+			userId, article.getId(), WorkflowConstants.STATUS_IN_TRASH,
+			new HashMap<>(), new ServiceContext());
 
 		// Trash
 
@@ -4552,18 +4551,7 @@ public class JournalArticleLocalServiceImpl
 				journalArticlePersistence.findByPrimaryKey(
 					trashVersion.getClassPK());
 
-			if (!ArrayUtil.contains(
-					new int[] {
-						WorkflowConstants.STATUS_APPROVED,
-						WorkflowConstants.STATUS_IN_TRASH
-					},
-					trashVersion.getStatus())) {
-
-				trashArticleVersion.setStatus(trashVersion.getStatus());
-			}
-			else {
-				trashArticleVersion.setStatus(trashEntry.getStatus());
-			}
+			trashArticleVersion.setStatus(trashVersion.getStatus());
 
 			if (trashEntry.getStatus() == WorkflowConstants.STATUS_APPROVED) {
 				visible = true;
@@ -6719,7 +6707,8 @@ public class JournalArticleLocalServiceImpl
 			article.getAvailableLanguageIds(), content,
 			article.getDDMStructureId(), ddmTemplateKey, article.isSmallImage(),
 			article.getSmallImageId(), article.getSmallImageURL(),
-			numberOfPages, page, paginate, cacheable);
+			article.getArticleImageURL(themeDisplay), numberOfPages, page,
+			paginate, cacheable);
 	}
 
 	protected List<ObjectValuePair<Long, Integer>> getArticleVersionStatuses(

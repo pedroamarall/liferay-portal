@@ -26,6 +26,8 @@ import FrontendDataSetContext, {
 } from '../../FrontendDataSetContext';
 import Actions from '../../actions/Actions';
 import {getInternalCellRenderer} from '../../cell_renderers/getInternalCellRenderer';
+import FDSDndProvider from '../../dnd/FDSDndProvider';
+import useFDSDrop from '../../dnd/useFDSDrop';
 import persistVisibleFieldNames, {
 	VisibleFieldNames,
 } from '../../thunks/persistVisibleFieldNames';
@@ -34,7 +36,12 @@ import {
 	getLocalizedValue,
 } from '../../utils/getLocalizedValue';
 import {getInputRendererById} from '../../utils/renderer';
-import {IItemsActions, ITableSchema, TSort} from '../../utils/types';
+import {
+	ESelectionTrigger,
+	IItemsActions,
+	ITableSchema,
+	TSort,
+} from '../../utils/types';
 import ViewsContext, {
 	IViewsContext,
 	TViewsContextDispatch,
@@ -46,6 +53,10 @@ import getCellColumnClassName from '../utils/getCellColumnClassName';
 import {VIEWS_ACTION_TYPES} from '../viewsReducer';
 import TableContext from './TableContext';
 import TableContextProvider from './TableContextProvider';
+
+type Column = {
+	fieldName: string;
+};
 
 type Field = {
 	contentRenderer?: string;
@@ -106,6 +117,7 @@ const Head = ({
 							<ClayTableCell
 								key="select"
 								scope="col"
+								textValue="select-item"
 								width="51px"
 							>
 								{null}
@@ -120,6 +132,7 @@ const Head = ({
 						columnName={field.fieldName}
 						key={field.fieldName}
 						sortable={(field as any).sortable}
+						textValue="select"
 					>
 						{(field as any).label}
 					</HeadCellResizer>
@@ -137,6 +150,7 @@ const Row = ({
 	itemsActions,
 	onItemSelectionChange,
 	selectionType,
+	...otherProps
 }: {
 	active: boolean;
 	columns: Array<Field>;
@@ -156,11 +170,14 @@ const Row = ({
 	const id = item[selectedItemsKey ?? 'id'];
 
 	return (
-		<ClayTableRow
+		<ClayTableRowOptionalDropTarget
+			{...otherProps}
 			className={classNames({'table-active': active})}
+			item={item}
 			items={columns}
+			onItemSelectionChange={onItemSelectionChange}
 		>
-			{(cell) => {
+			{(cell: Column) => {
 				const cellColumnName = getCellColumnClassName(cell.fieldName);
 
 				switch (cell.fieldName) {
@@ -184,6 +201,9 @@ const Row = ({
 											}
 											itemData={item}
 											itemId={id}
+											onItemSelectionChange={
+												onItemSelectionChange
+											}
 										/>
 									)
 								)}
@@ -201,7 +221,11 @@ const Row = ({
 									<SelectionComponent
 										checked={active}
 										onChange={() =>
-											onItemSelectionChange(item)
+											onItemSelectionChange({
+												item,
+												trigger:
+													ESelectionTrigger.INPUT,
+											})
 										}
 										title={Liferay.Language.get(
 											'select-item'
@@ -291,7 +315,7 @@ const Row = ({
 					}
 				}
 			}}
-		</ClayTableRow>
+		</ClayTableRowOptionalDropTarget>
 	);
 };
 
@@ -324,35 +348,70 @@ const Body = ({
 		...(selectable ? [{fieldName: 'select'}] : []),
 		...fields,
 		{fieldName: 'actions'},
-	];
+	] as Column[];
 
 	return (
-		<ClayTableBody
-			items={inlineAddingSettings ? [...items, defaultAddItem] : items}
-		>
-			{(item) => {
-				return (
-					<Row
-						active={
-							allItemsSelectedActive ||
-							!!selectedItemsValue?.find(
-								(element: any) =>
-									String(element) ===
-									String(item[selectedItemsKey ?? 'id'])
-							)
-						}
-						columns={columns}
-						item={item}
-						itemInlineChanges={itemInlineChanges}
-						itemsActions={itemsActions}
-						onItemSelectionChange={onItemSelectionChange}
-						selectionType={selectionType}
-					/>
-				);
-			}}
-		</ClayTableBody>
+		<FDSDndProvider>
+			<ClayTableBody
+				items={
+					inlineAddingSettings ? [...items, defaultAddItem] : items
+				}
+			>
+				{(item) => {
+					return (
+						<Row
+							active={
+								allItemsSelectedActive ||
+								!!selectedItemsValue?.find(
+									(element: any) =>
+										String(element) ===
+										String(item[selectedItemsKey ?? 'id'])
+								)
+							}
+							columns={columns}
+							item={item}
+							itemInlineChanges={itemInlineChanges}
+							itemsActions={itemsActions}
+							onItemSelectionChange={onItemSelectionChange}
+							selectionType={selectionType}
+						/>
+					);
+				}}
+			</ClayTableBody>
+		</FDSDndProvider>
 	);
 };
+
+function ClayTableRowOptionalDropTarget({
+	children,
+	className,
+	item,
+	items,
+	onItemSelectionChange,
+	...otherProps
+}: React.ComponentProps<typeof ClayTableRow<Column>> & {
+	item: any;
+	onItemSelectionChange: Function;
+}) {
+	const {className: dropClassName, dropRef} = useFDSDrop({item});
+
+	return (
+		<ClayTableRow
+			{...otherProps}
+			className={classNames(className, dropClassName)}
+			items={items}
+			onClick={() => {
+				onItemSelectionChange({
+					item,
+					trigger: ESelectionTrigger.CONTAINER,
+				});
+			}}
+			ref={dropRef}
+		>
+			{children}
+		</ClayTableRow>
+	);
+}
 
 /**
  * Wrapper on top of ClayCell to add column resizer capabilities. This

@@ -432,14 +432,6 @@ public abstract class BaseBuild implements Build {
 		buildReportJSONObject.put(
 			"testrayAttachmentURLs", getTestrayAttachmentURLs());
 
-		JSONArray testResultsJSONArray = new JSONArray();
-
-		for (TestResult testResult : getTestResults(null)) {
-			testResultsJSONArray.put(testResult.getTestReportJSONObject());
-		}
-
-		buildReportJSONObject.put("testResults", testResultsJSONArray);
-
 		return buildReportJSONObject;
 	}
 
@@ -3535,7 +3527,7 @@ public abstract class BaseBuild implements Build {
 			"buildWithParameters\\?(?<queryString>.*)"));
 	private static final Pattern _testrayS3ObjectURLPattern = Pattern.compile(
 		JenkinsResultsParserUtil.combine(
-			"\\[beanshell\\] Created S3 Object (?<url>",
+			"\\[(beanshell|exec)\\] Created S3 Object (?<url>",
 			"https://storage.cloud.google.com/[^\\s?]+).*"));
 
 	static {

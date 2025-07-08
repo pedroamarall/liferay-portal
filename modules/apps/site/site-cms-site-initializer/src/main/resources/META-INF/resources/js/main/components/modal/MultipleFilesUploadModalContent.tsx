@@ -8,24 +8,68 @@ import {openToast} from 'frontend-js-components-web';
 import {sub} from 'frontend-js-web';
 import React from 'react';
 
-import {AssetLibrary} from '../../../types/AssetLibrary';
-import MultipleFileUploader from '../MultipleFileUploader';
+import ApiHelper from '../../../common/services/ApiHelper';
+import {AssetLibrary} from '../../../common/types/AssetLibrary';
+import MultipleFileUploader, {
+	FileData,
+} from '../multiple_file_uploader/MultipleFileUploader';
+
+const getBase64 = (file: File): Promise<string> => {
+	return new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		reader.onload = () => {
+			if (typeof reader.result === 'string') {
+				resolve(reader.result.split(',')[1]);
+			}
+			else {
+				reject(new Error('FileReader did not return a string.'));
+			}
+		};
+		reader.onerror = reject;
+		reader.readAsDataURL(file);
+	});
+};
 
 export default function MultipleFilesUploadModalContent({
 	assetLibraries,
 	baseAssetLibraryViewURL,
+	filesToUpload,
 	loadData,
 	onModalClose,
 	parentObjectEntryFolderExternalReferenceCode,
 }: {
 	assetLibraries: AssetLibrary[];
 	baseAssetLibraryViewURL: string;
+	filesToUpload?: FileData[];
 	loadData?: () => void;
 	onModalClose: () => void;
 	parentObjectEntryFolderExternalReferenceCode: string;
 }) {
 	const getAssetLibraryLink = (assetLibrary: AssetLibrary) => {
 		return `<a href="${baseAssetLibraryViewURL}${assetLibrary.groupId}" class="alert-link lead"><strong>${assetLibrary.name}</strong></a>`;
+	};
+
+	const uploadRequest = async ({
+		fileData,
+		groupId,
+	}: {
+		fileData: FileData;
+		groupId: string;
+	}) => {
+		const fileBase64 = await getBase64(fileData.file);
+
+		return await ApiHelper.post(
+			`/o/cms/basic-documents/scopes/${groupId}`,
+			{
+				file: {
+					fileBase64,
+					name: fileData.name,
+				},
+				objectEntryFolderExternalReferenceCode:
+					parentObjectEntryFolderExternalReferenceCode || 'L_FILES',
+				title: fileData.name,
+			}
+		);
 	};
 
 	const onUploadComplete = ({
@@ -84,11 +128,10 @@ export default function MultipleFilesUploadModalContent({
 
 			<MultipleFileUploader
 				assetLibraries={assetLibraries}
+				filesToUpload={filesToUpload}
 				onModalClose={onModalClose}
 				onUploadComplete={onUploadComplete}
-				parentObjectEntryFolderExternalReferenceCode={
-					parentObjectEntryFolderExternalReferenceCode
-				}
+				uploadRequest={uploadRequest}
 			/>
 		</>
 	);

@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
+import {FormikErrors} from 'formik';
 import {sub} from 'frontend-js-web';
 
+export type Errors = FormikErrors<Record<string, any>>;
 type ValidationFunction = (value: any) => string | undefined;
 type ValidationSchema = Record<string, ValidationFunction[]>;
 
@@ -57,25 +59,37 @@ const required: ValidationFunction = (value) => {
 	}
 };
 
+const validNumber: ValidationFunction = (value) => {
+	const isValidValue = value === '' || /^\d+$/.test(value);
+
+	if (!isValidValue) {
+		return Liferay.Language.get('please-enter-a-valid-number');
+	}
+};
+
 const validate = (
 	fields: ValidationSchema,
-	values: Record<string, any>
-): Record<string, string> => {
-	const errors: Record<string, string> = {};
+	values: Record<string, any>,
+	errors?: Errors
+) => {
+	const nextErrors = {...errors};
 
 	Object.entries(fields).forEach(([inputName, validations]) => {
 		validations.some((validation) => {
 			const error = validation(values[inputName]);
 
 			if (error) {
-				errors[inputName] = error;
+				nextErrors[inputName] = error;
+			}
+			else {
+				delete nextErrors[inputName];
 			}
 
 			return Boolean(error);
 		});
 	});
 
-	return errors;
+	return nextErrors;
 };
 
 export {
@@ -86,4 +100,5 @@ export {
 	nonNumeric,
 	required,
 	validate,
+	validNumber,
 };

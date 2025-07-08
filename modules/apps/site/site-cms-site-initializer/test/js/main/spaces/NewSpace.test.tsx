@@ -4,14 +4,14 @@
  */
 
 import '@testing-library/jest-dom/extend-expect';
-import {render, screen, within} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
+import ApiHelper from '../../../../src/main/resources/META-INF/resources/js/common/services/ApiHelper';
 import NewSpace, {
 	NewSpaceProps,
 } from '../../../../src/main/resources/META-INF/resources/js/main/spaces/NewSpace';
-import ApiHelper from '../../../../src/main/resources/META-INF/resources/js/services/ApiHelper';
 
 describe('NewSpace', () => {
 	const props: NewSpaceProps = {
@@ -123,17 +123,12 @@ describe('NewSpace', () => {
 		);
 
 		await userEvent.click(
-			screen.getByRole('button', {
+			screen.getByRole('combobox', {
 				name: 'space-color',
 			})
 		);
 
-		const colorsMenu = screen.getByRole('menu');
-		expect(colorsMenu).toBeInTheDocument();
-
-		await userEvent.click(
-			within(colorsMenu).getByRole('menuitem', {name: 'purple'})
-		);
+		await userEvent.click(screen.getByRole('option', {name: 'purple'}));
 
 		await userEvent.click(
 			screen.getByRole('button', {
@@ -152,20 +147,32 @@ describe('NewSpace', () => {
 	});
 
 	describe('hasErrors', () => {
-		it('shows error message when space name is empty', async () => {
+		it('disables the Continue button when the name field is empty', async () => {
 			render(<NewSpace {...props} />);
 
-			await userEvent.click(
-				screen.getByRole('button', {
-					name: 'create-a-space-without-members',
-				})
-			);
+			const continueButton = screen.getByRole('button', {
+				name: 'continue',
+			});
+
+			const spaceNameInput = screen.getByRole('textbox', {
+				name: /space-name/i,
+			});
+
+			await userEvent.click(continueButton);
 
 			expect(apiPostSpy).not.toHaveBeenCalled();
 
+			await userEvent.type(spaceNameInput, 'space');
+
+			await userEvent.click(continueButton);
+
+			await userEvent.clear(spaceNameInput);
+
 			expect(
-				screen.getByText('this-field-is-required')
-			).toBeInTheDocument();
+				screen.getByRole('button', {
+					name: 'continue',
+				})
+			).toBeDisabled();
 		});
 
 		it('shows error message when space name is numeric', async () => {
@@ -182,7 +189,7 @@ describe('NewSpace', () => {
 
 			await userEvent.click(
 				screen.getByRole('button', {
-					name: 'create-a-space-without-members',
+					name: 'continue',
 				})
 			);
 
@@ -207,7 +214,7 @@ describe('NewSpace', () => {
 
 			await userEvent.click(
 				screen.getByRole('button', {
-					name: 'create-a-space-without-members',
+					name: 'continue',
 				})
 			);
 
@@ -230,7 +237,7 @@ describe('NewSpace', () => {
 
 			await userEvent.click(
 				screen.getByRole('button', {
-					name: 'create-a-space-without-members',
+					name: 'continue',
 				})
 			);
 
@@ -257,7 +264,7 @@ describe('NewSpace', () => {
 
 			await userEvent.click(
 				screen.getByRole('button', {
-					name: 'create-a-space-without-members',
+					name: 'continue',
 				})
 			);
 

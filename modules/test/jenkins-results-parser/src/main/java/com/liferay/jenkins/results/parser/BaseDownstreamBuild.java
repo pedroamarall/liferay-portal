@@ -28,6 +28,7 @@ import com.liferay.jenkins.results.parser.test.clazz.TestClass;
 import com.liferay.jenkins.results.parser.test.clazz.TestClassMethod;
 import com.liferay.jenkins.results.parser.test.clazz.group.AxisTestClassGroup;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -48,6 +49,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -68,6 +70,62 @@ public class BaseDownstreamBuild extends BaseBuild implements DownstreamBuild {
 
 		_downstreamBuildReport = BuildReportFactory.newDownstreamBuildReport(
 			this);
+
+		TopLevelBuild topLevelBuild = getTopLevelBuild();
+
+		if (topLevelBuild != null) {
+			TopLevelBuildReport topLevelBuildReport =
+				topLevelBuild.getTopLevelBuildReport();
+
+			topLevelBuildReport.addDownstreamBuildReport(
+				_downstreamBuildReport);
+		}
+
+		if (!JenkinsResultsParserUtil.isCloudCINode() ||
+			_downstreamBuildReport.isFailing()) {
+
+			return;
+		}
+
+		String distinctTimeStamp =
+			JenkinsResultsParserUtil.getDistinctTimeStamp();
+
+		File baseDir = new File(
+			System.getProperty("java.io.tmpdir"), "/build-report-files/");
+
+		File buildReportFile = new File(baseDir, distinctTimeStamp + ".json");
+
+		File buildReportGzipFile = new File(
+			baseDir, distinctTimeStamp + ".json.gz");
+
+		String s3ObjectPath = _getS3ObjectPath(buildReportGzipFile);
+
+		try {
+			JSONObject buildReportJSONObject =
+				_downstreamBuildReport.getBuildReportJSONObject();
+
+			if (buildReportJSONObject == null) {
+				return;
+			}
+
+			JenkinsResultsParserUtil.write(
+				buildReportFile, String.valueOf(buildReportJSONObject));
+
+			JenkinsResultsParserUtil.gzip(buildReportFile, buildReportGzipFile);
+
+			CloudBucketUtil.uploadS3File(s3ObjectPath, buildReportGzipFile);
+		}
+		catch (Exception exception) {
+			throw new RuntimeException(
+				JenkinsResultsParserUtil.combine(
+					"Unable to upload ", String.valueOf(buildReportGzipFile),
+					" to ", s3ObjectPath),
+				exception);
+		}
+		finally {
+			JenkinsResultsParserUtil.delete(buildReportFile);
+			JenkinsResultsParserUtil.delete(buildReportGzipFile);
+		}
 	}
 
 	@Override
@@ -195,6 +253,14 @@ public class BaseDownstreamBuild extends BaseBuild implements DownstreamBuild {
 				"skipCount", testReportJSONObject.optInt("skipCount")
 			);
 		}
+
+		JSONArray testResultsJSONArray = new JSONArray();
+
+		for (TestResult testResult : getTestResults(null)) {
+			testResultsJSONArray.put(testResult.getTestReportJSONObject());
+		}
+
+		buildReportJSONObject.put("testResults", testResultsJSONArray);
 
 		return buildReportJSONObject;
 	}
@@ -1044,6 +1110,45 @@ public class BaseDownstreamBuild extends BaseBuild implements DownstreamBuild {
 		}
 
 		return testResultGitHubElements;
+	}
+
+	private String _getS3ObjectPath(File file) {
+		StringBuilder sb = new StringBuilder();
+
+		try {
+			sb.append(
+				JenkinsResultsParserUtil.getBuildProperty(
+					"cloud.ci.s3.bucket.build.reports.path"));
+		}
+		catch (IOException ioException) {
+			throw new RuntimeException(ioException);
+		}
+
+		BuildDatabase buildDatabase = getBuildDatabase();
+
+		List<Workspace> workspaces = buildDatabase.getWorkspaces();
+
+		if (workspaces.isEmpty()) {
+			return null;
+		}
+
+		Workspace workspace = workspaces.get(0);
+
+		WorkspaceGitRepository workspaceGitRepository =
+			workspace.getPrimaryWorkspaceGitRepository();
+
+		sb.append("/");
+		sb.append(workspaceGitRepository.getName());
+		sb.append("/");
+		sb.append(workspaceGitRepository.getBaseBranchSHA());
+		sb.append("/");
+		sb.append(workspaceGitRepository.getSenderBranchSHA());
+		sb.append("/");
+		sb.append(getBatchName());
+		sb.append("/");
+		sb.append(file.getName());
+
+		return sb.toString();
 	}
 
 	private static final FailureMessageGenerator[] _FAILURE_MESSAGE_GENERATORS =

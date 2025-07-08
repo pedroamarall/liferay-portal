@@ -46,7 +46,7 @@ public interface DefaultObjectEntryManager extends ObjectEntryManager {
 	public ObjectEntry copyObjectEntryByVersion(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception;
 
 	public void deleteObjectEntry(
@@ -59,7 +59,7 @@ public interface DefaultObjectEntryManager extends ObjectEntryManager {
 
 	public void deleteObjectEntryByVersion(
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception;
 
 	public void disassociateRelatedModels(
@@ -92,7 +92,7 @@ public interface DefaultObjectEntryManager extends ObjectEntryManager {
 	public ObjectEntry expireObjectEntryByVersion(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception;
 
 	public ObjectEntry fetchObjectEntry(
@@ -132,7 +132,7 @@ public interface DefaultObjectEntryManager extends ObjectEntryManager {
 	public ObjectEntry getObjectEntryByVersion(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception;
 
 	public Page<ObjectEntry> getObjectEntryRelatedObjectEntries(
@@ -159,7 +159,7 @@ public interface DefaultObjectEntryManager extends ObjectEntryManager {
 	public Page<ObjectEntry> getVersionedObjectEntries(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			Pagination pagination)
+			String scopeKey, Pagination pagination)
 		throws Exception;
 
 	public ObjectEntry partialUpdateObjectEntry(
@@ -176,7 +176,7 @@ public interface DefaultObjectEntryManager extends ObjectEntryManager {
 	public ObjectEntry restoreObjectEntryByVersion(
 			DTOConverterContext dtoConverterContext,
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			int version)
+			String scopeKey, int version)
 		throws Exception;
 
 	public ObjectEntry updateObjectEntry(

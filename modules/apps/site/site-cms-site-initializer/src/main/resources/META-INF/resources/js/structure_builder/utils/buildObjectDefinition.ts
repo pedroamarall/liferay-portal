@@ -6,13 +6,12 @@
 import {isNullOrUndefined} from '@liferay/layout-js-components-web';
 
 import {config} from '../config';
-import {State} from '../contexts/StateContext';
 import {
 	ObjectDefinition,
 	ObjectField,
 	ObjectRelationship,
 } from '../types/ObjectDefinition';
-import {ReferencedStructure} from '../types/Structure';
+import {ReferencedStructure, Structure} from '../types/Structure';
 import {
 	FIELD_TYPE_TO_BUSINESS_TYPE,
 	FIELD_TYPE_TO_DB_TYPE,
@@ -21,19 +20,21 @@ import {
 import {isFieldTextSearchable} from './isFieldTextSearchable';
 
 export default function buildObjectDefinition({
+	children = new Map(),
 	erc,
-	fields = [],
 	id,
 	label,
 	name,
 	spaces,
+	status = 'draft',
 }: {
-	erc: State['erc'];
-	fields?: (Field | ReferencedStructure)[];
-	id?: State['id'];
-	label: State['label'];
-	name: State['name'];
-	spaces: State['spaces'];
+	children?: Structure['children'];
+	erc: Structure['erc'];
+	id?: Structure['id'];
+	label: Structure['label'];
+	name: Structure['name'];
+	spaces: Structure['spaces'];
+	status?: Structure['status'];
 }): ObjectDefinition {
 	const objectDefinition: ObjectDefinition = {
 		enableFriendlyURLCustomization: true,
@@ -43,13 +44,16 @@ export default function buildObjectDefinition({
 		enableObjectEntryVersioning: true,
 		externalReferenceCode: erc,
 		label,
-		objectFields: buildFields(getFields(fields)),
+		objectFields: buildFields(getFields(children)),
 		objectRelationships: buildRelationships(
 			erc,
-			getReferencedStructures(fields)
+			getReferencedStructures(children)
 		),
 		pluralLabel: label,
 		scope: 'depot',
+		status: {
+			code: status === 'published' ? 0 : 2,
+		},
 	};
 
 	if (id) {
@@ -82,17 +86,18 @@ export default function buildObjectDefinition({
 	return objectDefinition;
 }
 
-function getFields(fields: (Field | ReferencedStructure)[]): Field[] {
-	return fields.filter(
-		(field) => field.type !== 'referenced-structure'
+function getFields(children: Structure['children']): Field[] {
+	return Array.from(children.values()).filter(
+		(child) =>
+			!['referenced-structure', 'repeatable-group'].includes(child.type)
 	) as Field[];
 }
 
 function getReferencedStructures(
-	fields: (Field | ReferencedStructure)[]
+	children: Structure['children']
 ): ReferencedStructure[] {
-	return fields.filter(
-		(field) => field.type === 'referenced-structure'
+	return Array.from(children.values()).filter(
+		(child) => child.type === 'referenced-structure'
 	) as ReferencedStructure[];
 }
 
@@ -134,7 +139,7 @@ function buildFields(fields: Field[]) {
 }
 
 function buildRelationships(
-	erc: State['erc'],
+	erc: Structure['erc'],
 	referencedStructures: ReferencedStructure[]
 ) {
 	return referencedStructures.map((referencedStructure) => {
@@ -143,15 +148,11 @@ function buildRelationships(
 			label: {
 				en_US: referencedStructure.name,
 			},
-			name: referencedStructure.name,
+			name: referencedStructure.relationshipName,
 			objectDefinitionExternalReferenceCode1: erc,
 			objectDefinitionExternalReferenceCode2: referencedStructure.erc,
 			type: 'oneToMany',
 		};
-
-		if (referencedStructure.name) {
-			relationship.name = referencedStructure.name;
-		}
 
 		return relationship;
 	});

@@ -4,17 +4,15 @@
  */
 
 import '@testing-library/jest-dom/extend-expect';
-import {fireEvent, render, screen, waitFor} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import React from 'react';
 
 import {ViewDashboardContextProvider} from '../../../../src/main/resources/META-INF/resources/js/main/dashboard/ViewDashboardContext';
 import {Item} from '../../../../src/main/resources/META-INF/resources/js/main/dashboard/components/FilterDropdown';
-import {
-	GroupByDropdown,
-	IStructureProps,
-} from '../../../../src/main/resources/META-INF/resources/js/main/dashboard/components/GroupByDropdown';
+import {GroupByDropdown} from '../../../../src/main/resources/META-INF/resources/js/main/dashboard/components/GroupByDropdown';
+import {InventoryAnalysisDataType} from '../../../../src/main/resources/META-INF/resources/js/main/dashboard/components/InventoryAnalysisCard';
 
-const mockFetch = (data: IStructureProps) => {
+const mockFetch = (data: InventoryAnalysisDataType) => {
 	global.fetch = jest.fn().mockResolvedValue({
 		json: async () => data,
 		ok: true,
@@ -47,18 +45,12 @@ const structureTypes: Item[] = [
 const WrappedComponent = ({
 	initialItem,
 	onSelectItem,
-	setStructureTypeData,
 }: {
 	initialItem: Item;
 	onSelectItem: (item: Item) => void;
-	setStructureTypeData: (data: IStructureProps) => void;
 }) => (
 	<ViewDashboardContextProvider value={mockContextValue}>
-		<GroupByDropdown
-			item={initialItem}
-			onSelectItem={onSelectItem}
-			setStructureTypeData={setStructureTypeData}
-		/>
+		<GroupByDropdown item={initialItem} onSelectItem={onSelectItem} />
 	</ViewDashboardContextProvider>
 );
 
@@ -67,8 +59,8 @@ describe('[CMS Dashboard] Components: GroupByDropdown - All Options', () => {
 		jest.clearAllMocks();
 	});
 
-	const mockData: IStructureProps = {
-		items: [
+	const mockData: InventoryAnalysisDataType = {
+		inventoryAnalysisItems: [
 			{count: 10, key: '1', title: 'Item 1'},
 			{count: 20, key: '2', title: 'Item 2'},
 		],
@@ -81,18 +73,12 @@ describe('[CMS Dashboard] Components: GroupByDropdown - All Options', () => {
 			mockFetch(mockData);
 
 			const onSelectItem = jest.fn();
-			const setStructureTypeData = jest.fn();
 
 			render(
 				<WrappedComponent
 					initialItem={item}
 					onSelectItem={onSelectItem}
-					setStructureTypeData={setStructureTypeData}
 				/>
-			);
-
-			await waitFor(() =>
-				expect(setStructureTypeData).toHaveBeenCalledWith(mockData)
 			);
 
 			const button = screen.getByRole('button', {

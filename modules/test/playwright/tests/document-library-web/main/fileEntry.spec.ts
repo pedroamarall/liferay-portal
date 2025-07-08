@@ -876,3 +876,84 @@ test(
 		await expect(page.getByRole('dialog')).toBeVisible();
 	}
 );
+
+test(
+	'User search is working properly in share modal',
+	{tag: '@LPD-40725'},
+	async ({documentLibraryEditFilePage, documentLibraryPage, page, site}) => {
+		const title = getRandomString();
+		await documentLibraryEditFilePage.publishNewBasicFileEntry(
+			title,
+			site.friendlyUrlPath
+		);
+
+		await documentLibraryPage.goToShareFileEntry(title);
+
+		const iframeLocator = page.frameLocator('iframe[title^="Share"]');
+		await iframeLocator.getByRole('combobox').click();
+
+		await expect(iframeLocator.getByText('No results found')).toHaveCount(
+			0
+		);
+	}
+);
+
+test(
+	'Cannot revert to version with missing required fields',
+	{
+		tag: '@LPD-57911',
+	},
+
+	async ({
+		documentLibraryEditDocumentTypesPage,
+		documentLibraryEditFilePage,
+		documentLibraryPage,
+		page,
+		site,
+	}) => {
+		const dlTypeTitle = getRandomString();
+		const fileEntryTitle = getRandomString();
+
+		await documentLibraryEditDocumentTypesPage.createNewDLTypeWithTextField(
+			dlTypeTitle,
+			false,
+			site.friendlyUrlPath
+		);
+
+		await documentLibraryEditFilePage.goToNewFileDifferentType(
+			dlTypeTitle,
+			site.friendlyUrlPath
+		);
+		await page.getByLabel('Title Required').fill(fileEntryTitle);
+		await documentLibraryEditFilePage.publishButton.click();
+		await documentLibraryPage.waitForSuccessAlert();
+
+		await documentLibraryPage.page
+			.getByRole('link', {exact: true, name: fileEntryTitle})
+			.click();
+		await documentLibraryPage.clickFileEntryAction('Edit');
+		await documentLibraryEditFilePage.descriptionInput.fill(fileEntryTitle);
+		await documentLibraryEditFilePage.publishButton.click();
+		await documentLibraryPage.waitForSuccessAlert();
+
+		await documentLibraryEditDocumentTypesPage.updateDLTypeTextField(
+			dlTypeTitle,
+			true,
+			site.friendlyUrlPath
+		);
+
+		await documentLibraryPage.goto(site.friendlyUrlPath);
+		await documentLibraryPage.page
+			.getByRole('link', {exact: true, name: fileEntryTitle})
+			.click();
+		await documentLibraryPage.clickFileEntryAction('View History');
+		await page
+			.locator('tr', {hasText: '1.0'})
+			.locator('[aria-label="Actions"], .dropdown-toggle')
+			.click();
+
+		await expect(
+			page.getByRole('menuitem', {name: 'Revert'})
+		).not.toBeVisible();
+	}
+);

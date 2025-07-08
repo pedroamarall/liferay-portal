@@ -9,8 +9,10 @@ export default function actionGeneratesChanges(actionType: Action['type']) {
 	switch (actionType) {
 		case 'add-field':
 		case 'add-referenced-structures':
-		case 'delete-field':
+		case 'add-repeatable-group':
+		case 'delete-child':
 		case 'update-field':
+		case 'update-repeatable-group':
 		case 'update-structure':
 			return true;
 		case 'add-validation-error':
@@ -18,6 +20,7 @@ export default function actionGeneratesChanges(actionType: Action['type']) {
 		case 'create-structure':
 		case 'delete-selection':
 		case 'publish-structure':
+		case 'refresh-referenced-structures':
 		case 'set-error':
 		case 'set-selection':
 		case 'validate':

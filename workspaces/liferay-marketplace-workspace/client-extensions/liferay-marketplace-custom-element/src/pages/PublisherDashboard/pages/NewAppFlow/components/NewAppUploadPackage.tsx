@@ -20,6 +20,7 @@ import {
 } from '../../../../../enums/File';
 import {ProductType} from '../../../../../enums/Product';
 import i18n from '../../../../../i18n';
+import {Liferay} from '../../../../../liferay/liferay';
 import {getRandomID} from '../../../../../utils/string';
 
 type NewAppUploadAppPackagesComponentProps = {
@@ -27,6 +28,7 @@ type NewAppUploadAppPackagesComponentProps = {
 	liferayPackage: {
 		file: UploadedFile | null;
 		id: string;
+		uploaded: boolean;
 		versions: string[];
 	};
 };
@@ -86,6 +88,23 @@ export function NewAppUploadAppPackagesComponent({
 			uploaded: false,
 		}));
 
+		if (
+			liferayPackages.some(
+				(liferayPackage) =>
+					liferayPackage.file?.fileName ===
+					newUploadedPackage[0].fileName
+			)
+		) {
+			Liferay.Util.openToast({
+				message: i18n.translate(
+					'could-not-upload-the-file-package-with-this-filename-already-exists'
+				),
+				type: 'danger',
+			});
+
+			return;
+		}
+
 		const _liferayPackages = liferayPackages.map((_liferayPackage) => {
 			if (liferayPackage.id === _liferayPackage.id) {
 				return {
@@ -110,6 +129,7 @@ export function NewAppUploadAppPackagesComponent({
 			<FileList
 				isProcessing={isProcessing}
 				onDelete={handleRemoveAppPackages}
+				removable={!liferayPackage.uploaded}
 				type="document"
 				uploadedFiles={liferayPackage.file ? [liferayPackage.file] : []}
 			/>

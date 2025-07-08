@@ -3,154 +3,145 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-import {Body, Cell, Head, Row, Table, Text} from '@clayui/core';
-import {ClayPaginationBarWithBasicItems} from '@clayui/pagination-bar';
+import {Text} from '@clayui/core';
 import React, {useContext, useEffect, useState} from 'react';
 
+import ApiHelper from '../../../common/services/ApiHelper';
 import {ViewDashboardContext} from '../ViewDashboardContext';
+import {buildQueryString} from '../utils/buildQueryString';
 import {AllCategoriesDropdown} from './AllCategoriesDropdown';
 import {AllStructureTypesDropdown} from './AllStructureTypesDropdown';
 import {AllTagsDropdown} from './AllTagsDropdown';
 import {AllVocabulariesDropdown} from './AllVocabulariesDropdown';
 import {BaseCard} from './BaseCard';
 import {Item} from './FilterDropdown';
-import {GroupByDropdown, IStructureProps} from './GroupByDropdown';
+import {GroupByDropdown} from './GroupByDropdown';
+import PaginatedTable from './PaginatedTable';
 
 export interface IAllFiltersDropdown extends React.HTMLAttributes<HTMLElement> {
 	item: Item;
 	onSelectItem: (item: Item) => void;
 }
 
-const VolumeChart = ({
-	percentage,
-	volume,
-}: {
-	percentage: number;
-	volume: number;
-}) => {
-	return (
-		<div className="cms-dashboard__inventory-analysis__bar-chart">
-			<div
-				className="cms-dashboard__inventory-analysis__bar-chart__bar"
-				style={{width: `${percentage}%`}}
-			/>
-
-			<div className="cms-dashboard__inventory-analysis__bar-chart__value">
-				<Text size={3} weight="semi-bold">
-					{volume}
-				</Text>
-			</div>
-		</div>
-	);
-};
-
-type Data = {
-	assets: {count: number; title: string}[];
+export type InventoryAnalysisDataType = {
+	inventoryAnalysisItems: {count: number; key: string; title: string}[];
 	totalCount: number;
 };
 
-const mockData: Data = {
-	assets: [
-		{
-			count: 999999,
-			title: 'title 1',
-		},
-		{
-			count: 999999,
-			title: 'title 2',
-		},
-		{
-			count: 999999,
-			title: 'title 3',
-		},
-		{
-			count: 999999,
-			title: 'title 4',
-		},
-	],
-	totalCount: 1000,
+export const initialFilters = {
+	category: {
+		label: Liferay.Language.get('all-categories'),
+		value: 'all',
+	},
+	structure: {
+		label: Liferay.Language.get('all-structures'),
+		value: 'all',
+	},
+	structureType: {
+		label: Liferay.Language.get('category'),
+		value: 'category',
+	},
+	tag: {
+		label: Liferay.Language.get('all-tags'),
+		value: 'all',
+	},
+	vocabulary: {
+		label: Liferay.Language.get('all-vocabularies'),
+		value: 'all',
+	},
 };
 
-const mapData = (data: Data) => {
-	return data.assets.map(({count, title}) => {
-		const percentage = (count / data.totalCount) * 100;
-
-		return {
-			percentage,
-			title,
-			volume: <VolumeChart percentage={percentage} volume={count} />,
-		};
+async function fetchStructureData({
+	filters,
+	language,
+	space,
+}: {
+	filters: {
+		category: Item;
+		structure: Item;
+		structureType: Item;
+		tag: Item;
+		vocabulary: Item;
+	};
+	language: Item;
+	space: Item;
+}) {
+	const queryParams = buildQueryString({
+		categoryId: filters.category?.value,
+		groupBy: filters.structureType?.value,
+		languageId: language?.value,
+		spaceId: space?.value,
+		structureId: filters.structure?.value,
+		tagId: filters.tag?.value,
+		vocabularyId: filters.vocabulary?.value,
 	});
-};
 
-export const initialStructureType = {
-	label: Liferay.Language.get('category'),
-	value: 'category',
-};
+	const endpoint = `/o/analytics-cms-rest/v1.0/inventory-analysis${queryParams}`;
 
-export const initialCategory = {
-	label: Liferay.Language.get('all-categories'),
-	value: 'all',
-};
+	const {data, error} =
+		await ApiHelper.get<InventoryAnalysisDataType>(endpoint);
 
-export const initialStructure = {
-	label: Liferay.Language.get('all-structures'),
-	value: 'all',
-};
+	if (error) {
+		console.error(error);
+	}
 
-export const initialTag = {
-	label: Liferay.Language.get('all-tags'),
-	value: 'all',
-};
+	if (data) {
+		return data;
+	}
 
-export const initialVocabulary = {
-	label: Liferay.Language.get('all-vocabularies'),
-	value: 'all',
-};
+	return null;
+}
+
+export function filterBySpaces(
+	assetLibraries: {id: number}[],
+	spaceId: string
+) {
+	return assetLibraries.some(({id}) => {
+
+		// Returns true if id belongs to all spaces (-1).
+
+		if (id === -1) {
+			return true;
+		}
+
+		// Decreasing -1 due a bug where response is increasing +1 in the id.
+		// Returns true if match id with id from space.
+
+		return String(id - 1) === spaceId;
+	});
+}
 
 export function InventoryAnalysisCard() {
-	const [delta, setDelta] = useState(4);
-
-	const [category, setCategory] = useState<Item>(initialCategory);
-	const [structure, setStructure] = useState<Item>(initialStructure);
-	const [structureType, setStructureType] =
-		useState<Item>(initialStructureType);
-
-	// TODO LPD-50207
-
-	const [_structureTypeData, setStructureTypeData] =
-		useState<IStructureProps>();
-
-	const [tag, setTag] = useState<Item>(initialTag);
-	const [vocabulary, setVocabulary] = useState<Item>(initialVocabulary);
-
 	const {
-		filters: {space},
+		filters: {language, space},
 	} = useContext(ViewDashboardContext);
 
+	const [filters, setFilters] = useState<{
+		category: Item;
+		structure: Item;
+		structureType: Item;
+		tag: Item;
+		vocabulary: Item;
+	}>(initialFilters);
+
+	const [inventoryAnalysisData, setInventoryAnalysisData] =
+		useState<InventoryAnalysisDataType>();
+
 	useEffect(() => {
-		setCategory(initialCategory);
-		setStructure(initialStructure);
-		setTag(initialTag);
-		setVocabulary(initialVocabulary);
+		setFilters(initialFilters);
 	}, [space?.value]);
 
-	const deltas = [
-		{
-			href: '#1',
-			label: 1,
-		},
-		{
-			label: 2,
-		},
-		{
-			href: '#3',
-			label: 3,
-		},
-		{
-			label: 4,
-		},
-	];
+	useEffect(() => {
+		async function fetchData() {
+			const data = await fetchStructureData({filters, language, space});
+
+			if (data) {
+				setInventoryAnalysisData(data);
+			}
+		}
+
+		fetchData();
+	}, [filters, language, space]);
 
 	return (
 		<div className="cms-dashboard__inventory-analysis">
@@ -169,9 +160,10 @@ export function InventoryAnalysisCard() {
 						</span>
 
 						<GroupByDropdown
-							item={structureType}
-							onSelectItem={setStructureType}
-							setStructureTypeData={setStructureTypeData}
+							item={filters.structureType}
+							onSelectItem={(structureType) =>
+								setFilters({...filters, structureType})
+							}
 						/>
 					</div>
 
@@ -187,101 +179,58 @@ export function InventoryAnalysisCard() {
 						<div className="d-flex flex-wrap">
 							<div className="mb-2 mb-lg-0 mr-2">
 								<AllStructureTypesDropdown
-									item={structure}
-									onSelectItem={setStructure}
+									item={filters.structure}
+									onSelectItem={(structure) =>
+										setFilters({
+											...filters,
+											structure,
+										})
+									}
 								/>
 							</div>
 
 							<div className="mb-2 mb-lg-0 mr-2">
 								<AllVocabulariesDropdown
-									item={vocabulary}
-									onSelectItem={setVocabulary}
+									item={filters.vocabulary}
+									onSelectItem={(vocabulary) => {
+										setFilters({
+											...filters,
+											vocabulary,
+										});
+									}}
 								/>
 							</div>
 
 							<div className="mb-2 mb-lg-0 mr-2">
 								<AllCategoriesDropdown
-									item={category}
-									onSelectItem={setCategory}
+									item={filters.category}
+									onSelectItem={(category) => {
+										setFilters({
+											...filters,
+											category,
+										});
+									}}
 								/>
 							</div>
 
 							<div className="mb-2 mb-lg-0">
 								<AllTagsDropdown
-									item={tag}
-									onSelectItem={setTag}
+									item={filters.tag}
+									onSelectItem={(tag) =>
+										setFilters({
+											...filters,
+											tag,
+										})
+									}
 								/>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<Table
-					borderless
-					columnsVisibility={false}
-					hover={false}
-					striped={false}
-				>
-					<Head
-						items={[
-							{
-								id: 'title',
-								name: Liferay.Language.get('structure-label'),
-								width: '200px',
-							},
-							{
-								id: 'volume',
-								name: Liferay.Language.get('assets-volume'),
-								width: 'calc(100% - 310px)',
-							},
-							{
-								id: 'percentage',
-								name: Liferay.Language.get('%-of-assets'),
-								width: '110px',
-							},
-						]}
-					>
-						{(column) => (
-							<Cell
-								expanded={column.id === 'volume'}
-								key={column.id}
-								width={column.width}
-							>
-								{column.name}
-							</Cell>
-						)}
-					</Head>
-
-					<Body defaultItems={mapData(mockData)}>
-						{(row) => (
-							<Row>
-								<Cell width="10%">
-									<Text size={3} weight="semi-bold">
-										{row['title']}
-									</Text>
-								</Cell>
-
-								<Cell expanded width="80%">
-									{row['volume']}
-								</Cell>
-
-								<Cell align="right" width="10%">
-									{row['percentage']}
-								</Cell>
-							</Row>
-						)}
-					</Body>
-				</Table>
-
-				<ClayPaginationBarWithBasicItems
-					activeDelta={delta}
-					className="mt-3"
-					defaultActive={1}
-					deltas={deltas}
-					ellipsisBuffer={3}
-					ellipsisProps={{'aria-label': 'More', 'title': 'More'}}
-					onDeltaChange={setDelta}
-					totalItems={21}
+				<PaginatedTable
+					currentStructureTypeLabel={filters.structureType.label}
+					inventoryAnalysisData={inventoryAnalysisData}
 				/>
 			</BaseCard>
 		</div>

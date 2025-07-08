@@ -64,6 +64,11 @@ export enum DisplayType {
 	WARNING = 'warning',
 }
 
+export enum ESelectionTrigger {
+	CONTAINER = 'container',
+	INPUT = 'input',
+}
+
 export interface IInlineEditingSettings {
 	alwaysOn: boolean;
 	defaultBodyContent: object;
@@ -108,9 +113,11 @@ export interface ICreationActionItem {
 
 export interface IItemsActions {
 	data?: IItemActionsData;
+	disabled?: boolean;
 	href?: string;
 	icon?: string;
 	id?: string | number;
+	isDisabled?: (item: any) => boolean;
 	isVisible?: (item: any) => boolean;
 	items?: IItemsActions[];
 	label?: string;
@@ -206,7 +213,24 @@ export interface ICardSchema {
 	title: string;
 }
 
-export type ISchema = ITableSchema | ICardSchema;
+export interface IHeader {
+	title?: string;
+}
+
+export interface IListTitleRenderer {
+	component: ({itemData}: {itemData: any}) => JSX.Element;
+}
+
+export interface IListSchema {
+	description: string;
+	image?: string;
+	sticker?: string;
+	symbol: string;
+	title: string;
+	titleRenderer: IListTitleRenderer;
+}
+
+export type ISchema = ITableSchema | ICardSchema | IListSchema;
 
 export type TViews = {
 	component?: any;
@@ -220,6 +244,11 @@ export type TViews = {
 	thumbnail?: string;
 	views?: Array<any>;
 };
+
+export interface IFileDropSettings {
+	enabled: boolean;
+	isDropTarget: ({item}: {item: any}) => boolean;
+}
 
 export interface IFrontendDataSetProps {
 	actionParameterName?: string;
@@ -249,12 +278,11 @@ export interface IFrontendDataSetProps {
 	enableInlineAddModeSetting?: {
 		defaultBodyContent?: object;
 	};
+	fileDropSettings?: IFileDropSettings;
 	filters?: Array<any>;
 	formId?: string;
 	formName?: string;
-	header?: {
-		title?: string;
-	};
+	header?: IHeader;
 	id: string;
 	infoPanelComponent?: React.ComponentType<IInfoPanelComponent>;
 	inlineAddingSettings?: {

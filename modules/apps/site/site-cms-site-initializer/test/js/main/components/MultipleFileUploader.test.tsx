@@ -8,7 +8,10 @@ import React from 'react';
 
 import '@testing-library/jest-dom/extend-expect';
 
-import MultipleFileUploader from '../../../../src/main/resources/META-INF/resources/js/main/components/MultipleFileUploader';
+// eslint-disable-next-line
+import {checkAccessibility} from '@liferay/layout-js-components-web/test/__lib__/index';
+
+import MultipleFileUploader from '../../../../src/main/resources/META-INF/resources/js/main/components/multiple_file_uploader/MultipleFileUploader';
 
 jest.mock('frontend-js-web', () => ({
 	sub: (str: string, arg: string) => str.replace('x', arg),
@@ -19,6 +22,8 @@ global.Liferay.Util.formatStorage = jest.fn((size: number) => {
 });
 
 const mockCloseModal = jest.fn();
+const mockUploadComplete = jest.fn();
+const mockUploadRequest = jest.fn().mockResolvedValue({error: false});
 
 const DEFAULT_PROPS = {
 	assetLibraries: [
@@ -26,8 +31,8 @@ const DEFAULT_PROPS = {
 		{groupId: 456, name: 'Library B'},
 	],
 	onModalClose: mockCloseModal,
-	onUploadComplete: jest.fn(),
-	parentObjectEntryFolderExternalReferenceCode: 'L_FILES',
+	onUploadComplete: mockUploadComplete,
+	uploadRequest: mockUploadRequest,
 };
 
 const createFile = (name: string, size: number, type = 'image/png') => {
@@ -144,5 +149,131 @@ describe('MultipleFileUploader', () => {
 		fireEvent.click(cancelButton);
 
 		expect(mockCloseModal).toHaveBeenCalled();
+	});
+
+	it('can accept files as props and shows footer', async () => {
+		const file1 = createFile('image1.png', 1024);
+		const file2 = createFile('image2.png', 2048);
+
+		const file1Data = {
+			file: file1,
+			name: file1.name,
+			size: file1.size,
+		};
+
+		const file2Data = {
+			file: file2,
+			name: file2.name,
+			size: file2.size,
+		};
+
+		const {findByText, getByRole} = render(
+			<MultipleFileUploader
+				{...DEFAULT_PROPS}
+				filesToUpload={[file1Data, file2Data]}
+			/>
+		);
+
+		expect(await findByText('image1.png')).toBeInTheDocument();
+		expect(await findByText('image2.png')).toBeInTheDocument();
+
+		expect(getByRole('button', {name: 'upload-(2)'})).toBeInTheDocument();
+		expect(getByRole('button', {name: 'cancel'})).toBeInTheDocument();
+	});
+
+	it('checks the accessibility of the multiple file uploader', async () => {
+		const {container} = render(<MultipleFileUploader {...DEFAULT_PROPS} />);
+
+		await checkAccessibility({bestPractices: true, context: container});
+	});
+
+	it('space is required before submitting the form', async () => {
+		const {container, getByText} = render(
+			<MultipleFileUploader {...DEFAULT_PROPS} />
+		);
+
+		const input =
+			container.querySelector<HTMLInputElement>('input[type="file"]')!;
+		const file1 = createFile('upload1.png', 1024);
+
+		fireEvent.change(input, {target: {files: [file1]}});
+
+		expect(await screen.findByText('upload1.png')).toBeInTheDocument();
+
+		const uploadButton = screen.getByRole('button', {name: /upload/i});
+		fireEvent.click(uploadButton);
+
+		await waitFor(() => {
+			expect(getByText('this-field-is-required')).toBeVisible();
+
+			expect(mockUploadRequest).not.toHaveBeenCalled();
+		});
+	});
+
+	it('submits the files and calls onUploadComplete', async () => {
+		const {container} = render(
+			<MultipleFileUploader
+				{...DEFAULT_PROPS}
+				assetLibraries={[{groupId: 2, name: 'Library A'}]}
+			/>
+		);
+
+		const input =
+			container.querySelector<HTMLInputElement>('input[type="file"]')!;
+		const file1 = createFile('upload1.png', 1024);
+		const file2 = createFile('upload2.png', 2048);
+
+		fireEvent.change(input, {target: {files: [file1, file2]}});
+
+		expect(await screen.findByText('upload2.png')).toBeInTheDocument();
+
+		const uploadButton = screen.getByRole('button', {name: /upload/i});
+		fireEvent.click(uploadButton);
+
+		await waitFor(() => {
+			expect(mockUploadRequest).toHaveBeenCalledTimes(2);
+
+			expect(mockUploadComplete).toHaveBeenCalledWith({
+				assetLibrary: {groupId: 2, name: 'Library A'},
+				failedFiles: [],
+				successFiles: ['upload1.png', 'upload2.png'],
+			});
+		});
+	});
+
+	it('shows files that failed to upload', async () => {
+		const mockUploadRequestFail = jest
+			.fn()
+			.mockResolvedValue({error: true});
+
+		const {container, getByText} = render(
+			<MultipleFileUploader
+				{...DEFAULT_PROPS}
+				assetLibraries={[{groupId: 2, name: 'Library A'}]}
+				uploadRequest={mockUploadRequestFail}
+			/>
+		);
+
+		const input =
+			container.querySelector<HTMLInputElement>('input[type="file"]')!;
+		const file1 = createFile('upload1.png', 1024);
+		const file2 = createFile('upload2.png', 2048);
+
+		fireEvent.change(input, {target: {files: [file1, file2]}});
+
+		expect(await screen.findByText('upload2.png')).toBeInTheDocument();
+
+		const uploadButton = screen.getByRole('button', {name: /upload/i});
+		fireEvent.click(uploadButton);
+
+		await waitFor(() => {
+			expect(mockUploadRequestFail).toHaveBeenCalledTimes(2);
+			expect(
+				getByText('2-files-could-not-be-uploaded')
+			).toBeInTheDocument();
+			expect(
+				screen.getByRole('button', {name: 'upload-another-file'})
+			).toBeInTheDocument();
+		});
 	});
 });

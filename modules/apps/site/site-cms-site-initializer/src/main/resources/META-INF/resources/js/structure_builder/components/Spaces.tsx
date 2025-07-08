@@ -10,13 +10,11 @@ import classNames from 'classnames';
 import {FieldFeedback, useId} from 'frontend-js-components-web';
 import React from 'react';
 
-import {Space} from '../../types/Space';
+import {Space} from '../../common/types/Space';
 import {useCache} from '../contexts/CacheContext';
-import {State, useStateDispatch} from '../contexts/StateContext';
-import selectStructureSpaces from '../selectors/selectStructureSpaces';
-import selectStructureUuid from '../selectors/selectStructureUuid';
+import {useSelector, useStateDispatch} from '../contexts/StateContext';
 import selectValidationErrors from '../selectors/selectValidationErrors';
-import {Structure} from '../types/Structure';
+import {ReferencedStructure, Structure} from '../types/Structure';
 
 type Item = {
 	label: string;
@@ -28,12 +26,13 @@ export default function Spaces({
 	structure,
 }: {
 	disabled?: boolean;
-	structure: Structure;
+	structure: Structure | ReferencedStructure;
 }) {
+	const {spaces: structureSpaces, uuid: structureUuid} = structure;
+
 	const dispatch = useStateDispatch();
-	const structureSpaces = selectStructureSpaces(structure);
-	const structureUuid = selectStructureUuid(structure);
-	const validationErrors = selectValidationErrors(structureUuid)(structure);
+
+	const validationErrors = useSelector(selectValidationErrors(structureUuid));
 
 	const id = useId();
 
@@ -127,7 +126,7 @@ export default function Spaces({
 	);
 }
 
-function getSelection(structureSpaces: State['spaces'], spaces: Space[]) {
+function getSelection(structureSpaces: Structure['spaces'], spaces: Space[]) {
 	if (structureSpaces === 'all') {
 		return [];
 	}

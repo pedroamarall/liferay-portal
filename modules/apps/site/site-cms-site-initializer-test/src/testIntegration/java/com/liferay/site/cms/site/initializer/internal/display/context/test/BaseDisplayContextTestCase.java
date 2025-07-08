@@ -5,6 +5,8 @@
 
 package com.liferay.site.cms.site.initializer.internal.display.context.test;
 
+import com.liferay.batch.engine.unit.BatchEngineUnitProcessor;
+import com.liferay.batch.engine.unit.BatchEngineUnitReader;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.object.constants.ObjectDefinitionConstants;
@@ -14,10 +16,7 @@ import com.liferay.object.service.ObjectDefinitionLocalService;
 import com.liferay.object.service.ObjectFolderLocalService;
 import com.liferay.object.test.util.ObjectDefinitionTestUtil;
 import com.liferay.petra.string.StringBundler;
-import com.liferay.portal.instance.lifecycle.PortalInstanceLifecycleListener;
 import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.Role;
-import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
@@ -38,12 +37,20 @@ import com.liferay.site.initializer.SiteInitializerRegistry;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.io.File;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.Assert;
 import org.junit.Before;
+
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.FrameworkUtil;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -67,19 +74,32 @@ public abstract class BaseDisplayContextTestCase {
 			// Until the feature flag LPD-17564 is removed, run the instance
 			// lifecycle initializer manually so that the role is created.
 
-			Role role = _roleLocalService.fetchRole(
-				group.getCompanyId(), RoleConstants.CMS_ADMINISTRATOR);
-
-			if (role == null) {
-				_portalInstanceLifecycleListener.portalInstanceRegistered(
-					companyLocalService.getCompany(group.getCompanyId()));
-			}
-
 			SiteInitializer siteInitializer =
 				_siteInitializerRegistry.getSiteInitializer(
 					"com.liferay.site.initializer.cms");
 
 			siteInitializer.initialize(group.getGroupId());
+
+			Bundle testBundle = FrameworkUtil.getBundle(
+				BaseDisplayContextTestCase.class);
+
+			BundleContext bundleContext = testBundle.getBundleContext();
+
+			for (Bundle bundle : bundleContext.getBundles()) {
+				if (Objects.equals(
+						bundle.getSymbolicName(),
+						"com.liferay.site.initializer.cms")) {
+
+					_setUpProcessedFile(bundle, "01.object.folder");
+					_setUpProcessedFile(bundle, "02.object.definition");
+
+					CompletableFuture<Void> completableFuture =
+						_batchEngineUnitProcessor.processBatchEngineUnits(
+							_batchEngineUnitReader.getBatchEngineUnits(bundle));
+
+					completableFuture.join();
+				}
+			}
 		}
 		finally {
 			ServiceContextThreadLocal.popServiceContext();
@@ -94,7 +114,7 @@ public abstract class BaseDisplayContextTestCase {
 		ObjectDefinition objectDefinition =
 			objectDefinitionLocalService.addCustomObjectDefinition(
 				TestPropsValues.getUserId(), objectFolderId, null, false, false,
-				true, true, enableObjectEntryDraft, false, null,
+				true, true, enableObjectEntryDraft, false, false, null,
 				Collections.singletonMap(
 					LocaleUtil.getDefault(), RandomTestUtil.randomString()),
 				ObjectDefinitionTestUtil.getRandomName(), null, null,
@@ -105,8 +125,7 @@ public abstract class BaseDisplayContextTestCase {
 				Collections.singletonList(
 					ObjectFieldUtil.createObjectField(
 						"Text", "String", true, true, null,
-						RandomTestUtil.randomString(),
-						"x" + RandomTestUtil.randomString(), false)));
+						RandomTestUtil.randomString(), "text", false)));
 
 		if (status == WorkflowConstants.STATUS_DRAFT) {
 			return objectDefinition;
@@ -133,6 +152,7 @@ public abstract class BaseDisplayContextTestCase {
 			objectDefinition.isEnableLocalization(),
 			objectDefinition.isEnableObjectEntryDraft(),
 			objectDefinition.isEnableObjectEntryHistory(),
+			objectDefinition.isEnableObjectEntrySchedule(),
 			objectDefinition.isEnableObjectEntryVersioning(),
 			objectDefinition.getFriendlyURLSeparator(),
 			objectDefinition.getLabelMap(), objectDefinition.getName(),
@@ -154,13 +174,16 @@ public abstract class BaseDisplayContextTestCase {
 		return sb.toString();
 	}
 
-	protected HttpServletRequest getMockHttpServletRequest() throws Exception {
-		HttpServletRequest httpServletRequest = new MockHttpServletRequest();
+	protected MockHttpServletRequest getMockHttpServletRequest()
+		throws Exception {
 
-		httpServletRequest.setAttribute(
-			WebKeys.THEME_DISPLAY, getThemeDisplay(httpServletRequest));
+		MockHttpServletRequest mockHttpServletRequest =
+			new MockHttpServletRequest();
 
-		return httpServletRequest;
+		mockHttpServletRequest.setAttribute(
+			WebKeys.THEME_DISPLAY, getThemeDisplay(mockHttpServletRequest));
+
+		return mockHttpServletRequest;
 	}
 
 	protected ThemeDisplay getThemeDisplay(
@@ -171,6 +194,7 @@ public abstract class BaseDisplayContextTestCase {
 
 		themeDisplay.setCompany(
 			companyLocalService.getCompany(TestPropsValues.getCompanyId()));
+		themeDisplay.setLanguageId(group.getDefaultLanguageId());
 		themeDisplay.setPermissionChecker(
 			PermissionThreadLocal.getPermissionChecker());
 		themeDisplay.setRealUser(TestPropsValues.getUser());
@@ -223,10 +247,21 @@ public abstract class BaseDisplayContextTestCase {
 	@Inject
 	protected ObjectFolderLocalService objectFolderLocalService;
 
-	@Inject(
-		filter = "component.name=com.liferay.site.cms.site.initializer.internal.instance.lifecycle.AddCMSAdministratorRolePortalInstanceLifecycleListener"
-	)
-	private PortalInstanceLifecycleListener _portalInstanceLifecycleListener;
+	private void _setUpProcessedFile(Bundle bundle, String fileName) {
+		File file = bundle.getDataFile(
+			".com.liferay.site.initializer.cms.internal.batch." + fileName +
+				".batch.engine.data.json.0.processed");
+
+		if ((file != null) && file.exists()) {
+			file.delete();
+		}
+	}
+
+	@Inject
+	private BatchEngineUnitProcessor _batchEngineUnitProcessor;
+
+	@Inject
+	private BatchEngineUnitReader _batchEngineUnitReader;
 
 	@Inject
 	private RoleLocalService _roleLocalService;

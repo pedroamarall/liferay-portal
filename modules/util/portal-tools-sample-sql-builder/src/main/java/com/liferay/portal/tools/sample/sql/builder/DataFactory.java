@@ -2696,7 +2696,7 @@ public class DataFactory {
 		List<LayoutModel> layoutModels = new ArrayList<>();
 
 		LayoutModel publicLayoutModel = _newContentPageLayoutModel(
-			groupId, 0, 0, name, name);
+			groupId, 0, 0, name, StringUtil.toLowerCase(name));
 
 		layoutModels.add(publicLayoutModel);
 		layoutModels.add(
@@ -4842,12 +4842,12 @@ public class DataFactory {
 
 		// Other fields
 
+		layoutClassedModelUsageModel.setClassExternalReferenceCode(
+			StringPool.BLANK);
 		layoutClassedModelUsageModel.setClassNameId(
 			getClassNameId(JournalArticle.class));
 		layoutClassedModelUsageModel.setClassPK(
 			journalArticleResourceModel.getResourcePrimKey());
-		layoutClassedModelUsageModel.setClassedModelExternalReferenceCode(
-			StringPool.BLANK);
 		layoutClassedModelUsageModel.setContainerKey(containerKey);
 		layoutClassedModelUsageModel.setContainerType(
 			getClassNameId(Portlet.class));
@@ -8653,9 +8653,6 @@ public class DataFactory {
 				}
 				else if (name.equals("CdnURL")) {
 					name = "CDNURL";
-				}
-				else if (name.equals("CmExternalReferenceCode")) {
-					name = "ClassedModelExternalReferenceCode";
 				}
 				else if (name.equals("CIBookedQuantityId")) {
 					name = "CommerceInventoryBookedQuantityId";

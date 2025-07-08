@@ -57,11 +57,13 @@ import com.liferay.journal.service.JournalFolderLocalService;
 import com.liferay.journal.test.util.JournalFolderFixture;
 import com.liferay.journal.test.util.JournalTestUtil;
 import com.liferay.journal.util.JournalConverter;
+import com.liferay.journal.util.comparator.ArticleVersionComparator;
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalService;
 import com.liferay.layout.page.template.test.util.DisplayPageTemplateTestUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.NoSuchImageException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
@@ -134,6 +136,10 @@ import com.liferay.portlet.asset.util.AssetVocabularySettingsHelper;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.InputStream;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -535,6 +541,67 @@ public class JournalArticleLocalServiceTest {
 			0, JournalArticleConstants.SMALL_IMAGE_SOURCE_DOCUMENTS_AND_MEDIA,
 			null, null, null, null,
 			ServiceContextTestUtil.getServiceContext(_group.getGroupId()));
+	}
+
+	@Test
+	public void testArticleStatusHistoryAfterTrashAndRestore()
+		throws Exception {
+
+		ServiceContext serviceContext =
+			ServiceContextTestUtil.getServiceContext(
+				_group.getGroupId(), TestPropsValues.getUserId());
+
+		Date displayDate = _getDateWithOffset(1);
+
+		JournalArticle journalArticle = JournalTestUtil.addArticle(
+			_group.getGroupId(), 0,
+			JournalArticleConstants.CLASS_NAME_ID_DEFAULT, StringPool.BLANK,
+			true, RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomLocaleStringMap(),
+			RandomTestUtil.randomLocaleStringMap(), null,
+			LocaleUtil.getSiteDefault(), displayDate, null, true, true,
+			serviceContext);
+
+		displayDate = _getDateWithOffset(-1);
+
+		journalArticle = JournalTestUtil.updateArticle(
+			TestPropsValues.getUserId(), journalArticle,
+			journalArticle.getTitleMap(), journalArticle.getContent(),
+			displayDate, false, true, serviceContext);
+
+		displayDate = _getDateWithOffset(2);
+
+		journalArticle = JournalTestUtil.updateArticle(
+			TestPropsValues.getUserId(), journalArticle,
+			journalArticle.getTitleMap(), journalArticle.getContent(),
+			displayDate, false, true, serviceContext);
+
+		journalArticle = _journalArticleLocalService.moveArticleToTrash(
+			TestPropsValues.getUserId(), journalArticle);
+
+		journalArticle = _journalArticleLocalService.restoreArticleFromTrash(
+			TestPropsValues.getUserId(), journalArticle);
+
+		List<JournalArticle> journalArticles =
+			_journalArticleLocalService.getArticles(
+				journalArticle.getGroupId(), journalArticle.getArticleId(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+				ArticleVersionComparator.getInstance(false));
+
+		journalArticle = journalArticles.get(0);
+
+		Assert.assertEquals(
+			WorkflowConstants.STATUS_SCHEDULED, journalArticle.getStatus());
+
+		journalArticle = journalArticles.get(1);
+
+		Assert.assertEquals(
+			WorkflowConstants.STATUS_APPROVED, journalArticle.getStatus());
+
+		journalArticle = journalArticles.get(2);
+
+		Assert.assertEquals(
+			WorkflowConstants.STATUS_SCHEDULED, journalArticle.getStatus());
 	}
 
 	@Test
@@ -1681,6 +1748,40 @@ public class JournalArticleLocalServiceTest {
 	}
 
 	@Test
+	public void testGetArticleDisplayWithSmallImage() throws Exception {
+		JournalArticle journalArticle = JournalTestUtil.addArticle(
+			_group.getGroupId(),
+			JournalFolderConstants.DEFAULT_PARENT_FOLDER_ID);
+
+		FileEntry fileEntry = _dlAppLocalService.addFileEntry(
+			null, TestPropsValues.getUserId(), _group.getGroupId(),
+			DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
+			RandomTestUtil.randomString() + ".png", ContentTypes.IMAGE_PNG,
+			FileUtil.getBytes(getClass(), "dependencies/liferay.png"), null,
+			null, null, new ServiceContext());
+
+		journalArticle.setSmallImage(true);
+		journalArticle.setSmallImageId(fileEntry.getFileEntryId());
+		journalArticle.setSmallImageSource(
+			JournalArticleConstants.SMALL_IMAGE_SOURCE_DOCUMENTS_AND_MEDIA);
+
+		journalArticle = _journalArticleLocalService.updateJournalArticle(
+			journalArticle);
+
+		JournalArticleDisplay journalArticleDisplay =
+			_journalArticleLocalService.getArticleDisplay(
+				journalArticle.getGroupId(), journalArticle.getArticleId(),
+				null, null, _themeDisplay);
+
+		String articleDisplayImageURL =
+			journalArticleDisplay.getArticleDisplayImageURL(_themeDisplay);
+
+		Assert.assertNotNull(articleDisplayImageURL);
+		Assert.assertTrue(
+			articleDisplayImageURL.contains(fileEntry.getFileName()));
+	}
+
+	@Test
 	public void testGetArticlesByReviewDate() throws Exception {
 		JournalFolder folder = JournalTestUtil.addFolder(
 			_group.getGroupId(), RandomTestUtil.randomString());
@@ -2436,6 +2537,17 @@ public class JournalArticleLocalServiceTest {
 		assetVocabularySettingsHelper.setMultiValued(multiValued);
 
 		return assetVocabularySettingsHelper;
+	}
+
+	private Date _getDateWithOffset(int years) {
+		LocalDateTime localDateTime = LocalDateTime.now();
+
+		localDateTime = localDateTime.plusYears(years);
+
+		ZonedDateTime zonedDateTime = localDateTime.atZone(
+			ZoneId.systemDefault());
+
+		return Date.from(zonedDateTime.toInstant());
 	}
 
 	private String _getNewTitle(String title) {

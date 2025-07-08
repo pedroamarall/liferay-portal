@@ -25,16 +25,20 @@ export {default as EditCategoryPage} from './main/categorization/categories/Edit
 export {default as CategorizationBreadcrumb} from './main/categorization/components/CategorizationBreadcrumb';
 export {default as ViewTags} from './main/categorization/tags/ViewTags';
 export {default as EditVocabulary} from './main/categorization/vocabularies/EditVocabulary';
+export {default as BackButtonManagementBar} from './main/components/BackButtonManagementBar';
 export {default as Breadcrumb} from './main/components/Breadcrumb';
 export {default as SpaceAbstractHeader} from './main/components/SpaceAbstractHeader';
 export {default as SpaceSticker} from './main/components/SpaceSticker';
 export {default as EditFolder} from './main/components/folders/EditFolder';
+export {default as AssetTypeInfoPanelContent} from './main/components/info_panel/AssetTypeInfoPanelContent';
+
 export {default as ViewDashboard} from './main/dashboard/ViewDashboard';
 
 // Main
 
 export {default as AddSpaceMembers} from './main/spaces/AddSpaceMembers';
 export {default as NewSpace} from './main/spaces/NewSpace';
+export {default as SpaceSettings} from './main/spaces/SpaceSettings';
 export {default as SpacesNavigation} from './main/spaces_navigation/SpacesNavigation';
 
 // Structure Builder

@@ -226,6 +226,7 @@ MissingDiamondOperatorCheck | [Bug Prevention](bug_prevention_checks.md#bug-prev
 [MissingEmptyLineCheck](check/missing_empty_line_check.md#missingemptylinecheck) | [Styling](styling_checks.md#styling-checks) | Checks for missing line breaks around variable declarations. |
 MissingModifierCheck | [Bug Prevention](bug_prevention_checks.md#bug-prevention-checks) | Verifies that a method or global variable has a modifier specified. |
 MissingParenthesesCheck | [Styling](styling_checks.md#styling-checks) | Finds missing parentheses in conditional statement. |
+[ModelSetCallWithCompanyIdCheck](check/model_set_call_with_company_id_check.md#modelsetcallwithcompanyidcheck) | [Bug Prevention](bug_prevention_checks.md#bug-prevention-checks) | Checks for inserting the companyId as part of a varchar field in the database. |
 ModifiedMethodCheck | [Bug Prevention](bug_prevention_checks.md#bug-prevention-checks) | Checks for incorrect `modified` method with `@Modified` annotation. |
 [ModifierOrderCheck](https://checkstyle.sourceforge.io/checks/modifier/modifierorder.html) | [Styling](styling_checks.md#styling-checks) | Checks that the order of modifiers conforms to the suggestions in the Java Language specification, § 8.1.1, 8.3.1, 8.4.3 and 9.4. |
 [MultipleVariableDeclarationsCheck](https://checkstyle.sourceforge.io/checks/coding/multiplevariabledeclarations.html) | [Styling](styling_checks.md#styling-checks) | Checks that each variable declaration is in its own statement and on its own line. |
@@ -287,6 +288,7 @@ TestClassMissingLiferayUnitTestRuleCheck | [Bug Prevention](bug_prevention_check
 TextBlockCheck | [Styling](styling_checks.md#styling-checks) | Finds usage of text block. |
 [ThreadContextClassLoaderCheck](check/thread_context_class_loader_check.md#threadcontextclassloadercheck) | [Bug Prevention](bug_prevention_checks.md#bug-prevention-checks) | Checks usage of `Thread.setContextClassLoader`. |
 ThreadLocalUtilCheck | [Performance](performance_checks.md#performance-checks) | Finds new instances of `java.lang.Thread` (use `ThreadLocalUtil.create` instead). |
+ThreadLocalVariableNameCheck | [Naming Conventions](naming_conventions_checks.md#naming-conventions-checks) | Checks for consistent naming on variables of type '*ThreadLocal'. |
 ThreadNameCheck | [Naming Conventions](naming_conventions_checks.md#naming-conventions-checks) | Checks that names of threads follow naming conventions. |
 TransactionalTestRuleCheck | [Bug Prevention](bug_prevention_checks.md#bug-prevention-checks) | Finds usage of `TransactionalTestRule` in `*StagedModelDataHandlerTest`. |
 TryWithResourcesCheck | [Performance](performance_checks.md#performance-checks) | Ensures using Try-With-Resources statement to properly close the resource. |

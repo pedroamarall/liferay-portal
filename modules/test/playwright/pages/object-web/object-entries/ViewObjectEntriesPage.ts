@@ -12,14 +12,18 @@ import {PORTLET_URLS} from '../../../utils/portletUrls';
 export class ViewObjectEntriesPage {
 	readonly addObjectEntryButton: Locator;
 	readonly backButton: Locator;
+	readonly cancelObjectEntryButton: Locator;
 	readonly dateTimeInput: Locator;
 	readonly deletionConfirmationModal: Locator;
 	readonly deleteFileButton: Locator;
 	readonly duplicateEntryErrorMessage: Locator;
 	readonly editObjectEntryForm: Locator;
+	readonly expirationDateInput: Locator;
 	readonly frameSelect: FrameLocator;
 	readonly frontendDatasetActions: Locator;
 	readonly frontendDatasetDeleteAction: Locator;
+	readonly frontendDatasetViewAction: Locator;
+	readonly neverExpire: Locator;
 	readonly neverReview: Locator;
 	readonly objectEntryButton: Locator;
 	readonly page: Page;
@@ -29,8 +33,10 @@ export class ViewObjectEntriesPage {
 	readonly reviewDateInput: Locator;
 	readonly saveObjectEntryButton: Locator;
 	readonly saveObjectEntryButtonArabic: Locator;
+	readonly schedulePanelButton: Locator;
 	readonly schedulePublicationOption: Locator;
 	readonly schedulePublicationButton: Locator;
+	readonly schedulePublicationCloseButton: Locator;
 	readonly searchBar: Locator;
 	readonly searchButton: Locator;
 	readonly searchContainer: Locator;
@@ -46,6 +52,9 @@ export class ViewObjectEntriesPage {
 			.getByTestId('fdsCreationActionButton')
 			.first();
 		this.backButton = page.getByTitle('Back');
+		this.cancelObjectEntryButton = page.getByRole('button', {
+			name: 'Cancel',
+		});
 		this.dateTimeInput = page.getByPlaceholder('__/__/____ __:__ _');
 		this.deleteFileButton = page.getByRole('button', {name: 'Delete'});
 		this.deletionConfirmationModal = page
@@ -55,6 +64,12 @@ export class ViewObjectEntriesPage {
 			'Error:The field values are already in use. Please choose unique values.'
 		);
 		this.editObjectEntryForm = page.locator('[id="editObjectEntry"]');
+		this.expirationDateInput = page.getByLabel(
+			'Expiration Date' + 'Mandatory',
+			{
+				exact: true,
+			}
+		);
 		this.frameSelect = page
 			.locator('iframe[title="Select"]')
 			.contentFrame();
@@ -64,6 +79,10 @@ export class ViewObjectEntriesPage {
 		this.frontendDatasetDeleteAction = page.getByRole('menuitem', {
 			name: 'Delete',
 		});
+		this.frontendDatasetViewAction = page.getByRole('menuitem', {
+			name: 'View',
+		});
+		this.neverExpire = page.getByLabel('Never Expire', {exact: true});
 		this.neverReview = page.getByLabel('Never Review', {exact: true});
 		this.objectEntryButton = page.getByRole('link', {name: 'View'});
 		this.page = page;
@@ -77,9 +96,11 @@ export class ViewObjectEntriesPage {
 		this.reviewDateInput = page.getByLabel('Review Date' + 'Mandatory', {
 			exact: true,
 		});
+		this.schedulePanelButton = page.getByRole('button', {name: 'Schedule'});
 		this.schedulePublicationButton = page
 			.getByLabel('Schedule Publication')
 			.getByRole('button', {name: 'Schedule'});
+		this.schedulePublicationCloseButton = page.getByLabel('close');
 		this.schedulePublicationOption = page.getByRole('menuitem', {
 			name: 'Schedule Publication',
 		});
@@ -272,7 +293,16 @@ export class ViewObjectEntriesPage {
 		await fileChooser.setFiles(
 			path.join(dirName, 'dependencies', fileName)
 		);
+	}
 
-		await this.page.getByText(fileName).waitFor({state: 'visible'});
+	getMaximumFileSizeErrorMessage({
+		maximumFileSizeAllowed,
+	}: {
+		maximumFileSizeAllowed: string;
+	}) {
+		return this.page.getByText(
+			`File size is larger than the allowed overall maximum upload request size ${maximumFileSizeAllowed} MB.`,
+			{exact: true}
+		);
 	}
 }

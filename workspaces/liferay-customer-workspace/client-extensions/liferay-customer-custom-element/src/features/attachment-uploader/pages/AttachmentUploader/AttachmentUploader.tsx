@@ -12,7 +12,6 @@ import i18n from '~/utils/I18n';
 import './AttachmentUploader.css';
 
 import {useParams} from 'react-router-dom';
-import {Liferay} from '~/services/liferay';
 
 import DropzoneUpload from '../../components/DropzoneUpload';
 import FileList from '../../components/FileList';
@@ -39,6 +38,7 @@ const AttachmentUploader = () => {
 	const {deleteAttachment} = useTicketAttachmentsDelete();
 
 	const {
+		gcsSessionURL: initiatedGCSSessionURL,
 		initiateUpload,
 		loading: ticketAttachmentInitiateUploadLoading,
 		ticketAttachmentId: initiatedTicketAttachmentId,
@@ -46,7 +46,6 @@ const AttachmentUploader = () => {
 
 	const {
 		abortGenerateMd5,
-		error: generateMd5Error,
 		generateMd5,
 		loading: generateMd5Loading,
 	} = useGenerateFileMd5();
@@ -84,17 +83,9 @@ const AttachmentUploader = () => {
 			return;
 		}
 
-		const calculatedMd5 = await generateMd5({file});
+		const calculatedMd5 = await generateMd5({file, ticketId});
 
-		if (!calculatedMd5 || generateMd5Error) {
-			Liferay.Util.openToast({
-				message: i18n.translate(
-					'md5-hash-generation-failed-please-try-again'
-				),
-				title: i18n.translate('error'),
-				type: 'danger',
-			});
-
+		if (!calculatedMd5) {
 			return;
 		}
 
@@ -106,14 +97,6 @@ const AttachmentUploader = () => {
 		});
 
 		if (!initiationResult) {
-			Liferay.Util.openToast({
-				message: i18n.translate(
-					'failed-to-initiate-upload-please-try-again'
-				),
-				title: i18n.translate('error'),
-				type: 'danger',
-			});
-
 			return;
 		}
 
@@ -121,7 +104,7 @@ const AttachmentUploader = () => {
 			accountKey: initiationResult.accountKey,
 			comment,
 			file,
-			sessionURL: initiationResult.gcsSessionURL,
+			gcsSessionURL: initiationResult.gcsSessionURL,
 			ticketAttachmentId: initiationResult.ticketAttachmentId,
 			ticketId: ticketId as string,
 		});
@@ -133,7 +116,6 @@ const AttachmentUploader = () => {
 		comment,
 		file,
 		generateMd5,
-		generateMd5Error,
 		initiateUpload,
 		setComment,
 		setFile,
@@ -143,14 +125,13 @@ const AttachmentUploader = () => {
 	]);
 
 	const _handleCancelUpload = useCallback(async () => {
-		abortGenerateMd5();
 		abortGCSUpload();
+		abortGenerateMd5();
 
-		const currentTicketAttachmentId = initiatedTicketAttachmentId;
-
-		if (currentTicketAttachmentId) {
+		if (initiatedGCSSessionURL && initiatedTicketAttachmentId) {
 			await deleteAttachment({
-				ticketAttachmentId: currentTicketAttachmentId,
+				gcsSessionURL: initiatedGCSSessionURL,
+				ticketAttachmentId: initiatedTicketAttachmentId,
 			});
 		}
 
@@ -161,6 +142,7 @@ const AttachmentUploader = () => {
 		abortGCSUpload,
 		abortGenerateMd5,
 		deleteAttachment,
+		initiatedGCSSessionURL,
 		initiatedTicketAttachmentId,
 		setComment,
 		setFile,

@@ -10,21 +10,30 @@ import classNames from 'classnames';
 import {IHTMLElementBuilder, openToast} from 'frontend-js-components-web';
 import {fetch, loadClientExtensions, loadModule} from 'frontend-js-web';
 import React, {
+	RefObject,
 	useCallback,
+	useContext,
 	useEffect,
 	useReducer,
 	useRef,
 	useState,
 } from 'react';
 
+import DragLayer from './dnd/DragLayer';
+import FDSDndProvider from './dnd/FDSDndProvider';
+import isFileDropEnabled from './utils/isFileDropEnabled';
+
 import './styles/main.scss';
 
 import ClayEmptyState from '@clayui/empty-state';
 
+import DnDContext from './DnDContext';
 import FrontendDataSetContext, {
 	IDataSetData,
 	TRenderer,
 } from './FrontendDataSetContext';
+import useFDSDrop from './dnd/useFDSDrop';
+import useFileUploader from './dnd/useFileUploader';
 import {InfoPanel} from './info_panel/InfoPanel';
 
 // @ts-ignore
@@ -53,6 +62,7 @@ import {loadData} from './utils/loadData';
 
 import {logError} from './utils/logError';
 import {
+	ESelectionTrigger,
 	IField,
 	IFrontendDataSetProps,
 	IModalConfig,
@@ -74,7 +84,7 @@ import {VIEWS_ACTION_TYPES, viewsReducer} from './views/viewsReducer';
 const DEFAULT_PAGINATION_DELTA = 20;
 const DEFAULT_PAGINATION_PAGE_NUMBER = 1;
 
-const FrontendDataSet = ({
+const FrontendDataSetContent = ({
 	actionParameterName,
 	activeViewSettings,
 	additionalAPIURLParameters,
@@ -124,7 +134,7 @@ const FrontendDataSet = ({
 	views,
 }: IFrontendDataSetProps) => {
 	const fdsRef = useRef(null);
-	const wrapperRef = useRef(null);
+	const dataSetWrapperRef: RefObject<HTMLDivElement> = useRef(null);
 	const [componentLoading, setComponentLoading] = useState(false);
 	const [creationMenu, setCreationMenu] = useState(initialCreationMenu);
 	const [dataLoading, setDataLoading] = useState(!!apiURL);
@@ -152,6 +162,8 @@ const FrontendDataSet = ({
 	);
 	const [selectedItems, setSelectedItems] = useState<Array<any>>([]);
 	const [total, setTotal] = useState(0);
+
+	const {fileDropSettings} = useContext(DnDContext);
 
 	const getInitialViewsState = () => {
 		const customInternalViews =
@@ -449,11 +461,31 @@ const FrontendDataSet = ({
 		);
 	}
 
-	function selectItems(value: any) {
+	function selectItems({
+		trigger,
+		value,
+	}: {
+		trigger: ESelectionTrigger;
+		value: any;
+	}) {
 		if (selectionType === 'single') {
 			return setSelectedItemsValue(
 				Array.isArray(value) ? value : [value]
 			);
+		}
+
+		if (trigger === ESelectionTrigger.CONTAINER) {
+			return setSelectedItemsValue((previousValues) => {
+				const newValue = Array.isArray(value) ? value : [value];
+
+				if (previousValues.length === 1) {
+					return selectedItemsValue.includes(newValue[0])
+						? []
+						: [value];
+				}
+
+				return newValue;
+			});
 		}
 
 		if (Array.isArray(value)) {
@@ -487,14 +519,16 @@ const FrontendDataSet = ({
 	}
 
 	useEffect(() => {
-		if (wrapperRef.current) {
-			const form = (wrapperRef.current as HTMLElement).closest('form');
+		if (dataSetWrapperRef.current) {
+			const form = (dataSetWrapperRef.current as HTMLElement).closest(
+				'form'
+			);
 
 			if (form?.dataset.sennaOff === null) {
 				form.setAttribute('data-senna-off', 'true');
 			}
 		}
-	}, [wrapperRef]);
+	}, [dataSetWrapperRef]);
 
 	const refreshData = useCallback(
 		(successNotification?: ISuccessNotification) => {
@@ -705,7 +739,12 @@ const FrontendDataSet = ({
 				onSelectAll={(value: boolean) =>
 					setAllItemsSelectedActive(value)
 				}
-				selectItems={(items: Array<any>) => selectItems(items)}
+				selectItems={(items: Array<any>) =>
+					selectItems({
+						trigger: ESelectionTrigger.INPUT,
+						value: items,
+					})
+				}
 				selectedItems={selectedItems}
 				selectedItemsKey={selectedItemsKey}
 				selectedItemsValue={selectedItemsValue}
@@ -737,7 +776,13 @@ const FrontendDataSet = ({
 						header={header}
 						items={items}
 						itemsActions={itemsActions}
-						onItemSelectionChange={(selectedItem: any) => {
+						onItemSelectionChange={({
+							item: selectedItem,
+							trigger,
+						}: {
+							item: any;
+							trigger: ESelectionTrigger;
+						}) => {
 							if (allItemsSelectedActive) {
 								setSelectedItemsValue(
 									items
@@ -752,7 +797,10 @@ const FrontendDataSet = ({
 								setAllItemsSelectedActive(false);
 							}
 							else {
-								selectItems(selectedItem[selectedItemsKey]);
+								selectItems({
+									trigger,
+									value: selectedItem[selectedItemsKey],
+								});
 							}
 						}}
 						style={style}
@@ -1075,6 +1123,10 @@ const FrontendDataSet = ({
 		selectedItemsKey && (bulkActions?.length || selectionType === 'single')
 	);
 
+	const {className} = useFDSDrop({
+		targetDropRef: dataSetWrapperRef,
+	});
+
 	return (
 		<FrontendDataSetContext.Provider
 			value={{
@@ -1137,6 +1189,10 @@ const FrontendDataSet = ({
 			}}
 		>
 			<ViewsContext.Provider value={[viewsState, viewsDispatch]}>
+				{isFileDropEnabled(fileDropSettings) && (
+					<DragLayer dataSetWrapperRef={dataSetWrapperRef} />
+				)}
+
 				<div className="fds" ref={fdsRef}>
 					<Modal
 						id={dataSetSupportModalIdRef.current}
@@ -1150,27 +1206,26 @@ const FrontendDataSet = ({
 						/>
 					)}
 
+					{infoPanelComponent && (
+						<InfoPanel
+							className="fds-info-panel"
+							component={infoPanelComponent}
+							containerRef={fdsRef}
+							id={dataSetSupportInfoPanelIdRef.current}
+							onOpenChange={setInfoPanelOpen}
+							open={infoPanelOpen}
+						/>
+					)}
+
 					<div
 						className={classNames(
 							`data-set-wrapper visualization-mode-${activeView.contentRenderer}`,
-							{
-								selectable,
-							}
+							className,
+							selectable
 						)}
 						data-testid={`visualization-mode-${activeView.name}`}
-						ref={wrapperRef}
+						ref={dataSetWrapperRef}
 					>
-						{infoPanelComponent && (
-							<InfoPanel
-								className="fds-info-panel"
-								component={infoPanelComponent}
-								containerRef={fdsRef}
-								id={dataSetSupportInfoPanelIdRef.current}
-								onOpenChange={setInfoPanelOpen}
-								open={infoPanelOpen}
-							/>
-						)}
-
 						{style === 'default' && (
 							<div className="data-set data-set-inline">
 								{managementBar}
@@ -1206,6 +1261,40 @@ const FrontendDataSet = ({
 				</div>
 			</ViewsContext.Provider>
 		</FrontendDataSetContext.Provider>
+	);
+};
+
+const FrontendDataSet = ({
+	fileDropSettings,
+	selectedItemsKey,
+	...otherProps
+}: IFrontendDataSetProps) => {
+	fileDropSettings = fileDropSettings
+		? fileDropSettings
+		: {
+				enabled: false,
+				isDropTarget: () => true,
+			};
+
+	const {onFileDrop} = useFileUploader({
+		fileDropSettings,
+		selectedItemsKey,
+	});
+
+	return (
+		<DnDContext.Provider
+			value={{
+				fileDropSettings,
+				onFileDrop,
+			}}
+		>
+			<FDSDndProvider>
+				<FrontendDataSetContent
+					selectedItemsKey={selectedItemsKey}
+					{...otherProps}
+				/>
+			</FDSDndProvider>
+		</DnDContext.Provider>
 	);
 };
 

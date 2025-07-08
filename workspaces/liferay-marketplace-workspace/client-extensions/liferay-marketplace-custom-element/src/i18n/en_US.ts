@@ -139,6 +139,8 @@ export default {
 	'continue': 'Continue',
 	'continue-to-install': 'Continue to Install',
 	'copied-x-to-the-clipboard': 'Copied {0} to the clipboard',
+	'could-not-upload-the-file-package-with-this-filename-already-exists':
+		'Could not upload the file. Package with this filename already exists.',
 	'coupon-code': 'Coupon Code',
 	'create': 'Create',
 	'create-a-cloud-app-to-be-delivered-as-a-live-service':
@@ -239,6 +241,7 @@ export default {
 		'Explore over 800 apps available in the Liferay Marketplace from a variety of publishers. Apps allow you to accelerate your Liferay development get to market faster.',
 	'export-csv': 'Export CSV',
 	'extension-optional': 'Extension (optional)',
+	'file-not-available-for-download': 'File not available for download',
 	'filter': 'Filter',
 	'first-name': 'First Name',
 	'form': 'form',
@@ -324,6 +327,7 @@ export default {
 	'manage-all-your-apps-in-one-place': 'Manage All Your Apps in One Place',
 	'manage-and-publish-apps-on-the-marketplace':
 		'Manage and publish apps on the Marketplace',
+	'manage-app': 'Manage App',
 	'manage-license-keys': 'Manage License Key(s)',
 	'maximum-number-of-upload-reached': 'Maximum Number of Upload Reached',
 	'modified-date': 'Modifed Date',
@@ -333,6 +337,7 @@ export default {
 		'Module-based apps delivered as .lpkg files that the user can install to modify native Liferay behavior.',
 	'monetize-your-apps-and-solutions': 'Monetize your apps and solutions',
 	'monthly-increase': 'Monthly Increase',
+	'more-actions': 'More Actions',
 	'more-info': 'More Info',
 	'move-down': 'Move Down',
 	'move-to-bottom': 'Move to Bottom',

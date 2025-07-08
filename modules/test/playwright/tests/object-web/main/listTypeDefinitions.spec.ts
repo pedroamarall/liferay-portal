@@ -7,7 +7,7 @@ import {
 	ObjectDefinition,
 	ObjectDefinitionAPI,
 } from '@liferay/object-admin-rest-client-js';
-import {Page, expect, mergeTests} from '@playwright/test';
+import {expect, mergeTests} from '@playwright/test';
 
 import {accountSettingsPagesTest} from '../../../fixtures/accountSettingsPagesTest';
 import {dataApiHelpersTest} from '../../../fixtures/dataApiHelpersTest';
@@ -389,7 +389,6 @@ test.describe('ensure picklist translation', () => {
 		formBuilderSidePanelPage,
 		formSettingsModalPage,
 		listTypeDefinitionPage,
-		modelBuilderDiagramPage,
 		objectFieldsPage,
 		page,
 		viewObjectDefinitionsPage,
@@ -448,8 +447,6 @@ test.describe('ensure picklist translation', () => {
 
 		await objectFieldsPage.addObjectField({
 			listTypeDefinitionName: listTypeDefinition.name,
-			objectDefinitionNodes:
-				modelBuilderDiagramPage.objectDefinitionNodes,
 			objectFieldBusinessType: 'Picklist',
 			objectFieldLabel: fieldLabel,
 		});
@@ -490,15 +487,7 @@ test.describe('ensure picklist translation', () => {
 
 		await apiHelpers.dynamicDataMapping.waitForDDMEvaluate(page);
 
-		const newTabPagePromise = new Promise<Page>((resolve) =>
-			formBuilderPage.page.once('popup', resolve)
-		);
-
-		await formBuilderPage.previewButton.click();
-
-		const newTabPage = await newTabPagePromise;
-
-		await newTabPage.waitForLoadState('domcontentloaded');
+		const newTabPage = await formBuilderPage.openPreviewForm();
 
 		await page.goto('pt');
 

@@ -600,6 +600,17 @@ public abstract class BaseTopLevelBuild
 		return new TimelineData(500, this);
 	}
 
+	@Override
+	public TopLevelBuildReport getTopLevelBuildReport() {
+		if (_topLevelBuildReport != null) {
+			return _topLevelBuildReport;
+		}
+
+		_topLevelBuildReport = BuildReportFactory.newTopLevelBuildReport(this);
+
+		return _topLevelBuildReport;
+	}
+
 	public URL getUserContentURL() {
 		JenkinsMaster jenkinsMaster = getJenkinsMaster();
 
@@ -2474,5 +2485,6 @@ public abstract class BaseTopLevelBuild
 	private String _metricsHostName;
 	private int _metricsHostPort;
 	private final boolean _sendBuildMetrics;
+	private TopLevelBuildReport _topLevelBuildReport;
 
 }

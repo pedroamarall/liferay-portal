@@ -8,6 +8,7 @@ import {FrameLocator, Locator, Page, expect} from '@playwright/test';
 import {ApiHelpers} from '../../../../helpers/ApiHelpers';
 import {liferayConfig} from '../../../../liferay.config';
 import getRandomString from '../../../../utils/getRandomString';
+import {VisualizationMode} from '../../../frontend-data-set-admin-web/main/utils/types';
 import getPageDefinition from '../../../layout-content-page-editor-web/main/utils/getPageDefinition';
 import getWidgetDefinition from '../../../layout-content-page-editor-web/main/utils/getWidgetDefinition';
 
@@ -17,17 +18,26 @@ export class FDSSamplePage {
 		actionsDropdownButton: Locator;
 		container: Locator;
 	};
+	readonly cards: {
+		container: Locator;
+		items: Locator;
+	};
 	readonly customViewsActionsButton: Locator;
 	readonly customViewsDeleteAlert: Locator;
 	readonly customViewsSaveModal: Locator;
 	readonly customViewsSelectorButton: Locator;
+	readonly fdsWrapper: Locator;
+	readonly fileDropModal: Locator;
 	readonly infoPanel: Locator;
+	readonly itemActionButton: Locator;
+	readonly itemActionsButtons: Locator;
 	readonly list: {
 		container: Locator;
 		items: Locator;
 	};
 	readonly managementToolbar: Locator;
 	readonly page: Page;
+	readonly showViewOptionsButton: Locator;
 	readonly sidePanel: Locator;
 	readonly sidePanelFrame: FrameLocator;
 	readonly selectAllCheckbox: Locator;
@@ -55,6 +65,12 @@ export class FDSSamplePage {
 				.getByLabel('Actions'),
 			container: page.locator('.bulk-actions'),
 		};
+		const cardsContainer = page.locator('.cards-container');
+
+		this.cards = {
+			container: cardsContainer,
+			items: cardsContainer.locator('.card'),
+		};
 		this.customViewsActionsButton = page.getByLabel('Show View Actions', {
 			exact: true,
 		});
@@ -67,7 +83,15 @@ export class FDSSamplePage {
 		this.customViewsSelectorButton = page.getByLabel('Views', {
 			exact: true,
 		});
+		this.fdsWrapper = page.locator('div.data-set-wrapper').first();
+		this.fileDropModal = page.getByRole('dialog', {
+			name: 'Files',
+		});
 		this.infoPanel = page.locator('.fds-info-panel');
+
+		this.itemActionsButtons = page.locator(
+			'button.dropdown-toggle.component-action.btn-unstyled'
+		);
 
 		const listContainer = page.locator('.fds .list-sheet');
 
@@ -87,6 +111,9 @@ export class FDSSamplePage {
 			container: selectionToolbarContainer,
 		};
 
+		this.showViewOptionsButton = page.getByLabel('Show View Options', {
+			exact: true,
+		});
 		this.sidePanel = page.locator('.fds-side-panel');
 		this.sidePanelFrame = this.sidePanel.frameLocator('iframe');
 		this.tablist = page.getByRole('tablist');
@@ -111,9 +138,7 @@ export class FDSSamplePage {
 		this.visualizationModeSelector = page.getByLabel('Show View Options');
 	}
 
-	async changeVisualizationMode(
-		visualizationMode: 'Cards' | 'List' | 'Table'
-	) {
+	async changeVisualizationMode(visualizationMode: VisualizationMode) {
 		await this.visualizationModeSelector.waitFor({
 			state: 'visible',
 		});
@@ -126,18 +151,12 @@ export class FDSSamplePage {
 			.click();
 	}
 
-	async clickItemAction(itemAction: string) {
-		const firstItemActionsCell = this.table.itemActionsCells.first();
+	async clickItemAction(action: string, item: number = 0) {
+		const dropdownId = await this.itemActionsButtons
+			.nth(item)
+			.getAttribute('aria-controls');
 
-		const firstItemActionButton = firstItemActionsCell.getByRole('button', {
-			exact: true,
-			name: 'Actions',
-		});
-
-		const dropdownId =
-			await firstItemActionButton.getAttribute('aria-controls');
-
-		await firstItemActionButton.click();
+		await this.itemActionsButtons.nth(item).click();
 
 		await this.page
 			.locator(`#${dropdownId}`)
@@ -148,7 +167,7 @@ export class FDSSamplePage {
 			.locator(`#${dropdownId}`)
 			.getByRole('menuitem', {
 				exact: true,
-				name: itemAction,
+				name: action,
 			})
 			.click();
 	}
@@ -163,6 +182,54 @@ export class FDSSamplePage {
 				exact: true,
 				name: 'Actions',
 			});
+	}
+
+	async selectByRowAndCell({
+		cell = 0,
+		filter,
+		row = 0,
+	}: {
+		cell?: number;
+		filter?: string;
+		row?: number;
+	}) {
+		if (filter) {
+			await this.table.bodyRows
+				.nth(row)
+				.locator('td')
+				.filter({hasText: filter})
+				.click();
+		}
+		else {
+			await this.table.bodyRows.nth(row).locator('td').nth(cell).click();
+		}
+	}
+
+	async selectByRowAndRole({
+		filter,
+		role = 'checkbox',
+		row = 0,
+	}: {
+		filter?: string;
+		role?: any;
+		row?: number;
+	} = {}) {
+		if (filter) {
+			await this.table.bodyRows
+				.nth(row)
+				.locator('td')
+				.getByRole(role)
+				.filter({hasText: filter})
+				.click();
+		}
+		else {
+			await this.table.bodyRows
+				.nth(row)
+				.locator('td')
+				.getByRole(role)
+				.first()
+				.click();
+		}
 	}
 
 	async selectTab(label: string) {
@@ -191,5 +258,26 @@ export class FDSSamplePage {
 		await this.page.goto(url);
 
 		return {layout, url};
+	}
+
+	async selectVisualizationMode(
+		modeId: 'cards' | 'list' | 'customizedTable'
+	) {
+		await this.showViewOptionsButton.click();
+
+		const showViewOptionsDropdownId =
+			await this.showViewOptionsButton.getAttribute('aria-controls');
+
+		const showViewOptionsDropdown = this.page.locator(
+			`#${showViewOptionsDropdownId}`
+		);
+
+		await showViewOptionsDropdown.waitFor();
+
+		const menuItem = await showViewOptionsDropdown.locator(`#${modeId}`);
+
+		await expect(menuItem).toBeVisible();
+
+		await menuItem.click();
 	}
 }

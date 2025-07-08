@@ -52,7 +52,8 @@ public class ViewSpaceContentsAbstractSectionDisplayContext
 	@Override
 	public String getAPIURL() {
 		return HttpComponentsUtil.addParameters(
-			super.getAPIURL(), "page", _PAGE, "pageSize", _PAGE_SIZE);
+			super.getAPIURL(), "page", 1, "pageSize", 8, "sort",
+			"dateModified:desc");
 	}
 
 	public Map<String, Object> getHeaderProps() throws Exception {
@@ -82,10 +83,6 @@ public class ViewSpaceContentsAbstractSectionDisplayContext
 	protected String getEmptyStateDescriptionKey() {
 		return "create-and-manage-content-within-this-space";
 	}
-
-	private static final int _PAGE = 1;
-
-	private static final int _PAGE_SIZE = 6;
 
 	private final long _groupId;
 

@@ -4,39 +4,46 @@
  */
 
 import {Field} from '../utils/field';
-import {ValidationError} from '../utils/validation';
 import {Uuid} from './Uuid';
-
-type History = {
-	deletedFields: boolean;
-};
 
 type Status = 'new' | 'draft' | 'published';
 
 type Spaces = 'all' | string[];
 
 export type ReferencedStructure = {
+	children: Map<Uuid, StructureChild>;
+	editURL: string;
 	erc: string;
+	label: Liferay.Language.LocalizedValue<string>;
 	name: string;
+	parent: Uuid;
+	relationshipName: string;
+	spaces: Spaces;
 	type: 'referenced-structure';
 	uuid: Uuid;
 };
 
-export type Structure = {
+export type RepeatableGroup = {
+	children: Map<Uuid, StructureChild>;
 	erc: string;
-	error: string | null;
-	fields: Map<Uuid, Field | ReferencedStructure>;
-	history: History;
-	id: number | null;
-	invalids: Map<Uuid, Set<ValidationError>>;
 	label: Liferay.Language.LocalizedValue<string>;
 	name: string;
-	publishedFields: Set<Uuid>;
-	selection: Uuid[];
+	parent: Uuid;
+	type: 'repeatable-group';
+	uuid: Uuid;
+};
+
+export type StructureChild = Field | ReferencedStructure | RepeatableGroup;
+
+export type Structure = {
+	children: Map<Uuid, StructureChild>;
+	erc: string;
+	id: number | null;
+	label: Liferay.Language.LocalizedValue<string>;
+	name: string;
 	spaces: Spaces;
 	status: Status;
 	type?: 'L_CMS_CONTENT_STRUCTURES' | 'L_CMS_FILE_TYPES';
-	unsavedChanges: boolean;
 	uuid: Uuid;
 };
 

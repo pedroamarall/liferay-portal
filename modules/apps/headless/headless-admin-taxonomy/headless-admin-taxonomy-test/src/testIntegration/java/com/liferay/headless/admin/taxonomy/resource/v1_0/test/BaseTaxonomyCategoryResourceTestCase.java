@@ -5357,8 +5357,8 @@ public abstract class BaseTaxonomyCategoryResourceTestCase {
 	protected TaxonomyCategory randomTaxonomyCategory() throws Exception {
 		return new TaxonomyCategory() {
 			{
-				assetLibraryKey = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				assetLibraryKey = String.valueOf(
+					testDepotEntry.getDepotEntryId());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(
@@ -5382,6 +5382,9 @@ public abstract class BaseTaxonomyCategoryResourceTestCase {
 
 		TaxonomyCategory randomIrrelevantTaxonomyCategory =
 			randomTaxonomyCategory();
+
+		randomIrrelevantTaxonomyCategory.setAssetLibraryKey(
+			String.valueOf(irrelevantDepotEntry.getDepotEntryId()));
 
 		randomIrrelevantTaxonomyCategory.setSiteExternalReferenceCode(
 			irrelevantGroup.getExternalReferenceCode());

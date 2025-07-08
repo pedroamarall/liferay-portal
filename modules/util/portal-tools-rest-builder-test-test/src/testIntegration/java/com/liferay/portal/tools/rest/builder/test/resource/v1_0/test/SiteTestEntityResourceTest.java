@@ -15,6 +15,7 @@ import com.liferay.portal.kernel.test.TestInfo;
 import com.liferay.portal.kernel.test.util.HTTPTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -23,6 +24,7 @@ import com.liferay.portal.test.log.LoggerTestUtil;
 import com.liferay.portal.tools.rest.builder.test.client.dto.v1_0.SiteTestEntity;
 import com.liferay.portal.tools.rest.builder.test.client.pagination.Page;
 import com.liferay.portal.tools.rest.builder.test.client.resource.v1_0.SiteTestEntityResource;
+import com.liferay.portal.tools.rest.builder.test.client.serdes.v1_0.SiteTestEntitySerDes;
 import com.liferay.portal.util.PropsValues;
 
 import org.junit.Assert;
@@ -59,6 +61,140 @@ public class SiteTestEntityResourceTest
 
 		_assertSiteSiteTestEntitiesCount(
 			testGroup.getGroupKey(), totalCount + 2);
+	}
+
+	@Override
+	@Test
+	@TestInfo("LPD-54012")
+	public void testGraphQLGetSiteSiteTestEntitiesPage() throws Exception {
+		super.testGraphQLGetSiteSiteTestEntitiesPage();
+
+		JSONObject siteTestEntitiesJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"siteTestEntities",
+					HashMapBuilder.<String, Object>put(
+						"siteKey",
+						"\"" + testGroup.getExternalReferenceCode() + "\""
+					).build(),
+					new GraphQLField("items", getGraphQLFields()),
+					new GraphQLField("page"), new GraphQLField("totalCount"))),
+			"JSONObject/data", "JSONObject/siteTestEntities");
+
+		long totalCount = siteTestEntitiesJSONObject.getLong("totalCount");
+
+		testGraphQLGetSiteSiteTestEntitiesPage_addSiteTestEntity();
+
+		siteTestEntitiesJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"siteTestEntities",
+					HashMapBuilder.<String, Object>put(
+						"siteKey", "\"" + testGroup.getGroupId() + "\""
+					).build(),
+					new GraphQLField("items", getGraphQLFields()),
+					new GraphQLField("page"), new GraphQLField("totalCount"))),
+			"JSONObject/data", "JSONObject/siteTestEntities");
+
+		Assert.assertEquals(
+			totalCount + 1, siteTestEntitiesJSONObject.getLong("totalCount"));
+
+		testGraphQLGetSiteSiteTestEntitiesPage_addSiteTestEntity();
+
+		siteTestEntitiesJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"siteTestEntities",
+					HashMapBuilder.<String, Object>put(
+						"siteKey", "\"" + testGroup.getGroupKey() + "\""
+					).build(),
+					new GraphQLField("items", getGraphQLFields()),
+					new GraphQLField("page"), new GraphQLField("totalCount"))),
+			"JSONObject/data", "JSONObject/siteTestEntities");
+
+		Assert.assertEquals(
+			totalCount + 2, siteTestEntitiesJSONObject.getLong("totalCount"));
+	}
+
+	@Override
+	@Test
+	public void testGraphQLGetSiteTestEntity() throws Exception {
+		SiteTestEntity siteTestEntity =
+			testGraphQLGetSiteTestEntity_addSiteTestEntity();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				siteTestEntity,
+				SiteTestEntitySerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"siteTestEntity",
+								HashMapBuilder.<String, Object>put(
+									"siteTestEntityId", siteTestEntity.getId()
+								).build(),
+								getGraphQLFields())),
+						"JSONObject/data", "Object/siteTestEntity"))));
+
+		// Using the namespace test_v1_0
+
+		Assert.assertTrue(
+			equals(
+				siteTestEntity,
+				SiteTestEntitySerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"test_v1_0",
+								new GraphQLField(
+									"siteTestEntity",
+									HashMapBuilder.<String, Object>put(
+										"siteTestEntityId",
+										siteTestEntity.getId()
+									).build(),
+									getGraphQLFields()))),
+						"JSONObject/data", "JSONObject/test_v1_0",
+						"Object/siteTestEntity"))));
+	}
+
+	@Override
+	@Test
+	public void testGraphQLGetSiteTestEntityNotFound() throws Exception {
+		Long irrelevantSiteTestEntityId = RandomTestUtil.randomLong();
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"siteTestEntity",
+						HashMapBuilder.<String, Object>put(
+							"siteTestEntityId", irrelevantSiteTestEntityId
+						).build(),
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace test_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"test_v1_0",
+						new GraphQLField(
+							"siteTestEntity",
+							HashMapBuilder.<String, Object>put(
+								"siteTestEntityId", irrelevantSiteTestEntityId
+							).build(),
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
 	}
 
 	@Override
@@ -180,8 +316,8 @@ public class SiteTestEntityResourceTest
 			404,
 			siteTestEntityResource.
 				getSiteSiteTestEntityByExternalReferenceCodeHttpResponse(
-					randomSiteTestEntity.getExternalReferenceCode(),
-					testGroup.getGroupId()));
+					testGroup.getGroupId(),
+					randomSiteTestEntity.getExternalReferenceCode()));
 	}
 
 	private JSONObject _waitForFinish(

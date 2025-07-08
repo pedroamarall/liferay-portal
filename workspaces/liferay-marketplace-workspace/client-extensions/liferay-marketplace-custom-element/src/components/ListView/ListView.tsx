@@ -90,6 +90,14 @@ export type ListViewProps<T extends Record<string, any>> = {
 		TableProps<T>,
 		'items' | 'mutate' | 'onSelectAllRows' | 'onSort'
 	>;
+
+	/**
+	 * A function to transform the data before rendering.
+	 * It can be used to format or filter the data.
+	 *
+	 * @default undefined
+	 */
+	transformData?: (response: APIResponse<T>) => APIResponse<T>;
 };
 
 const ListView = <T extends Record<string, any>>({
@@ -103,6 +111,7 @@ const ListView = <T extends Record<string, any>>({
 	paginationOptions = {displayType: true},
 	resource,
 	tableProps,
+	transformData = (item) => item,
 }: ListViewProps<T>) => {
 	const [listViewContext, dispatch] = useContext(ListViewContext);
 
@@ -184,7 +193,7 @@ const ListView = <T extends Record<string, any>>({
 		page = 1,
 		pageSize,
 		totalCount = 0,
-	} = response || {};
+	} = transformData(response || {});
 
 	if (loading || (isValidating && searchParams.get('filter'))) {
 		return <Loading />;
@@ -194,7 +203,9 @@ const ListView = <T extends Record<string, any>>({
 		<ClayPaginationBarWithBasicItems
 			activeDelta={pageSize}
 			activePage={page}
-			deltas={PAGINATION.delta.map((label) => ({label}))}
+			deltas={listViewContext.paginationDeltaOptions.map((label) => ({
+				label,
+			}))}
 			ellipsisBuffer={PAGINATION.ellipsisBuffer}
 			labels={{
 				paginationResults: i18n.translate('showing-x-to-x-of-x'),
@@ -211,7 +222,7 @@ const ListView = <T extends Record<string, any>>({
 
 				dispatch({payload: page, type: ListViewTypes.SET_PAGE});
 			}}
-			totalItems={totalCount || 0}
+			totalItems={totalCount}
 		/>
 	);
 
@@ -255,7 +266,6 @@ const ListView = <T extends Record<string, any>>({
 		</>
 	);
 };
-
 const ListViewWithContext = <T extends Record<string, any>>({
 	initialContext,
 	...otherProps

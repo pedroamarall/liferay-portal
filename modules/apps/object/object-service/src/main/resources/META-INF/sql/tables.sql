@@ -47,6 +47,7 @@ create table ObjectDefinition (
 	enableLocalization BOOLEAN,
 	enableObjectEntryDraft BOOLEAN,
 	enableObjectEntryHistory BOOLEAN,
+	enableObjectEntrySchedule BOOLEAN,
 	enableObjectEntryVersioning BOOLEAN,
 	friendlyURLSeparator VARCHAR(75) null,
 	label STRING null,
@@ -121,7 +122,8 @@ create table ObjectEntryFolder (
 	description STRING null,
 	label STRING null,
 	name VARCHAR(75) null,
-	treePath STRING null
+	treePath STRING null,
+	status INTEGER
 );
 
 create table ObjectEntryVersion (
